@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ирина Цепаева — Бренд-дизайнер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:       #103206;
+      --accent1:  #4b7850;
+      --accent2:  #d4af37;
+      --dust:     #d3bfb1;
+      --gold:     #c99700;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg);
+      color: var(--dust);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    /* subtle radial glow in background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(75,120,80,.25) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(212,175,55,.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── CARD ── */
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      background: linear-gradient(145deg, rgba(75,120,80,.18) 0%, rgba(16,50,6,.6) 100%);
+      border: 1px solid rgba(212,175,55,.22);
+      border-radius: 24px;
+      padding: 52px 40px 44px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 0 1px rgba(212,175,55,.08),
+        0 8px 48px rgba(0,0,0,.55),
+        0 0 80px rgba(75,120,80,.12);
+    }
+
+    /* decorative corner lines */
+    .card::before,
+    .card::after {
+      content: '';
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-color: var(--accent2);
+      border-style: solid;
+      opacity: .45;
+    }
+    .card::before {
+      top: 16px; left: 16px;
+      border-width: 1px 0 0 1px;
+      border-radius: 6px 0 0 0;
+    }
+    .card::after {
+      bottom: 16px; right: 16px;
+      border-width: 0 1px 1px 0;
+      border-radius: 0 0 6px 0;
+    }
+
+    /* ── MONOGRAM / AVATAR placeholder ── */
+    .avatar {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(212,175,55,.45);
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--bg) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent2);
+      letter-spacing: .02em;
+      box-shadow: 0 0 24px rgba(212,175,55,.18);
+    }
+
+    /* ── NAME ── */
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(26px, 6vw, 34px);
+      line-height: 1.15;
+      letter-spacing: .01em;
+      margin-bottom: 14px;
+
+      /* gold gradient text */
+      background: linear-gradient(135deg, #f5e27a 0%, var(--accent2) 35%, var(--gold) 65%, #f5e27a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      /* soft golden glow */
+      filter: drop-shadow(0 0 10px rgba(212,175,55,.55)) drop-shadow(0 0 28px rgba(212,175,55,.25));
+
+      animation: glow-pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(212,175,55,.5))  drop-shadow(0 0 24px rgba(212,175,55,.2)); }
+      50%       { filter: drop-shadow(0 0 16px rgba(212,175,55,.85)) drop-shadow(0 0 48px rgba(212,175,55,.4)); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 56px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+      margin: 0 auto 16px;
+      opacity: .7;
+    }
+
+    /* ── SPECIALIZATION ── */
+    .spec {
+      font-size: clamp(12px, 3vw, 14px);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--dust);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      opacity: .88;
+    }
+
+    .spec strong {
+      display: block;
+      font-weight: 600;
+      font-size: clamp(13px, 3.2vw, 15px);
+      color: #e8d8cc;
+      text-transform: none;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+
+    /* ── CTA BUTTON ── */
+    .btn-wrap {
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: linear-gradient(135deg, #f0d060 0%, var(--accent2) 45%, var(--gold) 100%);
+      box-shadow: 0 4px 20px rgba(212,175,55,.35), 0 1px 4px rgba(0,0,0,.3);
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* shimmer sweep */
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -70%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: skewX(-20deg);
+      transition: left .55s ease;
+    }
+
+    .btn:hover::after {
+      left: 140%;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(212,175,55,.55), 0 2px 8px rgba(0,0,0,.35);
+      filter: brightness(1.08);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(.98);
+    }
+
+    /* ── TELEGRAM SVG ICON ── */
+    .tg-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform .25s ease;
+    }
+
+    .btn:hover .tg-icon {
+      transform: rotate(-8deg) scale(1.15);
+    }
+
+    /* ── FOOTER LINK ── */
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      color: var(--accent1);
+      font-size: 13px;
+      font-weight: 400;
+      text-decoration: none;
+      letter-spacing: .04em;
+      opacity: .75;
+      transition: opacity .2s, color .2s;
+    }
+
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--accent2);
+    }
+
+    .footer-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform .25s ease;
+    }
+
+    .footer-link:hover .footer-icon {
+      transform: scale(1.2);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 360px) {
+      .card { padding: 40px 24px 36px; }
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        max-width: 520px;
+        padding: 64px 56px 56px;
+      }
+      .avatar { width: 90px; height: 90px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="avatar">ИЦ</div>
+
+    <h1 class="name">Ирина Цепаева</h1>
+
+    <div class="divider"></div>
+
+    <p class="spec">
+      <strong>Бренд-дизайнер</strong>
+      Соцсети, сайты и цифровые продукты<br>для бизнеса
+    </p>
+
+    <div class="btn-wrap">
+      <a class="btn" href="https://t.me/irina_onlane_gesing" target="_blank" rel="noopener">
+        <!-- Telegram SVG -->
+        <svg class="tg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="12" fill="#103206" fill-opacity=".2"/>
+          <path d="M5.5 11.8 17 7l-2.3 10.5-3.4-2.8-1.6 1.5.3-3.4 5.5-5-6.8 4.2-3.2-1.2Z" fill="#103206"/>
+        </svg>
+        Написать мне
+      </a>
+    </div>
+
+    <!-- subtle secondary link -->
+    <a class="footer-link" href="https://t.me/irina_onlane_gesing" target="_blank" rel="noopener">
+      <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.267l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.292z"/>
+      </svg>
+      @irina_onlane_gesing
+    </a>
+
+  </div>
+
+</body>
+</html>

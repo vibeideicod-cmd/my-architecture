@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Раиса Рудяева</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --rose: #c87d7d;
+      --rose-light: #e8b4b8;
+      --gold: #c9a87c;
+      --gold-light: #e8d5b7;
+      --cream: #f0e6d8;
+      --muted: #7a6a62;
+      --card-bg: rgba(255,255,255,0.03);
+      --border: rgba(200,160,120,0.18);
+    }
+
+    body {
+      background-color: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── CANVAS BACKGROUND ── */
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── CARD ── */
+    .card {
+      position: relative;
+      z-index: 10;
+      width: min(420px, 92vw);
+      padding: 52px 40px 44px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow:
+        0 0 0 1px rgba(200,160,120,0.08),
+        0 40px 80px rgba(0,0,0,0.7),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      animation: card-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── AVATAR RING ── */
+    .avatar-wrap {
+      position: relative;
+      width: 108px;
+      height: 108px;
+      margin: 0 auto 28px;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--gold) 0deg,
+        var(--rose-light) 120deg,
+        var(--gold-light) 240deg,
+        var(--gold) 360deg
+      );
+      animation: spin-ring 8s linear infinite;
+    }
+
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+
+    .avatar-inner {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #130d0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* monogram fallback */
+    .monogram {
+      font-size: 2.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--rose-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      user-select: none;
+      letter-spacing: -1px;
+    }
+
+    /* ── DECORATIVE LINE ── */
+    .deco {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .deco-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,160,120,0.4), transparent);
+    }
+    .deco-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* ── NAME ── */
+    .name {
+      font-size: clamp(1.9rem, 7vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--rose-light) 55%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .name-glow {
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: blur(14px);
+      opacity: 0.45;
+      pointer-events: none;
+      animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 0.55; }
+    }
+
+    /* ── TAG ── */
+    .tag {
+      display: inline-block;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,160,120,0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+      opacity: 0.85;
+    }
+
+    /* ── SPECIALIZATION ── */
+    .spec-title {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .spec-desc {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 28px;
+    }
+
+    /* ── SOCIAL ICONS ── */
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .social-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,160,120,0.25);
+      background: rgba(200,160,120,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--gold);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,160,120,0.15) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .social-icon:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(200,160,120,0.22);
+    }
+
+    .social-icon:hover::before {
+      opacity: 1;
+    }
+
+    .social-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── CTA BUTTON ── */
+    .cta {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--gold) 0%, #b88a5c 100%);
+      color: #0a0a0a;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 15px 38px;
+      border-radius: 50px;
+      animation: cta-pulse 2.8s ease-in-out infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+
+    .cta:hover {
+      transform: scale(1.05);
+      animation-play-state: paused;
+      box-shadow: 0 0 32px rgba(201,168,124,0.5), 0 6px 20px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+    }
+
+    @keyframes cta-pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(201,168,124,0.45), 0 4px 16px rgba(0,0,0,0.35);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(201,168,124,0), 0 4px 16px rgba(0,0,0,0.35);
+      }
+    }
+
+    /* ── FOOTER ── */
+    .card-footer {
+      margin-top: 28px;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      color: rgba(122,106,98,0.5);
+      letter-spacing: 1px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 440px) {
+      .card { padding: 44px 28px 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="card">
+
+  <!-- Avatar -->
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar-inner">
+      <span class="monogram">РР</span>
+    </div>
+  </div>
+
+  <!-- Deco -->
+  <div class="deco">
+    <div class="deco-line"></div>
+    <div class="deco-dot"></div>
+    <div class="deco-dot"></div>
+    <div class="deco-dot"></div>
+    <div class="deco-line"></div>
+  </div>
+
+  <!-- Name -->
+  <div style="position:relative; margin-bottom: 10px;">
+    <div class="name name-glow" aria-hidden="true">Раиса Рудяева</div>
+    <div class="name">Раиса Рудяева</div>
+  </div>
+
+  <!-- Tag -->
+  <div class="tag">Женские практики</div>
+
+  <!-- Spec -->
+  <p class="spec-title">Искусство женского возраста</p>
+  <p class="spec-desc">
+    Практики для лица и гормонального баланса&nbsp;—
+    возвращаю женщин к&nbsp;себе
+  </p>
+
+  <div class="divider"></div>
+
+  <!-- Social icons -->
+  <div class="socials">
+
+    <!-- Telegram -->
+    <a class="social-icon" href="https://t.me/Raisa_Rudy" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.947l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.612z"/>
+      </svg>
+    </a>
+
+    <!-- Instagram-like (generic camera icon) -->
+    <a class="social-icon" href="https://t.me/Raisa_Rudy" target="_blank" rel="noopener noreferrer" aria-label="Связаться">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2H4C2.897 2 2 2.897 2 4v18l4-4h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-7 13H7v-2h6v2zm4-4H7V9h10v2z"/>
+      </svg>
+    </a>
+
+    <!-- Heart / practices icon -->
+    <a class="social-icon" href="https://t.me/Raisa_Rudy" target="_blank" rel="noopener noreferrer" aria-label="Практики">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+    </a>
+
+  </div>
+
+  <!-- CTA -->
+  <a class="cta" href="https://t.me/Raisa_Rudy" target="_blank" rel="noopener noreferrer">
+    Написать мне
+  </a>
+
+  <div class="card-footer">@Raisa_Rudy · Telegram</div>
+
+</div>
+
+<script>
+  // ── Floating particles background ──
+  (function () {
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+
+    const COLORS = ['rgba(200,160,120,', 'rgba(232,180,184,', 'rgba(232,213,183,'];
+
+    let W, H, particles;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+    function createParticle() {
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: randBetween(0.6, 2.2),
+        dx: randBetween(-0.18, 0.18),
+        dy: randBetween(-0.28, -0.06),
+        alpha: randBetween(0.08, 0.45),
+        dalpha: randBetween(0.001, 0.004) * (Math.random() > 0.5 ? 1 : -1),
+        color
+      };
+    }
+
+    function init() {
+      resize();
+      particles = Array.from({ length: 80 }, createParticle);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // subtle vignette
+      const vg = ctx.createRadialGradient(W/2, H/2, H*0.1, W/2, H/2, H*0.75);
+      vg.addColorStop(0, 'rgba(20,10,8,0)');
+      vg.addColorStop(1, 'rgba(0,0,0,0.55)');
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
+
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + p.alpha + ')';
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+        p.alpha += p.dalpha;
+
+        if (p.alpha <= 0.04 || p.alpha >= 0.5) p.dalpha *= -1;
+        if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
+        if (p.x < -5) p.x = W + 5;
+        if (p.x > W + 5) p.x = -5;
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    init();
+    draw();
+  })();
+</script>
+
+</body>
+</html>
