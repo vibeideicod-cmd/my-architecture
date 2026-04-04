@@ -1070,6 +1070,212 @@
     .stagger > *:nth-child(3) { transition-delay: .2s; }
     .stagger > *:nth-child(4) { transition-delay: .3s; }
     .stagger > *:nth-child(5) { transition-delay: .4s; }
+    .stagger > *:nth-child(6) { transition-delay: .5s; }
+    .stagger > *:nth-child(7) { transition-delay: .6s; }
+
+    /* ═══════════════════════════════════════
+       ANIMATED GRADIENT — HERO TITLE
+    ═══════════════════════════════════════ */
+    .hero-title em {
+      background: linear-gradient(135deg, #ffd560, var(--accent), #d4af37, #e6b800, #c97a00, #ffd560);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradFlow 6s ease infinite;
+      font-style: italic;
+    }
+    @keyframes gradFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ═══════════════════════════════════════
+       SPOTLIGHT CURSOR (hero)
+    ═══════════════════════════════════════ */
+    #hero {
+      --spot-x: 50%;
+      --spot-y: 40%;
+    }
+    .hero-spot {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        circle 500px at var(--spot-x) var(--spot-y),
+        rgba(201,151,0,.1) 0%,
+        transparent 70%
+      );
+      transition: background .05s linear;
+      z-index: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       PARALLAX LAYER
+    ═══════════════════════════════════════ */
+    .hero-bg {
+      will-change: transform;
+    }
+
+    /* ═══════════════════════════════════════
+       3D CARD PERSPECTIVE
+    ═══════════════════════════════════════ */
+    .mini-card, .case-card, .scheme-node {
+      perspective: 800px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    /* Override: transition handles tilt too */
+    .mini-card  { transition: border-color var(--transition), box-shadow var(--transition), transform .18s ease-out; }
+    .case-card  { transition: border-color var(--transition), box-shadow var(--transition), transform .18s ease-out; }
+    .scheme-node { transition: border-color var(--transition), transform .18s ease-out, box-shadow .18s ease-out; }
+
+    /* Inner glow that activates on hover */
+    .mini-card::after, .case-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle 200px at var(--mx,50%) var(--my,50%), rgba(201,151,0,.07), transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .mini-card:hover::after, .case-card:hover::after { opacity: 1; }
+
+    /* ═══════════════════════════════════════
+       MAGNETIC BUTTON WRAPPER
+    ═══════════════════════════════════════ */
+    .btn-primary {
+      will-change: transform;
+    }
+
+    /* ═══════════════════════════════════════
+       COUNTER ANIMATION
+    ═══════════════════════════════════════ */
+    .count-up {
+      display: inline-block;
+    }
+
+    /* ═══════════════════════════════════════
+       FLOATING ORBS (hero decoration)
+    ═══════════════════════════════════════ */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orbFloat linear infinite;
+      will-change: transform;
+    }
+    .orb-1 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(201,151,0,.12), transparent 70%);
+      top: -10%; left: -10%;
+      animation-duration: 18s;
+    }
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(212,175,55,.08), transparent 70%);
+      bottom: 5%; right: -5%;
+      animation-duration: 24s;
+      animation-direction: reverse;
+    }
+    @keyframes orbFloat {
+      0%   { transform: translate(0,   0) rotate(0deg); }
+      25%  { transform: translate(30px, -20px) rotate(90deg); }
+      50%  { transform: translate(15px, 30px) rotate(180deg); }
+      75%  { transform: translate(-20px, 10px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION BORDER GLOW (top of alt sections)
+    ═══════════════════════════════════════ */
+    #pain, #mini, #process, #faq {
+      position: relative;
+    }
+    #pain::before, #mini::before, #process::before, #faq::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    /* ═══════════════════════════════════════
+       PULSE RING on hero badge
+    ═══════════════════════════════════════ */
+    .hero-badge {
+      position: relative;
+    }
+    .hero-badge::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      border: 1px solid var(--border);
+      animation: badgePulse 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes badgePulse {
+      0%, 100% { opacity: .4; transform: scale(1); }
+      50%       { opacity: 0; transform: scale(1.08); }
+    }
+
+    /* ═══════════════════════════════════════
+       ACTIVE NAV LINK INDICATOR
+    ═══════════════════════════════════════ */
+    .nav-links a {
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 50%; right: 50%;
+      height: 1px;
+      background: var(--accent);
+      transition: left .25s, right .25s;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { left: 0; right: 0; }
+    .nav-links a.active { color: var(--text-warm); }
+
+    /* ═══════════════════════════════════════
+       STEP HOVER GLOW
+    ═══════════════════════════════════════ */
+    .step {
+      transition: background .2s;
+      border-radius: 12px;
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
+    .step:hover { background: rgba(201,151,0,.03); }
+
+    /* ═══════════════════════════════════════
+       SMOOTH CURSOR (desktop)
+    ═══════════════════════════════════════ */
+    @media (pointer: fine) {
+      .cursor {
+        position: fixed;
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%,-50%);
+        transition: transform .08s linear, opacity .3s, width .3s, height .3s, background .3s;
+        mix-blend-mode: difference;
+        opacity: .7;
+      }
+      .cursor.hovering {
+        width: 32px; height: 32px;
+        background: rgba(201,151,0,.4);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1092,6 +1298,9 @@
 <!-- ═══════ HERO ═══════ -->
 <header id="hero">
   <div class="hero-bg"></div>
+  <div class="hero-spot" id="hero-spot"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
   <div class="hero-inner">
     <div class="hero-badge">Структура · Стратегия · Свобода · Результат</div>
 
@@ -1558,6 +1767,9 @@
   </div>
 </section>
 
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+
 <!-- ═══════ FOOTER ═══════ -->
 <footer>
   <div class="footer-brand">Нейро Бабки СССР</div>
@@ -1646,6 +1858,124 @@
       }
     });
   });
+
+  // ─── Parallax hero background ──────────────────
+  const heroBg = document.querySelector('.hero-bg');
+  function updateParallax() {
+    const y = window.scrollY;
+    if (y < window.innerHeight * 1.5) {
+      heroBg.style.transform = `translateY(${y * 0.38}px)`;
+    }
+  }
+  window.addEventListener('scroll', updateParallax, { passive: true });
+
+  // ─── Spotlight cursor in hero ──────────────────
+  const heroSpot = document.getElementById('hero-spot');
+  const heroEl   = document.getElementById('hero');
+  heroEl.addEventListener('mousemove', e => {
+    const rect = heroEl.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width)  * 100;
+    const y = ((e.clientY - rect.top)  / rect.height) * 100;
+    heroEl.style.setProperty('--spot-x', x + '%');
+    heroEl.style.setProperty('--spot-y', y + '%');
+  });
+
+  // ─── 3D tilt on cards ──────────────────────────
+  document.querySelectorAll('.mini-card, .case-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      const rx = ((cy / rect.height) - 0.5) * -10;
+      const ry = ((cx / rect.width)  - 0.5) *  10;
+      card.style.transform = `translateY(-8px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      // inner glow follows mouse
+      card.style.setProperty('--mx', (cx / rect.width * 100)  + '%');
+      card.style.setProperty('--my', (cy / rect.height * 100) + '%');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ─── Magnetic effect on primary buttons ────────
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width  / 2);
+      const dy = e.clientY - (rect.top  + rect.height / 2);
+      btn.style.transform = `translateY(-2px) translate(${dx * 0.18}px, ${dy * 0.18}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+
+  // ─── Active nav link on scroll ─────────────────
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const activeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => activeObserver.observe(s));
+
+  // ─── Counter animation on case results ─────────
+  function animateCounter(el) {
+    const text  = el.textContent;
+    const match = text.match(/(\d+)/g);
+    if (!match) return;
+    match.forEach(num => {
+      const n = parseInt(num, 10);
+      if (n < 2) return;
+      let start = 0;
+      const dur = 1400;
+      const step = (ts) => {
+        if (!start) start = ts;
+        const prog = Math.min((ts - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - prog, 3);
+        el.textContent = el.textContent.replace(
+          new RegExp('\\b' + num + '\\b'),
+          Math.round(ease * n)
+        );
+        if (prog < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.8 });
+  document.querySelectorAll('.case-result').forEach(el => counterObserver.observe(el));
+
+  // ─── Custom cursor ──────────────────────────────
+  const cursor = document.getElementById('cursor');
+  if (cursor && window.matchMedia('(pointer: fine)').matches) {
+    let mx = -100, my = -100;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+    document.querySelectorAll('a, button, .mini-card, .case-card, .scheme-node, .faq-q').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  } else if (cursor) {
+    cursor.style.display = 'none';
+  }
 </script>
 </body>
 </html>
