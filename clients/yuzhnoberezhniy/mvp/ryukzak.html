@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Собери рюкзак — Санаторий Южнобережный</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Помогите ребёнку собраться — Санаторий Южнобережный</title>
   <style>
     :root {
       --bg: #f4f8fc;
       --white: #ffffff;
       --blue: #0693e3;
+      --blue-dark: #0577c4;
       --blue-light: #e8f4fd;
       --blue-mid: #cce8f8;
       --dark: #32373c;
       --text: #2c2c2c;
       --muted: #6b7a8d;
       --border: #dde6ef;
-      --checked-bg: #e8f6f0;
-      --checked-border: #2ecc71;
-      --checked-text: #888;
+      --green: #27ae60;
+      --green-light: #e8f6f0;
+      --orange: #e67e22;
+      --orange-light: #fef3e8;
+      --red: #e74c3c;
+      --red-light: #fdf0ef;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,98 +37,125 @@
     .header {
       background: var(--white);
       border-bottom: 3px solid var(--blue);
-      padding: 16px 20px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
+      flex-wrap: wrap;
     }
 
     .header-logo {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--blue);
-      letter-spacing: -0.5px;
       line-height: 1.2;
     }
-
     .header-logo span {
       display: block;
       font-size: 11px;
       font-weight: 400;
       color: var(--muted);
-      letter-spacing: 0;
+    }
+
+    .header-contact {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.5;
+    }
+    .header-contact a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
     }
 
     /* HERO */
     .hero {
-      background: linear-gradient(135deg, var(--blue) 0%, #0577c4 100%);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
       color: #fff;
       text-align: center;
-      padding: clamp(40px, 8vw, 70px) 20px clamp(30px, 5vw, 50px);
+      padding: clamp(36px, 7vw, 64px) 20px clamp(28px, 5vw, 48px);
     }
-
-    .hero-emoji { font-size: 48px; margin-bottom: 16px; }
-
     .hero h1 {
-      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-size: clamp(1.6rem, 4.5vw, 2.8rem);
       font-weight: 800;
       line-height: 1.15;
       margin-bottom: 12px;
     }
-
     .hero p {
-      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-size: clamp(0.88rem, 2vw, 1rem);
       opacity: 0.9;
-      max-width: 480px;
-      margin: 0 auto;
+      max-width: 520px;
+      margin: 0 auto 20px;
       line-height: 1.6;
     }
+
+    /* GENDER TOGGLE */
+    .gender-wrap {
+      display: inline-flex;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .gender-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      transition: all 0.2s;
+    }
+    .gender-btn.active {
+      background: var(--white);
+      color: var(--blue);
+    }
+
+    /* REASSURANCE BAR */
+    .reassurance {
+      background: var(--green-light);
+      border-bottom: 1px solid #b8e6cd;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #1e6b40;
+      line-height: 1.5;
+    }
+    .reassurance strong { font-weight: 700; }
 
     /* PROGRESS */
     .progress-section {
       background: var(--white);
       border-bottom: 1px solid var(--border);
-      padding: 20px;
+      padding: 16px 20px;
       position: sticky;
       top: 0;
       z-index: 10;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-
-    .progress-inner {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
+    .progress-inner { max-width: 720px; margin: 0 auto; }
     .progress-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-
-    .progress-text {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .progress-pct {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--blue);
-    }
-
+    .progress-text { font-size: 13px; font-weight: 600; color: var(--text); }
+    .progress-pct { font-size: 13px; font-weight: 700; color: var(--blue); }
     .progress-bar-bg {
       background: var(--blue-mid);
       border-radius: 10px;
-      height: 10px;
+      height: 8px;
       overflow: hidden;
     }
-
     .progress-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--blue), #2ecc71);
+      background: linear-gradient(90deg, var(--blue), var(--green));
       border-radius: 10px;
       transition: width 0.4s ease;
       width: 0%;
@@ -135,179 +165,284 @@
     .container {
       max-width: 740px;
       margin: 0 auto;
-      padding: 30px 20px 60px;
+      padding: 24px 20px 40px;
+    }
+
+    /* SANATORIUM PROVIDES BOX */
+    .provides-box {
+      background: var(--blue-light);
+      border: 1px solid var(--blue-mid);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .provides-box h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 10px;
+    }
+    .provides-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .provides-tag {
+      background: var(--white);
+      border: 1px solid var(--blue-mid);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--dark);
     }
 
     /* CATEGORY */
     .category {
       background: var(--white);
-      border-radius: 16px;
+      border-radius: 14px;
       border: 1px solid var(--border);
       overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(6, 147, 227, 0.06);
+      margin-bottom: 16px;
+      box-shadow: 0 1px 6px rgba(6,147,227,0.05);
     }
-
     .category-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 18px 20px;
+      gap: 10px;
+      padding: 16px 18px;
       border-bottom: 1px solid var(--border);
       background: var(--blue-light);
+      cursor: pointer;
+      user-select: none;
     }
-
-    .category-icon { font-size: 26px; flex-shrink: 0; }
-
-    .category-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--dark);
-      flex: 1;
-    }
-
+    .category-icon { font-size: 22px; flex-shrink: 0; }
+    .category-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); flex: 1; }
     .category-count {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--blue);
       background: var(--white);
       border: 1px solid var(--blue-mid);
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 20px;
     }
+    .category-arrow {
+      font-size: 12px;
+      color: var(--muted);
+      transition: transform 0.2s;
+    }
+    .category.collapsed .category-arrow { transform: rotate(-90deg); }
+    .category.collapsed .items-list { display: none; }
 
     /* ITEMS */
-    .items-list {
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .items-list { padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; }
 
     .item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 12px 14px;
+      gap: 10px;
+      padding: 11px 12px;
       border-radius: 10px;
       border: 1px solid transparent;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
       user-select: none;
       background: var(--bg);
     }
-
-    .item:hover {
-      border-color: var(--blue);
-      background: var(--blue-light);
-    }
-
-    .item.checked {
-      background: var(--checked-bg);
-      border-color: var(--checked-border);
-    }
+    .item:hover { border-color: var(--blue); background: var(--blue-light); }
+    .item.checked { background: var(--green-light); border-color: #b8e6cd; }
+    .item.girl-only { display: none; }
+    body.girl .item.girl-only { display: flex; }
 
     .checkbox {
-      width: 22px;
-      height: 22px;
-      min-width: 22px;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
       border: 2px solid var(--border);
-      border-radius: 6px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #fff;
-      transition: all 0.2s;
       background: var(--white);
+      transition: all 0.2s;
       margin-top: 1px;
     }
+    .item.checked .checkbox { background: var(--green); border-color: var(--green); }
 
-    .item.checked .checkbox {
-      background: var(--checked-border);
-      border-color: var(--checked-border);
+    .item-body { flex: 1; }
+    .item-label { font-size: 0.88rem; line-height: 1.4; color: var(--text); }
+    .item.checked .item-label { color: #aaa; text-decoration: line-through; }
+    .item-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .item.checked .item-note { color: #ccc; }
+
+    .tip-toggle {
+      font-size: 11px;
+      color: var(--blue);
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+      padding: 0;
+      text-decoration: underline dotted;
+      white-space: nowrap;
     }
-
-    .item-label {
-      font-size: 0.9rem;
-      line-height: 1.45;
-      color: var(--text);
-      transition: color 0.2s;
-    }
-
-    .item.checked .item-label {
-      color: var(--checked-text);
-      text-decoration: line-through;
-    }
-
-    .item-note {
+    .tip-text {
+      display: none;
       font-size: 11px;
       color: var(--muted);
-      margin-top: 2px;
+      background: var(--blue-light);
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+    .tip-text.open { display: block; }
+
+    /* PROHIBITED */
+    .prohibited-box {
+      background: var(--red-light);
+      border: 1px solid #f5c6c2;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+    }
+    .prohibited-box h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .prohibited-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .prohibited-tag {
+      background: var(--white);
+      border: 1px solid #f5c6c2;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--red);
+    }
+    .prohibited-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.5;
     }
 
-    .item.checked .item-note { color: #bbb; }
+    /* FORGOT BOX */
+    .forgot-box {
+      background: var(--orange-light);
+      border: 1px solid #f5d5aa;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+    }
+    .forgot-box h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .forgot-box p {
+      font-size: 13px;
+      color: #8a5c1a;
+      line-height: 1.6;
+    }
+    .forgot-box a { color: var(--orange); font-weight: 700; }
 
     /* DONE BANNER */
     .done-banner {
       display: none;
       text-align: center;
-      background: linear-gradient(135deg, #e8f6f0, #d4f0e2);
-      border: 2px solid var(--checked-border);
-      border-radius: 20px;
-      padding: 40px 30px;
-      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--green-light), #d0f0e0);
+      border: 2px solid var(--green);
+      border-radius: 18px;
+      padding: 36px 24px;
+      margin-bottom: 24px;
     }
-
     .done-banner.show { display: block; }
-    .done-banner .emoji { font-size: 48px; margin-bottom: 16px; }
-
+    .done-banner .emoji { font-size: 44px; margin-bottom: 14px; }
     .done-banner h2 {
-      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
       font-weight: 800;
-      color: #1a8a4a;
+      color: #1a6b3a;
       margin-bottom: 10px;
     }
-
     .done-banner p {
       color: #2c5f3a;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.6;
       max-width: 380px;
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
     }
-
     .btn {
       display: inline-block;
       background: var(--blue);
       color: #fff;
       font-family: Arial, sans-serif;
       font-weight: 700;
-      font-size: 0.95rem;
-      padding: 14px 32px;
+      font-size: 0.9rem;
+      padding: 13px 28px;
       border-radius: 9999px;
       border: none;
       cursor: pointer;
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
+      margin: 4px;
     }
-
     .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--green);
+      color: var(--green);
+    }
+    .btn-outline:hover { background: var(--green); color: #fff; }
+
+    /* ACTIONS */
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 16px 0;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .action-btn:hover { border-color: var(--blue); color: var(--blue); }
 
     /* RESET */
-    .reset-wrap { text-align: center; margin-top: 16px; }
-
+    .reset-wrap { text-align: center; margin-top: 12px; }
     .reset-btn {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       background: none;
       border: none;
       font-family: inherit;
       text-decoration: underline;
     }
-
     .reset-btn:hover { color: var(--dark); }
 
     /* FOOTER */
@@ -317,12 +452,28 @@
       text-align: center;
       padding: 24px 20px;
       font-size: 12px;
+      line-height: 1.8;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+    footer strong { color: #fff; }
+
+    /* PRINT */
+    @media print {
+      .progress-section, .header-contact, .actions, .reset-wrap,
+      .gender-wrap, .tip-toggle, .tip-text, .done-banner,
+      .category-arrow, footer { display: none !important; }
+      .hero { background: none !important; color: #000 !important; padding: 10px 0; }
+      .hero p { color: #333 !important; }
+      body { background: #fff; }
+      .category { box-shadow: none; border: 1px solid #ccc; }
+      .item { break-inside: avoid; }
+      .checkbox { border: 2px solid #333 !important; background: #fff !important; }
+      .item.checked .checkbox::after { content: '✓'; color: #333; }
     }
 
-    footer a { color: var(--blue); text-decoration: none; }
-
-    @media (max-width: 500px) {
-      .header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    @media (max-width: 480px) {
+      .header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .header-contact { text-align: left; }
     }
   </style>
 </head>
@@ -333,18 +484,30 @@
     ЮЖНОБЕРЕЖНЫЙ
     <span>Санаторий для детей · г. Алупка, Крым</span>
   </div>
+  <div class="header-contact">
+    Вопросы по сборам?<br>
+    <a href="tel:+79787389618">+7 (978) 738-96-18</a> (круглосуточно)<br>
+    <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a>
+  </div>
 </div>
 
 <div class="hero">
-  <div class="hero-emoji">🎒</div>
-  <h1>Собери рюкзак на смену</h1>
-  <p>Отмечай всё что уже собрал — и ничего не забудешь. Список сохраняется в браузере.</p>
+  <h1>Помогите ребёнку<br>собраться на смену</h1>
+  <p>Отмечайте вместе с ребёнком — ничего не забудете. Список сохраняется в браузере.</p>
+  <div class="gender-wrap">
+    <button class="gender-btn active" onclick="setGender('boy', this)">👦 Мальчик</button>
+    <button class="gender-btn" onclick="setGender('girl', this)">👧 Девочка</button>
+  </div>
+</div>
+
+<div class="reassurance">
+  <strong>Не переживайте, если что-то забудете</strong> — медицинский персонал и вожатые помогут. Главное — документы и личные лекарства.
 </div>
 
 <div class="progress-section">
   <div class="progress-inner">
     <div class="progress-top">
-      <div class="progress-text" id="progressText">Начни отмечать вещи</div>
+      <div class="progress-text" id="progressText">Начните отмечать вещи</div>
       <div class="progress-pct" id="progressPct">0%</div>
     </div>
     <div class="progress-bar-bg">
@@ -357,244 +520,425 @@
 
   <div class="done-banner" id="doneBanner">
     <div class="emoji">🎉</div>
-    <h2>Рюкзак собран!</h2>
-    <p>Всё готово к поездке. Хорошей смены в Южнобережном — безопасно, полезно и с улыбкой!</p>
-    <a href="quiz.html" class="btn">Пройти квиз «Готов ли ребёнок?»</a>
+    <h2>Всё готово к поездке!</h2>
+    <p>Ваш ребёнок собран. Хорошей смены в Южнобережном — безопасно, полезно и с улыбкой каждый день!</p>
+    <a href="quiz.html" class="btn">Квиз «Готов ли ребёнок?»</a>
+    <button onclick="window.print()" class="btn btn-outline">🖨 Распечатать список</button>
+  </div>
+
+  <!-- ЧТО ОБЕСПЕЧИВАЕТ САНАТОРИЙ -->
+  <div class="provides-box">
+    <h3>🏥 Что обеспечивает санаторий — везти не нужно</h3>
+    <div class="provides-list">
+      <span class="provides-tag">Постельное бельё</span>
+      <span class="provides-tag">Полотенца (номер)</span>
+      <span class="provides-tag">Питание 5 раз в день</span>
+      <span class="provides-tag">Медицинский персонал 24/7</span>
+      <span class="provides-tag">Средства первой помощи</span>
+      <span class="provides-tag">Спортивный инвентарь</span>
+      <span class="provides-tag">Сейф в номере</span>
+    </div>
+  </div>
+
+  <!-- ДЕЙСТВИЯ -->
+  <div class="actions">
+    <button class="action-btn" onclick="window.print()">🖨 Распечатать</button>
+    <button class="action-btn" onclick="shareList()">📤 Поделиться</button>
+    <button class="action-btn" onclick="resetAll()">↺ Начать заново</button>
   </div>
 
   <!-- ДОКУМЕНТЫ -->
-  <div class="category">
-    <div class="category-header">
+  <div class="category" data-cat="docs">
+    <div class="category-header" onclick="toggleCat(this)">
       <div class="category-icon">📄</div>
-      <div class="category-title">Документы</div>
+      <div class="category-title">Документы <small style="color:var(--red);font-size:11px;">обязательно</small></div>
       <div class="category-count" id="count-docs">0 / 5</div>
+      <div class="category-arrow">▼</div>
     </div>
     <div class="items-list">
       <div class="item" onclick="toggle(this)" data-cat="docs">
         <div class="checkbox"></div>
-        <div><div class="item-label">Путёвка (оригинал)</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="docs">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Свидетельство о рождении или паспорт ребёнка</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="docs">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Медицинская карта и справка от педиатра</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="docs">
-        <div class="checkbox"></div>
-        <div>
-          <div class="item-label">Справка об отсутствии контакта с инфекционными больными</div>
-          <div class="item-note">не старше 3 дней до заезда</div>
+        <div class="item-body">
+          <div class="item-label">Путёвка (оригинал)</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Без путёвки не заселят. Сделайте фото и сохраните в телефоне как запасной вариант.</div>
         </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="docs">
         <div class="checkbox"></div>
-        <div><div class="item-label">Полис ОМС</div></div>
+        <div class="item-body">
+          <div class="item-label">Свидетельство о рождении или паспорт</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Медицинская карта ребёнка (форма 026/у)</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Нужна врачу для назначения процедур. Берите оригинал — копии не принимают.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Справка об отсутствии контакта с инфекционными больными</div>
+          <div class="item-note">Выдаёт участковый педиатр — не старше 3 дней до заезда</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Это обычная санитарная справка — её выдаёт ваш педиатр в поликлинике за 5 минут. Возьмите за 2–3 дня до отъезда.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Полис ОМС</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- ОДЕЖДА -->
-  <div class="category">
-    <div class="category-header">
+  <div class="category" data-cat="clothes">
+    <div class="category-header" onclick="toggleCat(this)">
       <div class="category-icon">👕</div>
       <div class="category-title">Одежда</div>
-      <div class="category-count" id="count-clothes">0 / 10</div>
+      <div class="category-count" id="count-clothes">0 / 13</div>
+      <div class="category-arrow">▼</div>
     </div>
     <div class="items-list">
       <div class="item" onclick="toggle(this)" data-cat="clothes">
         <div class="checkbox"></div>
-        <div><div class="item-label">Футболки (3–5 штук)</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Штаны или джинсы (2–3 пары)</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Шорты (2–3 пары)</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Нижнее бельё (по числу дней)</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Носки (по числу дней)</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Пижама или домашний костюм</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Тёплая кофта или худи</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Купальник или плавки</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
-        <div class="checkbox"></div>
-        <div>
-          <div class="item-label">Спортивная форма</div>
-          <div class="item-note">для физкультуры и мероприятий</div>
+        <div class="item-body">
+          <div class="item-label">Футболки — 7 штук (на неделю)</div>
+          <div class="item-note">Смена 21 день — в санатории есть прачечная</div>
         </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="clothes">
         <div class="checkbox"></div>
-        <div><div class="item-label">Сменная обувь (кроссовки + сланцы)</div></div>
+        <div class="item-body">
+          <div class="item-label">Шорты или лёгкие брюки — 3–4 штуки</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Нижнее бельё — 7 штук</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Носки — 7 пар</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Пижама или домашний костюм</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Тёплая кофта или худи</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Вечером в Алупке прохладно даже летом — особенно у моря.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Купальник или плавки — 2 штуки</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Один будет сохнуть — в другом идти на процедуры или к морю.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Шапочка для бассейна</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">В бассейне санатория шапочка обязательна по санитарным правилам.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Спортивная форма (футболка + шорты/леггинсы)</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Нарядная одежда для праздников и дискотек</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">В санатории проводятся тематические вечера и дискотеки. Ребёнок будет чувствовать себя увереннее, если заранее подготовится.</div>
+        </div>
+      </div>
+      <div class="item girl-only" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Прокладки и/или тампоны</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Даже если цикл нерегулярный — возьмите с запасом. В аптеке санатория есть, но лучше иметь свои. Это нормально и важно.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Кроссовки или кеды (разношенные!)</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Новая обувь натирает мозоли. Берите то, что уже разносили — ребёнок ходит много.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Тапочки и/или сланцы для пляжа</div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- ГИГИЕНА -->
-  <div class="category">
-    <div class="category-header">
+  <div class="category" data-cat="hygiene">
+    <div class="category-header" onclick="toggleCat(this)">
       <div class="category-icon">🪥</div>
       <div class="category-title">Гигиена</div>
-      <div class="category-count" id="count-hygiene">0 / 8</div>
+      <div class="category-count" id="count-hygiene">0 / 11</div>
+      <div class="category-arrow">▼</div>
     </div>
     <div class="items-list">
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Зубная щётка и паста</div></div>
+        <div class="item-body"><div class="item-label">Зубная щётка и паста</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Шампунь и гель для душа</div></div>
+        <div class="item-body"><div class="item-label">Шампунь и гель для душа</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Мыло</div></div>
+        <div class="item-body"><div class="item-label">Мыло</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Расчёска</div></div>
+        <div class="item-body"><div class="item-label">Расчёска</div></div>
+      </div>
+      <div class="item girl-only" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Резинки и заколки для волос</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Полотенца (2 штуки)</div></div>
+        <div class="item-body">
+          <div class="item-label">Дезодорант</div>
+          <div class="item-note">Актуально для детей от 10 лет</div>
+        </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Влажные салфетки</div></div>
+        <div class="item-body">
+          <div class="item-label">Личные полотенца — 2 штуки</div>
+          <div class="item-note">Для моря/бассейна — постельные полотенца санаторий предоставляет</div>
+        </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Крем от солнца</div></div>
+        <div class="item-body"><div class="item-label">Влажные салфетки</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="hygiene">
         <div class="checkbox"></div>
-        <div><div class="item-label">Средство от комаров</div></div>
+        <div class="item-body">
+          <div class="item-label">Крем от солнца (SPF 30+)</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Крымское солнце в июне–августе очень активное. Дети получают ожоги быстрее взрослых — возьмите с запасом.</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Средство от комаров</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Губка или мочалка</div></div>
       </div>
     </div>
   </div>
 
   <!-- ЗДОРОВЬЕ -->
-  <div class="category">
-    <div class="category-header">
+  <div class="category" data-cat="health">
+    <div class="category-header" onclick="toggleCat(this)">
       <div class="category-icon">💊</div>
-      <div class="category-title">Здоровье</div>
-      <div class="category-count" id="count-health">0 / 4</div>
+      <div class="category-title">Здоровье <small style="color:var(--red);font-size:11px;">важно</small></div>
+      <div class="category-count" id="count-health">0 / 5</div>
+      <div class="category-arrow">▼</div>
     </div>
     <div class="items-list">
       <div class="item" onclick="toggle(this)" data-cat="health">
         <div class="checkbox"></div>
-        <div>
+        <div class="item-body">
           <div class="item-label">Личные лекарства (если принимает постоянно)</div>
-          <div class="item-note">с запиской о дозировке от врача</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Как оформить?</button>
+          <div class="tip-text">Вложите записку от врача с названием препарата, дозировкой и расписанием приёма. Отдайте медсестре при заселении — она будет контролировать.</div>
         </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="health">
         <div class="checkbox"></div>
-        <div><div class="item-label">Пластырь и антисептик</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="health">
-        <div class="checkbox"></div>
-        <div><div class="item-label">Термометр</div></div>
-      </div>
-      <div class="item" onclick="toggle(this)" data-cat="health">
-        <div class="checkbox"></div>
-        <div>
+        <div class="item-body">
           <div class="item-label">Антигистаминное (при склонности к аллергии)</div>
+          <div class="item-note">Крым богат растениями и насекомыми — лучше взять с запасом</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Пластырь и антисептик</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Термометр</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Очки или контактные линзы (если носит)</div>
+          <div class="item-note">Возьмите запасную пару очков и раствор для линз</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ЛИЧНОЕ -->
-  <div class="category">
-    <div class="category-header">
-      <div class="category-icon">🌟</div>
-      <div class="category-title">Личное и для досуга</div>
-      <div class="category-count" id="count-personal">0 / 6</div>
+  <div class="category" data-cat="personal">
+    <div class="category-header" onclick="toggleCat(this)">
+      <div class="category-icon">🎒</div>
+      <div class="category-title">Личное и досуг</div>
+      <div class="category-count" id="count-personal">0 / 9</div>
+      <div class="category-arrow">▼</div>
     </div>
     <div class="items-list">
       <div class="item" onclick="toggle(this)" data-cat="personal">
         <div class="checkbox"></div>
-        <div><div class="item-label">Книга или журнал</div></div>
+        <div class="item-body"><div class="item-label">Телефон и зарядка</div><div class="item-note">Уточните у вожатого правила пользования</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="personal">
         <div class="checkbox"></div>
-        <div><div class="item-label">Настольная игра или карты</div></div>
+        <div class="item-body"><div class="item-label">Наушники</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="personal">
         <div class="checkbox"></div>
-        <div><div class="item-label">Блокнот и ручка</div></div>
+        <div class="item-body"><div class="item-label">Книга или журнал</div></div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="personal">
         <div class="checkbox"></div>
-        <div>
-          <div class="item-label">Любимая мягкая игрушка</div>
-          <div class="item-note">особенно для малышей</div>
+        <div class="item-body"><div class="item-label">Блокнот и ручка</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Настольная игра или карты (UNO, Мафия)</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Дети с настольными играми быстрее знакомятся и заводят друзей. В среднем ребёнок заводит 12+ новых знакомств за смену.</div>
         </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="personal">
         <div class="checkbox"></div>
-        <div><div class="item-label">Небольшие деньги на карманные расходы</div></div>
+        <div class="item-body">
+          <div class="item-label">Фотографии родных из дома</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Маленький конверт с распечатанными фото помогает в первые дни, когда скучают по дому. Это работает лучше, чем звонки.</div>
+        </div>
       </div>
       <div class="item" onclick="toggle(this)" data-cat="personal">
         <div class="checkbox"></div>
-        <div>
-          <div class="item-label">Телефон и зарядка</div>
-          <div class="item-note">уточните правила пользования у вожатого</div>
+        <div class="item-body">
+          <div class="item-label">Любимая мягкая игрушка или предмет</div>
+          <div class="item-note">Для детей до 12 лет — абсолютно нормально</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Небольшие карманные деньги</div><div class="item-note">На сувениры или мороженое — уточните лимит у вожатого</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Мешок для грязных вещей</div>
+          <button class="tip-toggle" onclick="showTip(event, this)">Зачем?</button>
+          <div class="tip-text">Чистые вещи не будут перемешиваться с грязными. Ребёнку проще собираться самостоятельно.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="reset-wrap">
+  <!-- НЕЛЬЗЯ БРАТЬ -->
+  <div class="prohibited-box">
+    <h3>🚫 Что не нужно везти — для безопасности всех детей</h3>
+    <div class="prohibited-list">
+      <span class="prohibited-tag">Острые предметы</span>
+      <span class="prohibited-tag">Зажигалки</span>
+      <span class="prohibited-tag">Алкоголь</span>
+      <span class="prohibited-tag">Дорогие украшения</span>
+      <span class="prohibited-tag">Скоропортящиеся продукты</span>
+      <span class="prohibited-tag">Духи и одеколон</span>
+      <span class="prohibited-tag">Большие суммы наличных</span>
+    </div>
+    <div class="prohibited-note">Если ребёнок возьмёт что-то запрещённое — вожатый вернёт вам при встрече. Санкций нет, просто так безопаснее для всех.</div>
+  </div>
+
+  <!-- ЕСЛИ ЗАБЫЛИ -->
+  <div class="forgot-box">
+    <h3>😅 Забыли что-то важное?</h3>
+    <p>Не переживайте — позвоните нам. Медицинский персонал поможет с лекарствами, а необходимые вещи можно передать при ближайшем визите или прислать почтой.<br><br>
+    <strong>Приёмная (круглосуточно):</strong> <a href="tel:+79787389618">+7 (978) 738-96-18</a><br>
+    <strong>Бронирование:</strong> <a href="tel:+79785500570">+7 (978) 550-05-70</a></p>
+  </div>
+
+  <div class="actions">
+    <button class="action-btn" onclick="window.print()">🖨 Распечатать</button>
+    <button class="action-btn" onclick="shareList()">📤 Поделиться</button>
     <button class="reset-btn" onclick="resetAll()">Начать заново</button>
   </div>
 
 </div>
 
 <footer>
-  <strong style="color:#fff;">Санаторий «Южнобережный»</strong> · г. Алупка, Крым ·
-  <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a>
+  <strong>Санаторий «Южнобережный»</strong><br>
+  Республика Крым, г. Алупка, ул. им. Ленина, д. 29<br>
+  <a href="tel:+79787389618">+7 (978) 738-96-18</a> · <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a><br>
+  «Безопасно, полезно и с улыбкой каждый день»
 </footer>
 
 <script>
-  const TOTAL = document.querySelectorAll('.item').length;
+  const TOTAL_BASE = document.querySelectorAll('.item:not(.girl-only)').length;
+  let currentGender = 'boy';
+
   const catTotals = {};
   document.querySelectorAll('.item').forEach(item => {
-    const cat = item.dataset.cat;
-    catTotals[cat] = (catTotals[cat] || 0) + 1;
+    if (!item.classList.contains('girl-only')) {
+      const cat = item.dataset.cat;
+      catTotals[cat] = (catTotals[cat] || 0) + 1;
+    }
   });
 
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = JSON.parse(localStorage.getItem('yb-ryukzak-v2') || '[]');
-    document.querySelectorAll('.item').forEach((item, i) => {
-      if (saved.includes(i)) {
-        item.classList.add('checked');
-        item.querySelector('.checkbox').textContent = '✓';
-      }
+    const saved = JSON.parse(localStorage.getItem('yb-ryukzak-v3') || '{}');
+    const gender = saved.gender || 'boy';
+    setGender(gender, document.querySelector(gender === 'girl' ? '.gender-btn:last-child' : '.gender-btn:first-child'));
+    (saved.checked || []).forEach(i => {
+      const item = document.querySelectorAll('.item')[i];
+      if (item) { item.classList.add('checked'); item.querySelector('.checkbox').textContent = '✓'; }
     });
     updateProgress();
   });
+
+  function setGender(g, btn) {
+    currentGender = g;
+    document.body.classList.toggle('girl', g === 'girl');
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    saveState();
+    updateProgress();
+  }
 
   function toggle(item) {
     item.classList.toggle('checked');
@@ -603,46 +947,72 @@
     updateProgress();
   }
 
+  function toggleCat(header) {
+    header.parentElement.classList.toggle('collapsed');
+  }
+
+  function showTip(e, btn) {
+    e.stopPropagation();
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Скрыть' : 'Зачем?';
+  }
+
   function saveState() {
     const checked = [];
     document.querySelectorAll('.item').forEach((item, i) => {
       if (item.classList.contains('checked')) checked.push(i);
     });
-    localStorage.setItem('yb-ryukzak-v2', JSON.stringify(checked));
+    localStorage.setItem('yb-ryukzak-v3', JSON.stringify({ checked, gender: currentGender }));
   }
 
   function updateProgress() {
-    const checked = document.querySelectorAll('.item.checked').length;
-    const pct = Math.round((checked / TOTAL) * 100);
+    const visibleItems = document.querySelectorAll('.item:not(.girl-only), body.girl .item.girl-only');
+    const allVisible = document.querySelectorAll(currentGender === 'girl' ? '.item' : '.item:not(.girl-only)');
+    const total = allVisible.length;
+    const checked = document.querySelectorAll(currentGender === 'girl' ? '.item.checked' : '.item.checked:not(.girl-only)').length;
+    const pct = total ? Math.round((checked / total) * 100) : 0;
 
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressPct').textContent = pct + '%';
-
     const txt = document.getElementById('progressText');
-    if (pct === 0) txt.textContent = 'Начни отмечать вещи';
-    else if (pct < 100) txt.textContent = `Собрано ${checked} из ${TOTAL} вещей`;
-    else {
-      txt.textContent = 'Готово! Всё собрано 🎉';
-      document.getElementById('doneBanner').classList.add('show');
-    }
+    if (pct === 0) txt.textContent = 'Начните отмечать вещи';
+    else if (pct < 100) txt.textContent = `Собрано ${checked} из ${total} вещей`;
+    else { txt.textContent = 'Всё готово! 🎉'; document.getElementById('doneBanner').classList.add('show'); }
 
+    // cat counts
     const catChecked = {};
     document.querySelectorAll('.item.checked').forEach(item => {
       const cat = item.dataset.cat;
       catChecked[cat] = (catChecked[cat] || 0) + 1;
     });
-    Object.keys(catTotals).forEach(cat => {
+    ['docs','clothes','hygiene','health','personal'].forEach(cat => {
       const el = document.getElementById('count-' + cat);
-      if (el) el.textContent = `${catChecked[cat] || 0} / ${catTotals[cat]}`;
+      const catItems = document.querySelectorAll(currentGender === 'girl'
+        ? `.item[data-cat="${cat}"]`
+        : `.item[data-cat="${cat}"]:not(.girl-only)`);
+      if (el) el.textContent = `${catChecked[cat] || 0} / ${catItems.length}`;
     });
   }
 
+  function shareList() {
+    const url = window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: 'Чеклист в санаторий Южнобережный', url });
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => alert('Ссылка скопирована! Отправьте её бабушке или второму родителю.'));
+    } else {
+      prompt('Скопируйте ссылку:', url);
+    }
+  }
+
   function resetAll() {
+    if (!confirm('Сбросить все отметки?')) return;
     document.querySelectorAll('.item').forEach(item => {
       item.classList.remove('checked');
       item.querySelector('.checkbox').textContent = '';
     });
-    localStorage.removeItem('yb-ryukzak-v2');
+    localStorage.removeItem('yb-ryukzak-v3');
     document.getElementById('doneBanner').classList.remove('show');
     updateProgress();
   }
