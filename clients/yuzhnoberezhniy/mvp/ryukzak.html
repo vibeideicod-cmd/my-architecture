@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Собери рюкзак — Санаторий Южнобережный</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f8fc;
+      --white: #ffffff;
+      --blue: #0693e3;
+      --blue-light: #e8f4fd;
+      --blue-mid: #cce8f8;
+      --dark: #32373c;
+      --text: #2c2c2c;
+      --muted: #6b7a8d;
+      --border: #dde6ef;
+      --checked-bg: #e8f6f0;
+      --checked-border: #2ecc71;
+      --checked-text: #888;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--white);
+      border-bottom: 3px solid var(--blue);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .header-logo span {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--blue) 0%, #0577c4 100%);
+      color: #fff;
+      text-align: center;
+      padding: clamp(40px, 8vw, 70px) 20px clamp(30px, 5vw, 50px);
+    }
+
+    .hero-emoji { font-size: 48px; margin-bottom: 16px; }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      opacity: 0.9;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* PROGRESS */
+    .progress-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .progress-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .progress-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .progress-pct {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .progress-bar-bg {
+      background: var(--blue-mid);
+      border-radius: 10px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), #2ecc71);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    /* CATEGORY */
+    .category {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(6, 147, 227, 0.06);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--blue-light);
+    }
+
+    .category-icon { font-size: 26px; flex-shrink: 0; }
+
+    .category-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      flex: 1;
+    }
+
+    .category-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--white);
+      border: 1px solid var(--blue-mid);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ITEMS */
+    .items-list {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      background: var(--bg);
+    }
+
+    .item:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .item.checked {
+      background: var(--checked-bg);
+      border-color: var(--checked-border);
+    }
+
+    .checkbox {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      transition: all 0.2s;
+      background: var(--white);
+      margin-top: 1px;
+    }
+
+    .item.checked .checkbox {
+      background: var(--checked-border);
+      border-color: var(--checked-border);
+    }
+
+    .item-label {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .item.checked .item-label {
+      color: var(--checked-text);
+      text-decoration: line-through;
+    }
+
+    .item-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .item.checked .item-note { color: #bbb; }
+
+    /* DONE BANNER */
+    .done-banner {
+      display: none;
+      text-align: center;
+      background: linear-gradient(135deg, #e8f6f0, #d4f0e2);
+      border: 2px solid var(--checked-border);
+      border-radius: 20px;
+      padding: 40px 30px;
+      margin-bottom: 30px;
+    }
+
+    .done-banner.show { display: block; }
+    .done-banner .emoji { font-size: 48px; margin-bottom: 16px; }
+
+    .done-banner h2 {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 800;
+      color: #1a8a4a;
+      margin-bottom: 10px;
+    }
+
+    .done-banner p {
+      color: #2c5f3a;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 380px;
+      margin: 0 auto 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* RESET */
+    .reset-wrap { text-align: center; margin-top: 16px; }
+
+    .reset-btn {
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      text-decoration: underline;
+    }
+
+    .reset-btn:hover { color: var(--dark); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 12px;
+    }
+
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 500px) {
+      .header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">
+    ЮЖНОБЕРЕЖНЫЙ
+    <span>Санаторий для детей · г. Алупка, Крым</span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-emoji">🎒</div>
+  <h1>Собери рюкзак на смену</h1>
+  <p>Отмечай всё что уже собрал — и ничего не забудешь. Список сохраняется в браузере.</p>
+</div>
+
+<div class="progress-section">
+  <div class="progress-inner">
+    <div class="progress-top">
+      <div class="progress-text" id="progressText">Начни отмечать вещи</div>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="done-banner" id="doneBanner">
+    <div class="emoji">🎉</div>
+    <h2>Рюкзак собран!</h2>
+    <p>Всё готово к поездке. Хорошей смены в Южнобережном — безопасно, полезно и с улыбкой!</p>
+    <a href="quiz.html" class="btn">Пройти квиз «Готов ли ребёнок?»</a>
+  </div>
+
+  <!-- ДОКУМЕНТЫ -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">📄</div>
+      <div class="category-title">Документы</div>
+      <div class="category-count" id="count-docs">0 / 5</div>
+    </div>
+    <div class="items-list">
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Путёвка (оригинал)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Свидетельство о рождении или паспорт ребёнка</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Медицинская карта и справка от педиатра</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div>
+          <div class="item-label">Справка об отсутствии контакта с инфекционными больными</div>
+          <div class="item-note">не старше 3 дней до заезда</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="docs">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Полис ОМС</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОДЕЖДА -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">👕</div>
+      <div class="category-title">Одежда</div>
+      <div class="category-count" id="count-clothes">0 / 10</div>
+    </div>
+    <div class="items-list">
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Футболки (3–5 штук)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Штаны или джинсы (2–3 пары)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Шорты (2–3 пары)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Нижнее бельё (по числу дней)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Носки (по числу дней)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Пижама или домашний костюм</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Тёплая кофта или худи</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Купальник или плавки</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div>
+          <div class="item-label">Спортивная форма</div>
+          <div class="item-note">для физкультуры и мероприятий</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="clothes">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Сменная обувь (кроссовки + сланцы)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ГИГИЕНА -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🪥</div>
+      <div class="category-title">Гигиена</div>
+      <div class="category-count" id="count-hygiene">0 / 8</div>
+    </div>
+    <div class="items-list">
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Зубная щётка и паста</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Шампунь и гель для душа</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Мыло</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Расчёска</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Полотенца (2 штуки)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Влажные салфетки</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Крем от солнца</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Средство от комаров</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЗДОРОВЬЕ -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">💊</div>
+      <div class="category-title">Здоровье</div>
+      <div class="category-count" id="count-health">0 / 4</div>
+    </div>
+    <div class="items-list">
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div>
+          <div class="item-label">Личные лекарства (если принимает постоянно)</div>
+          <div class="item-note">с запиской о дозировке от врача</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Пластырь и антисептик</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Термометр</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="health">
+        <div class="checkbox"></div>
+        <div>
+          <div class="item-label">Антигистаминное (при склонности к аллергии)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЛИЧНОЕ -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-icon">🌟</div>
+      <div class="category-title">Личное и для досуга</div>
+      <div class="category-count" id="count-personal">0 / 6</div>
+    </div>
+    <div class="items-list">
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Книга или журнал</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Настольная игра или карты</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Блокнот и ручка</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div>
+          <div class="item-label">Любимая мягкая игрушка</div>
+          <div class="item-note">особенно для малышей</div>
+        </div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div><div class="item-label">Небольшие деньги на карманные расходы</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)" data-cat="personal">
+        <div class="checkbox"></div>
+        <div>
+          <div class="item-label">Телефон и зарядка</div>
+          <div class="item-note">уточните правила пользования у вожатого</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reset-wrap">
+    <button class="reset-btn" onclick="resetAll()">Начать заново</button>
+  </div>
+
+</div>
+
+<footer>
+  <strong style="color:#fff;">Санаторий «Южнобережный»</strong> · г. Алупка, Крым ·
+  <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a>
+</footer>
+
+<script>
+  const TOTAL = document.querySelectorAll('.item').length;
+  const catTotals = {};
+  document.querySelectorAll('.item').forEach(item => {
+    const cat = item.dataset.cat;
+    catTotals[cat] = (catTotals[cat] || 0) + 1;
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = JSON.parse(localStorage.getItem('yb-ryukzak-v2') || '[]');
+    document.querySelectorAll('.item').forEach((item, i) => {
+      if (saved.includes(i)) {
+        item.classList.add('checked');
+        item.querySelector('.checkbox').textContent = '✓';
+      }
+    });
+    updateProgress();
+  });
+
+  function toggle(item) {
+    item.classList.toggle('checked');
+    item.querySelector('.checkbox').textContent = item.classList.contains('checked') ? '✓' : '';
+    saveState();
+    updateProgress();
+  }
+
+  function saveState() {
+    const checked = [];
+    document.querySelectorAll('.item').forEach((item, i) => {
+      if (item.classList.contains('checked')) checked.push(i);
+    });
+    localStorage.setItem('yb-ryukzak-v2', JSON.stringify(checked));
+  }
+
+  function updateProgress() {
+    const checked = document.querySelectorAll('.item.checked').length;
+    const pct = Math.round((checked / TOTAL) * 100);
+
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+
+    const txt = document.getElementById('progressText');
+    if (pct === 0) txt.textContent = 'Начни отмечать вещи';
+    else if (pct < 100) txt.textContent = `Собрано ${checked} из ${TOTAL} вещей`;
+    else {
+      txt.textContent = 'Готово! Всё собрано 🎉';
+      document.getElementById('doneBanner').classList.add('show');
+    }
+
+    const catChecked = {};
+    document.querySelectorAll('.item.checked').forEach(item => {
+      const cat = item.dataset.cat;
+      catChecked[cat] = (catChecked[cat] || 0) + 1;
+    });
+    Object.keys(catTotals).forEach(cat => {
+      const el = document.getElementById('count-' + cat);
+      if (el) el.textContent = `${catChecked[cat] || 0} / ${catTotals[cat]}`;
+    });
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(item => {
+      item.classList.remove('checked');
+      item.querySelector('.checkbox').textContent = '';
+    });
+    localStorage.removeItem('yb-ryukzak-v2');
+    document.getElementById('doneBanner').classList.remove('show');
+    updateProgress();
+  }
+</script>
+
+</body>
+</html>
