@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Знакомство с санаторием — Южнобережный, Алупка</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #0693e3;
+  --blue-light: #e8f4fd;
+  --blue-mid: #4fc3f7;
+  --dark: #32373c;
+  --text: #2c2c2c;
+  --muted: #abb8c3;
+  --white: #ffffff;
+  --bg: #f7fbff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ─── NAV ─── */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid #e0ecf8;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+.topnav::-webkit-scrollbar { display: none; }
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 13px;
+  color: var(--blue);
+  padding: 14px 12px 14px 0;
+  border-right: 1px solid #e0ecf8;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.topnav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 14px 10px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.topnav a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(160deg, #0693e3 0%, #0578c1 50%, #1a5276 100%);
+  color: var(--white);
+  padding: clamp(48px, 8vw, 80px) 24px clamp(40px, 6vw, 64px);
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  font-size: 13px;
+  padding: 5px 14px;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: clamp(26px, 6vw, 44px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+
+.hero-sub {
+  font-size: clamp(15px, 3vw, 18px);
+  opacity: 0.9;
+  margin-bottom: 28px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.hero-tag {
+  background: rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.hero-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.hero-nav a {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.hero-nav a:hover { background: rgba(255,255,255,0.28); }
+
+/* ─── СЕКЦИЯ ─── */
+section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 64px) 24px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: bold;
+  color: var(--dark);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.section-sub {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 32px;
+  max-width: 620px;
+}
+
+/* ─── ФОТО ПЛЕЙСХОЛДЕР ─── */
+.photo-placeholder {
+  background: linear-gradient(135deg, #ddeeff 0%, #c8e6f7 100%);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #7aabcc;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+}
+.photo-placeholder .ph-icon { font-size: 36px; }
+.photo-placeholder .ph-text { font-size: 13px; font-style: italic; }
+
+/* ─── GRID ─── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* ─── КАРТОЧКА ─── */
+.card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 2px 12px rgba(6,147,227,0.08);
+}
+.card-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+.card-title { font-size: 16px; font-weight: bold; color: var(--dark); margin-bottom: 6px; }
+.card-text { font-size: 14px; color: #555; line-height: 1.6; }
+
+/* ─── FEATURE ROW ─── */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.feature-row.reverse { direction: rtl; }
+.feature-row.reverse > * { direction: ltr; }
+
+.feature-photo { border-radius: 16px; overflow: hidden; min-height: 220px; }
+.feature-content {}
+.feature-title {
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: bold;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.feature-text { font-size: 15px; color: #444; line-height: 1.7; margin-bottom: 12px; }
+.feature-list { list-style: none; padding: 0; }
+.feature-list li {
+  font-size: 14px;
+  color: #444;
+  padding: 5px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.feature-list li::before {
+  content: '✓';
+  color: var(--blue);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  background: linear-gradient(90deg, transparent, #e0ecf8, transparent);
+  height: 1px;
+  border: none;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ─── FAQ ─── */
+.faq-item {
+  border-bottom: 1px solid #e0ecf8;
+}
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--dark);
+  padding: 18px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.faq-q:hover { color: var(--blue); }
+.faq-arrow {
+  font-size: 18px;
+  color: var(--blue);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.faq-a-inner {
+  padding-bottom: 18px;
+  font-size: 15px;
+  color: #444;
+  line-height: 1.7;
+}
+.faq-a-inner a { color: var(--blue); }
+
+/* ─── HIGHLIGHTS STRIP ─── */
+.highlights {
+  background: var(--blue);
+  color: #fff;
+  padding: clamp(40px, 6vw, 60px) 24px;
+}
+.highlights-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.highlights h2 {
+  font-size: clamp(20px, 4vw, 28px);
+  margin-bottom: 28px;
+  text-align: center;
+}
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+.highlight-item { text-align: center; }
+.highlight-num {
+  font-size: 36px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+.highlight-label { font-size: 14px; opacity: 0.85; }
+
+/* ─── CTA ─── */
+.cta-section {
+  background: var(--dark);
+  color: #fff;
+  padding: clamp(48px, 7vw, 72px) 24px;
+  text-align: center;
+}
+.cta-section h2 {
+  font-size: clamp(22px, 4vw, 32px);
+  margin-bottom: 12px;
+}
+.cta-section p {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.btn-cta {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  transition: background 0.2s;
+  display: inline-block;
+}
+.btn-cta:hover { background: #0578c1; }
+.btn-cta-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  transition: border-color 0.2s;
+  display: inline-block;
+}
+.btn-cta-outline:hover { border-color: #fff; }
+
+.cta-contacts {
+  font-size: 14px;
+  opacity: 0.7;
+  line-height: 2;
+}
+.cta-contacts a { color: #fff; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #1a1f24;
+  color: rgba(255,255,255,0.5);
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+footer a { color: rgba(255,255,255,0.7); }
+
+/* ─── BACK TO TOP ─── */
+.back-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-shadow: 0 4px 16px rgba(6,147,227,0.4);
+  z-index: 50;
+}
+.back-top.visible { opacity: 1; }
+
+/* ─── АДАПТИВ ─── */
+@media (max-width: 680px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .feature-row { grid-template-columns: 1fr; direction: ltr; }
+  .feature-row.reverse { direction: ltr; }
+}
+@media (max-width: 400px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ─── PRINT ─── */
+@media print {
+  .topnav, .back-top { display: none; }
+  .hero { background: #0693e3; -webkit-print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- Навигация -->
+<nav class="topnav">
+  <span class="nav-logo">🌊 ЮБ</span>
+  <a href="#territory">Территория</a>
+  <a href="#living">Жильё</a>
+  <a href="#food">Питание</a>
+  <a href="#health">Лечение</a>
+  <a href="#activities">Досуг</a>
+  <a href="#faq">Вопросы</a>
+  <a href="#contact">Контакты</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <span class="hero-badge">🏥 Детский санаторий · г. Алупка · Крым</span>
+  <h1>Познакомьтесь<br>с Южнобережным</h1>
+  <p class="hero-sub">Прежде чем отправить ребёнка — посмотрите, куда он едет. Здесь всё как есть: территория, комнаты, еда, врачи и море.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">🌊 У самого моря</span>
+    <span class="hero-tag">🏥 Медперсонал 24/7</span>
+    <span class="hero-tag">🍽 5-разовое питание</span>
+    <span class="hero-tag">👨‍👩‍👧 Дети 7–17 лет</span>
+  </div>
+  <div class="hero-nav">
+    <a href="#territory">🌳 Территория</a>
+    <a href="#living">🛏 Жильё</a>
+    <a href="#health">💊 Лечение</a>
+    <a href="#faq">❓ Вопросы</a>
+  </div>
+</div>
+
+<!-- Цифры -->
+<div class="highlights">
+  <div class="highlights-inner">
+    <h2>Южнобережный в цифрах</h2>
+    <div class="highlights-grid">
+      <div class="highlight-item">
+        <span class="highlight-num">21</span>
+        <span class="highlight-label">день — продолжительность смены</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">8</span>
+        <span class="highlight-label">отрядов в летнем лагере</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">24/7</span>
+        <span class="highlight-label">дежурство медперсонала</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">7–17</span>
+        <span class="highlight-label">лет — возраст детей</span>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">5</span>
+        <span class="highlight-label">раз в день — питание</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══ ТЕРРИТОРИЯ ═══ -->
+<section id="territory">
+  <div class="section-label">Первое впечатление</div>
+  <h2 class="section-title">Территория санатория</h2>
+  <p class="section-sub">Санаторий находится в Алупке — у подножия Воронцовского дворца, в 5 минутах пешком от Чёрного моря. Территория закрытая, зелёная.</p>
+
+  <div class="feature-row">
+    <div class="feature-photo">
+      <div class="photo-placeholder" style="min-height:240px">
+        <span class="ph-icon">🏛</span>
+        <strong>Главный корпус и парк</strong>
+        <span class="ph-text">[ Вставьте фото территории ]</span>
+      </div>
+    </div>
+    <div class="feature-content">
+      <h3 class="feature-title">Закрытая охраняемая территория</h3>
+      <p class="feature-text">Все дети находятся на территории санатория под наблюдением. Въезд — только по пропускам.</p>
+      <ul class="feature-list">
+        <li>Зелёный парк и дорожки для прогулок</li>
+        <li>Спортивные площадки на территории</li>
+        <li>Отдельные зоны для отдыха и игр</li>
+        <li>5 минут пешком до набережной</li>
+        <li>Воронцовский дворец — рядом</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="photo-placeholder" style="height:160px">
+      <span class="ph-icon">🌳</span>
+      <span class="ph-text">Парк и дорожки [ фото ]</span>
+    </div>
+    <div class="photo-placeholder" style="height:160px">
+      <span class="ph-icon">⚽</span>
+      <span class="ph-text">Спортплощадка [ фото ]</span>
+    </div>
+    <div class="photo-placeholder" style="height:160px">
+      <span class="ph-icon">🌊</span>
+      <span class="ph-text">Путь к морю [ фото ]</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ЖИЛЬЁ ═══ -->
+<section id="living">
+  <div class="section-label">Где живёт ребёнок</div>
+  <h2 class="section-title">Жильё и условия</h2>
+  <p class="section-sub">Дети живут в отрядах по возрасту. Комнаты на несколько человек — ребёнок сразу в компании.</p>
+
+  <div class="feature-row reverse">
+    <div class="feature-photo">
+      <div class="photo-placeholder" style="min-height:240px">
+        <span class="ph-icon">🛏</span>
+        <strong>Комнаты</strong>
+        <span class="ph-text">[ Вставьте фото жилого корпуса ]</span>
+      </div>
+    </div>
+    <div class="feature-content">
+      <h3 class="feature-title">Комфортно и по-домашнему</h3>
+      <p class="feature-text">Санаторий обеспечивает всё необходимое для проживания. Везти с собой постельное не нужно.</p>
+      <ul class="feature-list">
+        <li>Постельное бельё и полотенца — включены</li>
+        <li>Горячая вода есть (по расписанию)</li>
+        <li>Уборка и смена белья регулярно</li>
+        <li>Хранение личных вещей в тумбочке</li>
+        <li>Вожатый живёт в том же корпусе</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <span class="card-icon">🏠</span>
+      <div class="card-title">Корпуса по возрастам</div>
+      <div class="card-text">Младшие и старшие дети живут отдельно. Вожатый всегда рядом — в том же здании.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔒</span>
+      <div class="card-title">Ценные вещи</div>
+      <div class="card-text">Лучше не брать дорогие украшения и гаджеты. Деньги хранятся у вожатого по желанию.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ПИТАНИЕ ═══ -->
+<section id="food">
+  <div class="section-label">Еда</div>
+  <h2 class="section-title">Питание: 5 раз в день</h2>
+  <p class="section-sub">Завтрак, второй завтрак, обед, полдник, ужин. Меню составляется диетологом с учётом нормы для детей.</p>
+
+  <div class="feature-row">
+    <div class="feature-photo">
+      <div class="photo-placeholder" style="min-height:220px">
+        <span class="ph-icon">🍽</span>
+        <strong>Столовая</strong>
+        <span class="ph-text">[ Вставьте фото столовой или блюд ]</span>
+      </div>
+    </div>
+    <div class="feature-content">
+      <h3 class="feature-title">Сбалансированный рацион</h3>
+      <p class="feature-text">Меню разработано с учётом возраста и норм санаторного питания. Порции достаточные.</p>
+      <ul class="feature-list">
+        <li>Завтрак: каша, яйцо, хлеб, напиток</li>
+        <li>Обед: суп, горячее, гарнир, компот</li>
+        <li>Полдник: выпечка или фрукты</li>
+        <li>Ужин: белковое + гарнир</li>
+        <li>Учёт аллергий и диет — по справке</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="background: #eafaf1; border-left: 4px solid #1a9e5c;">
+    <span class="card-icon">💚</span>
+    <div class="card-title">Если у ребёнка аллергия или диета</div>
+    <div class="card-text">Сообщите об этом заранее — при бронировании или по телефону. Медперсонал учтёт особенности питания.<br>
+    <strong>Бронирование: <a href="https://wa.me/79785500570" style="color:#1a9e5c">WhatsApp +7 (978) 550-05-70</a></strong></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ЛЕЧЕНИЕ ═══ -->
+<section id="health">
+  <div class="section-label">Здоровье</div>
+  <h2 class="section-title">Лечение и медицина</h2>
+  <p class="section-sub">Южнобережный — это санаторий, а не просто лагерь. Медицинская помощь здесь — основная часть смены.</p>
+
+  <div class="feature-row reverse">
+    <div class="feature-photo">
+      <div class="photo-placeholder" style="min-height:220px">
+        <span class="ph-icon">🏥</span>
+        <strong>Медицинский корпус</strong>
+        <span class="ph-text">[ Вставьте фото медкабинета ]</span>
+      </div>
+    </div>
+    <div class="feature-content">
+      <h3 class="feature-title">Медперсонал работает круглосуточно</h3>
+      <p class="feature-text">Врач и медсестра дежурят 24 часа в сутки. Если ребёнок заболел — его не оставят наедине с ситуацией.</p>
+      <ul class="feature-list">
+        <li>Врач-педиатр на территории 24/7</li>
+        <li>Осмотр при заезде обязателен</li>
+        <li>Все процедуры назначаются индивидуально</li>
+        <li>Родителей уведомят при необходимости</li>
+        <li>Изолятор для заболевших детей</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <span class="card-icon">🫁</span>
+      <div class="card-title">Дыхательная система</div>
+      <div class="card-text">Процедуры для лечения и профилактики заболеваний органов дыхания.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🦴</span>
+      <div class="card-title">Опорно-двигательный аппарат</div>
+      <div class="card-text">Физиотерапия, лечебная физкультура, процедуры для суставов и позвоночника.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🧠</span>
+      <div class="card-title">Нервная система</div>
+      <div class="card-text">Процедуры для нормализации сна, снижения тревожности и укрепления нервной системы.</div>
+    </div>
+  </div>
+
+  <div class="card" style="background: var(--blue-light); border-left: 4px solid var(--blue);">
+    <span class="card-icon">💊</span>
+    <div class="card-title">Если ребёнок принимает лекарства</div>
+    <div class="card-text">Привезите лекарства в оригинальной упаковке с инструкцией. Медсестра будет контролировать приём. Об особенностях сообщите заранее.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ДОСУГ ═══ -->
+<section id="activities">
+  <div class="section-label">Что делают дети</div>
+  <h2 class="section-title">Досуг и активности</h2>
+  <p class="section-sub">Смена — это не только процедуры. Дети активно отдыхают, заводят друзей и открывают что-то новое.</p>
+
+  <div class="feature-row">
+    <div class="feature-photo">
+      <div class="photo-placeholder" style="min-height:220px">
+        <span class="ph-icon">🎭</span>
+        <strong>Мероприятия</strong>
+        <span class="ph-text">[ Вставьте фото активностей ]</span>
+      </div>
+    </div>
+    <div class="feature-content">
+      <h3 class="feature-title">Каждый день — что-то интересное</h3>
+      <p class="feature-text">Вожатые планируют программу смены заранее: от тихих творческих занятий до спортивных соревнований.</p>
+      <ul class="feature-list">
+        <li>Конкурсы, концерты и вечерние огоньки</li>
+        <li>Спортивные игры и соревнования</li>
+        <li>Творческие мастерские и кружки</li>
+        <li>Экскурсии (Воронцовский дворец — рядом)</li>
+        <li>Купание в море (по погоде и программе)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="photo-placeholder" style="height:180px">
+      <span class="ph-icon">⚽</span>
+      <span class="ph-text">Спорт [ фото ]</span>
+    </div>
+    <div class="photo-placeholder" style="height:180px">
+      <span class="ph-icon">🎨</span>
+      <span class="ph-text">Творчество [ фото ]</span>
+    </div>
+  </div>
+
+  <div class="card" style="background: #fff3e0; border-left: 4px solid #f0a500;">
+    <span class="card-icon">📱</span>
+    <div class="card-title">Телефон и связь с ребёнком</div>
+    <div class="card-text">
+      Уточняйте правила использования телефонов у вожатого при заезде — они могут различаться по сменам.<br>
+      <strong>Экстренная связь всегда доступна через дежурного вожатого.</strong>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="section-label">Вопросы родителей</div>
+  <h2 class="section-title">Отвечаем честно</h2>
+  <p class="section-sub">Это вопросы, которые задают чаще всего. Отвечаем как есть.</p>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Есть ли горячая вода?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Да, горячая вода есть. В Крыму иногда бывают плановые отключения по расписанию коммунальных служб — это не зависит от санатория. Администрация предупреждает детей заранее. Даже в такие дни доступна тёплая вода через нагреватели.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Почему нет отопления / холодно в комнате?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Крымский климат мягкий, поэтому централизованное отопление включают позже, чем на материке. В межсезонье бывают прохладные вечера. Рекомендуем взять лёгкую кофту или флис для вечерних прогулок — это указано в чеклисте.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Есть ли интернет и Wi-Fi?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Уточняйте актуальное состояние Wi-Fi при заезде. Мобильная связь в Алупке работает у всех основных операторов. Для экстренной связи с ребёнком всегда можно позвонить дежурному вожатому по телефону санатория: <a href="tel:+79787389618">+7 (978) 738-96-18</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Что делать, если ребёнок заболел?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Врач-педиатр дежурит круглосуточно. При первых симптомах ребёнка осматривает медперсонал, при необходимости — переводят в изолятор. Родителей уведомляют при температуре или серьёзных симптомах. Самостоятельно звонить не нужно — медики действуют по протоколу.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Ребёнок плохо ест / может отказаться от еды?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Меню разнообразное, 5-разовое. Если у ребёнка аллергия или диетические ограничения — сообщите заранее при заезде. Вожатые следят, чтобы дети нормально питались. В первые дни адаптации аппетит может снижаться — это нормально и обычно проходит к 3–4-му дню.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Можно ли навещать ребёнка во время смены?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Это зависит от правил конкретной смены. Уточняйте при бронировании. Практика показывает: дети, которых навещают в первые дни, тяжелее адаптируются — разлука даётся им сложнее повторно. Если ребёнок уже привык — визиты менее болезненны.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Что делать, если ребёнок хочет домой?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Тоска по дому в первые 3–5 дней — абсолютная норма. Вожатые специально обучены работать с такими ситуациями: они помогают ребёнку влиться в коллектив и переключиться. Если через 5–7 дней ситуация не улучшилась — вам позвонят. Без паники: большинство детей забывают про тоску уже к середине первой недели.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Что нужно привезти с собой?
+        <span class="faq-arrow">▾</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Постельное бельё, полотенца, питание — обеспечивает санаторий. Привезите личные вещи, одежду по сезону, средства гигиены и лекарства если нужны. Подробный список — в нашем интерактивном чеклисте: <a href="ryukzak.html">«Собери рюкзак»</a>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="contact">
+  <h2>Готовы отправить ребёнка?</h2>
+  <p>Остались вопросы — позвоните нам. Мы ответим честно и поможем принять решение.</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/79785500570" class="btn-cta">WhatsApp — написать сейчас</a>
+    <a href="tel:+79787389618" class="btn-cta-outline">📞 Позвонить в приёмную</a>
+  </div>
+  <div class="cta-contacts">
+    <strong>Приёмная (круглосуточно):</strong> <a href="tel:+79787389618">+7 (978) 738-96-18</a><br>
+    <strong>WhatsApp (бронирование):</strong> <a href="https://wa.me/79785500570">+7 (978) 550-05-70</a><br>
+    <strong>Email:</strong> <a href="mailto:ujnoberejniy@mail.ru">ujnoberejniy@mail.ru</a><br>
+    г. Алупка, ул. им. Ленина, д. 29
+  </div>
+
+  <div style="margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+    <a href="ryukzak.html" style="color:rgba(255,255,255,0.7); font-size:14px;">📋 Собери рюкзак</a>
+    <a href="quiz.html" style="color:rgba(255,255,255,0.7); font-size:14px;">✅ Тест: готов ли ребёнок?</a>
+    <a href="https://vk.com/ujnoberejniyalupka" style="color:rgba(255,255,255,0.7); font-size:14px;">ВКонтакте</a>
+    <a href="https://t.me/southcoastYalta" style="color:rgba(255,255,255,0.7); font-size:14px;">Telegram</a>
+  </div>
+</div>
+
+<footer>
+  ГБУ РК СДДР «Южнобережный» · г. Алупка, Крым · <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a><br>
+  «Безопасно, полезно и с улыбкой каждый день»
+</footer>
+
+<!-- Кнопка вверх -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">↑</button>
+
+<script>
+// FAQ аккордеон
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const answer = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+
+  // Закрыть все
+  document.querySelectorAll('.faq-item.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.faq-a').style.maxHeight = '0';
+  });
+
+  // Открыть текущий (если не был открыт)
+  if (!isOpen) {
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+// Кнопка «наверх»
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// Активный пункт навигации
+const sections = document.querySelectorAll('section[id], div[id="contact"]');
+const navLinks = document.querySelectorAll('.topnav a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.style.color = '');
+      const active = document.querySelector(`.topnav a[href="#${entry.target.id}"]`);
+      if (active) active.style.color = '#0693e3';
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
