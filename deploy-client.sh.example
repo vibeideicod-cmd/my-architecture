@@ -1,23 +1,20 @@
 #!/bin/bash
 # deploy-client.sh.example — ШАБЛОН для деплоя нового клиента
 #
-# Скопируй этот файл, переименуй в deploy-{код-клиента}.sh
-# и заполни переменные ниже.
+# КАК ИСПОЛЬЗОВАТЬ:
+# 1. Скопируй этот файл: cp deploy-client.sh.example deploy-{код}.sh
+# 2. Заполни две переменные ниже (CLIENT_CODE и LOCAL_PATH)
+# 3. Запусти: ./deploy-{код}.sh
 #
-# Пример: для клиента "Пиццерия Марио" → deploy-mario.sh
-#         субдомен → mario.ideidlyabiznesa1913.ru
+# Результат: demo.ideidlyabiznesa1913.ru/{CLIENT_CODE}/
 #
-# ПЕРЕД ЗАПУСКОМ: создай сайт в панели Beget
-# Хостинг → Сайты → Создать сайт → {КОД}.ideidlyabiznesa1913.ru
+# Субдомен demo. создаётся один раз — больше в Beget заходить не нужно.
 
 set -e
 
-# ─── НАСТРОЙКИ КЛИЕНТА ────────────────────────────────────────────────
+# ─── ЗАПОЛНИ ДВЕ СТРОКИ ───────────────────────────────────────────────
 CLIENT_CODE="yub"                          # Код клиента (латиница, без пробелов)
-LOCAL_PATH="clients/yuzhnoberezhniy/mvp"   # Путь к папке с HTML-файлами
-
-# Файлы для деплоя (перечисли через пробел)
-FILES="index.html"
+LOCAL_PATH="clients/yuzhnoberezhniy/mvp"   # Папка с HTML-файлами клиента
 # ──────────────────────────────────────────────────────────────────────
 
 if [ -f .env ]; then
@@ -30,13 +27,14 @@ fi
 : "${BEGET_USER:?❌ Укажи BEGET_USER в .env}"
 : "${BEGET_HOST:?❌ Укажи BEGET_HOST в .env}"
 
-SUBDOMAIN="${CLIENT_CODE}.ideidlyabiznesa1913.ru"
-REMOTE_PATH="/home/icepaeqw/${SUBDOMAIN}/public_html"
+DEMO_PATH="/home/icepaeqw/demo.ideidlyabiznesa1913.ru/public_html"
 
-echo "🚀 Деплой клиента [${CLIENT_CODE}] на ${SUBDOMAIN}..."
+echo "🚀 Деплой [${CLIENT_CODE}] → demo.ideidlyabiznesa1913.ru/${CLIENT_CODE}/"
 
-for FILE in $FILES; do
-  scp "${LOCAL_PATH}/${FILE}" "${BEGET_USER}@${BEGET_HOST}:${REMOTE_PATH}/"
-done
+# Создать папку клиента если её нет
+ssh "${BEGET_USER}@${BEGET_HOST}" "mkdir -p ${DEMO_PATH}/${CLIENT_CODE}"
 
-echo "✅ Готово! https://${SUBDOMAIN}"
+# Скопировать все HTML-файлы
+scp "${LOCAL_PATH}"/*.html "${BEGET_USER}@${BEGET_HOST}:${DEMO_PATH}/${CLIENT_CODE}/"
+
+echo "✅ https://demo.ideidlyabiznesa1913.ru/${CLIENT_CODE}/"

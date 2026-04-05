@@ -1,10 +1,9 @@
 #!/bin/bash
-# deploy-yub.sh — деплой MVP Южнобережного на yub.ideidlyabiznesa1913.ru
+# deploy-yub.sh — деплой MVP Южнобережного на demo.ideidlyabiznesa1913.ru/yub/
 #
 # Запуск: ./deploy-yub.sh
 #
-# Перед запуском: создай сайт yub.ideidlyabiznesa1913.ru в панели Beget
-# Хостинг → Сайты → Создать сайт → yub.ideidlyabiznesa1913.ru
+# Требование: субдомен demo.ideidlyabiznesa1913.ru уже создан в панели Beget
 
 set -e
 
@@ -18,25 +17,28 @@ fi
 : "${BEGET_USER:?❌ Укажи BEGET_USER в .env}"
 : "${BEGET_HOST:?❌ Укажи BEGET_HOST в .env}"
 
-YUB_SUBDOMAIN="yub.ideidlyabiznesa1913.ru"
-YUB_PATH="/home/icepaeqw/${YUB_SUBDOMAIN}/public_html"
+DEMO_PATH="/home/icepaeqw/demo.ideidlyabiznesa1913.ru/public_html"
+CLIENT_FOLDER="yub"
 LOCAL_PATH="clients/yuzhnoberezhniy/mvp"
 
-echo "🚀 Деплой Южнобережного на ${YUB_SUBDOMAIN}..."
-echo "   Откуда: $(pwd)/${LOCAL_PATH}/"
-echo "   Куда:   ${BEGET_USER}@${BEGET_HOST}:${YUB_PATH}"
+echo "🚀 Деплой Южнобережного → demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
 echo ""
 
-scp -r \
+# Создать папку клиента на сервере если её нет
+ssh "${BEGET_USER}@${BEGET_HOST}" "mkdir -p ${DEMO_PATH}/${CLIENT_FOLDER}"
+
+# Скопировать файлы
+scp \
   "${LOCAL_PATH}/index.html" \
   "${LOCAL_PATH}/ryukzak.html" \
   "${LOCAL_PATH}/quiz.html" \
   "${LOCAL_PATH}/tour.html" \
-  "${BEGET_USER}@${BEGET_HOST}:${YUB_PATH}/"
+  "${BEGET_USER}@${BEGET_HOST}:${DEMO_PATH}/${CLIENT_FOLDER}/"
 
 echo ""
-echo "✅ Готово! Сайт: https://${YUB_SUBDOMAIN}"
+echo "✅ Готово!"
 echo ""
-echo "   📋 Чеклист:   https://${YUB_SUBDOMAIN}/ryukzak.html"
-echo "   ✅ Квиз:       https://${YUB_SUBDOMAIN}/quiz.html"
-echo "   🏖  Экскурсия: https://${YUB_SUBDOMAIN}/tour.html"
+echo "   🏠 Каталог:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
+echo "   🎒 Чеклист:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/ryukzak.html"
+echo "   ✅ Квиз:       https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/quiz.html"
+echo "   🏖  Экскурсия: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/tour.html"
