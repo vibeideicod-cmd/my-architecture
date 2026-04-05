@@ -2,13 +2,12 @@
 # deploy-client.sh.example — ШАБЛОН для деплоя нового клиента
 #
 # КАК ИСПОЛЬЗОВАТЬ:
-# 1. Скопируй этот файл: cp deploy-client.sh.example deploy-{код}.sh
-# 2. Заполни две переменные ниже (CLIENT_CODE и LOCAL_PATH)
+# 1. Скопируй: cp deploy-client.sh.example deploy-{код}.sh
+# 2. Заполни две переменные ниже
 # 3. Запусти: ./deploy-{код}.sh
 #
-# Результат: demo.ideidlyabiznesa1913.ru/{CLIENT_CODE}/
-#
-# Субдомен demo. создаётся один раз — больше в Beget заходить не нужно.
+# Результат: ideidlyabiznesa1913.ru/demo/{CLIENT_CODE}/
+# В Beget больше ничего не нужно создавать.
 
 set -e
 
@@ -27,14 +26,11 @@ fi
 : "${BEGET_USER:?❌ Укажи BEGET_USER в .env}"
 : "${BEGET_HOST:?❌ Укажи BEGET_HOST в .env}"
 
-DEMO_PATH="/home/icepaeqw/demo.ideidlyabiznesa1913.ru/public_html"
+DEMO_PATH="~/demo"
 
-echo "🚀 Деплой [${CLIENT_CODE}] → demo.ideidlyabiznesa1913.ru/${CLIENT_CODE}/"
+echo "🚀 Деплой [${CLIENT_CODE}] → ideidlyabiznesa1913.ru/demo/${CLIENT_CODE}/"
 
-# Создать папку клиента если её нет
 ssh "${BEGET_USER}@${BEGET_HOST}" "mkdir -p ${DEMO_PATH}/${CLIENT_CODE}"
-
-# Скопировать все HTML-файлы
 scp "${LOCAL_PATH}"/*.html "${BEGET_USER}@${BEGET_HOST}:${DEMO_PATH}/${CLIENT_CODE}/"
 
-echo "✅ https://demo.ideidlyabiznesa1913.ru/${CLIENT_CODE}/"
+echo "✅ https://ideidlyabiznesa1913.ru/demo/${CLIENT_CODE}/"

@@ -1,9 +1,8 @@
 #!/bin/bash
-# deploy-yub.sh — деплой MVP Южнобережного на demo.ideidlyabiznesa1913.ru/yub/
+# deploy-yub.sh — деплой MVP Южнобережного
+# URL после деплоя: https://ideidlyabiznesa1913.ru/demo/yub/
 #
 # Запуск: ./deploy-yub.sh
-#
-# Требование: субдомен demo.ideidlyabiznesa1913.ru уже создан в панели Beget
 
 set -e
 
@@ -17,14 +16,14 @@ fi
 : "${BEGET_USER:?❌ Укажи BEGET_USER в .env}"
 : "${BEGET_HOST:?❌ Укажи BEGET_HOST в .env}"
 
-DEMO_PATH="/home/icepaeqw/demo.ideidlyabiznesa1913.ru/public_html"
+DEMO_PATH="~/demo"
 CLIENT_FOLDER="yub"
 LOCAL_PATH="clients/yuzhnoberezhniy/mvp"
 
-echo "🚀 Деплой Южнобережного → demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
+echo "🚀 Деплой Южнобережного → ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/"
 echo ""
 
-# Создать папку клиента на сервере если её нет
+# Создать папку demo/yub на сервере если её нет
 ssh "${BEGET_USER}@${BEGET_HOST}" "mkdir -p ${DEMO_PATH}/${CLIENT_FOLDER}"
 
 # Скопировать файлы
@@ -38,7 +37,7 @@ scp \
 echo ""
 echo "✅ Готово!"
 echo ""
-echo "   🏠 Каталог:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
-echo "   🎒 Чеклист:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/ryukzak.html"
-echo "   ✅ Квиз:       https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/quiz.html"
-echo "   🏖  Экскурсия: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/tour.html"
+echo "   🏠 Каталог:   https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/"
+echo "   🎒 Чеклист:   https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/ryukzak.html"
+echo "   ✅ Квиз:       https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/quiz.html"
+echo "   🏖  Экскурсия: https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/tour.html"
