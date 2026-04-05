@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Готов ли ребёнок к смене? — Санаторий Южнобережный</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(160deg, #e8f4fd 0%, #f0f8ff 60%, #e0f0fb 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24px;
+  max-width: 580px;
+  width: 100%;
+  padding: 44px 40px;
+  box-shadow: 0 8px 40px rgba(6, 147, 227, 0.12);
+}
+
+/* ─── ЭКРАН СТАРТ ─── */
+#screen-start { text-align: center; }
+
+.logo-badge {
+  display: inline-block;
+  background: #e8f4fd;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  line-height: 80px;
+  margin-bottom: 20px;
+}
+
+.start-title {
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.start-title span { color: #0693e3; }
+
+.start-sub {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.start-reassure {
+  background: #e8f4fd;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #0693e3;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  background: #0693e3;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 24px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  font-family: Arial, sans-serif;
+}
+.btn-primary:hover { background: #0578c1; }
+.btn-primary:active { transform: scale(0.98); }
+
+.start-count {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #abb8c3;
+}
+
+/* ─── ЭКРАН ВОПРОС ─── */
+#screen-question { display: none; }
+
+.progress-wrap {
+  margin-bottom: 28px;
+}
+.progress-label {
+  font-size: 13px;
+  color: #abb8c3;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.progress-bar {
+  background: #e8f4fd;
+  border-radius: 8px;
+  height: 6px;
+  overflow: hidden;
+}
+.progress-fill {
+  background: #0693e3;
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.4s ease;
+}
+
+.question-emoji {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+}
+.question-text {
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: bold;
+  color: #2c2c2c;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.question-sub {
+  font-size: 14px;
+  color: #abb8c3;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer-btn {
+  background: #fff;
+  border: 2px solid #e0ecf8;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 16px;
+  color: #2c2c2c;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+}
+.answer-btn:hover {
+  border-color: #0693e3;
+  background: #f0f8ff;
+}
+.answer-btn:active { transform: scale(0.98); }
+.answer-btn.selected {
+  border-color: #0693e3;
+  background: #e8f4fd;
+  font-weight: bold;
+}
+
+/* ─── ЭКРАН РЕЗУЛЬТАТ ─── */
+#screen-result { display: none; }
+
+.result-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.result-icon {
+  font-size: 52px;
+  display: block;
+  margin-bottom: 12px;
+}
+.result-title {
+  font-size: clamp(20px, 4.5vw, 26px);
+  font-weight: bold;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.result-title.green { color: #1a9e5c; }
+.result-title.orange { color: #d68910; }
+.result-title.blue { color: #0693e3; }
+
+.result-sub {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.result-block {
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.result-block.green-bg { background: #eafaf1; border-left: 4px solid #1a9e5c; }
+.result-block.orange-bg { background: #fef9e7; border-left: 4px solid #f0a500; }
+.result-block.blue-bg { background: #e8f4fd; border-left: 4px solid #0693e3; }
+.result-block.warning-bg { background: #fff3cd; border-left: 4px solid #f0a500; }
+.result-block.info-bg { background: #f0f8ff; border-left: 4px solid #4fc3f7; }
+
+.result-block h3 {
+  font-size: 15px;
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 6px;
+}
+.result-block p, .result-block ul {
+  font-size: 14px;
+  color: #444;
+}
+.result-block ul { padding-left: 18px; }
+.result-block li { margin-bottom: 4px; }
+
+.guarantee-block {
+  background: #e8f4fd;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.guarantee-icon { font-size: 28px; flex-shrink: 0; }
+.guarantee-text { font-size: 14px; color: #2c2c2c; line-height: 1.6; }
+.guarantee-text strong { color: #0693e3; }
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-secondary {
+  display: block;
+  width: 100%;
+  background: #f0f8ff;
+  color: #0693e3;
+  border: 2px solid #0693e3;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+}
+.btn-secondary:hover { background: #ddf0fc; }
+
+.btn-ghost {
+  display: block;
+  width: 100%;
+  background: none;
+  color: #abb8c3;
+  border: 2px solid #e0ecf8;
+  border-radius: 12px;
+  padding: 11px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: Arial, sans-serif;
+}
+.btn-ghost:hover { border-color: #0693e3; color: #0693e3; }
+
+.contact-line {
+  text-align: center;
+  font-size: 13px;
+  color: #abb8c3;
+  line-height: 1.7;
+}
+.contact-line a { color: #0693e3; text-decoration: none; }
+.contact-line a:hover { text-decoration: underline; }
+
+/* ─── АНИМАЦИЯ ─── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-in { animation: fadeSlideIn 0.3s ease both; }
+
+/* ─── АДАПТИВ ─── */
+@media (max-width: 480px) {
+  .card { padding: 28px 20px; }
+  .start-title { font-size: 20px; }
+  .question-text { font-size: 18px; }
+  .answer-btn { font-size: 15px; padding: 13px 14px; }
+}
+
+/* ─── PRINT ─── */
+@media print {
+  body { background: white; padding: 0; }
+  .card { box-shadow: none; padding: 20px; }
+  .result-actions, .btn-primary, .btn-secondary, .btn-ghost { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="card" id="app">
+
+  <!-- ═══════════════ СТАРТ ═══════════════ -->
+  <div id="screen-start">
+    <div class="logo-badge">🌊</div>
+    <h1 class="start-title">Готов ли ребёнок<br>к <span>смене</span> в санатории?</h1>
+    <p class="start-sub">Короткий тест поможет понять, что уже хорошо, а что стоит подготовить перед отъездом.</p>
+    <div class="start-reassure">
+      💙 Нет "плохих" результатов — только подсказки.<br>
+      Большинство детей справляются отлично.
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">Пройти тест — 8 вопросов</button>
+    <p class="start-count">Занимает около 2 минут</p>
+  </div>
+
+  <!-- ═══════════════ ВОПРОС ═══════════════ -->
+  <div id="screen-question">
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Вопрос 1 из 8</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <span class="question-emoji" id="q-emoji"></span>
+    <p class="question-text" id="q-text"></p>
+    <p class="question-sub" id="q-sub"></p>
+    <div class="answers" id="q-answers"></div>
+  </div>
+
+  <!-- ═══════════════ РЕЗУЛЬТАТ ═══════════════ -->
+  <div id="screen-result">
+
+    <div class="result-header">
+      <span class="result-icon" id="r-icon"></span>
+      <h2 class="result-title" id="r-title"></h2>
+      <p class="result-sub" id="r-sub"></p>
+    </div>
+
+    <div id="r-blocks"></div>
+
+    <div class="guarantee-block">
+      <div class="guarantee-icon">🏥</div>
+      <div class="guarantee-text">
+        <strong>Медперсонал ЮБ работает круглосуточно.</strong><br>
+        Врач, медсестра и вожатые рядом 24/7 — ребёнок не будет один ни в какой ситуации.
+      </div>
+    </div>
+
+    <div class="result-actions" id="r-actions"></div>
+
+    <div class="contact-line">
+      Вопросы? Мы всегда на связи:<br>
+      <a href="tel:+79787389618">+7 (978) 738-96-18</a> (приёмная, круглосуточно)<br>
+      Бронирование (WhatsApp): <a href="https://wa.me/79785500570">+7 (978) 550-05-70</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    id: 'age',
+    emoji: '🧒',
+    text: 'Сколько лет вашему ребёнку?',
+    sub: null,
+    answers: [
+      { text: '7–10 лет',  ageGroup: 'young'  },
+      { text: '11–14 лет', ageGroup: 'middle' },
+      { text: '15–17 лет', ageGroup: 'teen'   }
+    ]
+  },
+  {
+    id: 'overnight',
+    emoji: '🌙',
+    text: 'Ваш ребёнок уже ночевал без вас?',
+    sub: 'У бабушки, у друга, на школьном выезде — всё считается',
+    answers: [
+      { text: 'Да, и не раз',              score: 2 },
+      { text: 'Один-два раза, справился',   score: 1 },
+      { text: 'Нет, это будет первый раз',  score: 0 }
+    ]
+  },
+  {
+    id: 'hygiene',
+    emoji: '🪥',
+    text: 'Умывается, чистит зубы и следит за собой без напоминания?',
+    sub: null,
+    answers: [
+      { text: 'Да, сам',                        score: 2 },
+      { text: 'Иногда нужно напомнить',           score: 1 },
+      { text: 'Нужно напоминать каждый день',     score: 0 }
+    ]
+  },
+  {
+    id: 'independence',
+    emoji: '👕',
+    text: 'Одевается и собирает нужные вещи сам?',
+    sub: null,
+    answers: [
+      { text: 'Да, без помощи',              score: 2 },
+      { text: 'С небольшой подсказкой',       score: 1 },
+      { text: 'Нужна постоянная помощь',      score: 0 }
+    ]
+  },
+  {
+    id: 'communication',
+    emoji: '🙋',
+    text: 'Если что-то случится — подойдёт ко взрослому и попросит помощь?',
+    sub: 'К врачу, вожатому, воспитателю',
+    answers: [
+      { text: 'Да, без проблем',          score: 2 },
+      { text: 'Скорее всего да',           score: 1 },
+      { text: 'Застесняется или не скажет', score: 0 }
+    ]
+  },
+  {
+    id: 'attitude',
+    emoji: '😊',
+    text: 'Как ребёнок относится к поездке в санаторий?',
+    sub: null,
+    answers: [
+      { text: 'С интересом, ждёт не дождётся', score: 2 },
+      { text: 'Нейтрально, согласен',           score: 1 },
+      { text: 'Немного переживает',              score: 1, flag: 'nervous' },
+      { text: 'Боится или категорически против', score: 0, flag: 'resistant' }
+    ]
+  },
+  {
+    id: 'health',
+    emoji: '💊',
+    text: 'Есть ли хронические заболевания или особые требования к питанию?',
+    sub: 'Аллергия, диета, регулярные лекарства',
+    answers: [
+      { text: 'Нет',                          score: 2 },
+      { text: 'Да, санаторий уведомлён',       score: 2, flag: 'health_ok' },
+      { text: 'Да, но ещё не сообщили в ЮБ',  score: 0, flag: 'call_needed' }
+    ]
+  },
+  {
+    id: 'prepared',
+    emoji: '💬',
+    text: 'Вы рассказали ребёнку о санатории и что его там ждёт?',
+    sub: 'Режим дня, другие дети, море, врачи, как связаться с вами',
+    answers: [
+      { text: 'Да, всё объяснили',   score: 2 },
+      { text: 'В общих чертах',       score: 1 },
+      { text: 'Пока нет',             score: 0 }
+    ]
+  }
+];
+
+// Пороги по возрасту (из 12 баллов, 6 вопросов с баллами)
+const thresholds = {
+  young:  { ready: 9, almost: 5 },
+  middle: { ready: 8, almost: 4 },
+  teen:   { ready: 6, almost: 3 }
+};
+
+let current = 0;
+let totalScore = 0;
+let ageGroup = 'middle';
+let flags = [];
+
+function show(id) {
+  ['screen-start','screen-question','screen-result'].forEach(s => {
+    document.getElementById(s).style.display = 'none';
+  });
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  el.classList.remove('animate-in');
+  void el.offsetWidth;
+  el.classList.add('animate-in');
+}
+
+function startQuiz() {
+  current = 0; totalScore = 0; ageGroup = 'middle'; flags = [];
+  renderQuestion();
+  show('screen-question');
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  const total = questions.length;
+  const pct = Math.round((current / total) * 100);
+
+  document.getElementById('progress-text').textContent = `Вопрос ${current + 1} из ${total}`;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  document.getElementById('q-emoji').textContent = q.emoji;
+  document.getElementById('q-text').textContent = q.text;
+  const sub = document.getElementById('q-sub');
+  sub.textContent = q.sub || '';
+  sub.style.display = q.sub ? 'block' : 'none';
+
+  const container = document.getElementById('q-answers');
+  container.innerHTML = '';
+  q.answers.forEach((a, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.textContent = a.text;
+    btn.onclick = () => selectAnswer(a, btn);
+    container.appendChild(btn);
+  });
+
+  // Анимация
+  const qs = document.getElementById('screen-question');
+  qs.classList.remove('animate-in');
+  void qs.offsetWidth;
+  qs.classList.add('animate-in');
+}
+
+function selectAnswer(answer, btnEl) {
+  // Подсветить выбор
+  document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+  btnEl.classList.add('selected');
+
+  // Заблокировать повторный клик
+  document.querySelectorAll('.answer-btn').forEach(b => b.onclick = null);
+
+  setTimeout(() => {
+    const q = questions[current];
+
+    if (q.id === 'age') {
+      ageGroup = answer.ageGroup;
+    } else {
+      totalScore += answer.score;
+      if (answer.flag) flags.push(answer.flag);
+    }
+
+    current++;
+    if (current < questions.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 320);
+}
+
+function showResult() {
+  const t = thresholds[ageGroup] || thresholds.middle;
+  let type;
+  if      (totalScore >= t.ready)  type = 'ready';
+  else if (totalScore >= t.almost) type = 'almost';
+  else                              type = 'prepare';
+
+  const results = {
+    ready: {
+      icon: '🎉',
+      titleClass: 'green',
+      title: 'Ваш ребёнок готов к смене!',
+      sub: 'Вы хорошо подготовились. Ребёнок справится — и, скорее всего, будет в восторге.'
+    },
+    almost: {
+      icon: '🌟',
+      titleClass: 'orange',
+      title: 'Почти готов — осталось совсем немного',
+      sub: 'Хорошая база есть. Пара небольших шагов — и поездка пройдёт отлично для всех.'
+    },
+    prepare: {
+      icon: '💙',
+      titleClass: 'blue',
+      title: 'Есть что подготовить — и это нормально',
+      sub: 'Мы поможем. Наш персонал работает именно для таких случаев — поддержать, помочь адаптироваться, позаботиться.'
+    }
+  };
+
+  const r = results[type];
+  document.getElementById('r-icon').textContent = r.icon;
+  const titleEl = document.getElementById('r-title');
+  titleEl.textContent = r.title;
+  titleEl.className = 'result-title ' + r.titleClass;
+  document.getElementById('r-sub').textContent = r.sub;
+
+  // Блоки с советами
+  const blocksContainer = document.getElementById('r-blocks');
+  blocksContainer.innerHTML = '';
+
+  if (type === 'ready') {
+    blocksContainer.appendChild(makeBlock('green-bg',
+      '✅ Что уже хорошо',
+      '<ul>' +
+      '<li>Ребёнок умеет заботиться о себе</li>' +
+      '<li>Готов общаться со взрослыми и просить помощь</li>' +
+      '<li>Позитивно настроен на поездку</li>' +
+      '</ul>'
+    ));
+    blocksContainer.appendChild(makeBlock('info-bg',
+      '📋 Возьмите с собой чеклист',
+      '<p>Чтобы ничего не забыть при сборах — <a href="ryukzak.html" style="color:#0693e3">откройте наш чеклист «Собери рюкзак»</a>.</p>'
+    ));
+  }
+
+  if (type === 'almost') {
+    blocksContainer.appendChild(makeBlock('orange-bg',
+      '📌 Что стоит потренировать до смены',
+      '<ul>' +
+      '<li>Пусть ребёнок пару раз сам соберёт вещи на день</li>' +
+      '<li>Поговорите о том, к кому обращаться если что-то нужно</li>' +
+      '<li>Если не ночевал без вас — устройте пробную ночёвку у бабушки</li>' +
+      '</ul>'
+    ));
+    blocksContainer.appendChild(makeBlock('info-bg',
+      '💬 Как рассказать ребёнку о санатории',
+      '<p>Покажите фото санатория, расскажите про режим дня, море и других ребят. Чем конкретнее — тем меньше тревоги.</p>'
+    ));
+  }
+
+  if (type === 'prepare') {
+    blocksContainer.appendChild(makeBlock('blue-bg',
+      '🗓 С чего начать подготовку',
+      '<ul>' +
+      '<li>Вместе с ребёнком посмотрите фото санатория — пусть привыкает к месту</li>' +
+      '<li>Попрактикуйтесь в самостоятельной сборке вещей и гигиене</li>' +
+      '<li>Устройте «пробную ночёвку» у близких</li>' +
+      '<li>Поговорите: что делать если скучно, если заболел, если что-то нужно</li>' +
+      '</ul>'
+    ));
+    blocksContainer.appendChild(makeBlock('info-bg',
+      '👩‍⚕️ Наши вожатые и врачи — рядом',
+      '<p>В первые дни адаптация — это нормально. Вожатые специально помогают детям привыкнуть. Ни один ребёнок не остаётся без внимания.</p>'
+    ));
+  }
+
+  // Специальные флаги
+  if (flags.includes('call_needed')) {
+    blocksContainer.appendChild(makeBlock('warning-bg',
+      '⚠️ Важно: сообщите об особенностях здоровья',
+      '<p>Пожалуйста, позвоните нам до отъезда и расскажите о заболеваниях, аллергии или диете — это критично для безопасности ребёнка.<br>' +
+      '<strong>Приёмная: <a href="tel:+79787389618" style="color:#2c2c2c">+7 (978) 738-96-18</a></strong></p>'
+    ));
+  }
+
+  if (flags.includes('resistant')) {
+    blocksContainer.appendChild(makeBlock('warning-bg',
+      '💬 Если ребёнок против поездки',
+      '<ul>' +
+      '<li>Не давите — это усилит сопротивление</li>' +
+      '<li>Спросите, что именно пугает — часто это конкретный страх, который можно снять</li>' +
+      '<li>Покажите фото, расскажите про море и других детей</li>' +
+      '<li>Договоритесь: если через 3 дня совсем плохо — обсудим, что делать</li>' +
+      '</ul>'
+    ));
+  }
+
+  if (flags.includes('nervous')) {
+    blocksContainer.appendChild(makeBlock('info-bg',
+      '😌 Переживает — это нормально',
+      '<p>Небольшое волнение перед новым — признак думающего ребёнка. Обычно через 2–3 дня оно проходит. Наши вожатые знают, как помочь.</p>'
+    ));
+  }
+
+  // Кнопки действий
+  const actionsContainer = document.getElementById('r-actions');
+  actionsContainer.innerHTML = '';
+
+  const btnChecklist = document.createElement('a');
+  btnChecklist.href = 'ryukzak.html';
+  btnChecklist.className = 'btn-primary';
+  btnChecklist.textContent = '📋 Собрать рюкзак — чеклист';
+  actionsContainer.appendChild(btnChecklist);
+
+  if (navigator.share) {
+    const btnShare = document.createElement('button');
+    btnShare.className = 'btn-secondary';
+    btnShare.textContent = '📤 Поделиться результатом';
+    btnShare.onclick = shareResult;
+    actionsContainer.appendChild(btnShare);
+  }
+
+  const btnRetry = document.createElement('button');
+  btnRetry.className = 'btn-ghost';
+  btnRetry.textContent = '↩ Пройти снова';
+  btnRetry.onclick = startQuiz;
+  actionsContainer.appendChild(btnRetry);
+
+  // Сохранить в localStorage
+  try {
+    localStorage.setItem('yb-quiz-result', JSON.stringify({
+      type, totalScore, ageGroup, flags, date: new Date().toISOString()
+    }));
+  } catch(e) {}
+
+  show('screen-result');
+}
+
+function makeBlock(cls, title, html) {
+  const div = document.createElement('div');
+  div.className = 'result-block ' + cls;
+  div.innerHTML = `<h3>${title}</h3>${html}`;
+  return div;
+}
+
+function shareResult() {
+  const titles = {
+    ready: 'Ребёнок готов к смене в санатории! Прошли тест на сайте ЮБ.',
+    almost: 'Почти готовы к смене — прошли тест на сайте Южнобережного.',
+    prepare: 'Проходим тест «Готов ли ребёнок к смене» — полезная штука для родителей.'
+  };
+  try {
+    const saved = JSON.parse(localStorage.getItem('yb-quiz-result') || '{}');
+    navigator.share({
+      title: 'Готов ли ребёнок к смене? — Южнобережный',
+      text: titles[saved.type] || titles.ready,
+      url: window.location.href
+    });
+  } catch(e) {}
+}
+</script>
+
+</body>
+</html>
