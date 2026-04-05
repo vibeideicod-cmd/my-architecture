@@ -1,0 +1,42 @@
+#!/bin/bash
+# deploy-client.sh.example — ШАБЛОН для деплоя нового клиента
+#
+# Скопируй этот файл, переименуй в deploy-{код-клиента}.sh
+# и заполни переменные ниже.
+#
+# Пример: для клиента "Пиццерия Марио" → deploy-mario.sh
+#         субдомен → mario.ideidlyabiznesa1913.ru
+#
+# ПЕРЕД ЗАПУСКОМ: создай сайт в панели Beget
+# Хостинг → Сайты → Создать сайт → {КОД}.ideidlyabiznesa1913.ru
+
+set -e
+
+# ─── НАСТРОЙКИ КЛИЕНТА ────────────────────────────────────────────────
+CLIENT_CODE="yub"                          # Код клиента (латиница, без пробелов)
+LOCAL_PATH="clients/yuzhnoberezhniy/mvp"   # Путь к папке с HTML-файлами
+
+# Файлы для деплоя (перечисли через пробел)
+FILES="index.html"
+# ──────────────────────────────────────────────────────────────────────
+
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+else
+  echo "❌ Файл .env не найден."
+  exit 1
+fi
+
+: "${BEGET_USER:?❌ Укажи BEGET_USER в .env}"
+: "${BEGET_HOST:?❌ Укажи BEGET_HOST в .env}"
+
+SUBDOMAIN="${CLIENT_CODE}.ideidlyabiznesa1913.ru"
+REMOTE_PATH="/home/icepaeqw/${SUBDOMAIN}/public_html"
+
+echo "🚀 Деплой клиента [${CLIENT_CODE}] на ${SUBDOMAIN}..."
+
+for FILE in $FILES; do
+  scp "${LOCAL_PATH}/${FILE}" "${BEGET_USER}@${BEGET_HOST}:${REMOTE_PATH}/"
+done
+
+echo "✅ Готово! https://${SUBDOMAIN}"

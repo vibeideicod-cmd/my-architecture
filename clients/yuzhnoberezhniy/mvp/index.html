@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инструменты для родителей — Санаторий Южнобережный</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(160deg, #e8f4fd 0%, #f0f8ff 60%, #e0f0fb 100%);
+  min-height: 100vh;
+  padding: 40px 16px;
+  color: #2c2c2c;
+}
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+header h1 {
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+header p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 4px 20px rgba(6, 147, 227, 0.10);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 2px solid transparent;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(6, 147, 227, 0.16);
+  border-color: #0693e3;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.card-emoji {
+  font-size: 36px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 4px;
+}
+
+.card-tag {
+  display: inline-block;
+  background: #e8f4fd;
+  color: #0693e3;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 10px;
+}
+
+.card-text {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.card-btn {
+  display: inline-block;
+  background: #0693e3;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.card:hover .card-btn { background: #0578c1; }
+
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: #abb8c3;
+  line-height: 1.8;
+}
+footer a { color: #0693e3; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 480px) {
+  body { padding: 28px 12px; }
+  .card { padding: 22px 18px 18px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="logo">🌊</span>
+    <h1>Полезные инструменты<br>для родителей</h1>
+    <p>Санаторий «Южнобережный», г. Алупка — подготовьтесь к смене вместе с нами</p>
+  </header>
+
+  <div class="cards">
+
+    <a class="card" href="ryukzak.html">
+      <div class="card-top">
+        <span class="card-emoji">🎒</span>
+        <div>
+          <div class="card-title">Собери рюкзак</div>
+          <span class="card-tag">Чеклист сборов</span>
+        </div>
+      </div>
+      <p class="card-text">Интерактивный список всего что нужно взять на 21-дневную смену. Отдельно для мальчиков и девочек. Можно распечатать.</p>
+      <span class="card-btn">Открыть чеклист →</span>
+    </a>
+
+    <a class="card" href="quiz.html">
+      <div class="card-top">
+        <span class="card-emoji">✅</span>
+        <div>
+          <div class="card-title">Готов ли ребёнок к смене?</div>
+          <span class="card-tag">Тест для родителей</span>
+        </div>
+      </div>
+      <p class="card-text">8 вопросов — и вы поймёте, что уже хорошо, а что стоит подготовить до отъезда. Без «готов/не готов» — только конкретные советы.</p>
+      <span class="card-btn">Пройти тест →</span>
+    </a>
+
+    <a class="card" href="tour.html">
+      <div class="card-top">
+        <span class="card-emoji">🏖</span>
+        <div>
+          <div class="card-title">Знакомство с санаторием</div>
+          <span class="card-tag">Виртуальная экскурсия</span>
+        </div>
+      </div>
+      <p class="card-text">Территория, жильё, питание, лечение, досуг и ответы на самые частые вопросы родителей — всё в одном месте.</p>
+      <span class="card-btn">Смотреть экскурсию →</span>
+    </a>
+
+  </div>
+
+  <footer>
+    Санаторий «Южнобережный» · г. Алупка, Крым<br>
+    <a href="tel:+79787389618">+7 (978) 738-96-18</a> (приёмная, 24/7) ·
+    <a href="https://wa.me/79785500570">WhatsApp</a> ·
+    <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a><br>
+    «Безопасно, полезно и с улыбкой каждый день»
+  </footer>
+
+</div>
+</body>
+</html>
