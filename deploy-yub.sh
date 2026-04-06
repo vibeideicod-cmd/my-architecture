@@ -1,6 +1,6 @@
 #!/bin/bash
 # deploy-yub.sh — деплой MVP Южнобережного
-# URL после деплоя: https://ideidlyabiznesa1913.ru/demo/yub/
+# URL после деплоя: https://demo.ideidlyabiznesa1913.ru/yub/
 #
 # Запуск: ./deploy-yub.sh
 
@@ -13,31 +13,28 @@ else
   exit 1
 fi
 
-: "${BEGET_USER:?❌ Укажи BEGET_USER в .env}"
 : "${BEGET_HOST:?❌ Укажи BEGET_HOST в .env}"
 
-DEMO_PATH="~/demo"
+DEMO_USER="icepaeqw_demo"
 CLIENT_FOLDER="yub"
 LOCAL_PATH="clients/yuzhnoberezhniy/mvp"
 
-echo "🚀 Деплой Южнобережного → ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/"
+echo "🚀 Деплой Южнобережного → demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
 echo ""
 
-# Создать папку demo/yub на сервере если её нет
-ssh "${BEGET_USER}@${BEGET_HOST}" "mkdir -p ${DEMO_PATH}/${CLIENT_FOLDER}"
+ssh "${DEMO_USER}@${BEGET_HOST}" "mkdir -p ~/${CLIENT_FOLDER}"
 
-# Скопировать файлы
 scp \
   "${LOCAL_PATH}/index.html" \
   "${LOCAL_PATH}/ryukzak.html" \
   "${LOCAL_PATH}/quiz.html" \
   "${LOCAL_PATH}/tour.html" \
-  "${BEGET_USER}@${BEGET_HOST}:${DEMO_PATH}/${CLIENT_FOLDER}/"
+  "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
 
 echo ""
 echo "✅ Готово!"
 echo ""
-echo "   🏠 Каталог:   https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/"
-echo "   🎒 Чеклист:   https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/ryukzak.html"
-echo "   ✅ Квиз:       https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/quiz.html"
-echo "   🏖  Экскурсия: https://ideidlyabiznesa1913.ru/demo/${CLIENT_FOLDER}/tour.html"
+echo "   🏠 Каталог:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
+echo "   🎒 Чеклист:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/ryukzak.html"
+echo "   ✅ Квиз:       https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/quiz.html"
+echo "   🏖  Экскурсия: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/tour.html"
