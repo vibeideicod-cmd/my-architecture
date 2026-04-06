@@ -58,6 +58,7 @@
 - `/knowledge/clients/` — если задача связана с клиентом
 - `/knowledge/standards/` — если задача связана с дизайном или вёрсткой
 - `/knowledge/tools/` — если задача связана с выбором технологии
+- `/knowledge/prompting/craft-formula.md` — при постановке задач агентам применяй структуру CRAFT
 
 ## Твой тон
 
