@@ -124,7 +124,7 @@
 
     /* ── HERO ────────────────────────────────────────────── */
     .hero {
-      background: url('hero.png') center center / cover no-repeat;
+      background: url('hero.png') center 25% / cover no-repeat;
       color: white;
       text-align: center;
       padding: clamp(30px,7vw,58px) 20px clamp(44px,7vw,64px);
@@ -203,7 +203,8 @@
       color: var(--blue);
       box-shadow: 0 3px 12px rgba(0,0,0,0.18);
     }
-    .gender-btn:not(.active):hover { color: white; background: rgba(255,255,255,0.12); }
+    .gender-btn:not(.active) { border: 2px solid rgba(255,255,255,0.85); }
+    .gender-btn:not(.active):hover { color: white; background: rgba(255,255,255,0.18); }
 
     /* ── СТРОКА ЗАБОТЫ ───────────────────────────────────── */
     .reassurance {
