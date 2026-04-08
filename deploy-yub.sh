@@ -29,6 +29,8 @@ scp \
   "${LOCAL_PATH}/ryukzak.html" \
   "${LOCAL_PATH}/quiz.html" \
   "${LOCAL_PATH}/tour.html" \
+  "${LOCAL_PATH}/logo.png" \
+  "${LOCAL_PATH}/hero.png" \
   "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
 
 echo ""

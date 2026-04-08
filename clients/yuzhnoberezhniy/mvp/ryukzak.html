@@ -124,7 +124,7 @@
 
     /* ── HERO ────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(135deg, #0693e3 0%, #0577c4 100%);
+      background: url('hero.png') center center / cover no-repeat;
       color: white;
       text-align: center;
       padding: clamp(30px,7vw,58px) 20px clamp(44px,7vw,64px);
@@ -135,8 +135,11 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%),
-                  radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 60%);
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.32) 100%
+      );
     }
     .hero::after {
       content: '';
@@ -733,28 +736,7 @@
 <!-- ═══ ШАПКА ════════════════════════════════════════════ -->
 <div class="header">
   <div class="logo-wrap">
-    <svg class="logo-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="30" cy="30" r="28" fill="#e8f4fd" stroke="#0693e3" stroke-width="2.5"/>
-      <!-- Горы -->
-      <polygon points="6,50 20,26 34,50" fill="#43a047" opacity="0.9"/>
-      <polygon points="18,50 34,20 50,50" fill="#2e7d32"/>
-      <!-- Снег -->
-      <polygon points="34,20 30,29 38,29" fill="white" opacity="0.95"/>
-      <!-- Солнце -->
-      <circle cx="47" cy="14" r="6" fill="#ffc107"/>
-      <line x1="47" y1="5"  x2="47" y2="8"  stroke="#ffc107" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="47" y1="20" x2="47" y2="23" stroke="#ffc107" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="38" y1="14" x2="41" y2="14" stroke="#ffc107" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="53" y1="14" x2="56" y2="14" stroke="#ffc107" stroke-width="1.5" stroke-linecap="round"/>
-      <!-- Взрослый -->
-      <circle cx="18" cy="39" r="3.5" fill="#0693e3"/>
-      <path d="M14.5,43 Q18,42.5 21.5,43 L21,49 Q18,48.5 15,49 Z" fill="#0693e3"/>
-      <!-- Ребёнок -->
-      <circle cx="26" cy="41" r="2.8" fill="#29b6f6"/>
-      <path d="M23.2,44.5 Q26,44 28.8,44.5 L28.3,49.5 Q26,49 23.7,49.5 Z" fill="#29b6f6"/>
-      <!-- Волны внизу -->
-      <path d="M4,52 Q12,50 20,52 Q28,54 36,52 Q44,50 52,52 Q56,53 58,54 L58,58 L4,58 Z" fill="#b3e5fc" opacity="0.7"/>
-    </svg>
+    <img src="logo.png" alt="Логотип Южнобережный" class="logo-svg" style="object-fit:contain;">
     <div class="logo-text">
       <span class="sub">Санаторий для детей и детей с родителями</span>
       <span class="name">ЮЖНОБЕРЕЖНЫЙ</span>
@@ -769,7 +751,6 @@
 
 <!-- ═══ HERO ═══════════════════════════════════════════════ -->
 <div class="hero">
-  <div class="hero-badge">🏕 Лагерь «Республика ДОРИ»</div>
   <h1>Собираем рюкзак<br>на смену!</h1>
   <p>Отмечайте вместе с ребёнком — всё, что уже готово.<br>Список сохранится в браузере.</p>
   <div class="gender-wrap">
