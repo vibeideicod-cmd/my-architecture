@@ -26,3 +26,4 @@
 - [tech-stack.md](tools/tech-stack.md) — что используем и когда
 - [workflow.md](tools/workflow.md) — как устроен рабочий процесс
 - [ai-tools.md](tools/ai-tools.md) — AI-инструменты по категориям: текст, картинки, видео, аналитика, автоматизация
+- [skills-catalog.md](tools/skills-catalog.md) — каталог скиллов: /brief, /discovery, /deploy, /seo + внешние
