@@ -124,7 +124,7 @@
 
     /* ── HERO ────────────────────────────────────────────── */
     .hero {
-      background: url('hero.png') center 25% / cover no-repeat;
+      background: url('hero.png') center 35% / cover no-repeat;
       color: white;
       text-align: center;
       padding: clamp(30px,7vw,58px) 20px clamp(44px,7vw,64px);
@@ -415,6 +415,23 @@
       cursor: pointer;
       user-select: none;
       transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── ДЕКОРАТИВНЫЕ ФОНЫ РАЗДЕЛОВ ─────────────────────── */
+    .cat-deco {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      opacity: 0.11;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+      letter-spacing: 6px;
+      line-height: 1;
     }
     .category.cat-done .category-header {
       background: linear-gradient(135deg, #e8f6f0 0%, #d4f0e4 100%);
@@ -698,6 +715,25 @@
       .header-contact { text-align: left; }
       .logo-svg { width: 44px; height: 44px; }
       .logo-text .name { font-size: 16px; }
+      .cat-deco { right: 48px; font-size: 24px; opacity: 0.09; }
+    }
+    @media (max-width: 360px) {
+      .logo-text .name { font-size: 14px; }
+      .logo-text .sub { font-size: 9px; }
+      .gender-btn { padding: 8px 14px; font-size: 13px; }
+      .action-btn { font-size: 11px; padding: 7px 12px; }
+      .provides-tag { font-size: 11px; padding: 3px 9px; }
+      .item { padding: 9px 10px; }
+      .cat-deco { display: none; }
+    }
+    @media (min-width: 1024px) {
+      .hero { padding: 72px 20px 84px; }
+      .container { padding: 28px 24px 70px; }
+      .category-header { padding: 17px 22px; }
+      .items-list { padding: 10px 16px; }
+    }
+    @media (min-width: 1440px) {
+      .hero h1 { font-size: 3rem; }
     }
 
     /* ── ПЕЧАТЬ ──────────────────────────────────────────── */
@@ -800,8 +836,6 @@
       <span class="provides-tag">🛏 Постельное бельё</span>
       <span class="provides-tag">🍽 Питание 5 раз в день</span>
       <span class="provides-tag">👩‍⚕️ Медперсонал 24/7</span>
-      <span class="provides-tag">🏊 Бассейн</span>
-      <span class="provides-tag">🔒 Сейф в номере</span>
       <span class="provides-tag">⚽ Спортинвентарь</span>
       <span class="provides-tag">💧 Вода из кулеров</span>
     </div>
@@ -824,6 +858,7 @@
       </div>
       <div class="cat-count" id="cnt-docs">0 / 9</div>
       <div class="cat-arrow">▼</div>
+      <span class="cat-deco">📄📁📝📋</span>
     </div>
     <div class="items-list">
 
@@ -908,6 +943,7 @@
       </div>
       <div class="cat-count" id="cnt-clothes">0 / 10</div>
       <div class="cat-arrow">▼</div>
+      <span class="cat-deco">👕👗🩳🧥</span>
     </div>
     <div class="items-list">
 
@@ -994,6 +1030,7 @@
       </div>
       <div class="cat-count" id="cnt-shoes">0 / 4</div>
       <div class="cat-arrow">▼</div>
+      <span class="cat-deco">👟🩴🥿👠</span>
     </div>
     <div class="items-list">
 
@@ -1034,6 +1071,7 @@
       </div>
       <div class="cat-count" id="cnt-hygiene">0 / 5</div>
       <div class="cat-arrow">▼</div>
+      <span class="cat-deco">🪥🧴🧼🚿</span>
     </div>
     <div class="items-list">
 
@@ -1087,6 +1125,7 @@
       </div>
       <div class="cat-count" id="cnt-backpack">0 / 5</div>
       <div class="cat-arrow">▼</div>
+      <span class="cat-deco">📱💰📚✏️</span>
     </div>
     <div class="items-list">
 
@@ -1135,6 +1174,7 @@
       </div>
       <div class="cat-count" id="cnt-extras">0 / 3</div>
       <div class="cat-arrow">▼</div>
+      <span class="cat-deco">🕶️☂️🧢🌞</span>
     </div>
     <div class="items-list">
 
