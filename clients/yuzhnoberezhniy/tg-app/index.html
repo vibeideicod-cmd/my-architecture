@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <!-- user-scalable=no — стандарт для Mini App, убирает зум при двойном тапе -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Собери рюкзак — Республика ДОРИ · Южнобережный</title>
+
+  <!-- Telegram Mini App SDK — ОБЯЗАТЕЛЬНО для работы внутри Telegram -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Google Fonts: Montserrat (разрешено стандартами проекта) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════════════════════════════
+       CSS ПЕРЕМЕННЫЕ — СВЕТЛАЯ И ТЁМНАЯ ТЕМЫ
+    ══════════════════════════════════════════════════════ */
+    :root {
+      /* Бренд-цвета «Южнобережного» */
+      --c-green:  #179543;   /* здоровье */
+      --c-yellow: #e8960a;   /* радость (затемнён для читаемости) */
+      --c-teal:   #33a5ad;   /* море */
+      --c-navy:   #3e3e86;   /* доверие */
+      --c-red:    #e74c3c;   /* запрет/предупреждение */
+      --c-blue:   #0693e3;   /* ссылки */
+
+      /* UI — светлая тема */
+      --bg:         #f0f3f7;
+      --card:       #ffffff;
+      --text:       #1a1a2e;
+      --text-2:     #64748b;
+      --text-muted: #94a3b8;
+      --border:     rgba(0,0,0,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.04);
+
+      /* Базовые размеры */
+      --r:    18px;   /* border-radius карточки */
+      --r-sm: 12px;
+      --r-xs: 8px;
+      --sp:   16px;   /* базовый горизонтальный отступ */
+    }
+
+    /* Тёмная тема (Telegram colorScheme = dark или prefers-color-scheme) */
+    [data-theme="dark"] {
+      --bg:         #181826;
+      --card:       #242438;
+      --text:       #f0f0ff;
+      --text-2:     #8888aa;
+      --text-muted: #555577;
+      --border:     rgba(255,255,255,0.07);
+      --shadow:     0 2px 12px rgba(0,0,0,0.4);
+    }
+    /* Секции — яркость фона увеличена для тёмной темы */
+    [data-theme="dark"] .sec-docs     { --sec-bg: rgba(62,62,134,0.22); }
+    [data-theme="dark"] .sec-clothes  { --sec-bg: rgba(23,149,67,0.22); }
+    [data-theme="dark"] .sec-shoes    { --sec-bg: rgba(51,165,173,0.22); }
+    [data-theme="dark"] .sec-hygiene  { --sec-bg: rgba(232,150,10,0.22); }
+    [data-theme="dark"] .sec-backpack { --sec-bg: rgba(62,62,134,0.22); }
+    [data-theme="dark"] .sec-extras   { --sec-bg: rgba(51,165,173,0.22); }
+
+    /* ══════════════════════════════════════════════════════
+       СБРОС И БАЗОВЫЕ СТИЛИ
+    ══════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-size: 15px;
+      line-height: 1.5;
+      /* Отступ снизу — место под MainButton Telegram (~80px) */
+      padding-bottom: 90px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ШАПКА ПРИЛОЖЕНИЯ
+    ══════════════════════════════════════════════════════ */
+    .app-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 11px var(--sp);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    /* Эмодзи-иконка вместо logo.png (работает без деплоя картинки) */
+    .app-logo-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--c-navy), var(--c-teal));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .app-header-info { flex: 1; min-width: 0; }
+    .app-header-name {
+      font-size: 14px; font-weight: 800;
+      color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .app-header-sub { font-size: 11px; color: var(--text-2); font-weight: 500; }
+    .header-call-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 13px;
+      background: rgba(6,147,227,0.1);
+      border: 1px solid rgba(6,147,227,0.25);
+      border-radius: 50px;
+      color: var(--c-blue);
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 180ms ease;
+    }
+    .header-call-btn:active { background: rgba(6,147,227,0.2); transform: scale(0.96); }
+
+    /* ══════════════════════════════════════════════════════
+       ОБЩИЙ ПРОГРЕСС (прилипает под шапкой)
+    ══════════════════════════════════════════════════════ */
+    .overall-progress {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 10px var(--sp);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 65px;  /* высота шапки */
+      z-index: 99;
+    }
+    .prog-emoji {
+      font-size: 26px; flex-shrink: 0;
+      transition: transform 300ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .prog-emoji.jump { animation: emojiJump 350ms ease; }
+    .prog-info { flex: 1; min-width: 0; }
+    .prog-label {
+      font-size: 12px; font-weight: 600;
+      color: var(--text-2); margin-bottom: 5px;
+    }
+    .prog-bar-bg {
+      height: 8px; border-radius: 6px;
+      background: var(--border);
+      overflow: hidden;
+    }
+    .prog-bar-fill {
+      height: 100%; border-radius: 6px;
+      background: linear-gradient(90deg, var(--c-navy), var(--c-teal));
+      transition: width 400ms cubic-bezier(0.34,1.56,0.64,1);
+      width: 0%;
+      position: relative; overflow: hidden;
+    }
+    .prog-bar-fill.shimmer::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+      animation: shimmer 1.4s ease-in-out infinite;
+    }
+    .prog-pct {
+      font-size: 15px; font-weight: 800;
+      color: var(--c-navy); flex-shrink: 0;
+    }
+    [data-theme="dark"] .prog-pct { color: var(--c-teal); }
+
+    /* ══════════════════════════════════════════════════════
+       ОСНОВНОЙ КОНТЕНТ
+    ══════════════════════════════════════════════════════ */
+    .content { padding: 14px var(--sp) 20px; }
+
+    /* ══════════════════════════════════════════════════════
+       ПЕРЕКЛЮЧАТЕЛЬ ПОЛ (МАЛЬЧИК / ДЕВОЧКА)
+    ══════════════════════════════════════════════════════ */
+    .gender-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .gender-btn {
+      height: 54px;
+      border-radius: var(--r-sm);
+      border: 2px solid var(--border);
+      background: var(--card);
+      color: var(--text-2);
+      font-family: inherit; font-size: 16px; font-weight: 700;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      transition: all 220ms cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: var(--shadow);
+    }
+    .gender-btn.active {
+      background: var(--c-navy);
+      border-color: var(--c-navy);
+      color: #ffffff;
+      box-shadow: 0 5px 18px rgba(62,62,134,0.35);
+      transform: translateY(-2px);
+    }
+    .gender-btn:active { transform: scale(0.97) translateY(0); }
+
+    /* ══════════════════════════════════════════════════════
+       ПОЛОСКА ЗАБОТЫ
+    ══════════════════════════════════════════════════════ */
+    .reassurance {
+      background: linear-gradient(135deg, rgba(23,149,67,0.08), rgba(51,165,173,0.08));
+      border: 1px solid rgba(23,149,67,0.22);
+      border-radius: var(--r-sm);
+      padding: 11px 14px;
+      font-size: 13px; font-weight: 500;
+      color: #1a6b3a; line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    [data-theme="dark"] .reassurance {
+      background: rgba(23,149,67,0.1);
+      border-color: rgba(23,149,67,0.28);
+      color: #5fca88;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ГОТОВО-БАННЕР
+    ══════════════════════════════════════════════════════ */
+    .done-banner {
+      display: none;
+      background: linear-gradient(135deg, rgba(23,149,67,0.08), rgba(51,165,173,0.08));
+      border: 2px solid var(--c-green);
+      border-radius: var(--r);
+      padding: 28px 20px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .done-banner.show {
+      display: block;
+      animation: popIn 400ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .done-emoji {
+      font-size: 58px; display: block;
+      margin-bottom: 10px;
+      animation: floatEmoji 2.5s ease-in-out infinite;
+    }
+    .done-banner h2 {
+      font-size: 22px; font-weight: 800;
+      color: var(--c-green); margin-bottom: 8px;
+    }
+    .done-banner p {
+      font-size: 14px; color: var(--text-2);
+      line-height: 1.6; max-width: 320px;
+      margin: 0 auto 18px;
+    }
+    .done-print-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      height: 50px; padding: 0 28px;
+      background: var(--c-green); color: #fff;
+      border: none; border-radius: 50px;
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer;
+      transition: opacity 200ms ease, transform 150ms ease;
+    }
+    .done-print-btn:active { opacity: 0.85; transform: scale(0.97); }
+
+    /* ══════════════════════════════════════════════════════
+       БАЗОВЫЕ КАРТОЧКИ
+    ══════════════════════════════════════════════════════ */
+    .card {
+      background: var(--card);
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: var(--sp);
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       БЛОК «САНАТОРИЙ ОБЕСПЕЧИВАЕТ»
+    ══════════════════════════════════════════════════════ */
+    .provides-scroll {
+      display: flex; gap: 7px;
+      overflow-x: auto; padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .provides-scroll::-webkit-scrollbar { display: none; }
+    .provides-chip {
+      background: rgba(51,165,173,0.1);
+      border: 1px solid rgba(51,165,173,0.25);
+      border-radius: 50px;
+      padding: 7px 14px;
+      font-size: 12px; font-weight: 600;
+      color: var(--c-teal);
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       КНОПКИ ДЕЙСТВИЙ
+    ══════════════════════════════════════════════════════ */
+    .actions {
+      display: flex; gap: 7px;
+      margin-bottom: 14px;
+    }
+    .action-btn {
+      flex: 1;
+      height: 44px;
+      border-radius: 50px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--text-2);
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      box-shadow: var(--shadow);
+      transition: all 180ms ease;
+    }
+    .action-btn:active { transform: scale(0.96); background: var(--bg); }
+
+    /* ══════════════════════════════════════════════════════
+       СЕКЦИИ-АККОРДИОНЫ
+    ══════════════════════════════════════════════════════ */
+    .sections { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+
+    .sec-card {
+      background: var(--card);
+      border-radius: var(--r);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: border-color 300ms ease;
+    }
+    /* Анимация появления секций */
+    .sec-card { animation: slideUp 350ms ease both; }
+    .sec-card:nth-child(1) { animation-delay: 30ms; }
+    .sec-card:nth-child(2) { animation-delay: 70ms; }
+    .sec-card:nth-child(3) { animation-delay: 110ms; }
+    .sec-card:nth-child(4) { animation-delay: 150ms; }
+    .sec-card:nth-child(5) { animation-delay: 190ms; }
+    .sec-card:nth-child(6) { animation-delay: 230ms; }
+
+    .sec-card.done { border-color: var(--sec-color); }
+
+    /* CSS-переменные цвета и фона для каждой секции */
+    .sec-docs     { --sec-color: #3e3e86; --sec-bg: rgba(62,62,134,0.07); }
+    .sec-clothes  { --sec-color: #179543; --sec-bg: rgba(23,149,67,0.07); }
+    .sec-shoes    { --sec-color: #33a5ad; --sec-bg: rgba(51,165,173,0.07); }
+    .sec-hygiene  { --sec-color: #e8960a; --sec-bg: rgba(232,150,10,0.07); }
+    .sec-backpack { --sec-color: #3e3e86; --sec-bg: rgba(62,62,134,0.07); }
+    .sec-extras   { --sec-color: #33a5ad; --sec-bg: rgba(51,165,173,0.07); }
+
+    /* Заголовок секции */
+    .sec-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px var(--sp);
+      cursor: pointer; user-select: none;
+      transition: background 180ms ease;
+    }
+    .sec-header:active { background: var(--bg); }
+
+    .sec-icon {
+      width: 46px; height: 46px;
+      border-radius: var(--r-xs);
+      background: var(--sec-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 23px; flex-shrink: 0;
+      transition: transform 200ms ease;
+    }
+    .sec-header:active .sec-icon { transform: scale(0.9); }
+
+    .sec-meta { flex: 1; min-width: 0; }
+    .sec-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .sec-card.done .sec-title { color: var(--sec-color); }
+    .sec-badge-done {
+      display: none;
+      font-size: 11px; font-weight: 700;
+      color: var(--sec-color);
+    }
+    .sec-card.done .sec-badge-done { display: block; }
+
+    /* Мини прогресс-бар в заголовке секции */
+    .sec-bar-bg {
+      height: 4px; border-radius: 3px;
+      background: var(--border);
+      overflow: hidden; margin-top: 4px;
+    }
+    .sec-bar-fill {
+      height: 100%; border-radius: 3px;
+      background: var(--sec-color);
+      transition: width 350ms cubic-bezier(0.34,1.56,0.64,1);
+      width: 0%; opacity: 0.7;
+    }
+    .sec-card.done .sec-bar-fill { opacity: 1; }
+
+    .sec-count {
+      font-size: 12px; font-weight: 800;
+      color: var(--sec-color);
+      background: var(--sec-bg);
+      padding: 5px 11px; border-radius: 20px;
+      flex-shrink: 0; min-width: 50px; text-align: center;
+    }
+    .sec-chevron {
+      font-size: 14px; color: var(--text-muted);
+      transition: transform 250ms ease;
+      flex-shrink: 0;
+    }
+    .sec-card.collapsed .sec-chevron { transform: rotate(-90deg); }
+
+    /* Тело секции (список пунктов) */
+    .sec-body {
+      background: var(--sec-bg);
+      border-top: 1px solid var(--border);
+      padding: 8px 10px 10px;
+    }
+    .sec-card.collapsed .sec-body { display: none; }
+
+    /* ══════════════════════════════════════════════════════
+       ПУНКТЫ ЧЕКЛИСТА
+    ══════════════════════════════════════════════════════ */
+    .item {
+      display: flex; align-items: flex-start;
+      gap: 10px;
+      padding: 12px 12px;
+      padding-right: 54px;  /* место для иллюстрации */
+      border-radius: var(--r-sm);
+      border: 1.5px solid transparent;
+      cursor: pointer; user-select: none;
+      background: var(--card);
+      position: relative; overflow: hidden;
+      margin-bottom: 5px;
+      transition: all 180ms ease;
+    }
+    .item:last-child { margin-bottom: 0; }
+    .item:active { transform: scale(0.98); }
+    .item.checked {
+      background: rgba(23,149,67,0.07);
+      border-color: rgba(23,149,67,0.22);
+    }
+    /* Цвет checked-состояния соответствует секции (через CSS vars) */
+    .sec-docs     .item.checked { background: rgba(62,62,134,0.07); border-color: rgba(62,62,134,0.22); }
+    .sec-shoes    .item.checked { background: rgba(51,165,173,0.07); border-color: rgba(51,165,173,0.22); }
+    .sec-hygiene  .item.checked { background: rgba(232,150,10,0.07); border-color: rgba(232,150,10,0.22); }
+    .sec-backpack .item.checked { background: rgba(62,62,134,0.07); border-color: rgba(62,62,134,0.22); }
+    .sec-extras   .item.checked { background: rgba(51,165,173,0.07); border-color: rgba(51,165,173,0.22); }
+
+    /* Пункты только для девочек */
+    .item.girl-only { display: none; }
+    body.girl .item.girl-only { display: flex; animation: fadeIn 250ms ease; }
+
+    /* ── ЧЕКБОКС ── */
+    .checkbox {
+      width: 26px; height: 26px; min-width: 26px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card);
+      transition: all 220ms cubic-bezier(0.34,1.56,0.64,1);
+      margin-top: 1px;
+    }
+    .item.checked .checkbox {
+      background: var(--sec-color);
+      border-color: var(--sec-color);
+      transform: scale(1.05);
+    }
+    .item.popping .checkbox { animation: cbPop 360ms cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* SVG-галочка внутри чекбокса */
+    .check-svg {
+      width: 14px; height: 14px;
+      stroke: #fff; stroke-width: 2.8;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+      opacity: 0; transform: scale(0.3);
+      transition: all 220ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .item.checked .check-svg { opacity: 1; transform: scale(1); }
+
+    /* ── ТЕКСТ ПУНКТА ── */
+    .item-body { flex: 1; min-width: 0; }
+    .item-label {
+      font-size: 14px; font-weight: 500;
+      color: var(--text); line-height: 1.4;
+    }
+    .item.checked .item-label { color: var(--text-muted); text-decoration: line-through; }
+    .item-note { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+    .item.checked .item-note { color: var(--text-muted); }
+
+    /* ── ПОДСКАЗКА ── */
+    .tip-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: 12px; font-weight: 600;
+      color: var(--c-blue); padding: 0;
+      margin-top: 4px; display: inline-block;
+    }
+    .tip-box {
+      display: none;
+      font-size: 12px; color: var(--text-2); line-height: 1.55;
+      background: var(--bg);
+      border-left: 3px solid var(--sec-color);
+      border-radius: 0 6px 6px 0;
+      padding: 8px 10px; margin-top: 6px;
+    }
+    .tip-box.open { display: block; animation: fadeIn 200ms ease; }
+
+    /* ── ПРЕДУПРЕЖДЕНИЕ (бутылка воды) ── */
+    .item-warn {
+      background: rgba(232,150,10,0.1);
+      border: 1px solid rgba(232,150,10,0.3);
+      border-radius: var(--r-xs);
+      padding: 8px 11px; margin-top: 6px;
+      font-size: 12px; color: #7a4e00; line-height: 1.5;
+    }
+    [data-theme="dark"] .item-warn { color: #f0c060; }
+    .item-warn-head {
+      font-weight: 800;
+      display: flex; align-items: center; gap: 4px;
+      margin-bottom: 3px;
+    }
+
+    /* ── ИЛЛЮСТРАЦИЯ ПУНКТА (data-art) ── */
+    .item[data-art]::after {
+      content: attr(data-art);
+      position: absolute;
+      right: 10px; top: 50%;
+      transform: translateY(-50%) rotate(-8deg);
+      font-size: 30px; opacity: 0.35;
+      pointer-events: none; line-height: 1;
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+    .item:active[data-art]::after  { opacity: 0.55; transform: translateY(-50%) rotate(-3deg) scale(1.1); }
+    .item.checked[data-art]::after { opacity: 0.12; transform: translateY(-50%) rotate(5deg) scale(0.85); }
+
+    /* ══════════════════════════════════════════════════════
+       БЛОК «НЕЛЬЗЯ БРАТЬ»
+    ══════════════════════════════════════════════════════ */
+    .prohibited-card {
+      background: rgba(231,76,60,0.05);
+      border-color: rgba(231,76,60,0.2);
+    }
+    .prohibited-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--c-red);
+      display: flex; align-items: center; gap: 7px;
+      margin-bottom: 10px;
+    }
+    .prohibited-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .prohibited-chip {
+      background: rgba(231,76,60,0.08);
+      border: 1px solid rgba(231,76,60,0.2);
+      border-radius: 50px;
+      padding: 5px 12px;
+      font-size: 12px; font-weight: 600;
+      color: var(--c-red);
+    }
+    .prohibited-note {
+      font-size: 12px; color: var(--text-2);
+      margin-top: 10px; line-height: 1.55;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       БЛОК «ЕСЛИ ЗАБЫЛИ»
+    ══════════════════════════════════════════════════════ */
+    .forgot-card {
+      background: rgba(232,150,10,0.05);
+      border-color: rgba(232,150,10,0.2);
+    }
+    .forgot-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--c-yellow); margin-bottom: 8px;
+    }
+    .forgot-card p { font-size: 13px; color: var(--text-2); line-height: 1.75; }
+    .forgot-card a { color: var(--c-blue); font-weight: 700; text-decoration: none; }
+    /* FAQ-строка о типовых вопросах родителей (из brief.md) */
+    .faq-hint {
+      margin-top: 10px;
+      background: rgba(6,147,227,0.07);
+      border: 1px solid rgba(6,147,227,0.2);
+      border-radius: var(--r-xs);
+      padding: 9px 12px;
+      font-size: 12px; color: var(--c-blue); line-height: 1.55;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ТОСТ-УВЕДОМЛЕНИЕ
+    ══════════════════════════════════════════════════════ */
+    .toast {
+      position: fixed;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(90px);
+      background: var(--c-green); color: #fff;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 14px; font-weight: 700;
+      box-shadow: 0 6px 24px rgba(23,149,67,0.4);
+      z-index: 1000; white-space: nowrap;
+      pointer-events: none;
+      transition: transform 350ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ══════════════════════════════════════════════════════
+       ЧАСТИЦЫ (при отметке)
+    ══════════════════════════════════════════════════════ */
+    .particle {
+      position: absolute; pointer-events: none;
+      font-size: 14px; z-index: 10;
+      left: 18px; top: 14px;
+      animation: particleFly 600ms ease-out forwards;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CANVAS КОНФЕТТИ
+    ══════════════════════════════════════════════════════ */
+    #confetti-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 9999;
+      display: none;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       АНИМАЦИИ
+    ══════════════════════════════════════════════════════ */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.78); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes cbPop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.5) rotate(12deg); }
+      65%  { transform: scale(0.9); }
+      100% { transform: scale(1.05); }
+    }
+    @keyframes particleFly {
+      0%   { opacity: 1; transform: translate(0,0) scale(1.2); }
+      100% { opacity: 0; transform: var(--fly) scale(0.4); }
+    }
+    @keyframes shimmer { to { left: 200%; } }
+    @keyframes emojiJump {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.4) translateY(-5px); }
+      100% { transform: scale(1); }
+    }
+    @keyframes floatEmoji {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-9px); }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       ПЕЧАТЬ (минималистичная)
+    ══════════════════════════════════════════════════════ */
+    @media print {
+      .app-header, .overall-progress, .actions,
+      .done-banner, .toast, #confetti-canvas,
+      .tip-btn, .tip-box, .header-call-btn { display: none !important; }
+      body { background: white; color: black; }
+      .sec-card { box-shadow: none; border: 1px solid #ccc; animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CANVAS для конфетти при 100% -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ТОСТ-УВЕДОМЛЕНИЕ -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════
+     ШАПКА ПРИЛОЖЕНИЯ
+═══════════════════════════════════════════════ -->
+<header class="app-header">
+  <div class="app-logo-icon">🏥</div>
+  <div class="app-header-info">
+    <div class="app-header-name">Южнобережный</div>
+    <div class="app-header-sub">Лагерь «Республика ДОРИ»</div>
+  </div>
+  <a href="tel:+79787389618" class="header-call-btn">📞 Звонить</a>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     ОБЩИЙ ПРОГРЕСС (sticky)
+═══════════════════════════════════════════════ -->
+<div class="overall-progress">
+  <div class="prog-emoji" id="progEmoji">😴</div>
+  <div class="prog-info">
+    <div class="prog-label" id="progLabel">Начните отмечать вещи</div>
+    <div class="prog-bar-bg">
+      <div class="prog-bar-fill" id="progBar"></div>
+    </div>
+  </div>
+  <div class="prog-pct" id="progPct">0%</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ОСНОВНОЙ КОНТЕНТ
+═══════════════════════════════════════════════ -->
+<div class="content">
+
+  <!-- ПЕРЕКЛЮЧАТЕЛЬ МАЛЬЧИК / ДЕВОЧКА -->
+  <div class="gender-block">
+    <button class="gender-btn active" onclick="setGender('boy', this)">👦 Мальчик</button>
+    <button class="gender-btn"        onclick="setGender('girl', this)">👧 Девочка</button>
+  </div>
+
+  <!-- ПОЛОСКА ЗАБОТЫ -->
+  <div class="reassurance">
+    💚 <strong>Если что-то забудете — не страшно.</strong>
+    Медперсонал и вожатые всегда помогут. Главное — документы!
+  </div>
+
+  <!-- ФИНАЛЬНЫЙ БАННЕР (появляется при 100%) -->
+  <div class="done-banner" id="doneBanner">
+    <span class="done-emoji">🏖️</span>
+    <h2>Всё собрано!</h2>
+    <p>Ваш ребёнок готов к смене. Ждём в лагере «Республика ДОРИ» —<br>безопасно, полезно и с улыбкой каждый день!</p>
+    <button class="done-print-btn" onclick="window.print()">🖨 Распечатать список</button>
+  </div>
+
+  <!-- САНАТОРИЙ ОБЕСПЕЧИВАЕТ -->
+  <div class="card">
+    <div class="card-title">🏥 Санаторий обеспечивает — везти не нужно</div>
+    <div class="provides-scroll">
+      <div class="provides-chip">🛏 Постельное бельё</div>
+      <div class="provides-chip">🍽 Питание 5 раз в день</div>
+      <div class="provides-chip">👩‍⚕️ Медперсонал 24/7</div>
+      <div class="provides-chip">⚽ Спортинвентарь</div>
+      <div class="provides-chip">💧 Вода из кулеров</div>
+    </div>
+  </div>
+
+  <!-- КНОПКИ ДЕЙСТВИЙ -->
+  <div class="actions">
+    <button class="action-btn" onclick="shareList()">📤 Поделиться</button>
+    <button class="action-btn" onclick="resetAll()">↺ Сначала</button>
+  </div>
+
+  <!-- ═══════════════════ СЕКЦИИ ═══════════════════ -->
+  <div class="sections">
+
+    <!-- 📋 ДОКУМЕНТЫ -->
+    <div class="sec-card sec-docs" data-section="docs">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">📋</div>
+        <div class="sec-meta">
+          <div class="sec-title">Документы <span style="color:var(--c-red);font-size:11px;font-weight:700;">★ ОБЯЗАТЕЛЬНО</span></div>
+          <div class="sec-badge-done">✓ Все документы готовы!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-docs"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-docs">0/9</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🎫">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Путёвка (оригинал)</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Зачем?</button>
+            <div class="tip-box">Без путёвки не заселят. Сфотографируйте и сохраните в телефоне — на случай утери.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="📗">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Свидетельство о рождении <strong>или</strong> паспорт ребёнка + <strong>2 копии</strong></div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="📘">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Паспорт родителя (законного представителя) + <strong>2 копии</strong></div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🪪">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">СНИЛС ребёнка + <strong>1 копия</strong></div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="💳">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Медицинский полис ребёнка (ОМС) + <strong>1 копия</strong></div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="✍️">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Подписанное согласие с правилами и распорядком лагеря</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🩺">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Медицинская справка по форме № 079/у</div>
+            <div class="item-note">О всех прививках и перенесённых заболеваниях</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🏥">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Справка об отсутствии контактов с инфекционными больными</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Важно!</button>
+            <div class="tip-box">Выдаёт педиатр за 5 минут. Берите <strong>не ранее чем за 3 дня до заезда</strong> — более ранняя не принимается!</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🔬">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Результаты анализов на яйца гельминтов и энтеробиоз</div></div>
+        </div>
+
+      </div>
+    </div><!-- /docs -->
+
+    <!-- 👕 ОДЕЖДА -->
+    <div class="sec-card sec-clothes" data-section="clothes">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">👕</div>
+        <div class="sec-meta">
+          <div class="sec-title">Одежда</div>
+          <div class="sec-badge-done">✓ Гардероб собран!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-clothes"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-clothes">0/10</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="👕">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Несколько футболок</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🎽">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Спортивный костюм</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🧥">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Тёплая вещь — свитер или худи</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Зачем?</button>
+            <div class="tip-box">Вечером в Алупке прохладно даже в разгар лета — особенно у моря.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="👔">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Тонкая одежда с длинными рукавами</div>
+            <div class="item-note">Для защиты от солнца и комаров</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="👖">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Джинсы или брюки</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🩳">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Шорты</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🎀">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Комплект нарядной одежды</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Зачем?</button>
+            <div class="tip-box">В лагере проходят тематические вечера, дискотеки и торжества. В красивой одежде ребёнок чувствует себя увереннее!</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🌙">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Вещи для сна — пижама или ночная сорочка</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🧦">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Нижнее бельё и носки в достаточном количестве</div></div>
+        </div>
+
+        <!-- Только для девочек -->
+        <div class="item girl-only" onclick="toggleItem(this)" data-section="clothes" data-art="👗">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Платье и юбка</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🩱">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Купальный костюм</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Совет</button>
+            <div class="tip-box">Лучше взять 2 штуки — один сохнет, в другом идти на море или в бассейн.</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /clothes -->
+
+    <!-- 👟 ОБУВЬ -->
+    <div class="sec-card sec-shoes" data-section="shoes">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">👟</div>
+        <div class="sec-meta">
+          <div class="sec-title">Обувь</div>
+          <div class="sec-badge-done">✓ Обувь готова!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-shoes"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-shoes">0/4</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="👟">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Кроссовки или мокасины с фиксацией стопы</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Важно!</button>
+            <div class="tip-box">Берите уже разношенные — ребёнок ходит очень много, новая обувь натирает мозоли.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="🥿">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Комнатные тапочки</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="👡">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Сандалии или босоножки</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="🩴">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Резиновые тапочки для пляжа и душа</div></div>
+        </div>
+
+      </div>
+    </div><!-- /shoes -->
+
+    <!-- 🪥 ГИГИЕНА -->
+    <div class="sec-card sec-hygiene" data-section="hygiene">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">🪥</div>
+        <div class="sec-meta">
+          <div class="sec-title">Средства гигиены</div>
+          <div class="sec-badge-done">✓ Гигиена собрана!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-hygiene"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-hygiene">0/5</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🧼">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Мыло в закрывающейся мыльнице</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🪥">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Зубные щётка и паста</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🛁">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Полотенца — банное и пляжное</div>
+            <div class="item-note">Постельное бельё санаторий предоставляет</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🪮">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Расчёска</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🧻">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Влажные и бумажные салфетки</div></div>
+        </div>
+
+        <!-- Только для девочек -->
+        <div class="item girl-only" onclick="toggleItem(this)" data-section="hygiene" data-art="🌸">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Средства женской гигиены</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Совет</button>
+            <div class="tip-box">Возьмите с запасом — даже если цикл нерегулярный. В аптеке санатория тоже есть, но лучше иметь своё.</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /hygiene -->
+
+    <!-- 🎒 В РЮКЗАК -->
+    <div class="sec-card sec-backpack" data-section="backpack">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">🎒</div>
+        <div class="sec-meta">
+          <div class="sec-title">В рюкзак — под рукой</div>
+          <div class="sec-badge-done">✓ Рюкзак готов!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-backpack"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-backpack">0/5</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="📓">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Альбом или тетрадь</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="📚">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Книга или журнал</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="💰">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Деньги (карманные расходы)</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="📱">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Телефон и зарядное устройство</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="💧">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">🚰 Бутылка для воды (многоразовая)</div>
+            <div class="item-warn">
+              <div class="item-warn-head">⚠️ Обратите внимание!</div>
+              Нужна именно <strong>бутылка для воды</strong>, а не бутылка с водой — воду наливаем из кулеров 💧
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /backpack -->
+
+    <!-- 🌂 ДОПОЛНИТЕЛЬНО -->
+    <div class="sec-card sec-extras" data-section="extras">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">🌂</div>
+        <div class="sec-meta">
+          <div class="sec-title">Также пригодятся</div>
+          <div class="sec-badge-done">✓ Готово!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-extras"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-extras">0/3</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-art="🕶️">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Солнцезащитные очки</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-art="☂️">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Дождевик или зонт</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-art="🧢">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Головной убор</div></div>
+        </div>
+
+      </div>
+    </div><!-- /extras -->
+
+  </div><!-- /sections -->
+
+  <!-- НЕЛЬЗЯ БРАТЬ -->
+  <div class="card prohibited-card">
+    <div class="prohibited-title">🚫 Не нужно брать — для безопасности всех</div>
+    <div class="prohibited-chips">
+      <div class="prohibited-chip">Острые предметы</div>
+      <div class="prohibited-chip">Зажигалки</div>
+      <div class="prohibited-chip">Алкоголь</div>
+      <div class="prohibited-chip">Дорогие украшения</div>
+      <div class="prohibited-chip">Скоропортящиеся продукты</div>
+      <div class="prohibited-chip">Большие суммы наличных</div>
+    </div>
+    <div class="prohibited-note">Если ребёнок возьмёт что-то из списка — вожатый вернёт родителям. Никаких санкций, просто так безопаснее.</div>
+  </div>
+
+  <!-- ЕСЛИ ЗАБЫЛИ -->
+  <div class="card forgot-card">
+    <div class="forgot-title">😅 Забыли что-то важное?</div>
+    <p>
+      Не переживайте — позвоните нам. Необходимые вещи можно передать при визите или прислать.<br><br>
+      <strong>Приёмная (круглосуточно):</strong> <a href="tel:+79787389618">+7 (978) 738-96-18</a><br>
+      <strong>WhatsApp:</strong> <a href="https://wa.me/79785500570">+7 (978) 550-05-70</a>
+    </p>
+    <!-- Подсказка на частые вопросы (из brief.md: горячая вода, питание, интернет) -->
+    <div class="faq-hint">
+      💬 Частые вопросы о горячей воде, питании, интернете и режиме — звоните, ответим за минуту.
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+  // ── TELEGRAM MINI APP: ИНИЦИАЛИЗАЦИЯ ────────────────────────
+  const tg = window.Telegram?.WebApp;
+
+  if (tg) {
+    tg.ready();    // Сообщаем Telegram, что приложение готово к работе
+    tg.expand();   // Разворачиваем на весь экран
+
+    // Устанавливаем цвет заголовка Telegram под бренд «Южнобережного»
+    tg.setHeaderColor('#3e3e86');
+
+    // Автоопределение тёмной темы из Telegram
+    if (tg.colorScheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    // BackButton — закрыть приложение
+    tg.BackButton.show();
+    tg.BackButton.onClick(() => tg.close());
+
+    // MainButton появится при 100% (настраивается в updateProgress)
+    tg.MainButton.setParams({
+      text: '🏖 Рюкзак собран! Закрыть',
+      color: '#179543',
+      text_color: '#ffffff',
+      is_active: true,
+      is_visible: false,
+    });
+    tg.MainButton.onClick(() => tg.close());
+  }
+
+  // Поддержка prefers-color-scheme для обычного браузера (вне Telegram)
+  if (!tg && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  // ── КОНСТАНТЫ ────────────────────────────────────────────────
+  const SECTIONS    = ['docs', 'clothes', 'shoes', 'hygiene', 'backpack', 'extras'];
+  const STORAGE_KEY = 'yb-tg-checklist-v1';
+  const PARTICLES   = ['⭐', '✨', '🌟', '💫', '🎈'];
+  const FLY_DIRS    = [
+    'translate(-36px,-42px)', 'translate(36px,-42px)',
+    'translate(-46px,-10px)', 'translate(46px,-10px)',
+    'translate(0,-52px)',
+  ];
+  let gender = 'boy';  // текущий пол: 'boy' | 'girl'
+
+  // ── ИНИЦИАЛИЗАЦИЯ ────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    // Восстанавливаем пол
+    const g    = saved.gender || 'boy';
+    const gBtn = g === 'girl'
+      ? document.querySelector('.gender-btn:last-child')
+      : document.querySelector('.gender-btn:first-child');
+    setGender(g, gBtn, false);
+
+    // Восстанавливаем отмеченные пункты
+    (saved.checked || []).forEach(idx => {
+      const item = document.querySelectorAll('.item')[idx];
+      if (item) item.classList.add('checked');
+    });
+
+    updateProgress(false);
+    SECTIONS.forEach(s => updateSection(s, false));
+  });
+
+  // ── ПЕРЕКЛЮЧАТЕЛЬ МАЛЬЧИК / ДЕВОЧКА ─────────────────────────
+  function setGender(g, btn, doSave = true) {
+    gender = g;
+    document.body.classList.toggle('girl', g === 'girl');
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+    if (btn) {
+      btn.classList.add('active');
+      // Пружинящая анимация кнопки
+      btn.style.transform = 'scale(1.06) translateY(-2px)';
+      setTimeout(() => (btn.style.transform = ''), 220);
+    }
+    // Тактильная отдача в Telegram
+    tg?.HapticFeedback.selectionChanged();
+
+    if (doSave) saveState();
+    updateProgress(false);
+    SECTIONS.forEach(s => updateSection(s, false));
+  }
+
+  // ── ОТМЕТКА ПУНКТА ───────────────────────────────────────────
+  function toggleItem(item) {
+    const wasChecked = item.classList.contains('checked');
+    item.classList.toggle('checked');
+
+    // Анимация чекбокса
+    item.classList.add('popping');
+    setTimeout(() => item.classList.remove('popping'), 370);
+
+    if (!wasChecked) {
+      spawnParticles(item);
+      tg?.HapticFeedback.impactOccurred('light');
+    } else {
+      tg?.HapticFeedback.impactOccurred('soft');
+    }
+
+    saveState();
+    updateProgress(true);
+    updateSection(item.dataset.section, true);
+  }
+
+  // ── ЧАСТИЦЫ ──────────────────────────────────────────────────
+  function spawnParticles(item) {
+    FLY_DIRS.forEach((fly, i) => {
+      const p = document.createElement('span');
+      p.className = 'particle';
+      p.textContent = PARTICLES[i % PARTICLES.length];
+      p.style.setProperty('--fly', fly);
+      p.style.animationDelay = (i * 38) + 'ms';
+      item.appendChild(p);
+      setTimeout(() => p.remove(), 680);
+    });
+  }
+
+  // ── РАСКРЫТИЕ / СВОРАЧИВАНИЕ СЕКЦИИ ─────────────────────────
+  function toggleSection(header) {
+    header.parentElement.classList.toggle('collapsed');
+    tg?.HapticFeedback.impactOccurred('soft');
+  }
+
+  // ── ОБНОВЛЕНИЕ СОСТОЯНИЯ СЕКЦИИ ──────────────────────────────
+  function updateSection(sectionId, animate) {
+    const card = document.querySelector(`.sec-card[data-section="${sectionId}"]`);
+    if (!card) return;
+
+    const isGirl    = gender === 'girl';
+    const allItems  = card.querySelectorAll(isGirl ? '.item' : '.item:not(.girl-only)');
+    const doneItems = card.querySelectorAll(isGirl ? '.item.checked' : '.item.checked:not(.girl-only)');
+    const total     = allItems.length;
+    const done      = doneItems.length;
+    const pct       = total ? Math.round((done / total) * 100) : 0;
+    const isDone    = total > 0 && done === total;
+    const wasDone   = card.classList.contains('done');
+
+    // Обновляем счётчик
+    const cntEl = document.getElementById('cnt-' + sectionId);
+    if (cntEl) cntEl.textContent = done + '/' + total;
+
+    // Обновляем мини прогресс-бар в заголовке
+    const barEl = document.getElementById('bar-' + sectionId);
+    if (barEl) barEl.style.width = pct + '%';
+
+    card.classList.toggle('done', isDone);
+
+    // Тост и автосворачивание при завершении секции
+    if (isDone && !wasDone && animate) {
+      const title = card.querySelector('.sec-title').childNodes[0].textContent.trim();
+      showToast('🎉 «' + title + '» — готово!');
+      tg?.HapticFeedback.notificationOccurred('success');
+      setTimeout(() => card.classList.add('collapsed'), 850);
+    }
+  }
+
+  // ── ПОДСКАЗКА (💡) ────────────────────────────────────────────
+  function showTip(e, btn) {
+    e.stopPropagation();
+    // Сохраняем оригинальный текст кнопки при первом открытии
+    if (!btn.dataset.orig) btn.dataset.orig = btn.textContent;
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? '▲ Скрыть' : btn.dataset.orig;
+    tg?.HapticFeedback.impactOccurred('soft');
+  }
+
+  // ── ТОСТ-УВЕДОМЛЕНИЕ ─────────────────────────────────────────
+  let toastTimer = null;
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
+  // ── ОБЩИЙ ПРОГРЕСС ───────────────────────────────────────────
+  let lastPct = -1;
+  function updateProgress(animate) {
+    const isGirl = gender === 'girl';
+    const sel    = isGirl ? '.item' : '.item:not(.girl-only)';
+    const total  = document.querySelectorAll(sel).length;
+    const done   = document.querySelectorAll(sel + '.checked').length;
+    const pct    = total ? Math.round((done / total) * 100) : 0;
+
+    document.getElementById('progBar').style.width = pct + '%';
+    document.getElementById('progBar').classList.toggle('shimmer', pct === 100);
+    document.getElementById('progPct').textContent = pct + '%';
+
+    const emojiEl = document.getElementById('progEmoji');
+    const labelEl = document.getElementById('progLabel');
+
+    if (pct === 0)      { emojiEl.textContent = '😴'; labelEl.textContent = 'Начните отмечать вещи'; }
+    else if (pct < 25)  { emojiEl.textContent = '🙂'; labelEl.textContent = `${done} из ${total} — начали!`; }
+    else if (pct < 50)  { emojiEl.textContent = '😊'; labelEl.textContent = `${done} из ${total} — идём дальше!`; }
+    else if (pct < 75)  { emojiEl.textContent = '😄'; labelEl.textContent = `${done} из ${total} — больше половины!`; }
+    else if (pct < 100) { emojiEl.textContent = '🤩'; labelEl.textContent = `${done} из ${total} — почти готово!`; }
+    else                { emojiEl.textContent = '🏖️'; labelEl.textContent = 'Всё собрано! Хорошей смены!'; }
+
+    // Анимация эмодзи при переходе через 25%
+    if (animate && Math.floor(pct / 25) !== Math.floor(lastPct / 25)) {
+      emojiEl.classList.add('jump');
+      setTimeout(() => emojiEl.classList.remove('jump'), 360);
+    }
+    lastPct = pct;
+
+    if (pct === 100 && animate) {
+      const banner = document.getElementById('doneBanner');
+      if (!banner.classList.contains('show')) {
+        banner.classList.add('show');
+        setTimeout(() => banner.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+        setTimeout(launchConfetti, 380);
+      }
+      tg?.MainButton.show();
+    } else {
+      tg?.MainButton.hide();
+    }
+  }
+
+  // ── КОНФЕТТИ (canvas) ─────────────────────────────────────────
+  function launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.display = 'block';
+
+    // Бренд-цвета конфетти
+    const COLORS = ['#179543', '#fac042', '#33a5ad', '#3e3e86', '#0693e3', '#e74c3c'];
+    const pieces = Array.from({ length: 180 }, () => ({
+      x:     Math.random() * canvas.width,
+      y:     -(Math.random() * canvas.height * 0.55),
+      w:     Math.random() * 10 + 4,
+      h:     Math.random() * 6  + 2,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      speed: Math.random() * 3 + 1.5,
+      angle: Math.random() * Math.PI * 2,
+      spin:  (Math.random() - 0.5) * 0.12,
+      wob:   Math.random() * Math.PI * 2,
+      wobS:  0.05 + Math.random() * 0.08,
+    }));
+
+    let frame = 0;
+    const MAX = 260;
+    (function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const fade = frame > MAX - 60 ? (MAX - frame) / 60 : 1;
+      pieces.forEach(p => {
+        p.y += p.speed; p.wob += p.wobS;
+        p.x += Math.sin(p.wob) * 1.8;
+        p.angle += p.spin;
+        ctx.save();
+        ctx.globalAlpha = fade;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      frame++;
+      if (frame < MAX) requestAnimationFrame(draw);
+      else canvas.style.display = 'none';
+    })();
+  }
+
+  // ── СОХРАНЕНИЕ В localStorage ────────────────────────────────
+  function saveState() {
+    const checked = [];
+    document.querySelectorAll('.item').forEach((item, i) => {
+      if (item.classList.contains('checked')) checked.push(i);
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ checked, gender }));
+  }
+
+  // ── ПОДЕЛИТЬСЯ ───────────────────────────────────────────────
+  function shareList() {
+    const url = window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: 'Чеклист в лагерь «Республика ДОРИ» · Южнобережный', url });
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => showToast('📋 Ссылка скопирована!'));
+    }
+    tg?.HapticFeedback.impactOccurred('medium');
+  }
+
+  // ── СБРОС ────────────────────────────────────────────────────
+  function resetAll() {
+    if (!confirm('Сбросить все отметки и начать заново?')) return;
+    document.querySelectorAll('.item').forEach(item => item.classList.remove('checked'));
+    document.querySelectorAll('.sec-card').forEach(c => c.classList.remove('done', 'collapsed'));
+    document.getElementById('doneBanner').classList.remove('show');
+    document.getElementById('progBar').classList.remove('shimmer');
+    localStorage.removeItem(STORAGE_KEY);
+    lastPct = -1;
+    tg?.MainButton.hide();
+    tg?.HapticFeedback.notificationOccurred('warning');
+    updateProgress(false);
+    SECTIONS.forEach(s => updateSection(s, false));
+  }
+</script>
+
+</body>
+</html>

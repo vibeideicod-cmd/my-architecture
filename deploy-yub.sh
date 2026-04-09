@@ -33,6 +33,13 @@ scp \
   "${LOCAL_PATH}/hero.png" \
   "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
 
+TG_FOLDER="yub-tg"
+TG_LOCAL="clients/yuzhnoberezhniy/tg-app"
+
+echo "📱 Деплой Telegram Mini App → demo.ideidlyabiznesa1913.ru/${TG_FOLDER}/"
+ssh "${DEMO_USER}@${BEGET_HOST}" "mkdir -p ~/${TG_FOLDER}"
+scp "${TG_LOCAL}/index.html" "${DEMO_USER}@${BEGET_HOST}:~/${TG_FOLDER}/"
+
 echo ""
 echo "✅ Готово!"
 echo ""
@@ -40,3 +47,4 @@ echo "   🏠 Каталог:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOL
 echo "   🎒 Чеклист:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/ryukzak.html"
 echo "   ✅ Квиз:       https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/quiz.html"
 echo "   🏖  Экскурсия: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/tour.html"
+echo "   📱 TG Mini App: https://demo.ideidlyabiznesa1913.ru/${TG_FOLDER}/"
