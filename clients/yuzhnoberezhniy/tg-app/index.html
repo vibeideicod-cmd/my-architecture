@@ -665,6 +665,50 @@
     }
 
     /* ══════════════════════════════════════════════════════
+       ОНБОРДИНГ — экран приветствия при первом запуске
+    ══════════════════════════════════════════════════════ */
+    .onboarding {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 2000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 28px var(--sp);
+      animation: fadeIn 300ms ease;
+    }
+    .onb-inner {
+      max-width: 360px; width: 100%;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 18px;
+    }
+    .onb-logo { font-size: 68px; animation: floatEmoji 3s ease-in-out infinite; }
+    .onb-title {
+      font-size: clamp(20px, 5.5vw, 26px); font-weight: 800;
+      color: var(--text); line-height: 1.25;
+    }
+    .onb-desc {
+      font-size: 14px; font-weight: 500; color: var(--text-2);
+      line-height: 1.55; margin-top: -6px;
+    }
+    .onb-list {
+      list-style: none; text-align: left; width: 100%;
+      background: var(--card); border-radius: var(--r);
+      padding: 16px 20px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .onb-list li { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.45; }
+    .onb-btn {
+      width: 100%; height: 54px;
+      border-radius: var(--r-sm); border: none;
+      background: linear-gradient(135deg, var(--c-navy), var(--c-teal));
+      color: #fff; font-family: inherit; font-size: 17px; font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(62,62,134,0.35);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .onb-btn:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(62,62,134,0.2); }
+
+    /* ══════════════════════════════════════════════════════
        ПЕЧАТЬ (минималистичная)
     ══════════════════════════════════════════════════════ */
     @media print {
@@ -677,6 +721,23 @@
   </style>
 </head>
 <body>
+
+<!-- ═══════════════════════════════════════════════
+     ОНБОРДИНГ — только при первом запуске
+═══════════════════════════════════════════════ -->
+<div class="onboarding" id="onboarding" style="display:none">
+  <div class="onb-inner">
+    <div class="onb-logo">🎒</div>
+    <h1 class="onb-title">Привет, <span id="onb-name">друг</span>! 👋</h1>
+    <p class="onb-desc">Чеклист для сборов в смену<br>в санаторий «Южнобережный»</p>
+    <ul class="onb-list">
+      <li>📋 Полный список вещей — ничего не забудете</li>
+      <li>👦👧 Отдельные пункты для мальчика и девочки</li>
+      <li>💾 Прогресс сохраняется — можно вернуться</li>
+    </ul>
+    <button class="onb-btn" onclick="startApp()">Начать сборы →</button>
+  </div>
+</div>
 
 <!-- CANVAS для конфетти при 100% -->
 <canvas id="confetti-canvas"></canvas>
@@ -731,7 +792,7 @@
   <div class="done-banner" id="doneBanner">
     <span class="done-emoji">🏖️</span>
     <h2>Всё собрано!</h2>
-    <p>Ваш ребёнок готов к смене. Ждём в лагере «Республика ДОРИ» —<br>безопасно, полезно и с улыбкой каждый день!</p>
+    <p>Ваш ребёнок готов к смене. Ждём в санатории «Южнобережный» —<br>безопасно, полезно и с улыбкой каждый день!</p>
     <button class="done-print-btn" onclick="window.print()">🖨 Распечатать список</button>
   </div>
 
@@ -749,7 +810,7 @@
 
   <!-- КНОПКИ ДЕЙСТВИЙ -->
   <div class="actions">
-    <button class="action-btn" onclick="shareList()">📤 Поделиться</button>
+    <button class="action-btn" onclick="shareFriend()">👫 Поделиться с другом</button>
     <button class="action-btn" onclick="resetAll()">↺ Сначала</button>
   </div>
 
@@ -1168,6 +1229,25 @@
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 
+  // ── ОНБОРДИНГ ────────────────────────────────────────────────
+  const ONBOARDED_KEY = 'yb-tg-welcomed-v1';
+  if (!localStorage.getItem(ONBOARDED_KEY)) {
+    const onb = document.getElementById('onboarding');
+    onb.style.display = 'flex';
+    // Имя из Telegram (если открыто внутри Telegram)
+    const firstName = tg?.initDataUnsafe?.user?.first_name;
+    if (firstName) document.getElementById('onb-name').textContent = firstName;
+  }
+
+  function startApp() {
+    localStorage.setItem(ONBOARDED_KEY, '1');
+    const onb = document.getElementById('onboarding');
+    onb.style.transition = 'opacity 250ms ease';
+    onb.style.opacity = '0';
+    setTimeout(() => onb.style.display = 'none', 260);
+    tg?.HapticFeedback.impactOccurred('medium');
+  }
+
   // ── КОНСТАНТЫ ────────────────────────────────────────────────
   const SECTIONS    = ['docs', 'clothes', 'shoes', 'hygiene', 'backpack', 'extras'];
   const STORAGE_KEY = 'yb-tg-checklist-v1';
@@ -1412,13 +1492,14 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ checked, gender }));
   }
 
-  // ── ПОДЕЛИТЬСЯ ───────────────────────────────────────────────
-  function shareList() {
-    const url = window.location.href;
+  // ── ПОДЕЛИТЬСЯ С ДРУГОМ ──────────────────────────────────────
+  function shareFriend() {
+    const botLink = 'https://t.me/ryukzak_yub_bot';
+    const text = 'Чеклист «Собери рюкзак» для смены в санатории «Южнобережный» — открой прямо в Telegram: ' + botLink;
     if (navigator.share) {
-      navigator.share({ title: 'Чеклист в лагерь «Республика ДОРИ» · Южнобережный', url });
+      navigator.share({ title: 'Собери рюкзак — Южнобережный', text, url: botLink });
     } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => showToast('📋 Ссылка скопирована!'));
+      navigator.clipboard.writeText(botLink).then(() => showToast('📋 Ссылка скопирована — отправь другу!'));
     }
     tg?.HapticFeedback.impactOccurred('medium');
   }
