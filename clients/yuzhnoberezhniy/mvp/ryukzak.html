@@ -483,35 +483,73 @@
 
     /* ── ПУНКТЫ СПИСКА ───────────────────────────────────── */
     .items-list {
-      padding: 8px 12px;
+      padding: 10px 14px 14px;
       display: flex; flex-direction: column;
-      gap: 3px;
+      gap: 4px;
+      background:
+        radial-gradient(ellipse 150px 46px at 10% 16%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.3) 45%, transparent 70%),
+        radial-gradient(ellipse 110px 36px at 78% 42%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.2) 45%, transparent 70%),
+        radial-gradient(ellipse 130px 40px at 38% 74%, rgba(255,255,255,0.68) 0%, transparent 70%),
+        radial-gradient(ellipse 80px 26px at 62% 10%, rgba(255,255,255,0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 90px 30px at 22% 90%, rgba(255,255,255,0.55) 0%, transparent 70%),
+        linear-gradient(172deg, #b6d8f4 0%, #cbe6ff 22%, #ddf1ff 52%, #edf7ff 80%, #f5fbff 100%);
+      border-radius: 0 0 16px 16px;
     }
 
     .item {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      padding: 11px 12px;
-      border-radius: 11px;
+      padding: 12px 14px;
+      padding-right: 58px;
+      border-radius: 12px;
       border: 1.5px solid transparent;
       cursor: pointer;
       user-select: none;
       transition: all 0.25s;
-      background: rgba(248,252,255,0.55);
+      background: rgba(255,255,255,0.72);
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(2px);
     }
     .item:hover {
       border-color: var(--blue);
-      background: var(--blue-light);
-      transform: translateX(2px);
+      background: rgba(255,255,255,0.92);
+      transform: translateX(3px);
+      box-shadow: 0 2px 10px rgba(6,147,227,0.12);
     }
     .item.checked {
-      background: var(--green-light);
+      background: rgba(232,246,240,0.85);
       border-color: #b8e6cd;
     }
-    .item.checked:hover { background: #d4f0e4; transform: none; }
+    .item.checked:hover { background: rgba(212,240,228,0.9); transform: none; }
+
+    /* ── ИЛЛЮСТРАЦИЯ ПУНКТА ─────────────────────────────── */
+    .item[data-art]::after {
+      content: attr(data-art);
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-8deg);
+      font-size: 38px;
+      opacity: 0.42;
+      pointer-events: none;
+      line-height: 1;
+      z-index: 0;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .item:hover[data-art]::after {
+      opacity: 0.6;
+      transform: translateY(-50%) rotate(-4deg) scale(1.08);
+    }
+    .item.checked[data-art]::after {
+      opacity: 0.18;
+      transform: translateY(-50%) rotate(6deg) scale(0.85);
+    }
+    @media (max-width: 480px) {
+      .item[data-art]::after { font-size: 30px; right: 8px; }
+      .item { padding-right: 48px; }
+    }
 
     .item.girl-only { display: none; }
     body.girl .item.girl-only { display: flex; animation: fadeIn 0.3s ease; }
@@ -1508,6 +1546,25 @@
     lastPct = -1;
     updateProgress(false);
   }
+
+  // ── ИЛЛЮСТРАЦИИ ПУНКТОВ ───────────────────────────────────
+  // Порядок совпадает с порядком элементов в HTML (включая girl-only)
+  const ITEM_ART = {
+    docs:     ['🎫','📗','📘','🪪','💳','✍️','🩺','🏥','🔬'],
+    clothes:  ['👕','🎽','🧥','👔','👖','🩳','🎀','🌙','🧦','👗','🩱'],
+    shoes:    ['👟','🥿','👡','🩴'],
+    hygiene:  ['🧼','🪥','🛁','🪮','🧻','🌸'],
+    backpack: ['📓','📚','💰','📱','💧'],
+    extras:   ['🕶️','☂️','🧢'],
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    Object.entries(ITEM_ART).forEach(([cat, arts]) => {
+      const items = document.querySelectorAll(`.item[data-cat="${cat}"]`);
+      items.forEach((item, i) => {
+        if (arts[i]) item.dataset.art = arts[i];
+      });
+    });
+  });
 </script>
 
 </body>
