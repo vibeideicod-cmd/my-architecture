@@ -28,6 +28,41 @@
     <p class="text-hint text-sm">Загрузка...</p>
   </div>
 
+  <!-- ── ЭКРАН 0.5: Онбординг (первый запуск) ─────────── -->
+  <div id="screen-onboarding" class="screen">
+    <div class="onboarding">
+
+      <!-- Аватар и приветствие -->
+      <div class="onboarding__avatar">💅</div>
+      <h1 class="onboarding__title">
+        Привет, <span id="onboarding-name">дорогой гость</span>! 👋
+      </h1>
+      <p class="onboarding__subtitle">Это цифровая визитка мастера маникюра</p>
+
+      <!-- Три пункта что можно делать -->
+      <ul class="onboarding__list">
+        <li class="onboarding__item">
+          <span class="onboarding__icon">📋</span>
+          <span>Смотреть услуги с ценами и фото работ</span>
+        </li>
+        <li class="onboarding__item">
+          <span class="onboarding__icon">📅</span>
+          <span>Выбирать удобное время и записываться</span>
+        </li>
+        <li class="onboarding__item">
+          <span class="onboarding__icon">✅</span>
+          <span>Получить подтверждение прямо в Telegram</span>
+        </li>
+      </ul>
+
+      <!-- Кнопка "Начать" -->
+      <button class="onboarding__btn" id="onboarding-start-btn">
+        Посмотреть каталог →
+      </button>
+
+    </div>
+  </div>
+
   <!-- ── ЭКРАН 1: Главная — Витрина мастера ──────────────── -->
   <div id="screen-index" class="screen" aria-label="Витрина мастера">
 
@@ -229,6 +264,12 @@
          aria-label="Добавить запись в Google Calendar">
         📆 Добавить в календарь
       </a>
+
+      <!-- Поделиться с другом -->
+      <button class="btn-share" id="btn-share"
+              aria-label="Поделиться ботом с другом">
+        🔗 Поделиться с подругой
+      </button>
 
       <!-- Вернуться в каталог -->
       <button class="btn-back-catalog" id="btn-back-catalog"

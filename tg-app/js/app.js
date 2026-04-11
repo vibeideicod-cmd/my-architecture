@@ -707,6 +707,42 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// ── Онбординг ────────────────────────────────────────────
+const ONBOARDING_KEY = 'beauty-tma-onboarding-v1';
+
+function isFirstRun() {
+  try { return !localStorage.getItem(ONBOARDING_KEY); }
+  catch { return false; }
+}
+
+function markOnboardingDone() {
+  try { localStorage.setItem(ONBOARDING_KEY, '1'); } catch {}
+}
+
+function initScreen_onboarding() {
+  // Подставляем имя пользователя из Telegram
+  const user = tg?.initDataUnsafe?.user;
+  const firstName = user?.first_name || 'дорогой гость';
+  const nameEl = document.getElementById('onboarding-name');
+  if (nameEl) nameEl.textContent = firstName;
+
+  // Кнопка "Начать"
+  const btn = document.getElementById('onboarding-start-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      Haptic.tap();
+      markOnboardingDone();
+      initScreen_index();
+    });
+  }
+
+  // MainButton и BackButton скрыты на онбординге
+  MainButton.hide();
+  BackButton.hide();
+
+  navigate('onboarding');
+}
+
 // ── Запуск ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTelegram();
@@ -727,6 +763,30 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('phone-input').classList.remove('is-error');
     });
 
-  // Запуск главного экрана
-  initScreen_index();
+  // Кнопка "Поделиться с подругой"
+  document.getElementById('btn-share')?.addEventListener('click', () => {
+    Haptic.tap();
+    const botUrl = 'https://t.me/beauty_vizitka_bot';
+    const text   = 'Записалась к мастеру маникюра прямо в Telegram — без звонков! Попробуй 💅';
+    if (tg) {
+      // Нативный шаринг через Telegram
+      tg.openTelegramLink(
+        `https://t.me/share/url?url=${encodeURIComponent(botUrl)}&text=${encodeURIComponent(text)}`
+      );
+    } else {
+      // Фолбэк в браузере
+      if (navigator.share) {
+        navigator.share({ title: 'Бьюти Визитка', text, url: botUrl });
+      } else {
+        window.open(`https://t.me/share/url?url=${encodeURIComponent(botUrl)}&text=${encodeURIComponent(text)}`);
+      }
+    }
+  });
+
+  // Первый запуск — онбординг, иначе сразу главная
+  if (isFirstRun()) {
+    initScreen_onboarding();
+  } else {
+    initScreen_index();
+  }
 });
