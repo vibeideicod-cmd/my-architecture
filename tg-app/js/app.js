@@ -118,10 +118,51 @@ function initScreen_index() {
   applyBranding(MASTER.accent);
 
   // Заполняем шапку
-  document.getElementById('master-name').textContent    = MASTER.name;
+  document.getElementById('master-name').textContent = MASTER.name;
   document.getElementById('master-specialty').textContent =
     MASTER.specialty + ' · ' + MASTER.city;
-  document.getElementById('master-status').textContent  = MASTER.status;
+  document.getElementById('master-status').textContent = MASTER.status;
+
+  // Bio с кнопкой "Читать далее"
+  const bioEl  = document.getElementById('master-bio');
+  const bioBtn = document.getElementById('master-bio-expand-btn');
+  if (MASTER.bio) {
+    bioEl.textContent = MASTER.bio;
+    // Показываем кнопку только если текст обрезан (больше 2 строк)
+    requestAnimationFrame(() => {
+      if (bioEl.scrollHeight > bioEl.clientHeight + 2) {
+        bioBtn.style.display = 'block';
+      } else {
+        bioBtn.style.display = 'none';
+      }
+    });
+    bioBtn.onclick = () => {
+      bioEl.classList.toggle('is-expanded');
+      bioBtn.textContent = bioEl.classList.contains('is-expanded')
+        ? 'Свернуть ↑' : 'Читать далее ↓';
+    };
+  } else {
+    document.getElementById('master-bio-wrap').style.display = 'none';
+  }
+
+  // "Мои записи" — показываем если есть сохранённая запись
+  const lastBooking = loadLastBooking();
+  const myBookingsRow = document.getElementById('my-bookings-row');
+  const myBookingsBtn = document.getElementById('my-bookings-btn');
+  if (lastBooking) {
+    myBookingsRow.style.display = 'block';
+    myBookingsBtn.querySelector('.my-bookings-chevron').textContent = '›';
+    // Обновляем текст кнопки
+    myBookingsBtn.firstChild.textContent = `📋 ${lastBooking.service} — ${lastBooking.date.split('·')[1]?.trim() || ''}  `;
+    myBookingsBtn.onclick = () => {
+      Haptic.tap();
+      state.bookingResult = lastBooking;
+      navigate('success');
+      initScreen_success();
+    };
+  } else {
+    myBookingsRow.style.display = 'none';
+  }
 
   // Рендерим плитку категорий
   const grid = document.getElementById('categories-grid');
@@ -137,12 +178,23 @@ function initScreen_index() {
     grid.appendChild(card);
   });
 
-  // MainButton на главной — заблокирована (активируется выбором категории)
-  MainButton.show('Записаться', null);
-  MainButton.disable();
+  // MainButton скрыта на главной
+  MainButton.hide();
   BackButton.hide();
 
   navigate('index');
+}
+
+// Сохраняем/читаем последнюю запись в localStorage
+const BOOKING_KEY = 'beauty-tma-last-booking-v1';
+function saveLastBooking(booking) {
+  try { localStorage.setItem(BOOKING_KEY, JSON.stringify(booking)); } catch {}
+}
+function loadLastBooking() {
+  try {
+    const raw = localStorage.getItem(BOOKING_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
 }
 
 function createCategoryCard(cat) {
@@ -150,6 +202,7 @@ function createCategoryCard(cat) {
   div.className = 'category-card';
   div.setAttribute('role', 'button');
   div.setAttribute('aria-label', cat.name);
+  div.setAttribute('data-cat', cat.id);
 
   const price = cat.min_price.toLocaleString('ru-RU');
   const meta  = `от ${price} ₽ · ${cat.count} услуг`;
@@ -277,6 +330,25 @@ function initScreen_details() {
   document.getElementById('detail-price').textContent    = formatPrice(svc);
   document.getElementById('detail-duration').textContent = '⏱ ' + formatDuration(svc.duration);
   document.getElementById('detail-desc').textContent     = svc.description;
+
+  // Описание с кнопкой "Читать полностью"
+  const descEl  = document.getElementById('detail-desc');
+  const descBtn = document.getElementById('detail-desc-expand');
+  descEl.classList.remove('is-expanded');
+  descBtn.style.display = 'none';
+  descBtn.textContent = 'Читать полностью ↓';
+
+  requestAnimationFrame(() => {
+    if (descEl.scrollHeight > descEl.clientHeight + 2) {
+      descBtn.style.display = 'block';
+    }
+  });
+
+  descBtn.onclick = () => {
+    descEl.classList.toggle('is-expanded');
+    descBtn.textContent = descEl.classList.contains('is-expanded')
+      ? 'Свернуть ↑' : 'Читать полностью ↓';
+  };
 
   // Теги
   const tagsEl = document.getElementById('detail-tags');
@@ -630,6 +702,9 @@ async function handleConfirmSubmit() {
     datetime:   state.selectedDate + 'T' + state.selectedSlot + ':00',
     phone,
   };
+
+  // Сохраняем для «Мои записи» на главной
+  saveLastBooking(state.bookingResult);
 
   navigate('success');
   initScreen_success();

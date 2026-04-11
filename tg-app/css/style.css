@@ -193,6 +193,67 @@ a { color: var(--tg-link); text-decoration: none; }
   font-weight: 500;
 }
 
+/* Биография мастера */
+.master-bio {
+  padding: 0 var(--px) 14px;
+}
+
+.master-bio__text {
+  font-size: var(--text-sm);
+  color: var(--tg-hint);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.master-bio__text.is-expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
+}
+
+.master-bio__expand {
+  font-size: var(--text-xs);
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 4px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Мои записи */
+.my-bookings-row {
+  padding: 12px var(--px) 4px;
+}
+
+.my-bookings-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--tg-bg-sec);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--tg-text);
+  min-height: var(--tap-min);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.my-bookings-btn:active { opacity: 0.7; }
+
+.my-bookings-chevron {
+  color: var(--tg-hint);
+  font-size: 18px;
+}
+
 /* Плитка категорий */
 .categories-title {
   font-size: var(--text-sm);
@@ -257,6 +318,20 @@ a { color: var(--tg-link); text-decoration: none; }
   font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.75);
   margin-top: 2px;
+}
+
+/* Цвета карточек категорий (если нет фото) */
+.category-card[data-cat="manicure"] .category-card__bg {
+  background: linear-gradient(135deg, #d4a0b5 0%, #b49fd4 100%);
+}
+.category-card[data-cat="pedicure"] .category-card__bg {
+  background: linear-gradient(135deg, #a8d8b9 0%, #6db8a0 100%);
+}
+.category-card[data-cat="design"] .category-card__bg {
+  background: linear-gradient(135deg, #f4c97a 0%, #e89c5a 100%);
+}
+.category-card[data-cat="care"] .category-card__bg {
+  background: linear-gradient(135deg, #9bb8e8 0%, #7090cc 100%);
 }
 
 /* ── ─────────────────────────────────────────────────────
@@ -456,6 +531,35 @@ a { color: var(--tg-link); text-decoration: none; }
   color: var(--tg-hint);
   line-height: 1.5;
   margin-top: 12px;
+}
+
+/* Expand описания услуги */
+.desc-wrap { position: relative; }
+
+.service-details__desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.service-details__desc.is-expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
+}
+
+.desc-expand-btn {
+  font-size: var(--text-sm);
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* показывается из JS если текст длинный */
 }
 
 /* Теги */

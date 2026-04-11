@@ -78,10 +78,26 @@
       </div>
     </header>
 
+    <!-- Биография мастера -->
+    <div class="master-bio" id="master-bio-wrap">
+      <p class="master-bio__text" id="master-bio"></p>
+      <button class="master-bio__expand" id="master-bio-expand-btn">
+        Читать далее ↓
+      </button>
+    </div>
+
     <!-- Категории услуг -->
     <p class="categories-title">Выберите категорию</p>
     <div class="categories-grid" id="categories-grid">
       <!-- Карточки рендерятся JS -->
+    </div>
+
+    <!-- Мои записи -->
+    <div class="my-bookings-row" id="my-bookings-row" style="display:none">
+      <button class="my-bookings-btn" id="my-bookings-btn">
+        📋 Моя последняя запись
+        <span class="my-bookings-chevron">›</span>
+      </button>
     </div>
 
   </div>
@@ -119,7 +135,12 @@
         <span class="service-details__duration" id="detail-duration"></span>
       </div>
 
-      <p class="service-details__desc" id="detail-desc"></p>
+      <div class="desc-wrap" id="detail-desc-wrap">
+        <p class="service-details__desc" id="detail-desc"></p>
+        <button class="desc-expand-btn" id="detail-desc-expand">
+          Читать полностью ↓
+        </button>
+      </div>
 
       <div class="tags" id="detail-tags" aria-label="Теги услуги"></div>
     </div>
