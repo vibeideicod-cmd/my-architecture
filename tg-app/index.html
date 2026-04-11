@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Beauty — Запись к мастеру</title>
+
+  <!-- Preconnect для шрифтов (не используем — системные шрифты для скорости) -->
+
+  <!-- Telegram Web App SDK — ОБЯЗАТЕЛЬНО первым скриптом -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════
+     #app — корневой контейнер всего приложения
+     ════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- ── ЭКРАН 0: Загрузка ──────────────────────────────── -->
+  <div id="screen-loading" class="screen is-active">
+    <div class="spinner"></div>
+    <p class="text-hint text-sm">Загрузка...</p>
+  </div>
+
+  <!-- ── ЭКРАН 1: Главная — Витрина мастера ──────────────── -->
+  <div id="screen-index" class="screen" aria-label="Витрина мастера">
+
+    <!-- Шапка мастера -->
+    <header class="master-header">
+      <!-- Аватар (emoji-заглушка, пока нет фото) -->
+      <div class="master-avatar-placeholder" id="master-avatar">💅</div>
+
+      <div class="master-info">
+        <h1 class="master-name" id="master-name">Загрузка...</h1>
+        <p class="master-specialty" id="master-specialty"></p>
+        <p class="master-status"    id="master-status"></p>
+      </div>
+    </header>
+
+    <!-- Категории услуг -->
+    <p class="categories-title">Выберите категорию</p>
+    <div class="categories-grid" id="categories-grid">
+      <!-- Карточки рендерятся JS -->
+    </div>
+
+  </div>
+
+  <!-- ── ЭКРАН 2: Список услуг ─────────────────────────── -->
+  <div id="screen-services" class="screen" aria-label="Список услуг">
+
+    <h2 class="screen-title" id="services-title">Услуги</h2>
+
+    <ul class="services-list" id="services-list" role="list">
+      <!-- Карточки рендерятся JS -->
+    </ul>
+
+  </div>
+
+  <!-- ── ЭКРАН 3: Карточка услуги + галерея ────────────── -->
+  <div id="screen-details" class="screen" aria-label="Детали услуги">
+
+    <!-- Галерея фотографий -->
+    <div class="gallery" id="gallery"
+         role="img" aria-label="Фото работ">
+      <div class="gallery__track" id="gallery-track">
+        <!-- Слайды рендерятся JS -->
+      </div>
+      <div class="gallery__dots" id="gallery-dots" aria-hidden="true"></div>
+      <div class="gallery__counter" id="gallery-counter" aria-hidden="true"></div>
+    </div>
+
+    <!-- Детали услуги -->
+    <div class="service-details">
+      <h2 class="service-details__name" id="detail-name"></h2>
+
+      <div class="service-details__price-row">
+        <span class="service-details__price"   id="detail-price"></span>
+        <span class="service-details__duration" id="detail-duration"></span>
+      </div>
+
+      <p class="service-details__desc" id="detail-desc"></p>
+
+      <div class="tags" id="detail-tags" aria-label="Теги услуги"></div>
+    </div>
+
+  </div>
+
+  <!-- ── ЭКРАН 4: Выбор даты и времени ─────────────────── -->
+  <div id="screen-booking" class="screen" aria-label="Выбор времени">
+
+    <h2 class="screen-title">Выбор времени</h2>
+
+    <!-- Горизонтальный скролл дат -->
+    <div class="dates-scroll" id="dates-scroll"
+         role="group" aria-label="Выбор даты"></div>
+
+    <div class="section-divider"></div>
+    <p class="section-label" id="slots-label">Доступное время</p>
+
+    <!-- Сетка слотов (заполняется при выборе даты) -->
+    <div id="slots-container">
+      <p style="color:var(--tg-hint);font-size:14px;text-align:center;padding:20px">
+        Выберите дату
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── ЭКРАН 5: Подтверждение записи ─────────────────── -->
+  <div id="screen-confirm" class="screen" aria-label="Подтверждение записи">
+
+    <h2 class="screen-title">Подтверждение</h2>
+
+    <!-- Карточка с деталями записи -->
+    <div class="confirm-card">
+      <div class="confirm-card__row">
+        <span class="confirm-card__icon">💅</span>
+        <span class="confirm-card__label">Услуга</span>
+        <span class="confirm-card__value" id="confirm-service"></span>
+      </div>
+      <div class="confirm-card__row">
+        <span class="confirm-card__icon">💰</span>
+        <span class="confirm-card__label">Цена</span>
+        <span class="confirm-card__value confirm-card__value--accent"
+              id="confirm-price"></span>
+      </div>
+      <div class="confirm-card__row">
+        <span class="confirm-card__icon">📅</span>
+        <span class="confirm-card__label">Дата</span>
+        <span class="confirm-card__value" id="confirm-datetime"></span>
+      </div>
+      <div class="confirm-card__row">
+        <span class="confirm-card__icon">👩‍🎨</span>
+        <span class="confirm-card__label">Мастер</span>
+        <span class="confirm-card__value" id="confirm-master"></span>
+      </div>
+      <div class="confirm-card__row">
+        <span class="confirm-card__icon">⏱</span>
+        <span class="confirm-card__label">Время</span>
+        <span class="confirm-card__value" id="confirm-duration"></span>
+      </div>
+    </div>
+
+    <!-- Поле телефона (опциональное по UX-рекомендации) -->
+    <div class="phone-section">
+      <p class="phone-section__title">Номер телефона</p>
+      <p class="phone-section__hint">
+        Мастер напишет, если потребуется перенос записи
+      </p>
+
+      <input
+        type="tel"
+        id="phone-input"
+        class="input-tel"
+        placeholder="+7 (999) 000-00-00"
+        autocomplete="tel"
+        inputmode="tel"
+        aria-label="Номер телефона"
+      />
+      <p class="input-error-msg">Введите корректный номер телефона</p>
+    </div>
+
+    <p class="terms-text">
+      Нажимая «Записаться», вы соглашаетесь с условиями использования сервиса
+    </p>
+
+  </div>
+
+  <!-- ── ЭКРАН 6: Успех — запись создана ───────────────── -->
+  <div id="screen-success" class="screen" aria-label="Запись создана">
+
+    <div class="success-screen">
+
+      <!-- SVG-анимация галочки -->
+      <svg id="success-svg" class="success-check"
+           viewBox="0 0 80 80" fill="none"
+           aria-hidden="true">
+        <circle
+          class="success-check__circle"
+          cx="40" cy="40" r="36"
+          stroke-width="4"
+          stroke-linecap="round"
+        />
+        <polyline
+          class="success-check__tick"
+          points="24,42 35,52 56,30"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <h2 class="success-title">Вы записаны!</h2>
+
+      <p class="success-subtitle">
+        Мастер получил уведомление. Напоминание придёт
+        сюда, в Telegram, за 24 часа.
+      </p>
+
+      <!-- Карточка подтверждения -->
+      <div class="success-booking-card">
+        <div class="success-booking-card__row">
+          <span class="success-booking-card__key">Услуга</span>
+          <span class="success-booking-card__val" id="success-service"></span>
+        </div>
+        <div class="success-booking-card__row">
+          <span class="success-booking-card__key">Дата</span>
+          <span class="success-booking-card__val" id="success-datetime"></span>
+        </div>
+        <div class="success-booking-card__row">
+          <span class="success-booking-card__key">Мастер</span>
+          <span class="success-booking-card__val" id="success-master"></span>
+        </div>
+        <div class="success-booking-card__row">
+          <span class="success-booking-card__key">Примерно</span>
+          <span class="success-booking-card__val" id="success-duration"></span>
+        </div>
+      </div>
+
+      <!-- Добавить в календарь -->
+      <a class="btn-calendar" id="btn-calendar"
+         href="#" target="_blank" rel="noopener"
+         aria-label="Добавить запись в Google Calendar">
+        📆 Добавить в календарь
+      </a>
+
+      <!-- Вернуться в каталог -->
+      <button class="btn-back-catalog" id="btn-back-catalog"
+              aria-label="Вернуться в каталог">
+        ← Вернуться в каталог
+      </button>
+
+    </div>
+
+  </div>
+
+</div><!-- /#app -->
+
+<!-- ── Fullscreen overlay для просмотра фото ──────────── -->
+<div class="fullscreen-overlay" id="fullscreen-overlay"
+     role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <img id="fullscreen-img" src="" alt="Фото работы" />
+  <button class="fullscreen-close" id="fullscreen-close"
+          aria-label="Закрыть">✕</button>
+</div>
+
+<!-- ── Скрипты ──────────────────────────────────────────
+     Порядок важен: data.js → app.js
+     ─────────────────────────────────────────────────── -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
