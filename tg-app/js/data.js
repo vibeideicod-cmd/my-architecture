@@ -9,7 +9,7 @@
 const MASTER = {
   id:          'master_demo',
   name:        'Анна Смирнова',
-  specialty:   'Мастер маникюра',
+  specialty:   'Бьюти-мастер',
   city:        'Москва',
   bio:         'Работаю с гель-лаком, акрилом и дизайном. Принимаю на Арбате.',
   avatar:      'img/avatar.jpg',

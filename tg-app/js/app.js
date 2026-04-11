@@ -767,7 +767,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-share')?.addEventListener('click', () => {
     Haptic.tap();
     const botUrl = 'https://t.me/beauty_vizitka_bot';
-    const text   = 'Записалась к мастеру маникюра прямо в Telegram — без звонков! Попробуй 💅';
+    const text   = 'Нашла классную штуку — Beauty Визитка, запись к мастеру прямо в Telegram, без звонков! Попробуй 💅';
     if (tg) {
       // Нативный шаринг через Telegram
       tg.openTelegramLink(
