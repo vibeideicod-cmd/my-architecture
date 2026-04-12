@@ -42,7 +42,15 @@
       "Bash(expect -c ':*)",
       "Bash(ssh icepaeqw_demo@icepaeqw.beget.tech \"mkdir -p ~/yub\")",
       "Bash(scp clients/yuzhnoberezhniy/mvp/index.html clients/yuzhnoberezhniy/mvp/ryukzak.html clients/yuzhnoberezhniy/mvp/quiz.html clients/yuzhnoberezhniy/mvp/tour.html icepaeqw_demo@icepaeqw.beget.tech:~/yub/)",
-      "Bash(ssh icepaeqw_demo@icepaeqw.beget.tech \"pwd && ls ~/ && ls ~/yub/\")"
+      "Bash(ssh icepaeqw_demo@icepaeqw.beget.tech \"pwd && ls ~/ && ls ~/yub/\")",
+      "Bash(curl -L \"https://drive.google.com/uc?export=download&id=1ePNsD1w1gY5SkX2FL9UZ4CIL085Hy_WK\" -o /tmp/yb_hero.jpg)",
+      "Read(//tmp/**)",
+      "Bash(curl -s \"https://ujnoberejniy.ru\")",
+      "Bash(curl -s \"https://ujnoberejniy.ru/wp-content/uploads/2024/09/cropped-dizajn-bez-nazvaniya-3.png\" -o /Users/innaandreychenko/Documents/Projects/my-architecture/clients/yuzhnoberezhniy/mvp/logo.png)",
+      "Bash(curl -L \"https://drive.google.com/uc?export=download&id=1AfVstSO9Y-mC8xlw-vq1l86OsGODPi9n\" -o clients/yuzhnoberezhniy/mvp/hero.png)",
+      "Bash(curl -sI \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")",
+      "Bash(curl -v \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")",
+      "Bash(curl -sk \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")"
     ]
   }
 }

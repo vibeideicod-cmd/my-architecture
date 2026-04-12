@@ -59,7 +59,7 @@ tg-app/
 
 ---
 
-## Ключевые UX-решения (из brief-beauty-tma.md)
+## Ключевые UX-решения (из ../brief.md)
 
 1. **Цена в карточке категории** — `min_price` сразу видна, клиент самофильтруется
 2. **Телефон опционален** — запрашиваем, но не блокируем запись без него
@@ -74,10 +74,10 @@ tg-app/
 
 ```bash
 # В корне проекта (my-architecture/)
-vercel --cwd tg-app
+vercel --cwd clients/beauty/tg-app
 ```
 
-Или через Vercel Dashboard → Import Git Repository → Root Directory: `tg-app`
+Или через Vercel Dashboard → Import Git Repository → Root Directory: `clients/beauty/tg-app`
 
 Настройки Vercel:
 - Framework Preset: **Other**
