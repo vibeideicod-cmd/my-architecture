@@ -108,6 +108,36 @@ function navigate(screenId) {
   });
 
   state.currentScreen = screenId;
+  updateTabbar(screenId);
+}
+
+// ── Tabbar (нижнее меню) ────────────────────────────────
+// Видим только на верхнеуровневых экранах-вкладках.
+// На flow-экранах (services/details/booking/confirm/success)
+// и на loading/onboarding скрыт — там работает MainButton/BackButton.
+const TAB_SCREENS = ['index', 'master', 'portfolio', 'bookings'];
+
+function updateTabbar(screenId) {
+  const bar = document.getElementById('tabbar');
+  if (!bar) return;
+  const isTab = TAB_SCREENS.includes(screenId);
+  bar.classList.toggle('is-visible', isTab);
+  if (!isTab) return;
+  bar.querySelectorAll('.tabbar__btn').forEach(btn => {
+    btn.classList.toggle('is-active', btn.dataset.tab === screenId);
+  });
+}
+
+function switchTab(tabId) {
+  if (state.currentScreen === tabId) return;
+  Haptic.tap();
+  // Сбрасываем Telegram-кнопки — на верхнеуровневых вкладках их нет
+  MainButton.hide();
+  BackButton.hide();
+  if (tabId === 'index')      initScreen_index();
+  else if (tabId === 'master')    initScreen_master();
+  else if (tabId === 'portfolio') initScreen_portfolio();
+  else if (tabId === 'bookings')  initScreen_bookings();
 }
 
 // ── ─────────────────────────────────────────────────────
@@ -820,6 +850,110 @@ function initScreen_onboarding() {
   navigate('onboarding');
 }
 
+// ── ─────────────────────────────────────────────────────
+// ЭКРАН: О мастере
+// ─────────────────────────────────────────────────────── */
+function initScreen_master() {
+  applyBranding(MASTER.accent);
+  document.getElementById('master-page-name').textContent = MASTER.name;
+  document.getElementById('master-page-specialty').textContent =
+    MASTER.specialty + ' · ' + MASTER.city;
+  document.getElementById('master-page-status').textContent = MASTER.status || '';
+  document.getElementById('master-page-bio').textContent = MASTER.bio || '';
+  MainButton.hide();
+  BackButton.hide();
+  navigate('master');
+}
+
+// ── ─────────────────────────────────────────────────────
+// ЭКРАН: Портфолио
+// ─────────────────────────────────────────────────────── */
+function initScreen_portfolio() {
+  applyBranding(MASTER.accent);
+  const grid = document.getElementById('portfolio-grid');
+  grid.innerHTML = '';
+
+  // Собираем все фото из всех услуг
+  const tiles = [];
+  Object.keys(SERVICES).forEach(catId => {
+    SERVICES[catId].forEach(svc => {
+      (svc.photos || []).forEach(src => {
+        tiles.push({ src, name: svc.name, icon: svc.icon || '💅' });
+      });
+    });
+  });
+
+  if (tiles.length === 0) {
+    grid.innerHTML = `<div class="portfolio-empty">Фото скоро появятся</div>`;
+  } else {
+    tiles.forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'portfolio-tile';
+
+      const img = document.createElement('img');
+      img.src = t.src;
+      img.alt = t.name;
+      img.loading = 'lazy';
+      img.addEventListener('error', () => {
+        img.remove();
+        div.dataset.fallback = t.icon;
+        div.textContent = t.icon;
+        const cap = document.createElement('div');
+        cap.className = 'portfolio-tile__caption';
+        cap.textContent = t.name;
+        div.appendChild(cap);
+      });
+
+      const cap = document.createElement('div');
+      cap.className = 'portfolio-tile__caption';
+      cap.textContent = t.name;
+
+      div.appendChild(img);
+      div.appendChild(cap);
+      grid.appendChild(div);
+    });
+  }
+
+  MainButton.hide();
+  BackButton.hide();
+  navigate('portfolio');
+}
+
+// ── ─────────────────────────────────────────────────────
+// ЭКРАН: Мои записи
+// ─────────────────────────────────────────────────────── */
+function initScreen_bookings() {
+  applyBranding(MASTER.accent);
+  const wrap = document.getElementById('bookings-content');
+  const last = loadLastBooking();
+
+  if (!last) {
+    wrap.innerHTML = `
+      <div class="bookings-empty">
+        <div class="bookings-empty__icon">📅</div>
+        <div class="bookings-empty__title">Записей пока нет</div>
+        <div class="bookings-empty__hint">
+          Запишитесь в каталоге — здесь будет вся история
+        </div>
+      </div>
+    `;
+  } else {
+    wrap.innerHTML = `
+      <div class="bookings-card">
+        <div class="bookings-card__title">${last.service}</div>
+        <div class="bookings-card__row"><span>Дата</span><span>${last.date}</span></div>
+        <div class="bookings-card__row"><span>Мастер</span><span>${last.master}</span></div>
+        <div class="bookings-card__row"><span>Длительность</span><span>${last.duration}</span></div>
+        <div class="bookings-card__row"><span>Цена</span><span>${last.price}</span></div>
+      </div>
+    `;
+  }
+
+  MainButton.hide();
+  BackButton.hide();
+  navigate('bookings');
+}
+
 // ── Запуск ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   initTelegram();
@@ -858,6 +992,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://t.me/share/url?url=${encodeURIComponent(botUrl)}&text=${encodeURIComponent(text)}`);
       }
     }
+  });
+
+  // Tabbar — клики по вкладкам
+  document.querySelectorAll('#tabbar .tabbar__btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
   // Первый запуск — онбординг, иначе сразу главная

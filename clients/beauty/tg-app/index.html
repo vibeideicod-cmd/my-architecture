@@ -302,7 +302,54 @@
 
   </div>
 
+  <!-- ── ЭКРАН: О мастере ──────────────────────────────── -->
+  <div id="screen-master" class="screen tab-screen" aria-label="О мастере">
+    <div class="master-page">
+      <div class="master-page__avatar" id="master-page-avatar">💅</div>
+      <h1 class="master-page__name" id="master-page-name">Загрузка…</h1>
+      <p class="master-page__specialty" id="master-page-specialty"></p>
+      <p class="master-page__status" id="master-page-status"></p>
+      <p class="master-page__bio" id="master-page-bio"></p>
+    </div>
+  </div>
+
+  <!-- ── ЭКРАН: Портфолио ──────────────────────────────── -->
+  <div id="screen-portfolio" class="screen tab-screen" aria-label="Портфолио">
+    <h2 class="screen-title">Портфолио</h2>
+    <div class="portfolio-grid" id="portfolio-grid">
+      <!-- Плитка фото услуг рендерится JS -->
+    </div>
+  </div>
+
+  <!-- ── ЭКРАН: Мои записи ─────────────────────────────── -->
+  <div id="screen-bookings" class="screen tab-screen" aria-label="Мои записи">
+    <h2 class="screen-title">Мои записи</h2>
+    <div id="bookings-content">
+      <!-- Содержимое рендерится JS -->
+    </div>
+  </div>
+
 </div><!-- /#app -->
+
+<!-- ── Нижнее меню (вкладки) ──────────────────────────── -->
+<nav id="tabbar" class="tabbar" aria-label="Главное меню">
+  <button class="tabbar__btn is-active" data-tab="index" type="button">
+    <span class="tabbar__icon" aria-hidden="true">🏠</span>
+    <span class="tabbar__label">Каталог</span>
+  </button>
+  <button class="tabbar__btn" data-tab="master" type="button">
+    <span class="tabbar__icon" aria-hidden="true">👤</span>
+    <span class="tabbar__label">О мастере</span>
+  </button>
+  <button class="tabbar__btn" data-tab="portfolio" type="button">
+    <span class="tabbar__icon" aria-hidden="true">🖼</span>
+    <span class="tabbar__label">Портфолио</span>
+  </button>
+  <button class="tabbar__btn" data-tab="bookings" type="button">
+    <span class="tabbar__icon" aria-hidden="true">📅</span>
+    <span class="tabbar__label">Мои записи</span>
+  </button>
+</nav>
 
 <!-- ── Fullscreen overlay для просмотра фото ──────────── -->
 <div class="fullscreen-overlay" id="fullscreen-overlay"

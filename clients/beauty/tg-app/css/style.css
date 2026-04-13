@@ -1175,3 +1175,231 @@ a { color: var(--tg-link); text-decoration: none; }
 .mt-8  { margin-top: 8px; }
 .mt-12 { margin-top: 12px; }
 .mt-16 { margin-top: 16px; }
+
+/* ── Tabbar (нижнее меню) ───────────────────────────────── */
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: var(--tg-bg-sec);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+}
+
+.tabbar.is-visible {
+  display: grid;
+}
+
+.tabbar__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 52px;
+  padding: 6px 4px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--tg-hint);
+  font-size: 11px;
+  line-height: 1.1;
+  transition: color 0.18s ease, background-color 0.18s ease, transform 0.12s ease;
+}
+
+.tabbar__btn:active {
+  transform: scale(0.94);
+}
+
+.tabbar__icon {
+  font-size: 22px;
+  line-height: 1;
+  filter: grayscale(0.15);
+  transition: filter 0.18s ease, transform 0.18s ease;
+}
+
+.tabbar__label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
+.tabbar__btn.is-active {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.10);
+}
+
+.tabbar__btn.is-active .tabbar__icon {
+  filter: grayscale(0);
+  transform: translateY(-1px);
+}
+
+/* Когда tabbar виден, экраны должны иметь отступ снизу,
+   чтобы контент не залезал под меню. У .screen уже есть
+   --safe-bottom (80px) — этого достаточно для tabbar высотой ~64px. */
+
+/* ── Экран «О мастере» ─────────────────────────────────── */
+.master-page {
+  padding: 32px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.master-page__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,
+    rgba(var(--accent-rgb), 0.18),
+    rgba(var(--accent-rgb), 0.06));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.18);
+}
+
+.master-page__name {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--tg-text);
+  margin-bottom: 6px;
+}
+
+.master-page__specialty {
+  font-size: var(--text-base);
+  color: var(--tg-hint);
+  margin-bottom: 4px;
+}
+
+.master-page__status {
+  display: inline-block;
+  font-size: var(--text-sm);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.10);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.master-page__bio {
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--tg-text);
+  max-width: 520px;
+  text-align: left;
+}
+
+/* ── Экран «Портфолио» ─────────────────────────────────── */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 8px 16px 24px;
+}
+
+.portfolio-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--tg-bg-sec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.portfolio-tile:active {
+  transform: scale(0.97);
+}
+
+.portfolio-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-tile__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+  text-align: left;
+}
+
+.portfolio-empty {
+  grid-column: 1 / -1;
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--tg-hint);
+  font-size: var(--text-sm);
+}
+
+/* ── Экран «Мои записи» ────────────────────────────────── */
+.bookings-empty {
+  padding: 56px 24px;
+  text-align: center;
+  color: var(--tg-hint);
+}
+
+.bookings-empty__icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.bookings-empty__title {
+  font-size: var(--text-lg);
+  color: var(--tg-text);
+  margin-bottom: 6px;
+}
+
+.bookings-empty__hint {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.bookings-card {
+  margin: 12px 16px;
+  padding: 16px;
+  background: var(--tg-bg-sec);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid var(--accent);
+}
+
+.bookings-card__title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--tg-text);
+  margin-bottom: 8px;
+}
+
+.bookings-card__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--tg-hint);
+  padding: 4px 0;
+}
+
+.bookings-card__row span:last-child {
+  color: var(--tg-text);
+  font-weight: 500;
+}
