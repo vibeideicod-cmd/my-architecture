@@ -30,6 +30,7 @@ scp \
   "${LOCAL_PATH}/quiz.html" \
   "${LOCAL_PATH}/tour.html" \
   "${LOCAL_PATH}/feedback.html" \
+  "${LOCAL_PATH}/offer.html" \
   "${LOCAL_PATH}/logo.png" \
   "${LOCAL_PATH}/hero.png" \
   "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
@@ -49,4 +50,5 @@ echo "   🎒 Чеклист:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOL
 echo "   ✅ Квиз:       https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/quiz.html"
 echo "   🏖  Экскурсия: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/tour.html"
 echo "   📩 Правки:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/feedback.html"
+echo "   💼 КП:         https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/offer.html"
 echo "   📱 TG Mini App: https://demo.ideidlyabiznesa1913.ru/${TG_FOLDER}/"
