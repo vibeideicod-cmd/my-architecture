@@ -914,7 +914,7 @@ body {
     <div class="contact-line">
       Вопросы? Мы всегда на связи:<br>
       <a href="tel:+79787389618">+7 (978) 738-96-18</a> (приёмная, круглосуточно)<br>
-      Бронирование (WhatsApp): <a href="https://wa.me/79785500570">+7 (978) 550-05-70</a>
+      Бронирование: <a href="tel:+79785500570">+7 (978) 550-05-70</a>
     </div>
 
   </div>
@@ -1407,11 +1407,9 @@ function showResult() {
 
   // Сильная CTA — забронировать / связаться с приёмной
   const btnBooking = document.createElement('a');
-  btnBooking.href = 'https://wa.me/79785500570?text=' + encodeURIComponent('Здравствуйте! Хочу уточнить детали бронирования путёвки в санаторий «Южнобережный».');
-  btnBooking.target = '_blank';
-  btnBooking.rel = 'noopener';
+  btnBooking.href = 'tel:+79785500570';
   btnBooking.className = 'btn-secondary';
-  btnBooking.textContent = '💬 Забронировать путёвку (WhatsApp)';
+  btnBooking.textContent = '📞 Забронировать путёвку';
   actionsContainer.appendChild(btnBooking);
 
   if (navigator.share) {
