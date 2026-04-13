@@ -29,6 +29,7 @@ scp \
   "${LOCAL_PATH}/ryukzak.html" \
   "${LOCAL_PATH}/quiz.html" \
   "${LOCAL_PATH}/tour.html" \
+  "${LOCAL_PATH}/feedback.html" \
   "${LOCAL_PATH}/logo.png" \
   "${LOCAL_PATH}/hero.png" \
   "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
@@ -47,4 +48,5 @@ echo "   🏠 Каталог:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOL
 echo "   🎒 Чеклист:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/ryukzak.html"
 echo "   ✅ Квиз:       https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/quiz.html"
 echo "   🏖  Экскурсия: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/tour.html"
+echo "   📩 Правки:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/feedback.html"
 echo "   📱 TG Mini App: https://demo.ideidlyabiznesa1913.ru/${TG_FOLDER}/"

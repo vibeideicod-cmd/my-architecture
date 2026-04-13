@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как прислать нам правки — Южнобережный</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #0693e3;
+  --blue-dark: #0578c1;
+  --blue-light: #e8f4fd;
+  --sand: #f4e4bc;
+  --sand-dark: #ffc94a;
+  --dark: #32373c;
+  --text: #2c2c2c;
+  --muted: #7a8896;
+  --green: #1a9e5c;
+  --red: #e74c3c;
+  --bg: linear-gradient(180deg, #d8edff 0%, #f0f8ff 240px, #ffffff 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 24px 16px 60px;
+}
+
+h1, h2, h3, .display { font-family: 'Fredoka', Arial, sans-serif; }
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: #fff;
+  border-radius: 24px;
+  padding: 36px 32px 32px;
+  box-shadow: 0 8px 32px rgba(6,147,227,0.12);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-deco {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 160px;
+  height: 160px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-light);
+  color: var(--blue);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: clamp(24px, 5vw, 32px);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.25;
+  margin-bottom: 10px;
+  max-width: 540px;
+}
+.hero h1 span { color: var(--blue); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 540px;
+  line-height: 1.6;
+}
+
+/* ─── 3 ШАГА ─── */
+.steps {
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 20px rgba(6,147,227,0.08);
+  margin-bottom: 24px;
+}
+.steps-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 18px;
+}
+.step {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.step-text {
+  font-size: 15px;
+  color: var(--text);
+  padding-top: 4px;
+  line-height: 1.55;
+}
+.step-text strong { color: var(--dark); }
+
+/* ─── ПРИМЕРЫ ─── */
+.examples {
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 20px rgba(6,147,227,0.08);
+  margin-bottom: 24px;
+}
+.examples h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 18px;
+}
+.example {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+.example.bad {
+  background: #fdeeee;
+  border-left: 3px solid var(--red);
+}
+.example.good {
+  background: #ecfaf3;
+  border-left: 3px solid var(--green);
+}
+.example-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.example.bad .example-icon { color: var(--red); }
+.example.good .example-icon { color: var(--green); }
+.example-text { color: var(--text); }
+.example-text em { color: var(--muted); font-style: normal; font-size: 13px; display: block; margin-top: 2px; }
+
+/* ─── КАРТОЧКИ ПРОДУКТОВ ─── */
+.products-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--dark);
+  text-align: center;
+  margin: 32px 0 6px;
+}
+.products-sub {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.product {
+  background: #fff;
+  border-radius: 22px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(6,147,227,0.08);
+  margin-bottom: 18px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.product:hover {
+  border-color: var(--blue-light);
+  box-shadow: 0 8px 28px rgba(6,147,227,0.14);
+}
+
+.product-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.product-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+.product-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+.product-link {
+  font-size: 13px;
+  color: var(--blue);
+  text-decoration: none;
+}
+.product-link:hover { text-decoration: underline; }
+
+.product-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 14px 0 8px;
+}
+.product ul {
+  list-style: none;
+  padding: 0;
+}
+.product li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.product li::before {
+  content: '✏';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+}
+
+/* ─── КУДА ОТПРАВИТЬ ─── */
+.send {
+  background: linear-gradient(135deg, #0693e3 0%, #0578c1 100%);
+  color: #fff;
+  border-radius: 24px;
+  padding: 32px 32px;
+  box-shadow: 0 8px 32px rgba(6,147,227,0.25);
+  margin-top: 24px;
+  text-align: center;
+}
+.send h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.send p {
+  font-size: 14px;
+  opacity: 0.92;
+  margin-bottom: 20px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.send-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.send-btn {
+  background: #fff;
+  color: var(--blue);
+  text-decoration: none;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px 22px;
+  border-radius: 14px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+.send-btn.alt {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 24px;
+  line-height: 1.7;
+}
+footer a { color: var(--blue); text-decoration: none; }
+
+@media (max-width: 540px) {
+  .hero, .steps, .examples, .product, .send { padding: 22px 18px; border-radius: 18px; }
+  .hero-deco { width: 110px; height: 110px; opacity: 0.5; }
+  .product-head { gap: 10px; }
+  .product-icon { font-size: 28px; }
+  .send-btn { padding: 12px 18px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <svg class="hero-deco" viewBox="0 0 200 200" fill="none">
+      <circle cx="150" cy="50" r="32" fill="#ffc94a" opacity="0.5"/>
+      <circle cx="150" cy="50" r="22" fill="#ffd96a"/>
+      <path d="M0 130 Q 50 110, 100 130 T 200 130 L 200 200 L 0 200 Z" fill="#0693e3" opacity="0.18"/>
+      <path d="M0 150 Q 50 130, 100 150 T 200 150 L 200 200 L 0 200 Z" fill="#0693e3" opacity="0.28"/>
+    </svg>
+    <span class="hero-badge">Обратная связь</span>
+    <h1>Помогите нам сделать инструменты <span>под ваши требования</span></h1>
+    <p class="hero-sub">Все четыре продукта (рюкзак, квиз, экскурсия, каталог) можно скорректировать. Эта инструкция — как описать правки, чтобы мы могли быстро их внести.</p>
+  </div>
+
+  <!-- ═══ 3 ШАГА ═══ -->
+  <div class="steps">
+    <div class="steps-title">Как это работает за 3 шага</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Откройте инструмент</strong> по ссылке ниже на нашем демо-сервере. Посмотрите его на телефоне и компьютере.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Опишите правку</strong> в свободной форме — что именно поменять, добавить или убрать. Чем конкретнее — тем быстрее внесём.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Пришлите нам</strong> через WhatsApp или Telegram — кнопки в самом низу страницы. Правки внесём в течение 1–2 рабочих дней.</div>
+    </div>
+  </div>
+
+  <!-- ═══ ПРИМЕРЫ ═══ -->
+  <div class="examples">
+    <h2>Как формулировать правки</h2>
+
+    <div class="example bad">
+      <span class="example-icon">✗</span>
+      <div class="example-text">«Не нравится, переделайте»<br><em>Нам неясно, что именно поменять.</em></div>
+    </div>
+
+    <div class="example good">
+      <span class="example-icon">✓</span>
+      <div class="example-text">«В категории „Документы“ удалите пункт „СНИЛС“ — он не нужен»<br><em>Точно понятно — внесём за минуту.</em></div>
+    </div>
+
+    <div class="example bad">
+      <span class="example-icon">✗</span>
+      <div class="example-text">«Сделайте красивее»<br><em>Слишком общо.</em></div>
+    </div>
+
+    <div class="example good">
+      <span class="example-icon">✓</span>
+      <div class="example-text">«На каталоге кнопку „Открыть чеклист“ сделайте зелёной вместо синей»<br><em>Конкретно — поменяем точечно.</em></div>
+    </div>
+
+    <div class="example good">
+      <span class="example-icon">✓</span>
+      <div class="example-text">«В FAQ экскурсии добавьте вопрос: „Можно ли привезти своё лекарство?“ с ответом „Да, в оригинальной упаковке…“»<br><em>Мы сразу видим что и куда вставить.</em></div>
+    </div>
+
+    <p style="margin-top:14px; font-size:13px; color:var(--muted); padding:10px 14px; background:var(--blue-light); border-radius:10px;">
+      💡 <strong>Совет:</strong> если можете — приложите скриншот места, которое хотите поменять. Так нам проще и быстрее.
+    </p>
+  </div>
+
+  <!-- ═══ ПРОДУКТЫ ═══ -->
+  <h2 class="products-title">Что можно менять в каждом продукте</h2>
+  <p class="products-sub">Список ниже — для ориентира. Если нужно что-то ещё — просто напишите.</p>
+
+  <!-- РЮКЗАК -->
+  <div class="product">
+    <div class="product-head">
+      <span class="product-icon">🎒</span>
+      <div>
+        <div class="product-title">Собери рюкзак</div>
+        <a class="product-link" href="https://demo.ideidlyabiznesa1913.ru/yub/ryukzak.html" target="_blank">demo.ideidlyabiznesa1913.ru/yub/ryukzak.html →</a>
+      </div>
+    </div>
+
+    <div class="product-section-label">Что можно менять</div>
+    <ul>
+      <li>Любые пункты в списке вещей: добавить, убрать, переименовать, перенести в другую категорию</li>
+      <li>Категории: название (Документы, Одежда, …), порядок, иконку</li>
+      <li>Подсказки «Зачем?» — текст и для каких пунктов показывать</li>
+      <li>Возрастные группы: 7–10 / 11–13 / 14–17 — названия, диапазоны, добавить новые</li>
+      <li>Сезоны: лето / межсезонье / зима — какие пункты к какому сезону</li>
+      <li>Раздел «Медицинские сборы» (СКЛ): добавить/убрать пункты, текст подсказок</li>
+      <li>Тексты на стартовом экране, цвета кнопок, иконки</li>
+      <li>Блок «Санаторий обеспечивает» — что входит/не входит</li>
+      <li>Контактные телефоны, ссылки на WhatsApp</li>
+    </ul>
+  </div>
+
+  <!-- КВИЗ -->
+  <div class="product">
+    <div class="product-head">
+      <span class="product-icon">✅</span>
+      <div>
+        <div class="product-title">Готов ли ребёнок к смене?</div>
+        <a class="product-link" href="https://demo.ideidlyabiznesa1913.ru/yub/quiz.html" target="_blank">demo.ideidlyabiznesa1913.ru/yub/quiz.html →</a>
+      </div>
+    </div>
+
+    <div class="product-section-label">Что можно менять</div>
+    <ul>
+      <li>Тексты вопросов, варианты ответов, добавить или убрать вопрос</li>
+      <li>Тексты результатов: «Готов / Почти готов / Есть что подготовить» и советы внутри</li>
+      <li>Возрастные группы и пороги «готовности»</li>
+      <li>Кнопку «💬 Забронировать» — текст, цвет, что писать в WhatsApp</li>
+      <li>Иллюстрации (солнце, парусник, маяк) — какую сцену показывать на каком результате</li>
+      <li>Стартовый экран: заголовок, подзаголовок, ободряющий блок</li>
+      <li>Контакты в подвале результата</li>
+    </ul>
+  </div>
+
+  <!-- ЭКСКУРСИЯ -->
+  <div class="product">
+    <div class="product-head">
+      <span class="product-icon">🏖</span>
+      <div>
+        <div class="product-title">Знакомство с санаторием</div>
+        <a class="product-link" href="https://demo.ideidlyabiznesa1913.ru/yub/tour.html" target="_blank">demo.ideidlyabiznesa1913.ru/yub/tour.html →</a>
+      </div>
+    </div>
+
+    <div class="product-section-label">Что можно менять</div>
+    <ul>
+      <li>Тексты во всех 7 разделах (Территория, Жильё, Питание, Лечение, Досуг, Вопросы, Контакты)</li>
+      <li>Списки преимуществ внутри каждого раздела</li>
+      <li>FAQ: добавить/убрать/переписать вопросы и ответы</li>
+      <li>Цитату директора и всю карточку «Слово от директора» (когда дадите реальный текст)</li>
+      <li>Блок «ЮБ в цифрах»: 21 день, 8 отрядов, 24/7 — менять цифры и подписи</li>
+      <li>Контактные телефоны, email, адрес, ссылки на VK и Telegram</li>
+      <li><strong>Заменить SVG-иллюстрации на реальные фото</strong> — пришлите фотографии, мы вставим</li>
+      <li>Порядок разделов на странице</li>
+    </ul>
+  </div>
+
+  <!-- КАТАЛОГ -->
+  <div class="product">
+    <div class="product-head">
+      <span class="product-icon">🏠</span>
+      <div>
+        <div class="product-title">Каталог-витрина инструментов</div>
+        <a class="product-link" href="https://demo.ideidlyabiznesa1913.ru/yub/" target="_blank">demo.ideidlyabiznesa1913.ru/yub/ →</a>
+      </div>
+    </div>
+
+    <div class="product-section-label">Что можно менять</div>
+    <ul>
+      <li>Заголовок и подзаголовок главной</li>
+      <li>Порядок и описание трёх карточек</li>
+      <li>Названия и подписи (тег) на карточках</li>
+      <li>Кнопки «Открыть», цвета, иконки</li>
+      <li>Контакты в подвале (телефон, WhatsApp, сайт)</li>
+      <li>Слоган внизу страницы</li>
+    </ul>
+  </div>
+
+  <!-- ═══ КУДА ОТПРАВИТЬ ═══ -->
+  <div class="send">
+    <h2>📩 Куда прислать правки</h2>
+    <p>Опишите правки в свободной форме (можно голосом или фото) — пришлите нам в WhatsApp или Telegram. Мы внесём изменения и пришлём обновлённую ссылку.</p>
+    <div class="send-btns">
+      <a class="send-btn" href="https://wa.me/79785500570?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D1%80%D0%B0%D0%B2%D0%BA%D0%B8%20%D0%BF%D0%BE%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%20%D0%AE%D0%91%3A%0A%0A" target="_blank">💬 WhatsApp</a>
+      <a class="send-btn alt" href="tel:+79787389618">📞 Позвонить</a>
+    </div>
+  </div>
+
+  <footer>
+    Команда разработки · «Безопасно, полезно и с улыбкой каждый день»<br>
+    <a href="https://demo.ideidlyabiznesa1913.ru/yub/">← Вернуться к каталогу инструментов</a>
+  </footer>
+
+</div>
+</body>
+</html>
