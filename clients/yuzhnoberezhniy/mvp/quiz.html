@@ -4,90 +4,225 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Готов ли ребёнок к смене? — Санаторий Южнобережный</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --blue: #0693e3;
+  --blue-deep: #0578c1;
+  --blue-soft: #e8f4fd;
+  --sky-1: #cdebfb;
+  --sky-2: #e8f5fd;
+  --sand: #f6ecd6;
+  --sand-deep: #e8d9b3;
+  --dark: #2c2c2c;
+  --muted: #7a8a99;
+  --display: 'Fredoka', 'Trebuchet MS', Arial, sans-serif;
+}
+
+html, body { min-height: 100%; }
+
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(160deg, #e8f4fd 0%, #f0f8ff 60%, #e0f0fb 100%);
+  color: var(--dark);
+  background:
+    linear-gradient(180deg, #d6efff 0%, #e8f5fd 30%, #f4faff 55%, #fff7e3 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 24px 16px;
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* ─── ФОН: МОРЕ, СОЛНЦЕ, ЧАЙКИ ─── */
+.bg-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bg-scene svg { width: 100%; height: 100%; display: block; }
+
+.sun {
+  transform-origin: center;
+  animation: sunPulse 6s ease-in-out infinite;
+}
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(1.05); opacity: 1; }
+}
+
+.cloud { animation: drift 40s linear infinite; }
+.cloud-2 { animation: drift 55s linear infinite; animation-delay: -20s; }
+@keyframes drift {
+  from { transform: translateX(-10%); }
+  to   { transform: translateX(110%); }
+}
+
+.gull-1 { animation: fly 22s linear infinite; transform-origin: center; }
+.gull-2 { animation: fly 30s linear infinite; animation-delay: -8s; }
+@keyframes fly {
+  0%   { transform: translate(-5%, 0); }
+  50%  { transform: translate(50%, -8px); }
+  100% { transform: translate(110%, 0); }
+}
+
+.wave-back  { animation: waveSlow 11s ease-in-out infinite; }
+.wave-mid   { animation: waveSlow 8s ease-in-out infinite reverse; }
+.wave-front { animation: waveSlow 6s ease-in-out infinite; }
+@keyframes waveSlow {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-12px); }
+}
+
+.sail { animation: sailBob 7s ease-in-out infinite; transform-origin: center bottom; }
+@keyframes sailBob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-3px) rotate(1.5deg); }
+}
+
+/* ─── КАРТОЧКА ─── */
 .card {
+  position: relative;
+  z-index: 1;
   background: #fff;
-  border-radius: 24px;
-  max-width: 580px;
+  border-radius: 28px;
+  max-width: 600px;
   width: 100%;
-  padding: 44px 40px;
-  box-shadow: 0 8px 40px rgba(6, 147, 227, 0.12);
+  padding: 40px 38px 36px;
+  box-shadow:
+    0 30px 60px -20px rgba(6, 147, 227, 0.25),
+    0 10px 30px -10px rgba(6, 147, 227, 0.15),
+    0 0 0 1px rgba(6, 147, 227, 0.06);
 }
 
 /* ─── ЭКРАН СТАРТ ─── */
 #screen-start { text-align: center; }
 
-.logo-badge {
+.hero-illustration {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 18px;
+  display: block;
+  filter: drop-shadow(0 8px 18px rgba(6, 147, 227, 0.18));
+}
+
+.start-eyebrow {
   display: inline-block;
-  background: #e8f4fd;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  font-size: 40px;
-  line-height: 80px;
-  margin-bottom: 20px;
+  background: linear-gradient(135deg, #fff7e3 0%, #ffeec2 100%);
+  color: #c98a1a;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
 }
 
 .start-title {
-  font-size: clamp(22px, 5vw, 28px);
-  font-weight: bold;
-  color: #2c2c2c;
-  margin-bottom: 10px;
-  line-height: 1.3;
+  font-family: var(--display);
+  font-size: clamp(24px, 5.5vw, 32px);
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 12px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
-
-.start-title span { color: #0693e3; }
+.start-title span {
+  color: var(--blue);
+  position: relative;
+  white-space: nowrap;
+}
+.start-title span::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 6px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'><path d='M0,4 Q25,0 50,4 T100,4' fill='none' stroke='%230693e3' stroke-width='2' stroke-linecap='round'/></svg>") center/100% 100% no-repeat;
+  opacity: 0.6;
+}
 
 .start-sub {
   font-size: 16px;
   color: #555;
   line-height: 1.6;
-  margin-bottom: 28px;
+  margin: 0 auto 24px;
+  max-width: 460px;
 }
 
 .start-reassure {
-  background: #e8f4fd;
-  border-radius: 12px;
-  padding: 14px 18px;
-  font-size: 14px;
-  color: #0693e3;
-  margin-bottom: 28px;
-  line-height: 1.5;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f4faff 100%);
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 14.5px;
+  color: var(--dark);
+  margin-bottom: 24px;
+  line-height: 1.55;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  text-align: left;
+  border: 1px solid rgba(6, 147, 227, 0.15);
 }
+.start-reassure svg { flex-shrink: 0; width: 40px; height: 40px; }
+.start-reassure b { color: var(--blue); font-family: var(--display); font-weight: 600; }
 
 .btn-primary {
-  display: block;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   width: 100%;
-  background: #0693e3;
+  background: linear-gradient(135deg, #0aa5f5 0%, #0693e3 50%, #0578c1 100%);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 16px 24px;
+  border-radius: 16px;
+  padding: 18px 26px;
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  font-family: Arial, sans-serif;
+  font-family: var(--display);
+  letter-spacing: 0.2px;
+  box-shadow:
+    0 10px 25px -8px rgba(6, 147, 227, 0.55),
+    0 4px 12px -4px rgba(6, 147, 227, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  overflow: hidden;
 }
-.btn-primary:hover { background: #0578c1; }
-.btn-primary:active { transform: scale(0.98); }
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'><path d='M0,8 Q25,2 50,8 T100,8 T150,8 T200,8 L200,10 L0,10 Z' fill='rgba(255,255,255,0.18)'/></svg>") bottom/200% 100% no-repeat;
+  opacity: 0.7;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 32px -8px rgba(6, 147, 227, 0.6),
+    0 6px 16px -4px rgba(6, 147, 227, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-primary > * { position: relative; }
 
 .start-count {
   margin-top: 14px;
   font-size: 13px;
-  color: #abb8c3;
+  color: var(--muted);
+  font-family: var(--display);
+  font-weight: 500;
 }
 
 /* ─── ЭКРАН ВОПРОС ─── */
@@ -96,229 +231,387 @@ body {
 .back-btn {
   background: none;
   border: none;
-  color: #0693e3;
+  color: var(--blue);
   font-size: 14px;
   cursor: pointer;
   padding: 6px 10px 6px 0;
-  margin-bottom: 12px;
-  font-family: Arial, sans-serif;
+  margin-bottom: 14px;
+  font-family: var(--display);
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
 }
-.back-btn:hover { color: #0578c1; }
+.back-btn:hover { color: var(--blue-deep); transform: translateX(-3px); }
 .back-btn:disabled {
   color: #c8d5e0;
   cursor: not-allowed;
 }
 
+/* Прогресс — путешествие кораблика по волнам */
 .progress-wrap {
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 .progress-label {
   font-size: 13px;
-  color: #abb8c3;
+  color: var(--muted);
   margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
+  font-family: var(--display);
+  font-weight: 500;
+}
+.progress-label span:last-child { color: var(--blue); font-weight: 600; }
+
+.progress-track {
+  position: relative;
+  height: 32px;
+  margin: 0 -2px;
+}
+.progress-track svg.waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .progress-bar {
-  background: #e8f4fd;
+  position: absolute;
+  left: 0; right: 0; bottom: 4px;
+  background: var(--blue-soft);
   border-radius: 8px;
   height: 6px;
   overflow: hidden;
 }
 .progress-fill {
-  background: #0693e3;
+  background: linear-gradient(90deg, #4fc3f7 0%, #0693e3 100%);
   height: 100%;
   border-radius: 8px;
-  transition: width 0.4s ease;
+  transition: width 0.6s cubic-bezier(.4,.0,.2,1);
+}
+.boat {
+  position: absolute;
+  bottom: 6px;
+  left: 0%;
+  width: 36px;
+  height: 28px;
+  transform: translateX(-50%);
+  transition: left 0.6s cubic-bezier(.4,.0,.2,1);
+  animation: boatBob 2.4s ease-in-out infinite;
+}
+@keyframes boatBob {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); }
+  50%      { transform: translateX(-50%) translateY(-2px) rotate(2deg); }
 }
 
-.question-emoji {
-  font-size: 36px;
-  margin-bottom: 12px;
-  display: block;
+/* Заголовок вопроса с круглой ракушкой-рамкой */
+.q-head {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 22px;
 }
+.q-emoji-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+}
+.q-emoji-wrap svg.shell {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.question-emoji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.q-text-wrap { flex: 1; padding-top: 4px; }
 .question-text {
-  font-size: clamp(18px, 4vw, 22px);
-  font-weight: bold;
-  color: #2c2c2c;
-  line-height: 1.4;
-  margin-bottom: 8px;
+  font-family: var(--display);
+  font-size: clamp(18px, 4.2vw, 22px);
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.3;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
 }
 .question-sub {
-  font-size: 14px;
-  color: #abb8c3;
-  margin-bottom: 24px;
+  font-size: 13.5px;
+  color: var(--muted);
   line-height: 1.5;
 }
 
 .answers {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* Pebble-формы — мягкие гальки */
 .answer-btn {
+  position: relative;
   background: #fff;
   border: 2px solid #e0ecf8;
-  border-radius: 12px;
-  padding: 14px 18px;
+  border-radius: 22px;
+  padding: 16px 50px 16px 20px;
   font-size: 16px;
-  color: #2c2c2c;
+  color: var(--dark);
   cursor: pointer;
   text-align: left;
-  transition: border-color 0.2s, background 0.2s, transform 0.1s;
   font-family: Arial, sans-serif;
   line-height: 1.4;
+  box-shadow: 0 2px 0 #e8f0f8, 0 4px 12px -4px rgba(6,147,227,0.08);
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.18s ease,
+    box-shadow 0.2s ease;
+}
+.answer-btn::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #d6e4f0;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  transition: all 0.25s ease;
 }
 .answer-btn:hover {
-  border-color: #0693e3;
-  background: #f0f8ff;
+  border-color: var(--blue);
+  background: #f4faff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 #d6e8f5, 0 8px 18px -4px rgba(6,147,227,0.18);
 }
-.answer-btn:active { transform: scale(0.98); }
+.answer-btn:active { transform: translateY(0); }
 .answer-btn.selected {
-  border-color: #0693e3;
-  background: #e8f4fd;
-  font-weight: bold;
+  border-color: var(--blue);
+  background: linear-gradient(135deg, #e8f4fd 0%, #f4faff 100%);
+  font-weight: 700;
+  box-shadow: 0 4px 0 #d6e8f5, 0 8px 18px -4px rgba(6,147,227,0.25);
+}
+.answer-btn.selected::after {
+  border-color: var(--blue);
+  background: var(--blue);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12 L10 17 L19 7'/></svg>");
+  background-position: center;
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  animation: checkPop 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes checkPop {
+  0%   { transform: translateY(-50%) scale(0.5); }
+  60%  { transform: translateY(-50%) scale(1.15); }
+  100% { transform: translateY(-50%) scale(1); }
 }
 
 /* ─── ЭКРАН РЕЗУЛЬТАТ ─── */
 #screen-result { display: none; }
 
-.result-header {
+.result-hero {
+  position: relative;
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+  padding: 14px 0 4px;
 }
-.result-icon {
-  font-size: 52px;
+.result-hero svg.r-illust {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  margin: 0 auto 12px;
   display: block;
-  margin-bottom: 12px;
+  animation: resultRise 0.8s cubic-bezier(.34,1.56,.64,1) both;
 }
+@keyframes resultRise {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.result-icon { display: none; }
 .result-title {
-  font-size: clamp(20px, 4.5vw, 26px);
-  font-weight: bold;
-  line-height: 1.3;
+  font-family: var(--display);
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
   margin-bottom: 8px;
+  letter-spacing: -0.3px;
 }
-.result-title.green { color: #1a9e5c; }
+.result-title.green  { color: #1a9e5c; }
 .result-title.orange { color: #d68910; }
-.result-title.blue { color: #0693e3; }
+.result-title.blue   { color: var(--blue); }
 
 .result-sub {
   font-size: 15px;
   color: #555;
   line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .result-block {
-  border-radius: 14px;
-  padding: 18px 20px;
+  border-radius: 18px;
+  padding: 20px 22px;
   margin-bottom: 14px;
   line-height: 1.6;
+  border: 1px solid rgba(0,0,0,0.04);
 }
-.result-block.green-bg { background: #eafaf1; border-left: 4px solid #1a9e5c; }
-.result-block.orange-bg { background: #fef9e7; border-left: 4px solid #f0a500; }
-.result-block.blue-bg { background: #e8f4fd; border-left: 4px solid #0693e3; }
-.result-block.warning-bg { background: #fff3cd; border-left: 4px solid #f0a500; }
-.result-block.info-bg { background: #f0f8ff; border-left: 4px solid #4fc3f7; }
+.result-block.green-bg   { background: #eafaf1; border-left: 5px solid #1a9e5c; }
+.result-block.orange-bg  { background: #fef9e7; border-left: 5px solid #f0a500; }
+.result-block.blue-bg    { background: #e8f4fd; border-left: 5px solid var(--blue); }
+.result-block.warning-bg { background: #fff3cd; border-left: 5px solid #f0a500; }
+.result-block.info-bg    { background: #f4faff; border-left: 5px solid #4fc3f7; }
 
 .result-block h3 {
-  font-size: 15px;
-  font-weight: bold;
-  color: #2c2c2c;
-  margin-bottom: 6px;
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
 }
 .result-block p, .result-block ul {
-  font-size: 14px;
+  font-size: 14.5px;
   color: #444;
 }
-.result-block ul { padding-left: 18px; }
-.result-block li { margin-bottom: 4px; }
+.result-block ul { padding-left: 20px; }
+.result-block li { margin-bottom: 5px; }
+.result-block a { color: var(--blue); }
 
 .guarantee-block {
-  background: #e8f4fd;
-  border-radius: 14px;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f4faff 100%);
+  border: 1px solid rgba(6,147,227,0.15);
+  border-radius: 18px;
   padding: 18px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   display: flex;
   gap: 14px;
-  align-items: flex-start;
+  align-items: center;
 }
-.guarantee-icon { font-size: 28px; flex-shrink: 0; }
-.guarantee-text { font-size: 14px; color: #2c2c2c; line-height: 1.6; }
-.guarantee-text strong { color: #0693e3; }
+.guarantee-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.guarantee-text { font-size: 14px; color: var(--dark); line-height: 1.55; }
+.guarantee-text strong { color: var(--blue); font-family: var(--display); font-weight: 600; }
 
 .result-actions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
 .btn-secondary {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
-  background: #f0f8ff;
-  color: #0693e3;
-  border: 2px solid #0693e3;
-  border-radius: 12px;
-  padding: 13px 20px;
+  background: #fff;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: 16px;
+  padding: 14px 20px;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
   text-align: center;
-  transition: background 0.2s;
-  font-family: Arial, sans-serif;
+  font-family: var(--display);
   text-decoration: none;
+  transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px -4px rgba(6,147,227,0.18);
 }
-.btn-secondary:hover { background: #ddf0fc; }
+.btn-secondary:hover {
+  background: #e8f4fd;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px rgba(6,147,227,0.25);
+}
+.btn-secondary:active { transform: translateY(0); }
 
 .btn-ghost {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   width: 100%;
   background: none;
-  color: #abb8c3;
-  border: 2px solid #e0ecf8;
-  border-radius: 12px;
-  padding: 11px 20px;
+  color: var(--muted);
+  border: 2px dashed #d6e4f0;
+  border-radius: 16px;
+  padding: 12px 20px;
   font-size: 14px;
   cursor: pointer;
   text-align: center;
+  font-family: var(--display);
+  font-weight: 500;
   transition: border-color 0.2s, color 0.2s;
-  font-family: Arial, sans-serif;
 }
-.btn-ghost:hover { border-color: #0693e3; color: #0693e3; }
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue); border-style: solid; }
 
 .contact-line {
   text-align: center;
   font-size: 13px;
-  color: #abb8c3;
+  color: var(--muted);
   line-height: 1.7;
+  font-family: var(--display);
 }
-.contact-line a { color: #0693e3; text-decoration: none; }
+.contact-line a { color: var(--blue); text-decoration: none; font-weight: 500; }
 .contact-line a:hover { text-decoration: underline; }
 
-/* ─── АНИМАЦИЯ ─── */
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateX(30px); }
-  to   { opacity: 1; transform: translateX(0); }
+/* ─── CONFETTI для ready ─── */
+.confetti {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 6px;
+  height: 10px;
+  background: #0693e3;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confettiFall 1.6s ease-out forwards;
 }
-.animate-in { animation: fadeSlideIn 0.3s ease both; }
+@keyframes confettiFall {
+  0%   { opacity: 1; transform: translate(-50%, 0) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--cx, 0), 220px) rotate(540deg); }
+}
+
+/* ─── АНИМАЦИЯ переходов ─── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeSlideIn 0.45s cubic-bezier(.4,.0,.2,1) both; }
 
 /* ─── АДАПТИВ ─── */
-@media (max-width: 480px) {
-  .card { padding: 28px 20px; }
-  .start-title { font-size: 20px; }
-  .question-text { font-size: 18px; }
-  .answer-btn { font-size: 15px; padding: 13px 14px; }
+@media (max-width: 520px) {
+  body { padding: 14px 12px; }
+  .card { padding: 26px 20px 24px; border-radius: 22px; }
+  .start-title { font-size: 22px; }
+  .question-text { font-size: 17px; }
+  .answer-btn { font-size: 15px; padding: 14px 44px 14px 16px; border-radius: 18px; }
+  .q-head { gap: 12px; }
+  .q-emoji-wrap { width: 56px; height: 56px; }
+  .question-emoji { font-size: 26px; }
+  .hero-illustration { max-width: 280px; }
+  .result-hero svg.r-illust { max-width: 200px; }
 }
 
 /* ─── PRINT ─── */
 @media print {
   body { background: white; padding: 0; }
+  .bg-scene { display: none; }
   .card { box-shadow: none; padding: 20px; }
   .result-actions, .btn-primary, .btn-secondary, .btn-ghost { display: none; }
 }
@@ -326,42 +619,275 @@ body {
 </head>
 <body>
 
+<!-- ═══════════════ ФОН ═══════════════ -->
+<div class="bg-scene" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <!-- Солнце -->
+    <g class="sun" transform="translate(1180, 160)">
+      <circle r="55" fill="#ffe9a8" opacity="0.55"/>
+      <circle r="42" fill="#ffd76b" opacity="0.85"/>
+      <circle r="32" fill="#ffc94a"/>
+    </g>
+
+    <!-- Облака -->
+    <g class="cloud" opacity="0.85">
+      <ellipse cx="200" cy="140" rx="50" ry="14" fill="#ffffff"/>
+      <ellipse cx="230" cy="130" rx="34" ry="12" fill="#ffffff"/>
+      <ellipse cx="170" cy="132" rx="28" ry="10" fill="#ffffff"/>
+    </g>
+    <g class="cloud-2" opacity="0.7">
+      <ellipse cx="600" cy="200" rx="40" ry="11" fill="#ffffff"/>
+      <ellipse cx="630" cy="192" rx="26" ry="9" fill="#ffffff"/>
+    </g>
+
+    <!-- Чайки -->
+    <g class="gull-1" fill="none" stroke="#5a6b7a" stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+      <path d="M 100 250 q 8 -10 16 0 q 8 -10 16 0"/>
+    </g>
+    <g class="gull-2" fill="none" stroke="#5a6b7a" stroke-width="2" stroke-linecap="round" opacity="0.45">
+      <path d="M 700 320 q 6 -8 12 0 q 6 -8 12 0"/>
+    </g>
+
+    <!-- Дальний горизонт-горы (Крым) -->
+    <path d="M 0 560 L 200 470 L 380 520 L 560 450 L 760 510 L 940 460 L 1120 510 L 1280 470 L 1440 510 L 1440 600 L 0 600 Z"
+          fill="#a8c8d8" opacity="0.5"/>
+
+    <!-- Парусник вдалеке -->
+    <g class="sail" transform="translate(900, 580)">
+      <path d="M 0 0 L 0 -32 L 22 0 Z" fill="#ffffff" stroke="#0693e3" stroke-width="1.2"/>
+      <path d="M -8 0 L 14 0 L 10 8 L -4 8 Z" fill="#32373c"/>
+    </g>
+
+    <!-- Море — задний слой -->
+    <path class="wave-back" d="M -50 620 Q 200 600 450 620 T 950 620 T 1450 620 L 1500 900 L -50 900 Z"
+          fill="#9fd8f5" opacity="0.55"/>
+    <!-- Море — средний слой -->
+    <path class="wave-mid" d="M -50 680 Q 200 660 450 680 T 950 680 T 1500 680 L 1500 900 L -50 900 Z"
+          fill="#5fc1ee" opacity="0.55"/>
+    <!-- Море — передний слой -->
+    <path class="wave-front" d="M -50 740 Q 250 720 500 740 T 1000 740 T 1500 740 L 1500 900 L -50 900 Z"
+          fill="#0693e3" opacity="0.35"/>
+
+    <!-- Песок снизу -->
+    <path d="M -50 820 Q 300 800 600 820 T 1200 820 T 1500 820 L 1500 900 L -50 900 Z"
+          fill="#f4e4bc" opacity="0.65"/>
+
+    <!-- Ракушки на песке -->
+    <g opacity="0.5">
+      <ellipse cx="180" cy="860" rx="9" ry="5" fill="#e8d09a"/>
+      <ellipse cx="800" cy="870" rx="7" ry="4" fill="#e8d09a"/>
+      <ellipse cx="1250" cy="865" rx="10" ry="5" fill="#e8d09a"/>
+    </g>
+  </svg>
+</div>
+
 <div class="card" id="app">
 
   <!-- ═══════════════ СТАРТ ═══════════════ -->
   <div id="screen-start">
-    <div class="logo-badge">🌊</div>
-    <h1 class="start-title">Готов ли ребёнок<br>к <span>смене</span> в санатории?</h1>
-    <p class="start-sub">Короткий тест поможет понять, что уже хорошо, а что стоит подготовить перед отъездом.</p>
+
+    <!-- Hero иллюстрация: круг с морем, солнцем, силуэтом ребёнка с чемоданом -->
+    <svg class="hero-illustration" viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="sky" cx="50%" cy="30%">
+          <stop offset="0%" stop-color="#fff7e0"/>
+          <stop offset="60%" stop-color="#cdebfb"/>
+          <stop offset="100%" stop-color="#a8d9f0"/>
+        </radialGradient>
+        <linearGradient id="seaG" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#5fc1ee"/>
+          <stop offset="100%" stop-color="#0693e3"/>
+        </linearGradient>
+        <clipPath id="frame">
+          <circle cx="180" cy="140" r="125"/>
+        </clipPath>
+      </defs>
+
+      <!-- Внешнее кольцо -->
+      <circle cx="180" cy="140" r="130" fill="#fff" stroke="#0693e3" stroke-width="3" opacity="0.9"/>
+
+      <g clip-path="url(#frame)">
+        <!-- Небо -->
+        <rect x="55" y="15" width="250" height="170" fill="url(#sky)"/>
+
+        <!-- Солнце с лучами -->
+        <g transform="translate(245, 75)">
+          <g stroke="#ffc94a" stroke-width="2.5" stroke-linecap="round">
+            <line x1="0" y1="-30" x2="0" y2="-22"/>
+            <line x1="21" y1="-21" x2="16" y2="-16"/>
+            <line x1="30" y1="0" x2="22" y2="0"/>
+            <line x1="21" y1="21" x2="16" y2="16"/>
+            <line x1="-21" y1="-21" x2="-16" y2="-16"/>
+            <line x1="-30" y1="0" x2="-22" y2="0"/>
+            <line x1="-21" y1="21" x2="-16" y2="16"/>
+          </g>
+          <circle r="18" fill="#ffd76b"/>
+          <circle r="13" fill="#ffc94a"/>
+        </g>
+
+        <!-- Дальние горы (АЙ-Петри ассоциация) -->
+        <path d="M 55 130 L 100 95 L 135 115 L 170 85 L 210 110 L 240 95 L 280 115 L 305 100 L 305 185 L 55 185 Z"
+              fill="#9fc7d8" opacity="0.7"/>
+        <path d="M 55 145 L 90 120 L 130 135 L 165 110 L 200 130 L 240 115 L 280 135 L 305 125 L 305 185 L 55 185 Z"
+              fill="#7fb2c8" opacity="0.7"/>
+
+        <!-- Чайка -->
+        <path d="M 110 70 q 5 -7 10 0 q 5 -7 10 0" fill="none" stroke="#5a6b7a" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Море -->
+        <path d="M 55 175 Q 130 165 180 175 T 305 175 L 305 250 L 55 250 Z" fill="url(#seaG)"/>
+        <!-- Блики на море -->
+        <path d="M 80 195 q 10 -3 20 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 200 205 q 12 -3 24 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 130 215 q 8 -3 16 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+        <!-- Парус вдалеке -->
+        <g transform="translate(245, 168)">
+          <path d="M 0 0 L 0 -22 L 14 0 Z" fill="#fff" stroke="#0693e3" stroke-width="1"/>
+          <path d="M -5 0 L 9 0 L 7 5 L -3 5 Z" fill="#32373c"/>
+        </g>
+
+        <!-- Песчаный берег -->
+        <path d="M 55 215 Q 120 205 180 215 T 305 215 L 305 250 L 55 250 Z" fill="#f4e4bc"/>
+
+        <!-- Ребёнок с чемоданом — силуэт -->
+        <g transform="translate(120, 180)">
+          <!-- Тень -->
+          <ellipse cx="8" cy="48" rx="22" ry="3" fill="#000" opacity="0.12"/>
+          <!-- Голова -->
+          <circle cx="0" cy="-2" r="9" fill="#f6c89a"/>
+          <!-- Шляпа -->
+          <ellipse cx="0" cy="-9" rx="14" ry="3" fill="#0693e3"/>
+          <path d="M -7 -10 q 7 -8 14 0 Z" fill="#0693e3"/>
+          <circle cx="0" cy="-12" r="2" fill="#ffc94a"/>
+          <!-- Тело -->
+          <path d="M -8 8 Q -8 26 -6 40 L 6 40 Q 8 26 8 8 Z" fill="#0693e3"/>
+          <!-- Шорты -->
+          <path d="M -6 32 L 6 32 L 8 44 L 0 44 L -8 44 Z" fill="#32373c"/>
+          <!-- Ноги -->
+          <rect x="-5" y="42" width="3" height="6" fill="#f6c89a"/>
+          <rect x="2" y="42" width="3" height="6" fill="#f6c89a"/>
+          <!-- Рука с чемоданом -->
+          <line x1="8" y1="14" x2="16" y2="28" stroke="#f6c89a" stroke-width="3" stroke-linecap="round"/>
+          <!-- Чемодан -->
+          <rect x="14" y="28" width="18" height="14" rx="2" fill="#c98a1a"/>
+          <rect x="14" y="28" width="18" height="14" rx="2" fill="none" stroke="#7a5810" stroke-width="1"/>
+          <line x1="14" y1="33" x2="32" y2="33" stroke="#7a5810" stroke-width="0.8"/>
+          <rect x="20" y="24" width="6" height="5" rx="1" fill="none" stroke="#c98a1a" stroke-width="2"/>
+        </g>
+
+        <!-- Вторая фигура — друг с мячиком -->
+        <g transform="translate(220, 185)">
+          <ellipse cx="0" cy="42" rx="18" ry="2.5" fill="#000" opacity="0.1"/>
+          <circle cx="0" cy="0" r="8" fill="#f6c89a"/>
+          <!-- Хвостики -->
+          <circle cx="-7" cy="-4" r="3" fill="#7a4520"/>
+          <circle cx="7" cy="-4" r="3" fill="#7a4520"/>
+          <path d="M -8 -2 q 8 -6 16 0" fill="#7a4520"/>
+          <!-- Сарафан -->
+          <path d="M -10 8 L 10 8 L 14 38 L -14 38 Z" fill="#ffc94a"/>
+          <circle cx="-5" cy="20" r="1.5" fill="#fff"/>
+          <circle cx="5" cy="25" r="1.5" fill="#fff"/>
+          <!-- Ноги -->
+          <rect x="-5" y="38" width="3" height="6" fill="#f6c89a"/>
+          <rect x="2" y="38" width="3" height="6" fill="#f6c89a"/>
+          <!-- Мячик -->
+          <circle cx="-15" cy="34" r="5" fill="#0693e3"/>
+          <path d="M -20 34 q 5 -3 10 0" stroke="#fff" stroke-width="1" fill="none"/>
+        </g>
+      </g>
+
+      <!-- Звёздочки декор -->
+      <g fill="#ffc94a">
+        <circle cx="55" cy="60" r="3"/>
+        <circle cx="305" cy="40" r="2.5"/>
+        <circle cx="50" cy="220" r="2.5"/>
+      </g>
+    </svg>
+
+    <span class="start-eyebrow">Тест для родителей</span>
+    <h1 class="start-title">Готов ли твой ребёнок<br>к <span>морю</span>, солнцу<br>и новым друзьям?</h1>
+    <p class="start-sub">Пройди короткий тест и узнай, всё ли готово для отдыха мечты в Крыму. 8 простых вопросов — около 2 минут.</p>
+
     <div class="start-reassure">
-      💙 Нет "плохих" результатов — только подсказки.<br>
-      Большинство детей справляются отлично.
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="22" fill="#e8f4fd"/>
+        <path d="M 24 36 C 12 28 12 18 18 16 C 21 15 24 17 24 20 C 24 17 27 15 30 16 C 36 18 36 28 24 36 Z" fill="#0693e3"/>
+      </svg>
+      <div>Нет «плохих» результатов — только подсказки. <b>Большинство детей справляются отлично.</b></div>
     </div>
-    <button class="btn-primary" onclick="startQuiz()">Пройти тест — 8 вопросов</button>
-    <p class="start-count">Занимает около 2 минут</p>
+
+    <button class="btn-primary" onclick="startQuiz()">
+      <span>Начать тест</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <p class="start-count">8 вопросов • около 2 минут</p>
   </div>
 
   <!-- ═══════════════ ВОПРОС ═══════════════ -->
   <div id="screen-question">
-    <button class="back-btn" id="back-btn" onclick="goBack()">← Назад</button>
+    <button class="back-btn" id="back-btn" onclick="goBack()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Назад
+    </button>
+
     <div class="progress-wrap">
       <div class="progress-label">
         <span id="progress-text">Вопрос 1 из 8</span>
         <span id="progress-pct">0%</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-track">
+        <svg class="waves" viewBox="0 0 600 32" preserveAspectRatio="none">
+          <path d="M 0 22 Q 75 16 150 22 T 300 22 T 450 22 T 600 22 L 600 32 L 0 32 Z" fill="#cfeafa" opacity="0.6"/>
+          <path d="M 0 26 Q 75 20 150 26 T 300 26 T 450 26 T 600 26 L 600 32 L 0 32 Z" fill="#9ed7f0" opacity="0.6"/>
+        </svg>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        <div class="boat" id="boat">
+          <svg viewBox="0 0 36 28" xmlns="http://www.w3.org/2000/svg">
+            <!-- Парус -->
+            <path d="M 18 2 L 18 18 L 30 18 Z" fill="#fff" stroke="#0693e3" stroke-width="1.5"/>
+            <line x1="18" y1="2" x2="18" y2="20" stroke="#32373c" stroke-width="1.5"/>
+            <!-- Корпус -->
+            <path d="M 5 19 L 31 19 L 27 25 L 9 25 Z" fill="#0693e3" stroke="#0578c1" stroke-width="1"/>
+            <!-- Флаг -->
+            <path d="M 18 2 L 22 4 L 18 6 Z" fill="#ffc94a"/>
+          </svg>
+        </div>
+      </div>
     </div>
 
-    <span class="question-emoji" id="q-emoji"></span>
-    <p class="question-text" id="q-text"></p>
-    <p class="question-sub" id="q-sub"></p>
+    <div class="q-head">
+      <div class="q-emoji-wrap">
+        <svg class="shell" viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
+          <!-- Солнечный круг с лучами -->
+          <g stroke="#ffc94a" stroke-width="2" stroke-linecap="round">
+            <line x1="34" y1="2" x2="34" y2="8"/>
+            <line x1="34" y1="60" x2="34" y2="66"/>
+            <line x1="2" y1="34" x2="8" y2="34"/>
+            <line x1="60" y1="34" x2="66" y2="34"/>
+            <line x1="11" y1="11" x2="15" y2="15"/>
+            <line x1="53" y1="11" x2="57" y2="15"/>
+            <line x1="11" y1="57" x2="15" y2="53"/>
+            <line x1="53" y1="57" x2="57" y2="53"/>
+          </g>
+          <circle cx="34" cy="34" r="26" fill="#fff7e3" stroke="#0693e3" stroke-width="2"/>
+          <circle cx="34" cy="34" r="22" fill="#e8f4fd"/>
+        </svg>
+        <span class="question-emoji" id="q-emoji"></span>
+      </div>
+      <div class="q-text-wrap">
+        <p class="question-text" id="q-text"></p>
+        <p class="question-sub" id="q-sub"></p>
+      </div>
+    </div>
+
     <div class="answers" id="q-answers"></div>
   </div>
 
   <!-- ═══════════════ РЕЗУЛЬТАТ ═══════════════ -->
   <div id="screen-result">
 
-    <div class="result-header">
+    <div class="result-hero" id="r-hero-wrap">
       <span class="result-icon" id="r-icon"></span>
       <h2 class="result-title" id="r-title"></h2>
       <p class="result-sub" id="r-sub"></p>
@@ -370,7 +896,13 @@ body {
     <div id="r-blocks"></div>
 
     <div class="guarantee-block">
-      <div class="guarantee-icon">🏥</div>
+      <div class="guarantee-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="22" fill="#e8f4fd"/>
+          <path d="M 24 10 L 24 38 M 10 24 L 38 24" stroke="#0693e3" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="6" fill="#0693e3"/>
+        </svg>
+      </div>
       <div class="guarantee-text">
         <strong>Медперсонал ЮБ работает круглосуточно.</strong><br>
         Врач, медсестра и вожатые рядом 24/7 — ребёнок не будет один ни в какой ситуации.
@@ -388,6 +920,122 @@ body {
   </div>
 
 </div>
+
+<!-- ═══════════════ SVG ШАБЛОНЫ РЕЗУЛЬТАТОВ ═══════════════ -->
+<template id="tpl-ready">
+  <svg class="r-illust" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="rdy-sky" cx="50%" cy="40%">
+        <stop offset="0%" stop-color="#fff7e0"/>
+        <stop offset="100%" stop-color="#cdebfb"/>
+      </radialGradient>
+    </defs>
+    <circle cx="120" cy="90" r="85" fill="url(#rdy-sky)" stroke="#1a9e5c" stroke-width="3"/>
+    <!-- Большое солнце с лучами -->
+    <g transform="translate(120, 80)">
+      <g stroke="#ffc94a" stroke-width="3" stroke-linecap="round">
+        <line x1="0" y1="-50" x2="0" y2="-38"/>
+        <line x1="35" y1="-35" x2="27" y2="-27"/>
+        <line x1="50" y1="0" x2="38" y2="0"/>
+        <line x1="35" y1="35" x2="27" y2="27"/>
+        <line x1="0" y1="50" x2="0" y2="38"/>
+        <line x1="-35" y1="35" x2="-27" y2="27"/>
+        <line x1="-50" y1="0" x2="-38" y2="0"/>
+        <line x1="-35" y1="-35" x2="-27" y2="-27"/>
+      </g>
+      <circle r="28" fill="#ffd76b"/>
+      <circle r="22" fill="#ffc94a"/>
+      <!-- Улыбка -->
+      <circle cx="-7" cy="-4" r="2" fill="#32373c"/>
+      <circle cx="7" cy="-4" r="2" fill="#32373c"/>
+      <path d="M -8 6 q 8 7 16 0" stroke="#32373c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- Море снизу -->
+    <path d="M 35 130 Q 80 122 120 130 T 205 130 L 205 175 L 35 175 Z" fill="#0693e3" opacity="0.4"/>
+    <!-- Звёздочки победы -->
+    <g fill="#1a9e5c">
+      <path d="M 50 50 l 2 5 5 0 -4 3 1.5 5 -4.5 -3 -4.5 3 1.5 -5 -4 -3 5 0 z"/>
+      <path d="M 195 55 l 2 5 5 0 -4 3 1.5 5 -4.5 -3 -4.5 3 1.5 -5 -4 -3 5 0 z"/>
+      <path d="M 190 130 l 1.5 4 4 0 -3 2.5 1 4 -3.5 -2.5 -3.5 2.5 1 -4 -3 -2.5 4 0 z"/>
+    </g>
+  </svg>
+</template>
+
+<template id="tpl-almost">
+  <svg class="r-illust" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="alm-sky" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#fff0c8"/>
+        <stop offset="100%" stop-color="#cdebfb"/>
+      </linearGradient>
+    </defs>
+    <circle cx="120" cy="90" r="85" fill="url(#alm-sky)" stroke="#d68910" stroke-width="3"/>
+    <!-- Солнце на горизонте -->
+    <circle cx="160" cy="105" r="20" fill="#ffc94a" opacity="0.9"/>
+    <circle cx="160" cy="105" r="14" fill="#ffb340"/>
+    <!-- Дальние горы -->
+    <path d="M 35 110 L 65 85 L 95 100 L 130 80 L 165 95 L 200 88 L 205 110 L 35 110 Z" fill="#9fc7d8" opacity="0.7"/>
+    <!-- Море -->
+    <path d="M 35 110 Q 80 105 120 110 T 205 110 L 205 175 L 35 175 Z" fill="#0693e3" opacity="0.45"/>
+    <path d="M 35 125 Q 80 120 120 125 T 205 125" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.7"/>
+    <path d="M 35 145 Q 80 140 120 145 T 205 145" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <!-- Парусник плывёт вперёд -->
+    <g transform="translate(95, 138)">
+      <path d="M 0 -30 L 0 0 L 22 0 Z" fill="#fff" stroke="#d68910" stroke-width="2"/>
+      <line x1="0" y1="-30" x2="0" y2="2" stroke="#32373c" stroke-width="2"/>
+      <path d="M -10 0 L 24 0 L 19 10 L -5 10 Z" fill="#d68910" stroke="#a06808" stroke-width="1.5"/>
+      <path d="M 0 -30 L 6 -27 L 0 -24 Z" fill="#1a9e5c"/>
+    </g>
+    <!-- Чайки -->
+    <g stroke="#5a6b7a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.7">
+      <path d="M 60 50 q 5 -6 10 0 q 5 -6 10 0"/>
+      <path d="M 175 60 q 4 -5 8 0 q 4 -5 8 0"/>
+    </g>
+  </svg>
+</template>
+
+<template id="tpl-prepare">
+  <svg class="r-illust" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="prep-sky" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#e8f4fd"/>
+        <stop offset="100%" stop-color="#cdebfb"/>
+      </linearGradient>
+      <radialGradient id="lightG" cx="50%" cy="50%">
+        <stop offset="0%" stop-color="#fff7c8" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#fff7c8" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="120" cy="90" r="85" fill="url(#prep-sky)" stroke="#0693e3" stroke-width="3"/>
+    <!-- Туманный фон -->
+    <ellipse cx="120" cy="120" rx="80" ry="20" fill="#fff" opacity="0.5"/>
+    <!-- Море -->
+    <path d="M 35 130 Q 80 122 120 130 T 205 130 L 205 175 L 35 175 Z" fill="#0693e3" opacity="0.35"/>
+    <!-- Скала с маяком -->
+    <path d="M 140 135 L 160 135 L 165 150 L 135 150 Z" fill="#7a8a99"/>
+    <!-- Маяк -->
+    <g transform="translate(150, 80)">
+      <!-- Свет -->
+      <ellipse cx="0" cy="15" rx="60" ry="35" fill="url(#lightG)"/>
+      <!-- Корпус -->
+      <path d="M -8 55 L 8 55 L 6 18 L -6 18 Z" fill="#fff" stroke="#0693e3" stroke-width="2"/>
+      <!-- Полосы -->
+      <rect x="-7" y="22" width="14" height="6" fill="#e74c3c"/>
+      <rect x="-7" y="36" width="14" height="6" fill="#e74c3c"/>
+      <!-- Купол -->
+      <rect x="-7" y="10" width="14" height="8" fill="#ffc94a" stroke="#0693e3" stroke-width="1.5"/>
+      <path d="M -9 10 L 9 10 L 7 7 L -7 7 Z" fill="#32373c"/>
+      <circle cx="0" cy="3" r="2" fill="#e74c3c"/>
+    </g>
+    <!-- Сердце-облако с поддержкой -->
+    <g transform="translate(70, 70)">
+      <ellipse cx="0" cy="0" rx="22" ry="10" fill="#fff" opacity="0.95"/>
+      <ellipse cx="-10" cy="-3" rx="12" ry="8" fill="#fff" opacity="0.95"/>
+      <ellipse cx="8" cy="-4" rx="14" ry="9" fill="#fff" opacity="0.95"/>
+      <path d="M 0 5 C -8 -2 -8 -10 -3 -10 C 0 -10 0 -7 0 -5 C 0 -7 0 -10 3 -10 C 8 -10 8 -2 0 5 Z" fill="#0693e3"/>
+    </g>
+  </svg>
+</template>
 
 <script>
 const questions = [
@@ -537,6 +1185,10 @@ function renderQuestion() {
   document.getElementById('progress-pct').textContent = pct + '%';
   document.getElementById('progress-fill').style.width = pct + '%';
 
+  // Кораблик движется по прогрессу
+  const boat = document.getElementById('boat');
+  if (boat) boat.style.left = pct + '%';
+
   document.getElementById('q-emoji').textContent = q.emoji;
   document.getElementById('q-text').textContent = q.text;
   const sub = document.getElementById('q-sub');
@@ -592,7 +1244,21 @@ function selectAnswer(answer, btnEl) {
     } else {
       showResult();
     }
-  }, 320);
+  }, 420);
+}
+
+function spawnConfetti(parent) {
+  const colors = ['#0693e3', '#ffc94a', '#1a9e5c', '#4fc3f7', '#ffb340'];
+  for (let i = 0; i < 22; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.background = colors[i % colors.length];
+    c.style.setProperty('--cx', (Math.random() * 360 - 180) + 'px');
+    c.style.animationDelay = (Math.random() * 0.4) + 's';
+    c.style.left = (40 + Math.random() * 20) + '%';
+    parent.appendChild(c);
+    setTimeout(() => c.remove(), 2200);
+  }
 }
 
 function showResult() {
@@ -629,6 +1295,26 @@ function showResult() {
   titleEl.textContent = r.title;
   titleEl.className = 'result-title ' + r.titleClass;
   document.getElementById('r-sub').textContent = r.sub;
+
+  // Вставить SVG-иллюстрацию результата
+  const heroWrap = document.getElementById('r-hero-wrap');
+  // Удалить предыдущую иллюстрацию если есть
+  const oldIllust = heroWrap.querySelector('svg.r-illust');
+  if (oldIllust) oldIllust.remove();
+  const oldConf = heroWrap.querySelectorAll('.confetti');
+  oldConf.forEach(c => c.remove());
+  heroWrap.style.position = 'relative';
+
+  const tpl = document.getElementById('tpl-' + type);
+  if (tpl) {
+    const clone = tpl.content.cloneNode(true);
+    heroWrap.insertBefore(clone, heroWrap.firstChild);
+  }
+
+  // Confetti для ready
+  if (type === 'ready') {
+    setTimeout(() => spawnConfetti(heroWrap), 400);
+  }
 
   // Блоки с советами
   const blocksContainer = document.getElementById('r-blocks');
