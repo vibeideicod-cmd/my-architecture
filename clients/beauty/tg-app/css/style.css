@@ -98,16 +98,22 @@ a { color: var(--tg-link); text-decoration: none; }
   opacity: 0;
   transform: translateX(20px);
   transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .screen.is-active {
   opacity: 1;
   transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .screen.is-exiting {
   opacity: 0;
   transform: translateX(-20px);
+  pointer-events: none;
+  visibility: visible;
 }
 
 /* ── Loading splash ─────────────────────────────────────── */

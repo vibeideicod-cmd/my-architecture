@@ -796,8 +796,10 @@ function markOnboardingDone() {
 
 function initScreen_onboarding() {
   // Подставляем имя пользователя из Telegram
+  // first_name может содержать «Имя|Компания» — берём только до разделителя
   const user = tg?.initDataUnsafe?.user;
-  const firstName = user?.first_name || 'дорогой гость';
+  const rawName = (user?.first_name || '').split('|')[0].trim();
+  const firstName = rawName || 'дорогой гость';
   const nameEl = document.getElementById('onboarding-name');
   if (nameEl) nameEl.textContent = firstName;
 
