@@ -93,6 +93,26 @@ body {
 /* ─── ЭКРАН ВОПРОС ─── */
 #screen-question { display: none; }
 
+.back-btn {
+  background: none;
+  border: none;
+  color: #0693e3;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 10px 6px 0;
+  margin-bottom: 12px;
+  font-family: Arial, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.back-btn:hover { color: #0578c1; }
+.back-btn:disabled {
+  color: #c8d5e0;
+  cursor: not-allowed;
+}
+
 .progress-wrap {
   margin-bottom: 28px;
 }
@@ -323,6 +343,7 @@ body {
 
   <!-- ═══════════════ ВОПРОС ═══════════════ -->
   <div id="screen-question">
+    <button class="back-btn" id="back-btn" onclick="goBack()">← Назад</button>
     <div class="progress-wrap">
       <div class="progress-label">
         <span id="progress-text">Вопрос 1 из 8</span>
@@ -376,9 +397,9 @@ const questions = [
     text: 'Сколько лет вашему ребёнку?',
     sub: null,
     answers: [
-      { text: '7–10 лет',  ageGroup: 'young'  },
-      { text: '11–14 лет', ageGroup: 'middle' },
-      { text: '15–17 лет', ageGroup: 'teen'   }
+      { text: '7–10 лет',  ageGroup: 'kids'   },
+      { text: '11–13 лет', ageGroup: 'tweens' },
+      { text: '14–17 лет', ageGroup: 'teens'  }
     ]
   },
   {
@@ -461,16 +482,18 @@ const questions = [
   }
 ];
 
-// Пороги по возрасту (из 12 баллов, 6 вопросов с баллами)
+// Пороги по возрасту (из 14 баллов — 7 вопросов с баллами, макс 2 за каждый)
+// Возрастные группы синхронизированы с ryukzak.html
 const thresholds = {
-  young:  { ready: 9, almost: 5 },
-  middle: { ready: 8, almost: 4 },
-  teen:   { ready: 6, almost: 3 }
+  kids:   { ready: 10, almost: 5 },  // 7–10 лет — строже, меньше самостоятельности
+  tweens: { ready: 9,  almost: 5 },  // 11–13 лет
+  teens:  { ready: 8,  almost: 4 }   // 14–17 лет — мягче, больше опыта
 };
 
+let history = [];           // стек предыдущих состояний для кнопки «Назад»
 let current = 0;
 let totalScore = 0;
-let ageGroup = 'middle';
+let ageGroup = 'tweens';
 let flags = [];
 
 function show(id) {
@@ -485,15 +508,30 @@ function show(id) {
 }
 
 function startQuiz() {
-  current = 0; totalScore = 0; ageGroup = 'middle'; flags = [];
+  current = 0; totalScore = 0; ageGroup = 'tweens'; flags = []; history = [];
   renderQuestion();
   show('screen-question');
+}
+
+function goBack() {
+  if (history.length === 0) return;
+  const prev = history.pop();
+  current = prev.current;
+  totalScore = prev.totalScore;
+  ageGroup = prev.ageGroup;
+  flags = prev.flags.slice();
+  renderQuestion();
 }
 
 function renderQuestion() {
   const q = questions[current];
   const total = questions.length;
   const pct = Math.round((current / total) * 100);
+
+  // Кнопка «Назад» — отключена на первом вопросе
+  const backBtn = document.getElementById('back-btn');
+  backBtn.disabled = history.length === 0;
+  backBtn.style.visibility = history.length === 0 ? 'hidden' : 'visible';
 
   document.getElementById('progress-text').textContent = `Вопрос ${current + 1} из ${total}`;
   document.getElementById('progress-pct').textContent = pct + '%';
@@ -532,6 +570,14 @@ function selectAnswer(answer, btnEl) {
 
   setTimeout(() => {
     const q = questions[current];
+
+    // Сохранить снимок для кнопки «Назад»
+    history.push({
+      current: current,
+      totalScore: totalScore,
+      ageGroup: ageGroup,
+      flags: flags.slice()
+    });
 
     if (q.id === 'age') {
       ageGroup = answer.ageGroup;
@@ -666,11 +712,21 @@ function showResult() {
   const actionsContainer = document.getElementById('r-actions');
   actionsContainer.innerHTML = '';
 
+  // Главная CTA — рюкзак с предзаполненным возрастом из квиза
   const btnChecklist = document.createElement('a');
-  btnChecklist.href = 'ryukzak.html';
+  btnChecklist.href = `ryukzak.html?age=${encodeURIComponent(ageGroup)}&from=quiz`;
   btnChecklist.className = 'btn-primary';
-  btnChecklist.textContent = '📋 Собрать рюкзак — чеклист';
+  btnChecklist.textContent = '🎒 Собрать рюкзак — чеклист';
   actionsContainer.appendChild(btnChecklist);
+
+  // Сильная CTA — забронировать / связаться с приёмной
+  const btnBooking = document.createElement('a');
+  btnBooking.href = 'https://wa.me/79785500570?text=' + encodeURIComponent('Здравствуйте! Хочу уточнить детали бронирования путёвки в санаторий «Южнобережный».');
+  btnBooking.target = '_blank';
+  btnBooking.rel = 'noopener';
+  btnBooking.className = 'btn-secondary';
+  btnBooking.textContent = '💬 Забронировать путёвку (WhatsApp)';
+  actionsContainer.appendChild(btnBooking);
 
   if (navigator.share) {
     const btnShare = document.createElement('button');

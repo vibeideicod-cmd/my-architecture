@@ -1968,8 +1968,22 @@
 
   // ── ИНИЦИАЛИЗАЦИЯ ─────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
+    // Проверка URL-параметров: из квиза может прийти ?age=kids&from=quiz
+    // Допустимые: age, season, gender, special (1/0)
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromQuiz = urlParams.get('from') === 'quiz';
+    const urlAge = urlParams.get('age');
+    const urlSeason = urlParams.get('season');
+    const urlGender = urlParams.get('gender');
+    const urlSpecial = urlParams.get('special');
+
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    if (saved.onboarded) {
+
+    // Если есть URL-параметры — принудительно показываем онбординг с предзаполнением
+    // (это сценарий «пришёл из квиза» — чтобы родитель увидел что возраст уже выбран)
+    const hasUrlParams = urlAge || urlSeason || urlGender || urlSpecial;
+
+    if (saved.onboarded && !hasUrlParams) {
       state.gender       = saved.gender       || 'boy';
       state.ageGroup     = saved.ageGroup     || 'tweens';
       state.season       = saved.season       || 'summer';
@@ -1978,8 +1992,38 @@
       state.checked      = saved.checked      || [];
       showMainApp(false);
     } else {
+      // Показываем онбординг
       document.getElementById('onboarding').style.display = 'flex';
       document.getElementById('mainApp').style.display = 'none';
+
+      // Предзаполнение кнопок из URL
+      const applyUrlValue = (group, value) => {
+        if (!value) return;
+        const btn = document.querySelector(`.onb-tile[data-onb="${group}"][data-value="${value}"]`);
+        if (btn) onbSelect(btn);
+      };
+      applyUrlValue('ageGroup', urlAge);
+      applyUrlValue('season', urlSeason);
+      applyUrlValue('gender', urlGender);
+
+      if (urlSpecial === '1') {
+        state.specialNeeds = true;
+        const t = document.getElementById('onbSpecialToggle');
+        const box = document.getElementById('onbSpecialBox');
+        if (t) t.classList.add('active');
+        if (box) box.textContent = '✓';
+      }
+
+      // Подсказка «мы вспомнили параметры из квиза»
+      if (fromQuiz) {
+        const hint = document.createElement('div');
+        hint.style.cssText = 'background:#e8f4fd;border-radius:12px;padding:14px 18px;font-size:14px;color:#0693e3;margin-bottom:18px;line-height:1.5;';
+        hint.innerHTML = '💡 <strong>Мы помним ваш выбор из квиза.</strong> Проверьте параметры и дополните сезон, если нужно.';
+        const onboardingCard = document.querySelector('#onboarding .onb-card') || document.getElementById('onboarding');
+        if (onboardingCard && onboardingCard.firstChild) {
+          onboardingCard.insertBefore(hint, onboardingCard.firstChild);
+        }
+      }
     }
   });
 
