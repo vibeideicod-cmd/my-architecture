@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Собери рюкзак — Лагерь «Республика ДОРИ» · Южнобережный</title>
+  <title>Собери рюкзак — Санаторий «Южнобережный»</title>
   <style>
     :root {
       --blue: #0693e3;
@@ -774,6 +774,208 @@
       .hero h1 { font-size: 3rem; }
     }
 
+    /* ── ОНБОРДИНГ ───────────────────────────────────────── */
+    .onboarding-screen {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px 60px;
+      animation: fadeIn 0.4s ease;
+    }
+    .onb-inner {
+      max-width: 560px;
+      width: 100%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-radius: 22px;
+      border: 2px solid var(--blue-mid);
+      box-shadow: 0 10px 40px rgba(6,147,227,0.18);
+      padding: 32px 26px;
+    }
+    .onb-header {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+    .onb-logo-emoji { font-size: 52px; display: block; margin-bottom: 8px; }
+    .onb-title {
+      font-size: clamp(1.4rem, 4vw, 1.85rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .onb-sub {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .onb-group { margin-bottom: 22px; }
+    .onb-group-label {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--blue-dark);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .onb-tiles {
+      display: grid;
+      gap: 8px;
+    }
+    .onb-tiles.cols-2 { grid-template-columns: 1fr 1fr; }
+    .onb-tiles.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 480px) {
+      .onb-tiles.cols-3 { grid-template-columns: 1fr; }
+    }
+    .onb-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 74px;
+      padding: 12px 10px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1);
+      text-align: center;
+    }
+    .onb-tile:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+      transform: translateY(-2px);
+    }
+    .onb-tile.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+      box-shadow: 0 5px 16px rgba(6,147,227,0.35);
+      transform: translateY(-1px);
+    }
+    .onb-tile-emoji { font-size: 26px; line-height: 1; }
+    .onb-tile-hint {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .onb-tile.active .onb-tile-hint { color: rgba(255,255,255,0.85); }
+
+    .onb-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.22s;
+    }
+    .onb-toggle:hover { border-color: var(--blue); background: var(--blue-light); }
+    .onb-toggle.active {
+      border-color: var(--red);
+      background: #fff3f1;
+    }
+    .onb-toggle-box {
+      width: 26px; height: 26px; min-width: 26px;
+      border: 2px solid var(--border);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 900;
+      color: white;
+      background: white;
+      transition: all 0.2s;
+    }
+    .onb-toggle.active .onb-toggle-box {
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .onb-toggle-text { flex: 1; font-size: 13px; line-height: 1.5; color: var(--text); }
+    .onb-toggle-text strong { color: var(--dark); display: block; margin-bottom: 2px; font-size: 14px; }
+
+    .onb-submit {
+      width: 100%;
+      min-height: 58px;
+      padding: 16px 22px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), #1abc9c);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(6,147,227,0.35);
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+    .onb-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(6,147,227,0.45);
+    }
+    .onb-submit:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      background: var(--muted);
+      box-shadow: none;
+    }
+
+    /* Кнопка «Изменить параметры» */
+    .back-to-onboarding {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      background: rgba(255,255,255,0.9);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 14px;
+    }
+    .back-to-onboarding:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+      transform: translateX(-2px);
+    }
+
+    .params-summary {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+    .params-summary strong { color: var(--blue-dark); }
+
+    /* Медицинская категория — красный акцент */
+    .category[data-cat="medical"] .category-header {
+      background: linear-gradient(135deg, #fdeeec 0%, rgba(255,255,255,0.7) 100%);
+    }
+    .category[data-cat="medical"] .cat-count {
+      color: var(--red);
+      border-color: #f5c6c2;
+      background: #fdf4f3;
+    }
+    .category[data-cat="medical"].cat-done .cat-title { color: var(--green); }
+    .tip-text.medical {
+      background: linear-gradient(135deg, #fdeeec, rgba(255,255,255,0.8));
+      border-left-color: var(--red);
+    }
+
     /* ── ПЕЧАТЬ ──────────────────────────────────────────── */
     @media print {
       .sky, .progress-section, .actions, .tip-toggle, .tip-text,
@@ -824,10 +1026,95 @@
   </div>
 </div>
 
+<!-- ═══ ОНБОРДИНГ ══════════════════════════════════════════ -->
+<section id="onboarding" class="onboarding-screen">
+  <div class="onb-inner">
+    <div class="onb-header">
+      <span class="onb-logo-emoji">🎒</span>
+      <h1 class="onb-title">Соберём рюкзак правильно</h1>
+      <p class="onb-sub">Ответьте на 4 вопроса — покажем только нужные вещи.<br>Подходит для лагеря «Республика ДОРИ», СКЛ и «Мать-и-дитя».</p>
+    </div>
+
+    <div class="onb-group">
+      <label class="onb-group-label">1 · Кто собирается?</label>
+      <div class="onb-tiles cols-2">
+        <button type="button" class="onb-tile" data-onb="gender" data-value="boy" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">👦</span>
+          <span>Мальчик</span>
+        </button>
+        <button type="button" class="onb-tile" data-onb="gender" data-value="girl" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">👧</span>
+          <span>Девочка</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="onb-group">
+      <label class="onb-group-label">2 · Возраст</label>
+      <div class="onb-tiles cols-3">
+        <button type="button" class="onb-tile" data-onb="ageGroup" data-value="kids" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">🧒</span>
+          <span>7–10 лет</span>
+          <span class="onb-tile-hint">Младшие</span>
+        </button>
+        <button type="button" class="onb-tile" data-onb="ageGroup" data-value="tweens" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">👦</span>
+          <span>11–13 лет</span>
+          <span class="onb-tile-hint">Средние</span>
+        </button>
+        <button type="button" class="onb-tile" data-onb="ageGroup" data-value="teens" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">👨</span>
+          <span>14–17 лет</span>
+          <span class="onb-tile-hint">Старшие</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="onb-group">
+      <label class="onb-group-label">3 · Когда заезд?</label>
+      <div class="onb-tiles cols-3">
+        <button type="button" class="onb-tile" data-onb="season" data-value="summer" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">☀️</span>
+          <span>Лето</span>
+          <span class="onb-tile-hint">Июнь–август</span>
+        </button>
+        <button type="button" class="onb-tile" data-onb="season" data-value="midseason" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">🍂</span>
+          <span>Межсезонье</span>
+          <span class="onb-tile-hint">Весна и осень</span>
+        </button>
+        <button type="button" class="onb-tile" data-onb="season" data-value="winter" onclick="onbSelect(this)">
+          <span class="onb-tile-emoji">❄️</span>
+          <span>Зима</span>
+          <span class="onb-tile-hint">Декабрь–февраль</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="onb-group">
+      <label class="onb-group-label">4 · Медицинские сборы</label>
+      <div class="onb-toggle" id="onbSpecialToggle" onclick="onbToggleSpecial()">
+        <div class="onb-toggle-box" id="onbSpecialBox"></div>
+        <div class="onb-toggle-text">
+          <strong>Ребёнок едет на СКЛ</strong>
+          Санаторно-курортное лечение — покажем дополнительные пункты для медицинских сборов (карта, лекарства, назначения).
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="onb-submit" id="onbSubmit" disabled onclick="finishOnboarding()">
+      Собрать рюкзак →
+    </button>
+  </div>
+</section>
+
+<!-- ═══ ГЛАВНАЯ ЧАСТЬ ═══════════════════════════════════════ -->
+<div id="mainApp" style="display:none">
+
 <!-- ═══ HERO ═══════════════════════════════════════════════ -->
 <div class="hero">
-  <h1>Собираем рюкзак<br>на смену!</h1>
-  <p>Отмечайте вместе с ребёнком — всё, что уже готово.<br>Список сохранится в браузере.</p>
+  <h1 id="heroTitle">Собираем рюкзак<br>на смену!</h1>
+  <p id="heroSubtitle">Отмечайте вместе с ребёнком — всё, что уже готово.<br>Список сохранится в браузере.</p>
   <div class="gender-wrap">
     <button class="gender-btn active" onclick="setGender('boy', this)">👦 Мальчик</button>
     <button class="gender-btn" onclick="setGender('girl', this)">👧 Девочка</button>
@@ -857,6 +1144,10 @@
 
 <!-- ═══ КОНТЕНТ ═════════════════════════════════════════════ -->
 <div class="container">
+
+  <button type="button" class="back-to-onboarding" onclick="backToOnboarding()">← Изменить параметры</button>
+  <div class="params-summary" id="paramsSummary"></div>
+  <div style="height:10px"></div>
 
   <!-- ФИНАЛЬНЫЙ БАННЕР -->
   <div class="done-banner" id="doneBanner">
@@ -900,7 +1191,7 @@
     </div>
     <div class="items-list">
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Путёвка (оригинал)</div>
@@ -909,42 +1200,42 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Свидетельство о рождении <strong>или</strong> паспорт ребёнка + <strong>2 (!) копии</strong></div>
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Паспорт родителя (законного представителя) + <strong>2 копии</strong></div>
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">СНИЛС ребёнка + <strong>1 копия</strong></div>
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Медицинский полис ребёнка (ОМС) + <strong>1 копия</strong></div>
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Подписанное согласие с правилами и распорядком лагеря</div>
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Медицинская справка по форме № 079/у</div>
@@ -952,7 +1243,7 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Справка об отсутствии контактов с инфекционными больными</div>
@@ -961,7 +1252,7 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="docs">
+      <div class="item" onclick="toggle(this)" data-cat="docs" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Результаты анализов на яйца гельминтов и энтеробиоз</div>
@@ -985,17 +1276,17 @@
     </div>
     <div class="items-list">
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="summer midseason">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Несколько футболок</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Спортивный костюм</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Тёплая вещь — свитер или худи</div>
@@ -1004,7 +1295,7 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="summer midseason">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Тонкая одежда с длинными рукавами</div>
@@ -1012,17 +1303,17 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Джинсы или брюки</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="summer midseason">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Шорты</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Комплект нарядной одежды</div>
@@ -1031,28 +1322,72 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Вещи для сна — пижама или ночная сорочка</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Нижнее бельё и носки в достаточном количестве</div></div>
       </div>
 
-      <div class="item girl-only" onclick="toggle(this)" data-cat="clothes">
+      <div class="item girl-only" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Платье и юбка</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="clothes">
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="summer">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Купальный костюм</div>
           <button class="tip-toggle" onclick="showTip(event,this)">💡 Совет</button>
           <div class="tip-text">Лучше взять 2 штуки — один сохнет, в другом идти на бассейн или море.</div>
         </div>
+      </div>
+
+      <!-- НОВЫЕ СЕЗОННЫЕ ПУНКТЫ -->
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="summer">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Панама или кепка от солнца</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="winter">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Куртка зимняя (утеплённая)</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="winter">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Шапка вязаная или шерстяная</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="winter">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Шарф</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="winter">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Перчатки или варежки</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="winter">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Термобельё (2 комплекта)</div>
+          <div class="item-note">Для прогулок в мороз</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="midseason">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Ветровка или дождевик</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="clothes" data-age="kids tweens teens" data-season="midseason winter">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Толстовка или тёплый свитер</div></div>
       </div>
 
     </div>
@@ -1072,7 +1407,7 @@
     </div>
     <div class="items-list">
 
-      <div class="item" onclick="toggle(this)" data-cat="shoes">
+      <div class="item" onclick="toggle(this)" data-cat="shoes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Кроссовки или мокасины с фиксацией стопы</div>
@@ -1081,19 +1416,35 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="shoes">
+      <div class="item" onclick="toggle(this)" data-cat="shoes" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Комнатные тапочки</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="shoes">
+      <div class="item" onclick="toggle(this)" data-cat="shoes" data-age="kids tweens teens" data-season="summer midseason">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Сандалии или босоножки</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="shoes">
+      <div class="item" onclick="toggle(this)" data-cat="shoes" data-age="kids tweens teens" data-season="summer">
         <div class="checkbox"></div>
-        <div class="item-body"><div class="item-label">Резиновые тапочки для пляжа и душа</div></div>
+        <div class="item-body">
+          <div class="item-label">Резиновые тапочки для пляжа и душа</div>
+          <div class="item-note">Для бассейна и сланцы в душ</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="shoes" data-age="kids tweens teens" data-season="winter">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Зимние ботинки тёплые</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="shoes" data-age="kids tweens teens" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Кроссовки для спорта</div>
+          <div class="item-note">Отдельная пара для физкультуры и спортзала</div>
+        </div>
       </div>
 
     </div>
@@ -1113,17 +1464,17 @@
     </div>
     <div class="items-list">
 
-      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Мыло в закрывающейся мыльнице</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Зубные щётка и паста</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Полотенца — банное и пляжное</div>
@@ -1131,23 +1482,132 @@
         </div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Расчёска</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="hygiene">
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Влажные и бумажные салфетки</div></div>
       </div>
 
-      <div class="item girl-only" onclick="toggle(this)" data-cat="hygiene">
+      <div class="item girl-only" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">Средства женской гигиены</div>
           <button class="tip-toggle" onclick="showTip(event,this)">💡 Совет</button>
           <div class="tip-text">Возьмите с запасом — даже если цикл нерегулярный. В аптеке санатория тоже есть, но лучше иметь своё.</div>
         </div>
+      </div>
+
+      <!-- НОВЫЕ СЕЗОННЫЕ/ВОЗРАСТНЫЕ ПУНКТЫ -->
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="summer">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Солнцезащитный крем SPF 30+</div>
+          <div class="item-note">Обязательно для крымского солнца</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="kids tweens teens" data-season="midseason winter">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Гигиеническая помада</div>
+          <div class="item-note">От ветра и холода</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="teens" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Косметика (базовая)</div>
+          <div class="item-note">По желанию подростка</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="hygiene" data-age="tweens teens" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Дезодорант</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ МЕДИЦИНСКОЕ (СКЛ) ══════════════ -->
+  <div class="category" data-cat="medical">
+    <div class="category-header" onclick="toggleCat(this)">
+      <div class="cat-icon">🏥</div>
+      <div class="cat-title-wrap">
+        <div class="cat-title">Медицинские сборы <small style="color:var(--red);font-size:11px;font-weight:700;">★ для СКЛ</small></div>
+        <div class="cat-badge-done">✓ Медсборы готовы!</div>
+      </div>
+      <div class="cat-count" id="cnt-medical">0 / 9</div>
+      <div class="cat-arrow">▼</div>
+      <span class="cat-deco">💊🩺💉🏥</span>
+    </div>
+    <div class="items-list">
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Медицинская карта ребёнка (форма 026/у)</div>
+          <div class="item-note">Основной медицинский документ для санатория</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Список всех принимаемых лекарств с дозировками</div>
+          <button class="tip-toggle" onclick="showTip(event,this)">💡 Важно!</button>
+          <div class="tip-text medical">Все лекарства — в оригинальной упаковке с рецептом. Медперсонал санатория принимает их на хранение и выдаёт по расписанию.</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Прививочный сертификат</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Письменные инструкции лечащего врача</div>
+          <div class="item-note">Если есть особенности приёма лекарств</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Выписки из медкарты по основному диагнозу</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Специальные лекарства по назначению</div>
+          <button class="tip-toggle" onclick="showTip(event,this)">💡 Как везти?</button>
+          <div class="tip-text medical">Только в оригинальной упаковке. Аннотация или рецепт — обязательно. Жидкие формы — в герметичной упаковке.</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Небулайзер или ингалятор</div>
+          <div class="item-note">Если назначен врачом</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Специальные средства гигиены (если требуются)</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="medical" data-age="kids tweens teens" data-season="all" data-special="medical">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Справка о прививочном статусе</div></div>
       </div>
 
     </div>
@@ -1167,27 +1627,27 @@
     </div>
     <div class="items-list">
 
-      <div class="item" onclick="toggle(this)" data-cat="backpack">
+      <div class="item" onclick="toggle(this)" data-cat="backpack" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Альбом или тетрадь</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="backpack">
+      <div class="item" onclick="toggle(this)" data-cat="backpack" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Книга или журнал</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="backpack">
+      <div class="item" onclick="toggle(this)" data-cat="backpack" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Деньги (карманные расходы)</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="backpack">
+      <div class="item" onclick="toggle(this)" data-cat="backpack" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Телефон и зарядное устройство</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="backpack">
+      <div class="item" onclick="toggle(this)" data-cat="backpack" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body">
           <div class="item-label">🚰 Бутылка для воды (многоразовая)</div>
@@ -1216,19 +1676,43 @@
     </div>
     <div class="items-list">
 
-      <div class="item" onclick="toggle(this)" data-cat="extras">
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="kids tweens teens" data-season="summer">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Солнцезащитные очки</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="extras">
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="kids tweens teens" data-season="summer midseason">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Дождевик или зонт</div></div>
       </div>
 
-      <div class="item" onclick="toggle(this)" data-cat="extras">
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="kids tweens teens" data-season="all">
         <div class="checkbox"></div>
         <div class="item-body"><div class="item-label">Головной убор</div></div>
+      </div>
+
+      <!-- НОВЫЕ ВОЗРАСТНЫЕ ПУНКТЫ -->
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="kids" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-label">Любимая мягкая игрушка</div>
+          <div class="item-note">Помогает засыпать в новом месте</div>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="tweens teens" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Наушники</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="kids tweens" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Книга для чтения перед сном</div></div>
+      </div>
+
+      <div class="item" onclick="toggle(this)" data-cat="extras" data-age="teens" data-season="all">
+        <div class="checkbox"></div>
+        <div class="item-body"><div class="item-label">Пауэрбанк</div></div>
       </div>
 
     </div>
@@ -1279,35 +1763,158 @@
   <div class="slogan">«Безопасно, полезно и с улыбкой каждый день»</div>
 </footer>
 
+</div><!-- /mainApp -->
+
 </div><!-- /page-wrap -->
 
 <script>
   // ── КОНФИГУРАЦИЯ ──────────────────────────────────────────
-  const CATS = ['docs','clothes','shoes','hygiene','backpack','extras'];
+  const CATS = ['docs','clothes','shoes','hygiene','medical','backpack','extras'];
+  const STORAGE_KEY = 'yb-ryukzak-v5';
+
+  // Новое состояние — 4 параметра + галочки
+  const state = {
+    gender: null,        // 'boy' | 'girl'
+    ageGroup: null,      // 'kids' | 'tweens' | 'teens'
+    season: null,        // 'summer' | 'midseason' | 'winter'
+    specialNeeds: false,
+    onboarded: false,
+    checked: [],         // массив индексов
+  };
+  // Совместимость со старым кодом (girl-only CSS)
   let currentGender = 'boy';
 
   // ── ИНИЦИАЛИЗАЦИЯ ─────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = JSON.parse(localStorage.getItem('yb-ryukzak-v4') || '{}');
-    const g = saved.gender || 'boy';
-    const btn = g === 'girl'
-      ? document.querySelector('.gender-btn:last-child')
-      : document.querySelector('.gender-btn:first-child');
-    setGender(g, btn, false);
-    (saved.checked || []).forEach(idx => {
-      const item = document.querySelectorAll('.item')[idx];
-      if (!item) return;
-      item.classList.add('checked');
-      const cb = item.querySelector('.checkbox');
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    if (saved.onboarded) {
+      state.gender       = saved.gender       || 'boy';
+      state.ageGroup     = saved.ageGroup     || 'tweens';
+      state.season       = saved.season       || 'summer';
+      state.specialNeeds = !!saved.specialNeeds;
+      state.onboarded    = true;
+      state.checked      = saved.checked      || [];
+      showMainApp(false);
+    } else {
+      document.getElementById('onboarding').style.display = 'flex';
+      document.getElementById('mainApp').style.display = 'none';
+    }
+  });
+
+  // ── ОНБОРДИНГ ─────────────────────────────────────────────
+  function onbSelect(btn) {
+    const group = btn.dataset.onb;
+    const value = btn.dataset.value;
+    // Снять active с соседей
+    document.querySelectorAll(`.onb-tile[data-onb="${group}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state[group] = value;
+    checkOnbComplete();
+  }
+
+  function onbToggleSpecial() {
+    state.specialNeeds = !state.specialNeeds;
+    const t = document.getElementById('onbSpecialToggle');
+    const box = document.getElementById('onbSpecialBox');
+    t.classList.toggle('active', state.specialNeeds);
+    box.textContent = state.specialNeeds ? '✓' : '';
+  }
+
+  function checkOnbComplete() {
+    const ok = state.gender && state.ageGroup && state.season;
+    document.getElementById('onbSubmit').disabled = !ok;
+  }
+
+  function finishOnboarding() {
+    if (!state.gender || !state.ageGroup || !state.season) return;
+    state.onboarded = true;
+    saveState();
+    showMainApp(true);
+  }
+
+  function showMainApp(animate) {
+    document.getElementById('onboarding').style.display = 'none';
+    document.getElementById('mainApp').style.display = '';
+    // Синхронизируем UI-элементы
+    syncGenderButtons();
+    applyFilters();
+    updateParamsSummary();
+    // Восстанавливаем отметки
+    const items = document.querySelectorAll('.item');
+    state.checked.forEach(idx => {
+      const it = items[idx];
+      if (!it) return;
+      it.classList.add('checked');
+      const cb = it.querySelector('.checkbox');
       if (cb) cb.textContent = '✓';
     });
     updateProgress(false);
-    // Восстановить завершённые разделы
-    CATS.forEach(cat => checkCategoryDone(cat, false));
-  });
+    CATS.forEach(c => checkCategoryDone(c, false));
+    if (animate) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  // ── ПЕРЕКЛЮЧЕНИЕ ПОЛА ─────────────────────────────────────
+  function backToOnboarding() {
+    // Заполнить онбординг текущими значениями
+    document.querySelectorAll('.onb-tile').forEach(b => {
+      const grp = b.dataset.onb;
+      b.classList.toggle('active', state[grp] === b.dataset.value);
+    });
+    const t = document.getElementById('onbSpecialToggle');
+    const box = document.getElementById('onbSpecialBox');
+    t.classList.toggle('active', state.specialNeeds);
+    box.textContent = state.specialNeeds ? '✓' : '';
+    checkOnbComplete();
+    document.getElementById('mainApp').style.display = 'none';
+    document.getElementById('onboarding').style.display = 'flex';
+    window.scrollTo({ top: 0 });
+  }
+
+  function syncGenderButtons() {
+    currentGender = state.gender;
+    document.body.classList.toggle('girl', state.gender === 'girl');
+    const btns = document.querySelectorAll('.gender-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (state.gender === 'girl') btns[1]?.classList.add('active');
+    else btns[0]?.classList.add('active');
+  }
+
+  // ── ФИЛЬТРАЦИЯ ПУНКТОВ ────────────────────────────────────
+  function applyFilters() {
+    const items = document.querySelectorAll('.item');
+    items.forEach(item => {
+      const ages    = (item.dataset.age    || 'kids tweens teens').split(' ').filter(Boolean);
+      const seasons = (item.dataset.season || 'all').split(' ').filter(Boolean);
+      const isGirlOnly = item.classList.contains('girl-only');
+      const isSpecial  = item.dataset.special === 'medical';
+
+      const ageMatch    = ages.includes(state.ageGroup);
+      const seasonMatch = seasons.includes('all') || seasons.includes(state.season);
+      const genderMatch = !isGirlOnly || state.gender === 'girl';
+      const specialMatch = !isSpecial || state.specialNeeds;
+
+      const visible = ageMatch && seasonMatch && genderMatch && specialMatch;
+      item.style.display = visible ? '' : 'none';
+    });
+
+    // Скрыть целиком категорию медицинское если нет spec
+    const medCat = document.querySelector('.category[data-cat="medical"]');
+    if (medCat) medCat.style.display = state.specialNeeds ? '' : 'none';
+  }
+
+  function updateParamsSummary() {
+    const gLabel = state.gender === 'girl' ? 'девочки' : 'мальчика';
+    const aLabel = { kids: '7–10 лет', tweens: '11–13 лет', teens: '14–17 лет' }[state.ageGroup] || '';
+    const sLabel = { summer: 'Лето ☀️', midseason: 'Межсезонье 🍂', winter: 'Зима ❄️' }[state.season] || '';
+    const special = state.specialNeeds ? ' · <strong>Медсборы (СКЛ)</strong>' : '';
+    const el = document.getElementById('paramsSummary');
+    if (el) el.innerHTML = `Для <strong>${gLabel} ${aLabel}</strong> · ${sLabel}${special}`;
+    const sub = document.getElementById('heroSubtitle');
+    if (sub) sub.innerHTML = `Для ${gLabel} ${aLabel} · ${sLabel}${special ? ' · СКЛ' : ''}<br>Список сохранится в браузере.`;
+  }
+
+  // ── ПЕРЕКЛЮЧЕНИЕ ПОЛА (в основном чеклисте) ──────────────
   function setGender(g, btn, doSave = true) {
+    state.gender = g;
     currentGender = g;
     document.body.classList.toggle('girl', g === 'girl');
     document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
@@ -1316,6 +1923,8 @@
       btn.style.transform = 'scale(1.2)';
       setTimeout(() => { btn.style.transform = ''; }, 280);
     }
+    applyFilters();
+    updateParamsSummary();
     if (doSave) saveState();
     updateProgress(false);
     CATS.forEach(cat => checkCategoryDone(cat, false));
@@ -1376,12 +1985,21 @@
   }
 
   // ── ПРОВЕРКА ЗАВЕРШЕНИЯ РАЗДЕЛА ──────────────────────────
+  function isItemVisible(it) {
+    // inline display:none — отфильтровано applyFilters
+    if (it.style.display === 'none') return false;
+    // girl-only пункт и пол != girl (CSS скрывает)
+    if (it.classList.contains('girl-only') && state.gender !== 'girl') return false;
+    // медицинское без СКЛ (на всякий — обычно уже style.display=none)
+    if (it.dataset.special === 'medical' && !state.specialNeeds) return false;
+    return true;
+  }
   function checkCategoryDone(cat, animate) {
     const catEl = document.querySelector(`.category[data-cat="${cat}"]`);
     if (!catEl) return;
-    const sel = currentGender === 'girl' ? '.item' : '.item:not(.girl-only)';
-    const all     = catEl.querySelectorAll(sel).length;
-    const checked = catEl.querySelectorAll(sel + '.checked').length;
+    const visible = Array.from(catEl.querySelectorAll('.item')).filter(isItemVisible);
+    const all     = visible.length;
+    const checked = visible.filter(it => it.classList.contains('checked')).length;
     const isDone  = all > 0 && checked === all;
     const wasDone = catEl.classList.contains('cat-done');
 
@@ -1408,10 +2026,10 @@
   // ── ПРОГРЕСС ──────────────────────────────────────────────
   let lastPct = -1;
   function updateProgress(animate) {
-    const sel     = currentGender === 'girl' ? '.item' : '.item:not(.girl-only)';
-    const total   = document.querySelectorAll(sel).length;
-    const done    = document.querySelectorAll(sel + '.checked').length;
-    const pct     = total ? Math.round((done / total) * 100) : 0;
+    const allItems = Array.from(document.querySelectorAll('.item')).filter(isItemVisible);
+    const total    = allItems.length;
+    const done     = allItems.filter(it => it.classList.contains('checked')).length;
+    const pct      = total ? Math.round((done / total) * 100) : 0;
 
     const fill = document.getElementById('progFill');
     fill.style.width = pct + '%';
@@ -1445,17 +2063,15 @@
       }
     }
 
-    // Счётчики разделов
+    // Счётчики разделов — только видимые пункты
     CATS.forEach(cat => {
       const el = document.getElementById('cnt-' + cat);
       if (!el) return;
-      const catSel  = `.item[data-cat="${cat}"]`;
-      const allCat  = document.querySelectorAll(
-        currentGender === 'girl' ? catSel : catSel + ':not(.girl-only)'
-      ).length;
-      const doneCat = document.querySelectorAll(
-        currentGender === 'girl' ? catSel + '.checked' : catSel + '.checked:not(.girl-only)'
-      ).length;
+      const visible = Array.from(
+        document.querySelectorAll(`.item[data-cat="${cat}"]`)
+      ).filter(isItemVisible);
+      const allCat  = visible.length;
+      const doneCat = visible.filter(it => it.classList.contains('checked')).length;
       el.textContent = `${doneCat} / ${allCat}`;
     });
   }
@@ -1514,7 +2130,15 @@
     document.querySelectorAll('.item').forEach((item, i) => {
       if (item.classList.contains('checked')) checked.push(i);
     });
-    localStorage.setItem('yb-ryukzak-v4', JSON.stringify({ checked, gender: currentGender }));
+    state.checked = checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      checked,
+      gender: state.gender,
+      ageGroup: state.ageGroup,
+      season: state.season,
+      specialNeeds: state.specialNeeds,
+      onboarded: state.onboarded,
+    }));
   }
 
   // ── ПОДЕЛИТЬСЯ ────────────────────────────────────────────
@@ -1540,7 +2164,8 @@
     document.querySelectorAll('.category').forEach(c => {
       c.classList.remove('cat-done', 'collapsed');
     });
-    localStorage.removeItem('yb-ryukzak-v4');
+    state.checked = [];
+    saveState();
     document.getElementById('doneBanner').classList.remove('show');
     document.getElementById('progFill').classList.remove('shimmer');
     lastPct = -1;
@@ -1551,11 +2176,12 @@
   // Порядок совпадает с порядком элементов в HTML (включая girl-only)
   const ITEM_ART = {
     docs:     ['🎫','📗','📘','🪪','💳','✍️','🩺','🏥','🔬'],
-    clothes:  ['👕','🎽','🧥','👔','👖','🩳','🎀','🌙','🧦','👗','🩱'],
-    shoes:    ['👟','🥿','👡','🩴'],
-    hygiene:  ['🧼','🪥','🛁','🪮','🧻','🌸'],
+    clothes:  ['👕','🎽','🧥','👔','👖','🩳','🎀','🌙','🧦','👗','🩱','🧢','🧥','🧶','🧣','🧤','🥼','🧥','🧥'],
+    shoes:    ['👟','🥿','👡','🩴','🥾','👟'],
+    hygiene:  ['🧼','🪥','🛁','🪮','🧻','🌸','🌞','💋','💄','💧'],
+    medical:  ['📋','💊','💉','📝','📄','💊','🫁','🧴','📃'],
     backpack: ['📓','📚','💰','📱','💧'],
-    extras:   ['🕶️','☂️','🧢'],
+    extras:   ['🕶️','☂️','🧢','🧸','🎧','📖','🔋'],
   };
   document.addEventListener('DOMContentLoaded', () => {
     Object.entries(ITEM_ART).forEach(([cat, arts]) => {

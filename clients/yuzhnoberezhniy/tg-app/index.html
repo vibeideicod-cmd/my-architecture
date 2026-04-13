@@ -709,6 +709,194 @@
     .onb-btn:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(62,62,134,0.2); }
 
     /* ══════════════════════════════════════════════════════
+       ОНБОРДИНГ — QuickStart (4 вопроса)
+    ══════════════════════════════════════════════════════ */
+    .quickstart {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 2000;
+      overflow-y: auto;
+      animation: fadeIn 300ms ease;
+      padding: 24px var(--sp) 40px;
+    }
+    .qs-inner {
+      max-width: 440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .qs-header { text-align: center; margin-bottom: 4px; }
+    .qs-emoji { font-size: 56px; display: block; margin-bottom: 6px; animation: floatEmoji 3s ease-in-out infinite; }
+    .qs-title {
+      font-size: clamp(20px, 5.5vw, 24px);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .qs-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+    .qs-group {
+      background: var(--card);
+      border-radius: var(--r);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .qs-group-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-2);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .qs-tiles {
+      display: grid;
+      gap: 7px;
+    }
+    .qs-tiles.cols-2 { grid-template-columns: 1fr 1fr; }
+    .qs-tiles.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .qs-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      min-height: 72px;
+      padding: 10px 8px;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      transition: all 180ms cubic-bezier(0.34,1.56,0.64,1);
+      text-align: center;
+    }
+    .qs-tile:active { transform: scale(0.96); }
+    .qs-tile.active {
+      background: var(--c-navy);
+      border-color: var(--c-navy);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(62,62,134,0.35);
+    }
+    .qs-tile-emoji { font-size: 24px; line-height: 1; }
+    .qs-tile-hint {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .qs-tile.active .qs-tile-hint { color: rgba(255,255,255,0.82); }
+
+    .qs-toggle {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 14px;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: all 180ms ease;
+    }
+    .qs-toggle:active { transform: scale(0.98); }
+    .qs-toggle.active {
+      border-color: var(--c-red);
+      background: rgba(231,76,60,0.07);
+    }
+    .qs-toggle-box {
+      width: 26px; height: 26px; min-width: 26px;
+      border: 2px solid var(--border);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 900;
+      color: #fff;
+      background: var(--card);
+      transition: all 200ms ease;
+      margin-top: 1px;
+    }
+    .qs-toggle.active .qs-toggle-box {
+      background: var(--c-red);
+      border-color: var(--c-red);
+    }
+    .qs-toggle-text { flex: 1; font-size: 12px; line-height: 1.55; color: var(--text-2); }
+    .qs-toggle-text strong { display: block; margin-bottom: 2px; font-size: 13px; color: var(--text); }
+
+    .qs-submit {
+      width: 100%;
+      height: 56px;
+      border-radius: var(--r-sm);
+      border: none;
+      background: linear-gradient(135deg, var(--c-navy), var(--c-teal));
+      color: #fff;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(62,62,134,0.35);
+      transition: all 180ms ease;
+      margin-top: 2px;
+    }
+    .qs-submit:active:not(:disabled) { transform: scale(0.97); }
+    .qs-submit:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: var(--text-muted);
+      box-shadow: none;
+    }
+
+    /* Кнопка «Изменить параметры» в чеклисте */
+    .back-params-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c-navy);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: all 180ms ease;
+      margin-bottom: 10px;
+    }
+    [data-theme="dark"] .back-params-btn { color: var(--c-teal); }
+    .back-params-btn:active { transform: scale(0.96); }
+
+    .params-summary {
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 4px 0 12px;
+      padding: 10px 14px;
+      background: rgba(62,62,134,0.06);
+      border-radius: var(--r-sm);
+      border-left: 3px solid var(--c-navy);
+    }
+    [data-theme="dark"] .params-summary {
+      background: rgba(62,62,134,0.18);
+      border-left-color: var(--c-teal);
+    }
+    .params-summary strong { color: var(--text); }
+
+    /* Медицинская секция — красный акцент */
+    .sec-medical  { --sec-color: #e74c3c; --sec-bg: rgba(231,76,60,0.08); }
+    [data-theme="dark"] .sec-medical { --sec-bg: rgba(231,76,60,0.2); }
+    .sec-medical .item.checked { background: rgba(231,76,60,0.07); border-color: rgba(231,76,60,0.22); }
+
+    /* ══════════════════════════════════════════════════════
        ПЕЧАТЬ (минималистичная)
     ══════════════════════════════════════════════════════ */
     @media print {
@@ -723,19 +911,86 @@
 <body>
 
 <!-- ═══════════════════════════════════════════════
-     ОНБОРДИНГ — только при первом запуске
+     QUICKSTART — онбординг с 4 вопросами
 ═══════════════════════════════════════════════ -->
-<div class="onboarding" id="onboarding" style="display:none">
-  <div class="onb-inner">
-    <div class="onb-logo">🎒</div>
-    <h1 class="onb-title">Привет, <span id="onb-name">друг</span>! 👋</h1>
-    <p class="onb-desc">Чеклист для сборов в смену<br>в санаторий «Южнобережный»</p>
-    <ul class="onb-list">
-      <li>📋 Полный список вещей — ничего не забудете</li>
-      <li>👦👧 Отдельные пункты для мальчика и девочки</li>
-      <li>💾 Прогресс сохраняется — можно вернуться</li>
-    </ul>
-    <button class="onb-btn" onclick="startApp()">Начать сборы →</button>
+<div class="quickstart" id="quickstart" style="display:none">
+  <div class="qs-inner">
+    <div class="qs-header">
+      <span class="qs-emoji">🎒</span>
+      <h1 class="qs-title">Соберём рюкзак правильно</h1>
+      <p class="qs-sub">Ответьте на 4 вопроса — покажем только нужные вещи</p>
+    </div>
+
+    <div class="qs-group">
+      <span class="qs-group-label">1 · Кто собирается?</span>
+      <div class="qs-tiles cols-2">
+        <button type="button" class="qs-tile" data-qs="gender" data-value="boy" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">👦</span>
+          <span>Мальчик</span>
+        </button>
+        <button type="button" class="qs-tile" data-qs="gender" data-value="girl" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">👧</span>
+          <span>Девочка</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="qs-group">
+      <span class="qs-group-label">2 · Возраст</span>
+      <div class="qs-tiles cols-3">
+        <button type="button" class="qs-tile" data-qs="ageGroup" data-value="kids" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">🧒</span>
+          <span>7–10</span>
+          <span class="qs-tile-hint">Младшие</span>
+        </button>
+        <button type="button" class="qs-tile" data-qs="ageGroup" data-value="tweens" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">👦</span>
+          <span>11–13</span>
+          <span class="qs-tile-hint">Средние</span>
+        </button>
+        <button type="button" class="qs-tile" data-qs="ageGroup" data-value="teens" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">👨</span>
+          <span>14–17</span>
+          <span class="qs-tile-hint">Старшие</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="qs-group">
+      <span class="qs-group-label">3 · Когда заезд?</span>
+      <div class="qs-tiles cols-3">
+        <button type="button" class="qs-tile" data-qs="season" data-value="summer" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">☀️</span>
+          <span>Лето</span>
+          <span class="qs-tile-hint">Июн–авг</span>
+        </button>
+        <button type="button" class="qs-tile" data-qs="season" data-value="midseason" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">🍂</span>
+          <span>Межсезонье</span>
+          <span class="qs-tile-hint">Весна/осень</span>
+        </button>
+        <button type="button" class="qs-tile" data-qs="season" data-value="winter" onclick="qsSelect(this)">
+          <span class="qs-tile-emoji">❄️</span>
+          <span>Зима</span>
+          <span class="qs-tile-hint">Дек–фев</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="qs-group">
+      <span class="qs-group-label">4 · Медицинские сборы</span>
+      <div class="qs-toggle" id="qsSpecialToggle" onclick="qsToggleSpecial()">
+        <div class="qs-toggle-box" id="qsSpecialBox"></div>
+        <div class="qs-toggle-text">
+          <strong>Ребёнок едет на СКЛ</strong>
+          Санаторно-курортное лечение — покажем дополнительные пункты для медицинских сборов.
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="qs-submit" id="qsSubmit" disabled onclick="finishQuickstart()">
+      Собрать рюкзак →
+    </button>
   </div>
 </div>
 
@@ -744,6 +999,11 @@
 
 <!-- ТОСТ-УВЕДОМЛЕНИЕ -->
 <div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════
+     ГЛАВНОЕ ПРИЛОЖЕНИЕ (скрыто до завершения QuickStart)
+═══════════════════════════════════════════════ -->
+<div id="mainApp" style="display:none">
 
 <!-- ═══════════════════════════════════════════════
      ШАПКА ПРИЛОЖЕНИЯ
@@ -775,6 +1035,10 @@
      ОСНОВНОЙ КОНТЕНТ
 ═══════════════════════════════════════════════ -->
 <div class="content">
+
+  <!-- НАЗАД К ПАРАМЕТРАМ -->
+  <button type="button" class="back-params-btn" onclick="backToQuickstart()">← Изменить параметры</button>
+  <div class="params-summary" id="paramsSummary"></div>
 
   <!-- ПЕРЕКЛЮЧАТЕЛЬ МАЛЬЧИК / ДЕВОЧКА -->
   <div class="gender-block">
@@ -831,7 +1095,7 @@
       </div>
       <div class="sec-body">
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🎫">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="🎫">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Путёвка (оригинал)</div>
@@ -840,36 +1104,36 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="📗">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="📗">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Свидетельство о рождении <strong>или</strong> паспорт ребёнка + <strong>2 копии</strong></div>
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="📘">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="📘">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Паспорт родителя (законного представителя) + <strong>2 копии</strong></div>
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🪪">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="🪪">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">СНИЛС ребёнка + <strong>1 копия</strong></div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="💳">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="💳">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Медицинский полис ребёнка (ОМС) + <strong>1 копия</strong></div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="✍️">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="✍️">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Подписанное согласие с правилами и распорядком лагеря</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🩺">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="🩺">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Медицинская справка по форме № 079/у</div>
@@ -877,7 +1141,7 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🏥">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="🏥">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Справка об отсутствии контактов с инфекционными больными</div>
@@ -886,7 +1150,7 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="docs" data-art="🔬">
+        <div class="item" onclick="toggleItem(this)" data-section="docs" data-age="kids tweens teens" data-season="all" data-art="🔬">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Результаты анализов на яйца гельминтов и энтеробиоз</div></div>
         </div>
@@ -908,17 +1172,17 @@
       </div>
       <div class="sec-body">
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="👕">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="summer midseason" data-art="👕">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Несколько футболок</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🎽">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="🎽">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Спортивный костюм</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🧥">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="🧥">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Тёплая вещь — свитер или худи</div>
@@ -927,7 +1191,7 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="👔">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="summer midseason" data-art="👔">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Тонкая одежда с длинными рукавами</div>
@@ -935,17 +1199,17 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="👖">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="👖">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Джинсы или брюки</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🩳">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="summer midseason" data-art="🩳">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Шорты</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🎀">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="🎀">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Комплект нарядной одежды</div>
@@ -954,29 +1218,73 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🌙">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="🌙">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Вещи для сна — пижама или ночная сорочка</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🧦">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="🧦">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Нижнее бельё и носки в достаточном количестве</div></div>
         </div>
 
         <!-- Только для девочек -->
-        <div class="item girl-only" onclick="toggleItem(this)" data-section="clothes" data-art="👗">
+        <div class="item girl-only" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="all" data-art="👗">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Платье и юбка</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-art="🩱">
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="summer" data-art="🩱">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Купальный костюм</div>
             <button class="tip-btn" onclick="showTip(event,this)">💡 Совет</button>
             <div class="tip-box">Лучше взять 2 штуки — один сохнет, в другом идти на море или в бассейн.</div>
           </div>
+        </div>
+
+        <!-- НОВЫЕ СЕЗОННЫЕ ПУНКТЫ -->
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="summer" data-art="🧢">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Панама или кепка от солнца</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="winter" data-art="🧥">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Куртка зимняя (утеплённая)</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="winter" data-art="🧶">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Шапка вязаная или шерстяная</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="winter" data-art="🧣">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Шарф</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="winter" data-art="🧤">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Перчатки или варежки</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="winter" data-art="🥼">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Термобельё (2 комплекта)</div>
+            <div class="item-note">Для прогулок в мороз</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="midseason" data-art="🧥">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Ветровка или дождевик</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="clothes" data-age="kids tweens teens" data-season="midseason winter" data-art="🧥">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Толстовка или тёплый свитер</div></div>
         </div>
 
       </div>
@@ -996,7 +1304,7 @@
       </div>
       <div class="sec-body">
 
-        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="👟">
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-age="kids tweens teens" data-season="all" data-art="👟">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Кроссовки или мокасины с фиксацией стопы</div>
@@ -1005,19 +1313,35 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="🥿">
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-age="kids tweens teens" data-season="all" data-art="🥿">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Комнатные тапочки</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="👡">
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-age="kids tweens teens" data-season="summer midseason" data-art="👡">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Сандалии или босоножки</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-art="🩴">
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-age="kids tweens teens" data-season="summer" data-art="🩴">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
-          <div class="item-body"><div class="item-label">Резиновые тапочки для пляжа и душа</div></div>
+          <div class="item-body">
+            <div class="item-label">Резиновые тапочки для пляжа и душа</div>
+            <div class="item-note">Для бассейна и сланцы в душ</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-age="kids tweens teens" data-season="winter" data-art="🥾">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Зимние ботинки тёплые</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="shoes" data-age="kids tweens teens" data-season="all" data-art="👟">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Кроссовки для спорта</div>
+            <div class="item-note">Отдельная пара для физкультуры и спортзала</div>
+          </div>
         </div>
 
       </div>
@@ -1037,17 +1361,17 @@
       </div>
       <div class="sec-body">
 
-        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🧼">
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="all" data-art="🧼">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Мыло в закрывающейся мыльнице</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🪥">
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="all" data-art="🪥">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Зубные щётка и паста</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🛁">
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="all" data-art="🛁">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Полотенца — банное и пляжное</div>
@@ -1055,18 +1379,18 @@
           </div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🪮">
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="all" data-art="🪮">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Расчёска</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-art="🧻">
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="all" data-art="🧻">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Влажные и бумажные салфетки</div></div>
         </div>
 
         <!-- Только для девочек -->
-        <div class="item girl-only" onclick="toggleItem(this)" data-section="hygiene" data-art="🌸">
+        <div class="item girl-only" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="all" data-art="🌸">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">Средства женской гигиены</div>
@@ -1075,8 +1399,117 @@
           </div>
         </div>
 
+        <!-- НОВЫЕ СЕЗОННЫЕ/ВОЗРАСТНЫЕ ПУНКТЫ -->
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="summer" data-art="🌞">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Солнцезащитный крем SPF 30+</div>
+            <div class="item-note">Обязательно для крымского солнца</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="kids tweens teens" data-season="midseason winter" data-art="💋">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Гигиеническая помада</div>
+            <div class="item-note">От ветра и холода</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="teens" data-season="all" data-art="💄">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Косметика (базовая)</div>
+            <div class="item-note">По желанию подростка</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="hygiene" data-age="tweens teens" data-season="all" data-art="💧">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Дезодорант</div></div>
+        </div>
+
       </div>
     </div><!-- /hygiene -->
+
+    <!-- 🏥 МЕДИЦИНСКОЕ (СКЛ) -->
+    <div class="sec-card sec-medical" data-section="medical">
+      <div class="sec-header" onclick="toggleSection(this)">
+        <div class="sec-icon">🏥</div>
+        <div class="sec-meta">
+          <div class="sec-title">Медицинские сборы <span style="color:var(--c-red);font-size:11px;font-weight:700;">★ СКЛ</span></div>
+          <div class="sec-badge-done">✓ Медсборы готовы!</div>
+          <div class="sec-bar-bg"><div class="sec-bar-fill" id="bar-medical"></div></div>
+        </div>
+        <div class="sec-count" id="cnt-medical">0/9</div>
+        <div class="sec-chevron">▼</div>
+      </div>
+      <div class="sec-body">
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="📋">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Медицинская карта ребёнка (форма 026/у)</div>
+            <div class="item-note">Основной медицинский документ для санатория</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="💊">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Список всех принимаемых лекарств с дозировками</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Важно!</button>
+            <div class="tip-box">Все лекарства — в оригинальной упаковке с рецептом. Медперсонал санатория принимает их на хранение и выдаёт по расписанию.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="💉">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Прививочный сертификат</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="📝">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Письменные инструкции лечащего врача</div>
+            <div class="item-note">Если есть особенности приёма лекарств</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="📄">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Выписки из медкарты по основному диагнозу</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="💊">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Специальные лекарства по назначению</div>
+            <button class="tip-btn" onclick="showTip(event,this)">💡 Как везти?</button>
+            <div class="tip-box">Только в оригинальной упаковке. Аннотация или рецепт — обязательно. Жидкие формы — в герметичной упаковке.</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="🫁">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Небулайзер или ингалятор</div>
+            <div class="item-note">Если назначен врачом</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="🧴">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Специальные средства гигиены (если требуются)</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="medical" data-age="kids tweens teens" data-season="all" data-special="medical" data-art="📃">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Справка о прививочном статусе</div></div>
+        </div>
+
+      </div>
+    </div><!-- /medical -->
 
     <!-- 🎒 В РЮКЗАК -->
     <div class="sec-card sec-backpack" data-section="backpack">
@@ -1092,27 +1525,27 @@
       </div>
       <div class="sec-body">
 
-        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="📓">
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-age="kids tweens teens" data-season="all" data-art="📓">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Альбом или тетрадь</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="📚">
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-age="kids tweens teens" data-season="all" data-art="📚">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Книга или журнал</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="💰">
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-age="kids tweens teens" data-season="all" data-art="💰">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Деньги (карманные расходы)</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="📱">
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-age="kids tweens teens" data-season="all" data-art="📱">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Телефон и зарядное устройство</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-art="💧">
+        <div class="item" onclick="toggleItem(this)" data-section="backpack" data-age="kids tweens teens" data-season="all" data-art="💧">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body">
             <div class="item-label">🚰 Бутылка для воды (многоразовая)</div>
@@ -1140,19 +1573,43 @@
       </div>
       <div class="sec-body">
 
-        <div class="item" onclick="toggleItem(this)" data-section="extras" data-art="🕶️">
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="kids tweens teens" data-season="summer" data-art="🕶️">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Солнцезащитные очки</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="extras" data-art="☂️">
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="kids tweens teens" data-season="summer midseason" data-art="☂️">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Дождевик или зонт</div></div>
         </div>
 
-        <div class="item" onclick="toggleItem(this)" data-section="extras" data-art="🧢">
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="kids tweens teens" data-season="all" data-art="🧢">
           <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="item-body"><div class="item-label">Головной убор</div></div>
+        </div>
+
+        <!-- НОВЫЕ ВОЗРАСТНЫЕ ПУНКТЫ -->
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="kids" data-season="all" data-art="🧸">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body">
+            <div class="item-label">Любимая мягкая игрушка</div>
+            <div class="item-note">Помогает засыпать в новом месте</div>
+          </div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="tweens teens" data-season="all" data-art="🎧">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Наушники</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="kids tweens" data-season="all" data-art="📖">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Книга для чтения перед сном</div></div>
+        </div>
+
+        <div class="item" onclick="toggleItem(this)" data-section="extras" data-age="teens" data-season="all" data-art="🔋">
+          <div class="checkbox"><svg class="check-svg" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="item-body"><div class="item-label">Пауэрбанк</div></div>
         </div>
 
       </div>
@@ -1189,6 +1646,8 @@
   </div>
 
 </div><!-- /content -->
+
+</div><!-- /mainApp -->
 
 <!-- ═══════════════════════════════════════════════
      JAVASCRIPT
@@ -1229,28 +1688,130 @@
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 
-  // ── ОНБОРДИНГ ────────────────────────────────────────────────
-  const ONBOARDED_KEY = 'yb-tg-welcomed-v1';
-  if (!localStorage.getItem(ONBOARDED_KEY)) {
-    const onb = document.getElementById('onboarding');
-    onb.style.display = 'flex';
-    // Имя из Telegram (если открыто внутри Telegram)
-    const firstName = tg?.initDataUnsafe?.user?.first_name;
-    if (firstName) document.getElementById('onb-name').textContent = firstName;
+  // ── КОНСТАНТЫ ────────────────────────────────────────────────
+  const SECTIONS    = ['docs', 'clothes', 'shoes', 'hygiene', 'medical', 'backpack', 'extras'];
+  const STORAGE_KEY = 'yb-tg-checklist-v2';
+
+  // Состояние — 4 параметра + галочки
+  const state = {
+    gender: null,        // 'boy' | 'girl'
+    ageGroup: null,      // 'kids' | 'tweens' | 'teens'
+    season: null,        // 'summer' | 'midseason' | 'winter'
+    specialNeeds: false,
+    onboarded: false,
+    checked: [],
+  };
+
+  // ── QUICKSTART ───────────────────────────────────────────────
+  function qsSelect(btn) {
+    const group = btn.dataset.qs;
+    const value = btn.dataset.value;
+    document.querySelectorAll(`.qs-tile[data-qs="${group}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state[group] = value;
+    tg?.HapticFeedback.impactOccurred('light');
+    checkQsComplete();
   }
 
-  function startApp() {
-    localStorage.setItem(ONBOARDED_KEY, '1');
-    const onb = document.getElementById('onboarding');
-    onb.style.transition = 'opacity 250ms ease';
-    onb.style.opacity = '0';
-    setTimeout(() => onb.style.display = 'none', 260);
+  function qsToggleSpecial() {
+    state.specialNeeds = !state.specialNeeds;
+    const t = document.getElementById('qsSpecialToggle');
+    const box = document.getElementById('qsSpecialBox');
+    t.classList.toggle('active', state.specialNeeds);
+    box.textContent = state.specialNeeds ? '✓' : '';
+    tg?.HapticFeedback.impactOccurred('light');
+  }
+
+  function checkQsComplete() {
+    const ok = state.gender && state.ageGroup && state.season;
+    document.getElementById('qsSubmit').disabled = !ok;
+  }
+
+  function finishQuickstart() {
+    if (!state.gender || !state.ageGroup || !state.season) return;
+    state.onboarded = true;
+    saveState();
+    showMainApp(true);
     tg?.HapticFeedback.impactOccurred('medium');
   }
 
-  // ── КОНСТАНТЫ ────────────────────────────────────────────────
-  const SECTIONS    = ['docs', 'clothes', 'shoes', 'hygiene', 'backpack', 'extras'];
-  const STORAGE_KEY = 'yb-tg-checklist-v1';
+  function showMainApp(animate) {
+    document.getElementById('quickstart').style.display = 'none';
+    document.getElementById('mainApp').style.display = '';
+    syncGenderButtons();
+    applyFilters();
+    updateParamsSummary();
+    // Восстанавливаем отметки
+    const items = document.querySelectorAll('.item');
+    state.checked.forEach(idx => {
+      const it = items[idx];
+      if (it) it.classList.add('checked');
+    });
+    updateProgress(false);
+    SECTIONS.forEach(s => updateSection(s, false));
+    if (animate) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function backToQuickstart() {
+    document.querySelectorAll('.qs-tile').forEach(b => {
+      const grp = b.dataset.qs;
+      b.classList.toggle('active', state[grp] === b.dataset.value);
+    });
+    const t = document.getElementById('qsSpecialToggle');
+    const box = document.getElementById('qsSpecialBox');
+    t.classList.toggle('active', state.specialNeeds);
+    box.textContent = state.specialNeeds ? '✓' : '';
+    checkQsComplete();
+    document.getElementById('mainApp').style.display = 'none';
+    document.getElementById('quickstart').style.display = 'block';
+    tg?.HapticFeedback.impactOccurred('soft');
+    window.scrollTo({ top: 0 });
+  }
+
+  function syncGenderButtons() {
+    gender = state.gender;
+    document.body.classList.toggle('girl', state.gender === 'girl');
+    const btns = document.querySelectorAll('.gender-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (state.gender === 'girl') btns[1]?.classList.add('active');
+    else btns[0]?.classList.add('active');
+  }
+
+  // ── ФИЛЬТРАЦИЯ ПУНКТОВ ───────────────────────────────────────
+  function applyFilters() {
+    const items = document.querySelectorAll('.item');
+    items.forEach(item => {
+      const ages    = (item.dataset.age    || 'kids tweens teens').split(' ').filter(Boolean);
+      const seasons = (item.dataset.season || 'all').split(' ').filter(Boolean);
+      const isGirlOnly = item.classList.contains('girl-only');
+      const isSpecial  = item.dataset.special === 'medical';
+
+      const ageMatch    = ages.includes(state.ageGroup);
+      const seasonMatch = seasons.includes('all') || seasons.includes(state.season);
+      const genderMatch = !isGirlOnly || state.gender === 'girl';
+      const specialMatch = !isSpecial || state.specialNeeds;
+
+      item.style.display = (ageMatch && seasonMatch && genderMatch && specialMatch) ? '' : 'none';
+    });
+    const medCard = document.querySelector('.sec-card[data-section="medical"]');
+    if (medCard) medCard.style.display = state.specialNeeds ? '' : 'none';
+  }
+
+  function updateParamsSummary() {
+    const gLabel = state.gender === 'girl' ? 'девочки' : 'мальчика';
+    const aLabel = { kids: '7–10 лет', tweens: '11–13 лет', teens: '14–17 лет' }[state.ageGroup] || '';
+    const sLabel = { summer: 'Лето ☀️', midseason: 'Межсезонье 🍂', winter: 'Зима ❄️' }[state.season] || '';
+    const special = state.specialNeeds ? ' · <strong>Медсборы (СКЛ)</strong>' : '';
+    const el = document.getElementById('paramsSummary');
+    if (el) el.innerHTML = `Для <strong>${gLabel} ${aLabel}</strong> · ${sLabel}${special}`;
+  }
+
+  function isItemVisible(it) {
+    if (it.style.display === 'none') return false;
+    if (it.classList.contains('girl-only') && state.gender !== 'girl') return false;
+    if (it.dataset.special === 'medical' && !state.specialNeeds) return false;
+    return true;
+  }
   const PARTICLES   = ['⭐', '✨', '🌟', '💫', '🎈'];
   const FLY_DIRS    = [
     'translate(-36px,-42px)', 'translate(36px,-42px)',
@@ -1263,26 +1824,24 @@
   document.addEventListener('DOMContentLoaded', () => {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 
-    // Восстанавливаем пол
-    const g    = saved.gender || 'boy';
-    const gBtn = g === 'girl'
-      ? document.querySelector('.gender-btn:last-child')
-      : document.querySelector('.gender-btn:first-child');
-    setGender(g, gBtn, false);
-
-    // Восстанавливаем отмеченные пункты
-    (saved.checked || []).forEach(idx => {
-      const item = document.querySelectorAll('.item')[idx];
-      if (item) item.classList.add('checked');
-    });
-
-    updateProgress(false);
-    SECTIONS.forEach(s => updateSection(s, false));
+    if (saved.onboarded) {
+      state.gender       = saved.gender       || 'boy';
+      state.ageGroup     = saved.ageGroup     || 'tweens';
+      state.season       = saved.season       || 'summer';
+      state.specialNeeds = !!saved.specialNeeds;
+      state.onboarded    = true;
+      state.checked      = saved.checked      || [];
+      showMainApp(false);
+    } else {
+      document.getElementById('quickstart').style.display = 'block';
+      document.getElementById('mainApp').style.display = 'none';
+    }
   });
 
   // ── ПЕРЕКЛЮЧАТЕЛЬ МАЛЬЧИК / ДЕВОЧКА ─────────────────────────
   function setGender(g, btn, doSave = true) {
     gender = g;
+    state.gender = g;
     document.body.classList.toggle('girl', g === 'girl');
     document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
     if (btn) {
@@ -1294,6 +1853,8 @@
     // Тактильная отдача в Telegram
     tg?.HapticFeedback.selectionChanged();
 
+    applyFilters();
+    updateParamsSummary();
     if (doSave) saveState();
     updateProgress(false);
     SECTIONS.forEach(s => updateSection(s, false));
@@ -1344,10 +1905,9 @@
     const card = document.querySelector(`.sec-card[data-section="${sectionId}"]`);
     if (!card) return;
 
-    const isGirl    = gender === 'girl';
-    const allItems  = card.querySelectorAll(isGirl ? '.item' : '.item:not(.girl-only)');
-    const doneItems = card.querySelectorAll(isGirl ? '.item.checked' : '.item.checked:not(.girl-only)');
-    const total     = allItems.length;
+    const visible = Array.from(card.querySelectorAll('.item')).filter(isItemVisible);
+    const doneItems = visible.filter(it => it.classList.contains('checked'));
+    const total     = visible.length;
     const done      = doneItems.length;
     const pct       = total ? Math.round((done / total) * 100) : 0;
     const isDone    = total > 0 && done === total;
@@ -1396,11 +1956,10 @@
   // ── ОБЩИЙ ПРОГРЕСС ───────────────────────────────────────────
   let lastPct = -1;
   function updateProgress(animate) {
-    const isGirl = gender === 'girl';
-    const sel    = isGirl ? '.item' : '.item:not(.girl-only)';
-    const total  = document.querySelectorAll(sel).length;
-    const done   = document.querySelectorAll(sel + '.checked').length;
-    const pct    = total ? Math.round((done / total) * 100) : 0;
+    const allItems = Array.from(document.querySelectorAll('.item')).filter(isItemVisible);
+    const total    = allItems.length;
+    const done     = allItems.filter(it => it.classList.contains('checked')).length;
+    const pct      = total ? Math.round((done / total) * 100) : 0;
 
     document.getElementById('progBar').style.width = pct + '%';
     document.getElementById('progBar').classList.toggle('shimmer', pct === 100);
@@ -1489,7 +2048,15 @@
     document.querySelectorAll('.item').forEach((item, i) => {
       if (item.classList.contains('checked')) checked.push(i);
     });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ checked, gender }));
+    state.checked = checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      checked,
+      gender: state.gender,
+      ageGroup: state.ageGroup,
+      season: state.season,
+      specialNeeds: state.specialNeeds,
+      onboarded: state.onboarded,
+    }));
   }
 
   // ── ПОДЕЛИТЬСЯ С ДРУГОМ ──────────────────────────────────────
@@ -1511,7 +2078,8 @@
     document.querySelectorAll('.sec-card').forEach(c => c.classList.remove('done', 'collapsed'));
     document.getElementById('doneBanner').classList.remove('show');
     document.getElementById('progBar').classList.remove('shimmer');
-    localStorage.removeItem(STORAGE_KEY);
+    state.checked = [];
+    saveState();
     lastPct = -1;
     tg?.MainButton.hide();
     tg?.HapticFeedback.notificationOccurred('warning');
