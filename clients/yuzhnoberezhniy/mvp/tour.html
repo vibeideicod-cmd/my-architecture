@@ -4,25 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Знакомство с санаторием — Южнобережный, Алупка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --blue: #0693e3;
-  --blue-light: #e8f4fd;
-  --blue-mid: #4fc3f7;
+  --blue-deep: #0578c1;
+  --blue-soft: #e8f4fd;
+  --sky-1: #cdebfb;
+  --sky-2: #e8f5fd;
+  --sand: #f4e4bc;
+  --sand-deep: #ffc94a;
   --dark: #32373c;
   --text: #2c2c2c;
-  --muted: #abb8c3;
+  --muted: #7a8a99;
   --white: #ffffff;
   --bg: #f7fbff;
+  --display: 'Fredoka', 'Trebuchet MS', Arial, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
   font-family: Arial, sans-serif;
-  background: var(--bg);
+  background:
+    linear-gradient(180deg, #f4faff 0%, #ffffff 40%, #f7fbff 100%);
   color: var(--text);
   line-height: 1.6;
 }
@@ -32,8 +41,10 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid #e0ecf8;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(6, 147, 227, 0.12);
   padding: 0 24px;
   display: flex;
   align-items: center;
@@ -42,62 +53,147 @@ body {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   white-space: nowrap;
+  box-shadow: 0 2px 12px -6px rgba(6, 147, 227, 0.15);
 }
 .topnav::-webkit-scrollbar { display: none; }
 
 .nav-logo {
-  font-weight: bold;
-  font-size: 13px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
   color: var(--blue);
-  padding: 14px 12px 14px 0;
+  padding: 14px 14px 14px 0;
   border-right: 1px solid #e0ecf8;
   margin-right: 8px;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .topnav a {
   color: var(--muted);
   text-decoration: none;
   font-size: 13px;
-  padding: 14px 10px;
+  font-family: var(--display);
+  font-weight: 500;
+  padding: 14px 12px;
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s;
   flex-shrink: 0;
 }
 .topnav a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+.topnav a.active { color: var(--blue); border-bottom-color: var(--blue); }
 
 /* ─── HERO ─── */
 .hero {
-  background: linear-gradient(160deg, #0693e3 0%, #0578c1 50%, #1a5276 100%);
+  position: relative;
+  overflow: hidden;
   color: var(--white);
-  padding: clamp(48px, 8vw, 80px) 24px clamp(40px, 6vw, 64px);
+  padding: clamp(40px, 7vw, 72px) 24px clamp(48px, 7vw, 72px);
   text-align: center;
+  background:
+    linear-gradient(180deg, #9cdcfb 0%, #6ec4ef 30%, #2ea6e6 60%, #0578c1 100%);
+}
+
+.hero-svg-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-svg-bg svg { width: 100%; height: 100%; display: block; }
+
+.hero-sun {
+  transform-origin: center;
+  animation: sunPulse 6s ease-in-out infinite;
+}
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50%      { transform: scale(1.05); opacity: 1; }
+}
+.cloud-a { animation: drift 50s linear infinite; }
+.cloud-b { animation: drift 70s linear infinite; animation-delay: -25s; }
+@keyframes drift {
+  from { transform: translateX(-10%); }
+  to   { transform: translateX(110%); }
+}
+.gull-a { animation: fly 26s linear infinite; }
+.gull-b { animation: fly 34s linear infinite; animation-delay: -10s; }
+@keyframes fly {
+  0%   { transform: translate(-5%, 0); }
+  50%  { transform: translate(50%, -10px); }
+  100% { transform: translate(110%, 0); }
+}
+.wave-back  { animation: waveSlow 11s ease-in-out infinite; }
+.wave-mid   { animation: waveSlow 8s ease-in-out infinite reverse; }
+.wave-front { animation: waveSlow 6s ease-in-out infinite; }
+@keyframes waveSlow {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-14px); }
+}
+.sail-boat { animation: sailBob 7s ease-in-out infinite; transform-origin: center bottom; }
+@keyframes sailBob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-3px) rotate(1.5deg); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
 .hero-badge {
   display: inline-block;
-  background: rgba(255,255,255,0.15);
-  border-radius: 20px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 22px;
   font-size: 13px;
-  padding: 5px 14px;
-  margin-bottom: 16px;
-  letter-spacing: 0.5px;
+  font-family: var(--display);
+  font-weight: 500;
+  padding: 7px 16px;
+  margin-bottom: 18px;
+  letter-spacing: 0.4px;
+  color: #fff;
 }
 
 .hero h1 {
-  font-size: clamp(26px, 6vw, 44px);
-  line-height: 1.2;
-  margin-bottom: 14px;
-  font-weight: bold;
+  font-family: var(--display);
+  font-size: clamp(28px, 6.5vw, 52px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  text-shadow: 0 4px 22px rgba(0, 50, 100, 0.28);
+}
+.hero h1 span {
+  color: #fff7e0;
+  position: relative;
+  display: inline-block;
+}
+.hero h1 span::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 7px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'><path d='M0,4 Q25,0 50,4 T100,4' fill='none' stroke='%23ffc94a' stroke-width='2.5' stroke-linecap='round'/></svg>") center/100% 100% no-repeat;
+  opacity: 0.95;
 }
 
 .hero-sub {
-  font-size: clamp(15px, 3vw, 18px);
-  opacity: 0.9;
-  margin-bottom: 28px;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: clamp(15px, 2.4vw, 18px);
+  opacity: 0.95;
+  margin: 0 auto 24px;
+  max-width: 620px;
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.55;
 }
 
 .hero-tags {
@@ -105,13 +201,68 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 .hero-tag {
-  background: rgba(255,255,255,0.18);
-  border-radius: 20px;
-  padding: 6px 14px;
+  background: rgba(255,255,255,0.95);
+  color: var(--blue-deep);
+  border-radius: 22px;
+  padding: 9px 18px;
   font-size: 14px;
+  font-family: var(--display);
+  font-weight: 600;
+  box-shadow:
+    0 3px 0 rgba(6,120,193,0.25),
+    0 8px 18px -6px rgba(0, 50, 100, 0.35);
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 26px;
+}
+.hero-cta a {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 16px 28px;
+  border-radius: 22px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-cta .btn-sand {
+  background: linear-gradient(135deg, #ffd76b 0%, #ffc94a 60%, #f0a500 100%);
+  color: #5a3a00;
+  box-shadow:
+    0 6px 0 #c98a00,
+    0 14px 28px -8px rgba(201, 138, 0, 0.5),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+.hero-cta .btn-sand:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #c98a00,
+    0 18px 34px -8px rgba(201, 138, 0, 0.55),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+.hero-cta .btn-white {
+  background: #fff;
+  color: var(--blue-deep);
+  box-shadow:
+    0 6px 0 #b9d6ec,
+    0 14px 28px -8px rgba(0, 50, 100, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.hero-cta .btn-white:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #b9d6ec,
+    0 18px 34px -8px rgba(0, 50, 100, 0.4);
 }
 
 .hero-nav {
@@ -121,64 +272,92 @@ body {
   justify-content: center;
 }
 .hero-nav a {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.4);
   color: #fff;
   text-decoration: none;
-  border-radius: 10px;
-  padding: 9px 16px;
+  border-radius: 18px;
+  padding: 10px 18px;
   font-size: 14px;
-  transition: background 0.2s;
+  font-family: var(--display);
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
 }
-.hero-nav a:hover { background: rgba(255,255,255,0.28); }
+.hero-nav a:hover {
+  background: rgba(255,255,255,0.32);
+  transform: translateY(-2px);
+}
 
 /* ─── СЕКЦИЯ ─── */
 section {
-  max-width: 900px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: clamp(40px, 6vw, 64px) 24px;
+  padding: clamp(44px, 7vw, 72px) 24px;
 }
 
 .section-label {
+  display: inline-block;
+  background: linear-gradient(135deg, #fff7e3 0%, #ffeec2 100%);
+  color: #c98a1a;
+  font-family: var(--display);
+  font-weight: 600;
   font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 0.9px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
   text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 8px;
 }
 
 .section-title {
-  font-size: clamp(22px, 4vw, 30px);
-  font-weight: bold;
+  font-family: var(--display);
+  font-size: clamp(24px, 4.5vw, 34px);
+  font-weight: 700;
   color: var(--dark);
-  margin-bottom: 8px;
-  line-height: 1.3;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
 }
 
 .section-sub {
   font-size: 16px;
-  color: #555;
+  color: #556070;
   margin-bottom: 32px;
-  max-width: 620px;
+  max-width: 680px;
+  line-height: 1.6;
 }
 
-/* ─── ФОТО ПЛЕЙСХОЛДЕР ─── */
-.photo-placeholder {
-  background: linear-gradient(135deg, #ddeeff 0%, #c8e6f7 100%);
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: #7aabcc;
-  font-size: 14px;
-  text-align: center;
-  padding: 20px;
+/* ─── SVG IL PLACEHOLDER ─── */
+.svg-illus {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #e8f5fd 0%, #f4faff 55%, #fff7e3 100%);
+  box-shadow:
+    0 20px 40px -18px rgba(6, 147, 227, 0.25),
+    0 6px 18px -8px rgba(6, 147, 227, 0.14),
+    0 0 0 1px rgba(6, 147, 227, 0.08);
 }
-.photo-placeholder .ph-icon { font-size: 36px; }
-.photo-placeholder .ph-text { font-size: 13px; font-style: italic; }
+.svg-illus svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.svg-illus.tall { min-height: 260px; }
+.svg-illus.mini { min-height: 170px; }
+.svg-illus .photo-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(50, 55, 60, 0.55);
+  font-family: var(--display);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
 
 /* ─── GRID ─── */
 .grid-2 {
@@ -190,251 +369,604 @@ section {
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 18px;
   margin-bottom: 24px;
 }
 
 /* ─── КАРТОЧКА ─── */
 .card {
   background: var(--white);
-  border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 2px 12px rgba(6,147,227,0.08);
+  border-radius: 22px;
+  padding: 24px 22px;
+  box-shadow:
+    0 8px 22px -10px rgba(6, 147, 227, 0.2),
+    0 2px 6px -2px rgba(6, 147, 227, 0.08),
+    0 0 0 1px rgba(6, 147, 227, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.card-icon { font-size: 28px; margin-bottom: 10px; display: block; }
-.card-title { font-size: 16px; font-weight: bold; color: var(--dark); margin-bottom: 6px; }
-.card-text { font-size: 14px; color: #555; line-height: 1.6; }
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 14px 30px -10px rgba(6, 147, 227, 0.28),
+    0 4px 10px -2px rgba(6, 147, 227, 0.12);
+}
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f4faff 100%);
+  border-radius: 16px;
+}
+.card-title {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.card-text { font-size: 14.5px; color: #556070; line-height: 1.6; }
 
 /* ─── FEATURE ROW ─── */
 .feature-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 36px;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 .feature-row.reverse { direction: rtl; }
 .feature-row.reverse > * { direction: ltr; }
-
-.feature-photo { border-radius: 16px; overflow: hidden; min-height: 220px; }
-.feature-content {}
+.feature-photo { min-height: 260px; }
 .feature-title {
-  font-size: clamp(18px, 3vw, 22px);
-  font-weight: bold;
+  font-family: var(--display);
+  font-size: clamp(19px, 3vw, 24px);
+  font-weight: 600;
   color: var(--dark);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  letter-spacing: -0.2px;
 }
-.feature-text { font-size: 15px; color: #444; line-height: 1.7; margin-bottom: 12px; }
+.feature-text { font-size: 15px; color: #445060; line-height: 1.7; margin-bottom: 14px; }
 .feature-list { list-style: none; padding: 0; }
 .feature-list li {
-  font-size: 14px;
-  color: #444;
-  padding: 5px 0;
-  padding-left: 20px;
+  font-size: 14.5px;
+  color: #445060;
+  padding: 6px 0 6px 28px;
   position: relative;
 }
 .feature-list li::before {
-  content: '✓';
-  color: var(--blue);
-  font-weight: bold;
+  content: '';
   position: absolute;
   left: 0;
+  top: 11px;
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230693e3' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12 L10 17 L19 7'/></svg>") center/contain no-repeat;
 }
 
 /* ─── DIVIDER ─── */
-.divider {
-  background: linear-gradient(90deg, transparent, #e0ecf8, transparent);
-  height: 1px;
-  border: none;
+.wave-divider {
+  display: block;
+  width: 100%;
   max-width: 900px;
+  height: 24px;
   margin: 0 auto;
+  opacity: 0.7;
 }
 
-/* ─── FAQ ─── */
-.faq-item {
-  border-bottom: 1px solid #e0ecf8;
+/* ─── HIGHLIGHTS ─── */
+.highlights {
+  position: relative;
+  background: linear-gradient(135deg, #0693e3 0%, #0578c1 55%, #1a5276 100%);
+  color: #fff;
+  padding: clamp(44px, 7vw, 72px) 24px;
+  overflow: hidden;
 }
+.highlights::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='xMidYMid slice'><path d='M0,100 Q360,60 720,100 T1440,100 L1440,200 L0,200 Z' fill='rgba(255,255,255,0.06)'/><path d='M0,140 Q360,110 720,140 T1440,140 L1440,200 L0,200 Z' fill='rgba(255,255,255,0.05)'/></svg>") center/cover no-repeat;
+  pointer-events: none;
+}
+.highlights-inner {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  z-index: 1;
+}
+.highlights h2 {
+  font-family: var(--display);
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 20px;
+}
+.highlight-item {
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 22px;
+  padding: 22px 14px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.highlight-num {
+  font-family: var(--display);
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+  color: #fff7e0;
+  text-shadow: 0 3px 14px rgba(0, 50, 100, 0.4);
+}
+.highlight-label {
+  font-family: var(--display);
+  font-size: 13.5px;
+  opacity: 0.92;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ─── DIRECTOR ─── */
+.director-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(44px, 7vw, 72px) 24px;
+}
+.director-card {
+  background: #fff;
+  border-radius: 28px;
+  padding: clamp(24px, 4vw, 40px);
+  box-shadow:
+    0 30px 60px -24px rgba(6, 147, 227, 0.28),
+    0 10px 24px -10px rgba(6, 147, 227, 0.15),
+    0 0 0 1px rgba(6, 147, 227, 0.08);
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 28px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.director-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(6,147,227,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.director-portrait {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+}
+.director-portrait svg { width: 100%; height: 100%; display: block; }
+.director-quote {
+  font-family: var(--display);
+  font-size: clamp(16px, 2.5vw, 19px);
+  font-weight: 500;
+  color: #2c3540;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  font-style: italic;
+  position: relative;
+}
+.director-quote::before {
+  content: '“';
+  position: absolute;
+  top: -20px;
+  left: -8px;
+  font-family: Georgia, serif;
+  font-size: 60px;
+  color: rgba(6, 147, 227, 0.18);
+  font-style: normal;
+  line-height: 1;
+}
+.director-sign {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.director-badge {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--muted);
+  background: #f4faff;
+  border: 1px dashed #c8dded;
+  border-radius: 12px;
+  padding: 5px 12px;
+  font-family: var(--display);
+  font-weight: 500;
+}
+
+/* ─── CARE CARDS (выделенные) ─── */
+.care-card {
+  border-radius: 22px;
+  padding: 22px 24px;
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: 0 8px 22px -10px rgba(6, 147, 227, 0.15);
+}
+.care-card .care-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px -4px rgba(0,0,0,0.08);
+}
+.care-card .care-title {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.care-card .care-text { font-size: 14.5px; color: #445060; line-height: 1.6; }
+.care-card .care-text a { font-weight: 600; }
+.care-green  { background: #eafaf1; border-left: 5px solid #1a9e5c; }
+.care-green .care-text a { color: #1a9e5c; }
+.care-blue   { background: var(--blue-soft); border-left: 5px solid var(--blue); }
+.care-blue .care-text a { color: var(--blue); }
+.care-amber  { background: #fff5e0; border-left: 5px solid #f0a500; }
+.care-amber .care-text a { color: #c98a1a; }
+
+/* ─── FAQ ─── */
+#faq .faq-list {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow:
+    0 20px 40px -20px rgba(6, 147, 227, 0.2),
+    0 0 0 1px rgba(6, 147, 227, 0.06);
+  overflow: hidden;
+}
+.faq-item {
+  border-bottom: 1px solid #eef4fa;
+}
+.faq-item:last-child { border-bottom: none; }
 .faq-q {
   width: 100%;
   background: none;
   border: none;
   text-align: left;
-  font-family: Arial, sans-serif;
+  font-family: var(--display);
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   color: var(--dark);
-  padding: 18px 0;
+  padding: 22px 26px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  transition: background 0.2s;
 }
-.faq-q:hover { color: var(--blue); }
+.faq-q:hover { background: #f4faff; color: var(--blue); }
 .faq-arrow {
-  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--blue-soft);
   color: var(--blue);
-  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: transform 0.3s, background 0.2s;
   flex-shrink: 0;
 }
-.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-item.open .faq-arrow { transform: rotate(180deg); background: var(--blue); color: #fff; }
 .faq-a {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease;
 }
 .faq-a-inner {
-  padding-bottom: 18px;
-  font-size: 15px;
-  color: #444;
+  padding: 0 26px 22px 26px;
+  font-size: 14.5px;
+  color: #445060;
   line-height: 1.7;
 }
-.faq-a-inner a { color: var(--blue); }
+.faq-a-inner a { color: var(--blue); font-weight: 600; }
 
-/* ─── HIGHLIGHTS STRIP ─── */
-.highlights {
-  background: var(--blue);
-  color: #fff;
-  padding: clamp(40px, 6vw, 60px) 24px;
-}
-.highlights-inner {
-  max-width: 900px;
+/* ─── SOCIAL BLOCK ─── */
+.social-block {
+  max-width: 980px;
   margin: 0 auto;
+  padding: clamp(20px, 4vw, 40px) 24px clamp(44px, 6vw, 60px);
 }
-.highlights h2 {
-  font-size: clamp(20px, 4vw, 28px);
-  margin-bottom: 28px;
-  text-align: center;
-}
-.highlights-grid {
+.social-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.social-card {
+  background: #fff;
+  border-radius: 26px;
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
   gap: 20px;
+  align-items: center;
+  box-shadow:
+    0 14px 30px -14px rgba(6, 147, 227, 0.22),
+    0 4px 10px -2px rgba(6, 147, 227, 0.08),
+    0 0 0 1px rgba(6, 147, 227, 0.06);
+  transition: transform 0.25s, box-shadow 0.25s;
 }
-.highlight-item { text-align: center; }
-.highlight-num {
-  font-size: 36px;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 6px;
+.social-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 22px 44px -14px rgba(6, 147, 227, 0.3),
+    0 8px 16px -4px rgba(6, 147, 227, 0.12);
 }
-.highlight-label { font-size: 14px; opacity: 0.85; }
+.social-icon {
+  flex-shrink: 0;
+  width: 66px;
+  height: 66px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social-icon.vk { background: linear-gradient(135deg, #4680c2 0%, #2a5885 100%); }
+.social-icon.tg { background: linear-gradient(135deg, #4fc3f7 0%, #0693e3 100%); }
+.social-icon svg { width: 36px; height: 36px; }
+.social-text .social-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.social-text .social-sub { font-size: 14px; color: #556070; line-height: 1.5; }
+.social-text .social-cta {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--blue);
+}
 
 /* ─── CTA ─── */
 .cta-section {
-  background: var(--dark);
+  position: relative;
+  background: linear-gradient(135deg, #32373c 0%, #1f262d 100%);
   color: #fff;
-  padding: clamp(48px, 7vw, 72px) 24px;
+  padding: clamp(52px, 8vw, 88px) 24px;
   text-align: center;
+  overflow: hidden;
 }
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 400' preserveAspectRatio='xMidYMid slice'><circle cx='200' cy='80' r='50' fill='rgba(255,201,74,0.06)'/><circle cx='1240' cy='320' r='80' fill='rgba(6,147,227,0.1)'/><path d='M0,280 Q360,240 720,280 T1440,280 L1440,400 L0,400 Z' fill='rgba(6,147,227,0.08)'/></svg>") center/cover no-repeat;
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
 .cta-section h2 {
-  font-size: clamp(22px, 4vw, 32px);
-  margin-bottom: 12px;
+  font-family: var(--display);
+  font-size: clamp(24px, 4.5vw, 36px);
+  font-weight: 700;
+  margin-bottom: 14px;
+  letter-spacing: -0.3px;
 }
 .cta-section p {
+  font-family: var(--display);
   font-size: 16px;
-  opacity: 0.8;
+  opacity: 0.85;
   margin-bottom: 32px;
-  max-width: 500px;
+  max-width: 540px;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 400;
+  line-height: 1.6;
 }
 .cta-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   justify-content: center;
-  margin-bottom: 32px;
+  margin-bottom: 34px;
 }
 .btn-cta {
-  background: var(--blue);
+  background: linear-gradient(135deg, #0aa5f5 0%, #0693e3 50%, #0578c1 100%);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 14px 28px;
+  border-radius: 20px;
+  padding: 16px 30px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
   text-decoration: none;
-  font-family: Arial, sans-serif;
-  transition: background 0.2s;
-  display: inline-block;
+  font-family: var(--display);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow:
+    0 10px 25px -8px rgba(6, 147, 227, 0.55),
+    0 4px 12px -4px rgba(6, 147, 227, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
 }
-.btn-cta:hover { background: #0578c1; }
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 32px -8px rgba(6, 147, 227, 0.6),
+    0 6px 16px -4px rgba(6, 147, 227, 0.35);
+}
 .btn-cta-outline {
   background: transparent;
   color: #fff;
   border: 2px solid rgba(255,255,255,0.4);
-  border-radius: 12px;
-  padding: 12px 24px;
+  border-radius: 20px;
+  padding: 14px 26px;
   font-size: 16px;
   cursor: pointer;
   text-decoration: none;
-  font-family: Arial, sans-serif;
-  transition: border-color 0.2s;
-  display: inline-block;
+  font-family: var(--display);
+  font-weight: 600;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
-.btn-cta-outline:hover { border-color: #fff; }
+.btn-cta-outline:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
 
 .cta-contacts {
+  font-family: var(--display);
   font-size: 14px;
-  opacity: 0.7;
+  opacity: 0.78;
   line-height: 2;
 }
-.cta-contacts a { color: #fff; }
+.cta-contacts a { color: #fff; text-decoration: none; }
+.cta-contacts a:hover { text-decoration: underline; }
+.cta-contacts strong { color: #fff7e0; font-weight: 600; }
+
+.cta-links {
+  margin-top: 32px;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-links a {
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  text-decoration: none;
+  font-family: var(--display);
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.2s, color 0.2s;
+}
+.cta-links a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
 
 /* ─── FOOTER ─── */
 footer {
   background: #1a1f24;
-  color: rgba(255,255,255,0.5);
-  padding: 24px;
+  color: rgba(255,255,255,0.55);
+  padding: 28px 24px;
   text-align: center;
   font-size: 13px;
   line-height: 1.8;
+  font-family: var(--display);
+  font-weight: 400;
 }
-footer a { color: rgba(255,255,255,0.7); }
+footer a { color: rgba(255,255,255,0.75); text-decoration: none; }
+footer a:hover { color: #fff; }
+footer .slogan {
+  margin-top: 6px;
+  color: #ffc94a;
+  font-weight: 500;
+  font-style: italic;
+}
 
 /* ─── BACK TO TOP ─── */
 .back-top {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--blue);
+  bottom: 26px;
+  right: 26px;
+  background: linear-gradient(135deg, #0aa5f5 0%, #0693e3 50%, #0578c1 100%);
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.3s;
-  box-shadow: 0 4px 16px rgba(6,147,227,0.4);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow:
+    0 10px 24px -6px rgba(6, 147, 227, 0.55),
+    0 4px 10px -2px rgba(6, 147, 227, 0.3);
   z-index: 50;
+  font-family: var(--display);
+  font-weight: 700;
 }
-.back-top.visible { opacity: 1; }
+.back-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.back-top:hover {
+  transform: translateY(-3px);
+}
+
+/* ─── FADE-IN ─── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(.4,.0,.2,1), transform 0.7s cubic-bezier(.4,.0,.2,1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ─── АДАПТИВ ─── */
-@media (max-width: 680px) {
+@media (max-width: 760px) {
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr 1fr; }
-  .feature-row { grid-template-columns: 1fr; direction: ltr; }
+  .feature-row { grid-template-columns: 1fr; direction: ltr; gap: 22px; }
   .feature-row.reverse { direction: ltr; }
+  .director-card { grid-template-columns: 1fr; text-align: center; gap: 18px; }
+  .director-portrait { margin: 0 auto; }
+  .director-quote::before { left: 50%; transform: translateX(-50%); top: -28px; }
+  .social-grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   .grid-3 { grid-template-columns: 1fr; }
+  .hero-cta a { width: 100%; justify-content: center; }
+  .faq-q { padding: 18px 20px; font-size: 15px; }
+  .faq-a-inner { padding: 0 20px 18px 20px; }
 }
 
 /* ─── PRINT ─── */
 @media print {
-  .topnav, .back-top { display: none; }
+  .topnav, .back-top, .hero-cta, .cta-buttons { display: none; }
   .hero { background: #0693e3; -webkit-print-color-adjust: exact; }
+  .hero-svg-bg { display: none; }
+  .fade-in { opacity: 1; transform: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- Навигация -->
+<!-- ═══════════════ NAV ═══════════════ -->
 <nav class="topnav">
   <span class="nav-logo">🌊 ЮБ</span>
   <a href="#territory">Территория</a>
@@ -446,26 +978,156 @@ footer a { color: rgba(255,255,255,0.7); }
   <a href="#contact">Контакты</a>
 </nav>
 
-<!-- Hero -->
+<!-- ═══════════════ HERO ═══════════════ -->
 <div class="hero">
-  <span class="hero-badge">🏥 Детский санаторий · г. Алупка · Крым</span>
-  <h1>Познакомьтесь<br>с Южнобережным</h1>
-  <p class="hero-sub">Прежде чем отправить ребёнка — посмотрите, куда он едет. Здесь всё как есть: территория, комнаты, еда, врачи и море.</p>
-  <div class="hero-tags">
-    <span class="hero-tag">🌊 У самого моря</span>
-    <span class="hero-tag">🏥 Медперсонал 24/7</span>
-    <span class="hero-tag">🍽 5-разовое питание</span>
-    <span class="hero-tag">👨‍👩‍👧 Дети 7–17 лет</span>
+  <div class="hero-svg-bg" aria-hidden="true">
+    <svg viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="heroSun" cx="50%" cy="40%">
+          <stop offset="0%" stop-color="#fff7c8"/>
+          <stop offset="60%" stop-color="#ffd76b"/>
+          <stop offset="100%" stop-color="#ffc94a"/>
+        </radialGradient>
+        <linearGradient id="mtnG" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#b5d6e8" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#7ba8c2" stop-opacity="0.9"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Солнце с лучами -->
+      <g class="hero-sun" transform="translate(1180, 160)">
+        <g stroke="#fff7c8" stroke-width="3" stroke-linecap="round" opacity="0.55">
+          <line x1="0" y1="-80" x2="0" y2="-65"/>
+          <line x1="56" y1="-56" x2="46" y2="-46"/>
+          <line x1="80" y1="0" x2="65" y2="0"/>
+          <line x1="56" y1="56" x2="46" y2="46"/>
+          <line x1="-56" y1="-56" x2="-46" y2="-46"/>
+          <line x1="-80" y1="0" x2="-65" y2="0"/>
+          <line x1="-56" y1="56" x2="-46" y2="46"/>
+        </g>
+        <circle r="55" fill="#fff7c8" opacity="0.45"/>
+        <circle r="42" fill="url(#heroSun)"/>
+      </g>
+
+      <!-- Облака -->
+      <g class="cloud-a" opacity="0.85">
+        <ellipse cx="200" cy="120" rx="54" ry="14" fill="#ffffff"/>
+        <ellipse cx="230" cy="108" rx="36" ry="12" fill="#ffffff"/>
+        <ellipse cx="168" cy="112" rx="28" ry="10" fill="#ffffff"/>
+      </g>
+      <g class="cloud-b" opacity="0.7">
+        <ellipse cx="560" cy="180" rx="44" ry="12" fill="#ffffff"/>
+        <ellipse cx="590" cy="170" rx="28" ry="10" fill="#ffffff"/>
+      </g>
+
+      <!-- Чайки -->
+      <g class="gull-a" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" opacity="0.75">
+        <path d="M 120 220 q 10 -12 20 0 q 10 -12 20 0"/>
+      </g>
+      <g class="gull-b" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity="0.6">
+        <path d="M 680 280 q 8 -10 16 0 q 8 -10 16 0"/>
+      </g>
+
+      <!-- Горы Ай-Петри (задний хребет) -->
+      <path d="M 0 380 L 140 280 L 230 340 L 340 250 L 430 310 L 530 240 L 640 300 L 760 260 L 880 310 L 990 270 L 1120 320 L 1260 280 L 1440 320 L 1440 440 L 0 440 Z"
+            fill="url(#mtnG)" opacity="0.75"/>
+      <!-- Второй хребет (ближе) -->
+      <path d="M 0 420 L 120 370 L 240 400 L 360 355 L 480 395 L 600 360 L 720 400 L 840 365 L 980 400 L 1120 370 L 1260 400 L 1440 380 L 1440 460 L 0 460 Z"
+            fill="#88b6ce" opacity="0.65"/>
+
+      <!-- Воронцовский дворец (стилизованный силуэт) -->
+      <g transform="translate(760, 370)" opacity="0.92">
+        <!-- Основание -->
+        <rect x="-90" y="10" width="180" height="60" fill="#f4e4bc"/>
+        <!-- Центральная башня -->
+        <rect x="-18" y="-40" width="36" height="50" fill="#f4e4bc"/>
+        <!-- Крыша башни -->
+        <path d="M -22 -40 L 0 -62 L 22 -40 Z" fill="#8b6f47"/>
+        <!-- Боковые башни -->
+        <rect x="-88" y="-15" width="22" height="25" fill="#f4e4bc"/>
+        <rect x="66" y="-15" width="22" height="25" fill="#f4e4bc"/>
+        <path d="M -90 -15 L -77 -30 L -64 -15 Z" fill="#8b6f47"/>
+        <path d="M 64 -15 L 77 -30 L 90 -15 Z" fill="#8b6f47"/>
+        <!-- Зубцы -->
+        <g fill="#f4e4bc">
+          <rect x="-88" y="5" width="6" height="8"/>
+          <rect x="-76" y="5" width="6" height="8"/>
+          <rect x="-64" y="5" width="6" height="8"/>
+          <rect x="70" y="5" width="6" height="8"/>
+          <rect x="82" y="5" width="6" height="8"/>
+        </g>
+        <!-- Окна -->
+        <g fill="#5a7185" opacity="0.7">
+          <rect x="-60" y="25" width="10" height="18" rx="2"/>
+          <rect x="-38" y="25" width="10" height="18" rx="2"/>
+          <rect x="-10" y="25" width="10" height="18" rx="2"/>
+          <rect x="18" y="25" width="10" height="18" rx="2"/>
+          <rect x="40" y="25" width="10" height="18" rx="2"/>
+        </g>
+      </g>
+
+      <!-- Зелень парка вокруг дворца -->
+      <g opacity="0.75">
+        <circle cx="580" cy="450" r="22" fill="#4a8a3c"/>
+        <circle cx="615" cy="445" r="18" fill="#5a9d4a"/>
+        <circle cx="900" cy="448" r="22" fill="#4a8a3c"/>
+        <circle cx="930" cy="452" r="16" fill="#5a9d4a"/>
+        <circle cx="1050" cy="458" r="20" fill="#4a8a3c"/>
+      </g>
+
+      <!-- Парусник -->
+      <g class="sail-boat" transform="translate(280, 500)">
+        <path d="M 0 0 L 0 -36 L 26 0 Z" fill="#ffffff" stroke="#0578c1" stroke-width="1.5"/>
+        <path d="M -12 0 L 18 0 L 14 10 L -8 10 Z" fill="#32373c"/>
+      </g>
+
+      <!-- Море задний слой -->
+      <path class="wave-back" d="M -50 470 Q 200 450 450 470 T 950 470 T 1500 470 L 1500 700 L -50 700 Z"
+            fill="#8fcceb" opacity="0.7"/>
+      <!-- Море средний -->
+      <path class="wave-mid" d="M -50 520 Q 200 500 450 520 T 950 520 T 1500 520 L 1500 700 L -50 700 Z"
+            fill="#4fb0dc" opacity="0.7"/>
+      <!-- Море передний -->
+      <path class="wave-front" d="M -50 580 Q 250 560 500 580 T 1000 580 T 1500 580 L 1500 700 L -50 700 Z"
+            fill="#1f89bf" opacity="0.6"/>
+
+      <!-- Блики на море -->
+      <g stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.55">
+        <path d="M 160 560 q 14 -4 28 0"/>
+        <path d="M 480 600 q 16 -4 32 0"/>
+        <path d="M 820 570 q 14 -4 28 0"/>
+        <path d="M 1200 610 q 16 -4 32 0"/>
+      </g>
+    </svg>
   </div>
-  <div class="hero-nav">
-    <a href="#territory">🌳 Территория</a>
-    <a href="#living">🛏 Жильё</a>
-    <a href="#health">💊 Лечение</a>
-    <a href="#faq">❓ Вопросы</a>
+
+  <div class="hero-inner">
+    <span class="hero-badge">🏥 Детский санаторий · г. Алупка · Крым</span>
+    <h1>Познакомьтесь<br>с <span>Южнобережным</span></h1>
+    <p class="hero-sub">Прежде чем отправить ребёнка — посмотрите, куда он едет. Здесь всё как есть: территория у моря, уютные комнаты, сытная еда, заботливые врачи и улыбки каждый день.</p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">🌊 У самого моря</span>
+      <span class="hero-tag">🏥 Медики 24/7</span>
+      <span class="hero-tag">🍽 5 раз в день</span>
+      <span class="hero-tag">👨‍👩‍👧 Дети 7–17 лет</span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="ryukzak.html" class="btn-sand">🎒 Собрать рюкзак</a>
+      <a href="quiz.html" class="btn-white">✅ Пройти тест готовности</a>
+    </div>
+
+    <div class="hero-nav">
+      <a href="#territory">🌳 Территория</a>
+      <a href="#living">🛏 Жильё</a>
+      <a href="#health">💊 Лечение</a>
+      <a href="#faq">❓ Вопросы</a>
+    </div>
   </div>
 </div>
 
-<!-- Цифры -->
+<!-- ═══════════════ HIGHLIGHTS ═══════════════ -->
 <div class="highlights">
   <div class="highlights-inner">
     <h2>Южнобережный в цифрах</h2>
@@ -494,21 +1156,167 @@ footer a { color: rgba(255,255,255,0.7); }
   </div>
 </div>
 
-<hr class="divider">
+<!-- ═══════════════ СЛОВО ОТ ДИРЕКТОРА ═══════════════ -->
+<div class="director-section fade-in">
+  <div class="director-card">
+    <div class="director-portrait">
+      <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="dirRing" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#4fc3f7"/>
+            <stop offset="100%" stop-color="#0578c1"/>
+          </linearGradient>
+          <radialGradient id="dirBg" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#fff7e0"/>
+            <stop offset="60%" stop-color="#cdebfb"/>
+            <stop offset="100%" stop-color="#8fcceb"/>
+          </radialGradient>
+          <clipPath id="dirClip">
+            <circle cx="80" cy="80" r="66"/>
+          </clipPath>
+        </defs>
+        <!-- Декоративное кольцо-волна -->
+        <circle cx="80" cy="80" r="74" fill="none" stroke="url(#dirRing)" stroke-width="4"/>
+        <g stroke="#0693e3" stroke-width="1.5" fill="none" opacity="0.6">
+          <circle cx="80" cy="80" r="70" stroke-dasharray="3 6"/>
+        </g>
+        <g clip-path="url(#dirClip)">
+          <rect x="14" y="14" width="132" height="132" fill="url(#dirBg)"/>
+          <!-- Море на фоне -->
+          <path d="M 14 100 Q 50 92 80 100 T 146 100 L 146 146 L 14 146 Z" fill="#4fb0dc" opacity="0.35"/>
+          <!-- Солнышко на фоне -->
+          <circle cx="125" cy="45" r="10" fill="#ffd76b" opacity="0.85"/>
+          <!-- Плечи / пиджак -->
+          <path d="M 20 160 Q 20 115 60 108 L 100 108 Q 140 115 140 160 Z" fill="#32373c"/>
+          <!-- Рубашка -->
+          <path d="M 60 108 L 80 130 L 100 108 L 96 160 L 64 160 Z" fill="#ffffff"/>
+          <!-- Галстук -->
+          <path d="M 76 112 L 84 112 L 86 120 L 82 150 L 78 150 L 74 120 Z" fill="#0693e3"/>
+          <!-- Шея -->
+          <path d="M 68 96 Q 68 108 80 112 Q 92 108 92 96 Z" fill="#e8c9a6"/>
+          <!-- Голова -->
+          <circle cx="80" cy="72" r="26" fill="#f2d5b0"/>
+          <!-- Волосы -->
+          <path d="M 56 66 Q 58 44 80 42 Q 102 44 104 66 Q 104 56 96 52 Q 88 46 80 48 Q 72 46 64 52 Q 56 56 56 66 Z" fill="#5a4433"/>
+          <!-- Брови -->
+          <path d="M 68 66 q 4 -2 8 0" stroke="#3d2e22" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M 84 66 q 4 -2 8 0" stroke="#3d2e22" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <!-- Глаза -->
+          <circle cx="72" cy="72" r="2" fill="#3d2e22"/>
+          <circle cx="88" cy="72" r="2" fill="#3d2e22"/>
+          <!-- Нос -->
+          <path d="M 80 74 L 78 82 L 82 82 Z" fill="#d9b48a"/>
+          <!-- Улыбка -->
+          <path d="M 72 86 Q 80 92 88 86" stroke="#3d2e22" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </g>
+        <!-- Бейдж с сердечком -->
+        <g transform="translate(128, 120)">
+          <circle r="14" fill="#ffc94a" stroke="#fff" stroke-width="2"/>
+          <path d="M 0 2 q -4 -6 -7 -2 q -3 4 0 7 l 7 7 l 7 -7 q 3 -3 0 -7 q -3 -4 -7 2 Z" fill="#ffffff"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div class="director-quote">
+        Мы принимаем здесь детей уже много лет — и каждая смена для нас как новая встреча. Я знаю, как тревожно родителям отпускать ребёнка впервые. Поэтому наша команда делает всё, чтобы вашему сыну или дочке у нас было тепло, сытно и безопасно. Добро пожаловать в Южнобережный.
+      </div>
+      <div class="director-sign">— Игорь Алексеевич, директор санатория</div>
+      <span class="director-badge">Демо-цитата — заменим реальными словами директора после встречи</span>
+    </div>
+  </div>
+</div>
 
-<!-- ═══ ТЕРРИТОРИЯ ═══ -->
-<section id="territory">
+<svg class="wave-divider" viewBox="0 0 900 24" preserveAspectRatio="none">
+  <path d="M0,12 Q112,2 225,12 T450,12 T675,12 T900,12" fill="none" stroke="#c8dded" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+<!-- ═══════════════ ТЕРРИТОРИЯ ═══════════════ -->
+<section id="territory" class="fade-in">
   <div class="section-label">Первое впечатление</div>
   <h2 class="section-title">Территория санатория</h2>
-  <p class="section-sub">Санаторий находится в Алупке — у подножия Воронцовского дворца, в 5 минутах пешком от Чёрного моря. Территория закрытая, зелёная.</p>
+  <p class="section-sub">Санаторий находится в Алупке — у подножия Воронцовского дворца, в 5 минутах пешком от Чёрного моря. Территория закрытая, зелёная, безопасная.</p>
 
   <div class="feature-row">
-    <div class="feature-photo">
-      <div class="photo-placeholder" style="min-height:240px">
-        <span class="ph-icon">🏛</span>
-        <strong>Главный корпус и парк</strong>
-        <span class="ph-text">[ Вставьте фото территории ]</span>
-      </div>
+    <div class="feature-photo svg-illus tall">
+      <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="tSky" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#cdebfb"/>
+            <stop offset="100%" stop-color="#e8f5fd"/>
+          </linearGradient>
+          <linearGradient id="tSea" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#5fc1ee"/>
+            <stop offset="100%" stop-color="#0693e3"/>
+          </linearGradient>
+        </defs>
+        <!-- Небо -->
+        <rect x="0" y="0" width="400" height="180" fill="url(#tSky)"/>
+        <!-- Солнце -->
+        <g transform="translate(340, 50)">
+          <g stroke="#ffc94a" stroke-width="2" stroke-linecap="round" opacity="0.7">
+            <line x1="0" y1="-24" x2="0" y2="-18"/>
+            <line x1="17" y1="-17" x2="13" y2="-13"/>
+            <line x1="24" y1="0" x2="18" y2="0"/>
+            <line x1="-17" y1="-17" x2="-13" y2="-13"/>
+            <line x1="-24" y1="0" x2="-18" y2="0"/>
+          </g>
+          <circle r="16" fill="#ffd76b"/>
+          <circle r="11" fill="#ffc94a"/>
+        </g>
+        <!-- Облачко -->
+        <g opacity="0.9">
+          <ellipse cx="80" cy="50" rx="24" ry="8" fill="#fff"/>
+          <ellipse cx="95" cy="44" rx="16" ry="7" fill="#fff"/>
+        </g>
+        <!-- Горы вдалеке -->
+        <path d="M 0 150 L 60 110 L 110 135 L 170 95 L 220 125 L 280 105 L 340 130 L 400 115 L 400 180 L 0 180 Z"
+              fill="#9fc7d8" opacity="0.75"/>
+        <!-- Море вдали -->
+        <path d="M 0 165 Q 100 158 200 165 T 400 165 L 400 185 L 0 185 Z" fill="url(#tSea)" opacity="0.6"/>
+        <!-- Зелёная лужайка -->
+        <path d="M 0 180 Q 100 170 200 180 T 400 180 L 400 280 L 0 280 Z" fill="#a3d48f"/>
+        <path d="M 0 210 Q 100 200 200 210 T 400 210 L 400 280 L 0 280 Z" fill="#7fbf6a" opacity="0.7"/>
+        <!-- Главный корпус (стилизованный) -->
+        <g transform="translate(180, 140)">
+          <rect x="-55" y="0" width="110" height="55" fill="#f4e4bc" stroke="#c99700" stroke-width="1"/>
+          <rect x="-12" y="-22" width="24" height="22" fill="#f4e4bc" stroke="#c99700" stroke-width="1"/>
+          <path d="M -15 -22 L 0 -38 L 15 -22 Z" fill="#8b6f47"/>
+          <path d="M -58 0 L 0 -14 L 58 0 Z" fill="#8b6f47"/>
+          <!-- Окна -->
+          <g fill="#0693e3" opacity="0.6">
+            <rect x="-44" y="12" width="10" height="14" rx="1"/>
+            <rect x="-26" y="12" width="10" height="14" rx="1"/>
+            <rect x="-5" y="12" width="10" height="14" rx="1"/>
+            <rect x="16" y="12" width="10" height="14" rx="1"/>
+            <rect x="34" y="12" width="10" height="14" rx="1"/>
+          </g>
+          <!-- Дверь -->
+          <rect x="-6" y="35" width="12" height="20" fill="#8b6f47"/>
+        </g>
+        <!-- Деревья слева -->
+        <g transform="translate(50, 200)">
+          <rect x="-3" y="10" width="6" height="20" fill="#6b4226"/>
+          <circle cx="0" cy="0" r="20" fill="#4a8a3c"/>
+          <circle cx="-10" cy="-6" r="14" fill="#5a9d4a"/>
+          <circle cx="10" cy="-4" r="14" fill="#5a9d4a"/>
+        </g>
+        <g transform="translate(100, 220)">
+          <rect x="-2" y="6" width="4" height="16" fill="#6b4226"/>
+          <circle cx="0" cy="0" r="14" fill="#4a8a3c"/>
+        </g>
+        <!-- Деревья справа -->
+        <g transform="translate(340, 210)">
+          <rect x="-3" y="8" width="6" height="18" fill="#6b4226"/>
+          <circle cx="0" cy="0" r="18" fill="#4a8a3c"/>
+          <circle cx="10" cy="-4" r="12" fill="#5a9d4a"/>
+        </g>
+        <!-- Извилистая дорожка к морю -->
+        <path d="M 200 200 Q 215 220 195 240 Q 175 260 200 280"
+              stroke="#e8d09a" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M 200 200 Q 215 220 195 240 Q 175 260 200 280"
+              stroke="#f4e4bc" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="photo-hint">[ здесь будет реальное фото территории ]</div>
     </div>
     <div class="feature-content">
       <h3 class="feature-title">Закрытая охраняемая территория</h3>
@@ -524,36 +1332,183 @@ footer a { color: rgba(255,255,255,0.7); }
   </div>
 
   <div class="grid-3">
-    <div class="photo-placeholder" style="height:160px">
-      <span class="ph-icon">🌳</span>
-      <span class="ph-text">Парк и дорожки [ фото ]</span>
+    <div class="svg-illus mini">
+      <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="260" height="130" fill="#e8f5fd"/>
+        <rect x="0" y="110" width="260" height="70" fill="#a3d48f"/>
+        <!-- Дорожка -->
+        <path d="M 130 180 Q 150 150 120 130 Q 90 110 140 90" stroke="#e8d09a" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <!-- Деревья -->
+        <g transform="translate(50, 120)">
+          <rect x="-3" y="6" width="6" height="18" fill="#6b4226"/>
+          <circle cx="0" cy="0" r="22" fill="#4a8a3c"/>
+          <circle cx="-12" cy="-6" r="15" fill="#5a9d4a"/>
+          <circle cx="12" cy="-4" r="15" fill="#5a9d4a"/>
+        </g>
+        <g transform="translate(200, 130)">
+          <rect x="-3" y="6" width="6" height="18" fill="#6b4226"/>
+          <circle cx="0" cy="0" r="20" fill="#4a8a3c"/>
+          <circle cx="10" cy="-6" r="13" fill="#5a9d4a"/>
+        </g>
+        <!-- Скамейка -->
+        <g transform="translate(150, 155)">
+          <rect x="-16" y="-4" width="32" height="4" fill="#8b6f47"/>
+          <rect x="-16" y="-12" width="32" height="4" fill="#8b6f47"/>
+          <rect x="-14" y="0" width="3" height="8" fill="#5a4433"/>
+          <rect x="11" y="0" width="3" height="8" fill="#5a4433"/>
+        </g>
+        <!-- Солнышко -->
+        <circle cx="220" cy="36" r="14" fill="#ffd76b"/>
+        <circle cx="220" cy="36" r="9" fill="#ffc94a"/>
+      </svg>
+      <div class="photo-hint">[ фото парка ]</div>
     </div>
-    <div class="photo-placeholder" style="height:160px">
-      <span class="ph-icon">⚽</span>
-      <span class="ph-text">Спортплощадка [ фото ]</span>
+    <div class="svg-illus mini">
+      <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="260" height="110" fill="#e8f5fd"/>
+        <rect x="0" y="100" width="260" height="80" fill="#8bc779"/>
+        <!-- Баскетбольная стойка -->
+        <g transform="translate(55, 115)">
+          <rect x="-1.5" y="-45" width="3" height="45" fill="#555"/>
+          <rect x="1" y="-55" width="22" height="14" fill="#ffffff" stroke="#555" stroke-width="2"/>
+          <circle cx="18" cy="-44" r="6" fill="none" stroke="#f0a500" stroke-width="2"/>
+        </g>
+        <!-- Футбольные ворота -->
+        <g transform="translate(200, 110)" stroke="#ffffff" stroke-width="2.5" fill="none">
+          <rect x="-22" y="-22" width="44" height="22"/>
+          <path d="M -22 0 L -16 -6 L 16 -6 L 22 0"/>
+        </g>
+        <!-- Футбольный мяч -->
+        <g transform="translate(130, 150)">
+          <circle r="16" fill="#ffffff" stroke="#32373c" stroke-width="1.5"/>
+          <path d="M 0 -16 L 5 -6 L -5 -6 Z" fill="#32373c"/>
+          <path d="M -16 0 L -6 3 L -8 -8 Z" fill="#32373c"/>
+          <path d="M 16 0 L 6 3 L 8 -8 Z" fill="#32373c"/>
+          <path d="M 0 16 L 6 6 L -6 6 Z" fill="#32373c"/>
+        </g>
+        <!-- Разметка -->
+        <path d="M 40 170 L 220 170" stroke="#fff" stroke-width="2" stroke-dasharray="5 5" opacity="0.7"/>
+      </svg>
+      <div class="photo-hint">[ фото спортплощадки ]</div>
     </div>
-    <div class="photo-placeholder" style="height:160px">
-      <span class="ph-icon">🌊</span>
-      <span class="ph-text">Путь к морю [ фото ]</span>
+    <div class="svg-illus mini">
+      <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pSky" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#fff7e0"/>
+            <stop offset="100%" stop-color="#cdebfb"/>
+          </linearGradient>
+          <linearGradient id="pSea" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#5fc1ee"/>
+            <stop offset="100%" stop-color="#0578c1"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="260" height="90" fill="url(#pSky)"/>
+        <!-- Солнце -->
+        <circle cx="210" cy="35" r="18" fill="#ffd76b"/>
+        <circle cx="210" cy="35" r="12" fill="#ffc94a"/>
+        <!-- Море -->
+        <path d="M 0 85 Q 65 78 130 85 T 260 85 L 260 130 L 0 130 Z" fill="url(#pSea)"/>
+        <!-- Блики -->
+        <path d="M 40 105 q 12 -3 22 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <path d="M 160 115 q 12 -3 22 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <!-- Каменные ступени -->
+        <g fill="#b8a888" stroke="#8b7354" stroke-width="1">
+          <rect x="85" y="130" width="90" height="10" rx="2"/>
+          <rect x="80" y="144" width="100" height="10" rx="2"/>
+          <rect x="75" y="158" width="110" height="10" rx="2"/>
+          <rect x="70" y="172" width="120" height="8" rx="2"/>
+        </g>
+        <!-- Ракушка -->
+        <g transform="translate(50, 165)">
+          <path d="M 0 0 Q -8 -10 0 -14 Q 8 -10 0 0 Z" fill="#f4e4bc" stroke="#c99700" stroke-width="1"/>
+        </g>
+      </svg>
+      <div class="photo-hint">[ фото пути к морю ]</div>
     </div>
   </div>
 </section>
 
-<hr class="divider">
+<svg class="wave-divider" viewBox="0 0 900 24" preserveAspectRatio="none">
+  <path d="M0,12 Q112,2 225,12 T450,12 T675,12 T900,12" fill="none" stroke="#c8dded" stroke-width="2" stroke-linecap="round"/>
+</svg>
 
-<!-- ═══ ЖИЛЬЁ ═══ -->
-<section id="living">
+<!-- ═══════════════ ЖИЛЬЁ ═══════════════ -->
+<section id="living" class="fade-in">
   <div class="section-label">Где живёт ребёнок</div>
   <h2 class="section-title">Жильё и условия</h2>
-  <p class="section-sub">Дети живут в отрядах по возрасту. Комнаты на несколько человек — ребёнок сразу в компании.</p>
+  <p class="section-sub">Дети живут в отрядах по возрасту. Комнаты на несколько человек — ребёнок сразу в компании новых друзей.</p>
 
   <div class="feature-row reverse">
-    <div class="feature-photo">
-      <div class="photo-placeholder" style="min-height:240px">
-        <span class="ph-icon">🛏</span>
-        <strong>Комнаты</strong>
-        <span class="ph-text">[ Вставьте фото жилого корпуса ]</span>
-      </div>
+    <div class="feature-photo svg-illus tall">
+      <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="roomBg" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#fff4d6"/>
+            <stop offset="100%" stop-color="#f7e3b5"/>
+          </linearGradient>
+          <linearGradient id="winLight" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#fff7c8"/>
+            <stop offset="100%" stop-color="#ffe9a8"/>
+          </linearGradient>
+        </defs>
+        <!-- Стена -->
+        <rect x="0" y="0" width="400" height="210" fill="url(#roomBg)"/>
+        <!-- Пол -->
+        <rect x="0" y="210" width="400" height="70" fill="#d9b48a"/>
+        <path d="M 0 220 L 400 220" stroke="#b89268" stroke-width="1" opacity="0.6"/>
+        <path d="M 0 240 L 400 240" stroke="#b89268" stroke-width="1" opacity="0.4"/>
+        <!-- Окно с солнечным светом -->
+        <g transform="translate(280, 40)">
+          <rect x="0" y="0" width="90" height="110" fill="#cdebfb" stroke="#8b6f47" stroke-width="4"/>
+          <rect x="0" y="0" width="90" height="110" fill="url(#winLight)" opacity="0.5"/>
+          <line x1="45" y1="0" x2="45" y2="110" stroke="#8b6f47" stroke-width="3"/>
+          <line x1="0" y1="55" x2="90" y2="55" stroke="#8b6f47" stroke-width="3"/>
+          <!-- Солнце в окне -->
+          <circle cx="62" cy="28" r="10" fill="#ffd76b"/>
+          <!-- Облачко в окне -->
+          <ellipse cx="20" cy="35" rx="14" ry="5" fill="#fff"/>
+        </g>
+        <!-- Лучи света из окна (мягкие полосы) -->
+        <g opacity="0.35">
+          <path d="M 280 150 L 120 280 L 80 280 L 280 90 Z" fill="#fff7c8"/>
+        </g>
+        <!-- Кровать -->
+        <g transform="translate(60, 160)">
+          <!-- Изножье -->
+          <rect x="0" y="0" width="170" height="14" fill="#8b6f47" rx="2"/>
+          <!-- Матрас -->
+          <rect x="4" y="14" width="162" height="32" fill="#ffffff" stroke="#c0a888" stroke-width="1"/>
+          <!-- Одеяло -->
+          <path d="M 4 24 Q 60 20 120 26 T 166 24 L 166 46 L 4 46 Z" fill="#0693e3" opacity="0.7"/>
+          <!-- Подушка -->
+          <rect x="8" y="18" width="40" height="16" rx="4" fill="#fff" stroke="#c0a888" stroke-width="1"/>
+          <!-- Ножки -->
+          <rect x="2" y="46" width="6" height="12" fill="#5a4433"/>
+          <rect x="162" y="46" width="6" height="12" fill="#5a4433"/>
+        </g>
+        <!-- Прикроватная тумбочка -->
+        <g transform="translate(250, 180)">
+          <rect x="0" y="0" width="38" height="40" fill="#c19a6b" stroke="#8b6f47" stroke-width="2" rx="2"/>
+          <rect x="4" y="6" width="30" height="10" fill="#a67c4e"/>
+          <circle cx="19" cy="11" r="1.5" fill="#5a4433"/>
+          <rect x="4" y="22" width="30" height="10" fill="#a67c4e"/>
+          <circle cx="19" cy="27" r="1.5" fill="#5a4433"/>
+          <!-- Лампа -->
+          <g transform="translate(19, -18)">
+            <path d="M -8 0 L 8 0 L 6 -14 L -6 -14 Z" fill="#ffc94a"/>
+            <rect x="-1" y="0" width="2" height="4" fill="#5a4433"/>
+          </g>
+        </g>
+        <!-- Картина на стене -->
+        <g transform="translate(100, 60)">
+          <rect x="0" y="0" width="60" height="44" fill="#fff" stroke="#8b6f47" stroke-width="3"/>
+          <rect x="4" y="4" width="52" height="22" fill="#5fc1ee"/>
+          <rect x="4" y="26" width="52" height="14" fill="#a3d48f"/>
+          <circle cx="48" cy="12" r="4" fill="#ffc94a"/>
+        </g>
+      </svg>
+      <div class="photo-hint">[ здесь будет реальное фото комнаты ]</div>
     </div>
     <div class="feature-content">
       <h3 class="feature-title">Комфортно и по-домашнему</h3>
@@ -582,25 +1537,92 @@ footer a { color: rgba(255,255,255,0.7); }
   </div>
 </section>
 
-<hr class="divider">
+<svg class="wave-divider" viewBox="0 0 900 24" preserveAspectRatio="none">
+  <path d="M0,12 Q112,2 225,12 T450,12 T675,12 T900,12" fill="none" stroke="#c8dded" stroke-width="2" stroke-linecap="round"/>
+</svg>
 
-<!-- ═══ ПИТАНИЕ ═══ -->
-<section id="food">
+<!-- ═══════════════ ПИТАНИЕ ═══════════════ -->
+<section id="food" class="fade-in">
   <div class="section-label">Еда</div>
   <h2 class="section-title">Питание: 5 раз в день</h2>
-  <p class="section-sub">Завтрак, второй завтрак, обед, полдник, ужин. Меню составляется диетологом с учётом нормы для детей.</p>
+  <p class="section-sub">Завтрак, второй завтрак, обед, полдник, ужин. Меню составляет диетолог — с учётом детских норм и возраста.</p>
 
   <div class="feature-row">
-    <div class="feature-photo">
-      <div class="photo-placeholder" style="min-height:220px">
-        <span class="ph-icon">🍽</span>
-        <strong>Столовая</strong>
-        <span class="ph-text">[ Вставьте фото столовой или блюд ]</span>
-      </div>
+    <div class="feature-photo svg-illus tall">
+      <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="foodBg" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#fff7e0"/>
+            <stop offset="100%" stop-color="#f4e4bc"/>
+          </radialGradient>
+        </defs>
+        <!-- Фон (стол) -->
+        <rect x="0" y="0" width="400" height="280" fill="url(#foodBg)"/>
+        <!-- Деревянная скатерть -->
+        <path d="M 0 180 L 400 180 L 400 280 L 0 280 Z" fill="#e0c9a0"/>
+        <path d="M 0 180 L 400 180" stroke="#c0a674" stroke-width="2"/>
+        <!-- Солонки/фон декор -->
+        <circle cx="60" cy="80" r="18" fill="#ffd76b" opacity="0.3"/>
+        <circle cx="340" cy="60" r="14" fill="#a3d48f" opacity="0.3"/>
+        <!-- Тарелка супа (центр) -->
+        <g transform="translate(200, 170)">
+          <!-- Подставка -->
+          <ellipse cx="0" cy="5" rx="92" ry="16" fill="#b89268" opacity="0.3"/>
+          <!-- Тарелка (белая) -->
+          <ellipse cx="0" cy="0" rx="88" ry="22" fill="#ffffff" stroke="#d9c0a0" stroke-width="2"/>
+          <ellipse cx="0" cy="-2" rx="74" ry="18" fill="#fff6e0"/>
+          <!-- Суп -->
+          <ellipse cx="0" cy="-2" rx="62" ry="14" fill="#f4a850"/>
+          <!-- Кусочки моркови / овощей -->
+          <circle cx="-20" cy="-4" r="3" fill="#ff8c42"/>
+          <circle cx="10" cy="0" r="3" fill="#ff8c42"/>
+          <circle cx="30" cy="-6" r="2.5" fill="#ff8c42"/>
+          <circle cx="-36" cy="2" r="2.5" fill="#8bc34a"/>
+          <circle cx="22" cy="4" r="2" fill="#8bc34a"/>
+          <!-- Пар -->
+          <g stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8">
+            <path d="M -20 -20 q -4 -10 4 -16 q 4 -8 -2 -14"/>
+            <path d="M 0 -24 q -4 -10 4 -16 q 4 -8 -2 -14"/>
+            <path d="M 20 -20 q -4 -10 4 -16 q 4 -8 -2 -14"/>
+          </g>
+        </g>
+        <!-- Ложка рядом с тарелкой -->
+        <g transform="translate(310, 180) rotate(25)">
+          <ellipse cx="0" cy="0" rx="10" ry="14" fill="#c8c8c8" stroke="#8a8a8a" stroke-width="1"/>
+          <rect x="-2" y="10" width="4" height="40" fill="#c8c8c8" stroke="#8a8a8a" stroke-width="1" rx="1"/>
+        </g>
+        <!-- Стакан компота -->
+        <g transform="translate(90, 150)">
+          <path d="M -18 0 L -14 50 L 14 50 L 18 0 Z" fill="#ffffff" stroke="#b9d6ec" stroke-width="2" opacity="0.95"/>
+          <path d="M -16 8 L -12 46 L 12 46 L 16 8 Z" fill="#d94a4a" opacity="0.75"/>
+          <!-- Ягодка -->
+          <circle cx="-4" cy="20" r="3" fill="#8b1a1a"/>
+          <circle cx="6" cy="30" r="3" fill="#8b1a1a"/>
+          <!-- Блик на стекле -->
+          <path d="M -14 5 L -12 40" stroke="#fff" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+        </g>
+        <!-- Ломоть хлеба -->
+        <g transform="translate(320, 100)">
+          <path d="M -24 10 Q -30 -8 -14 -14 Q 0 -18 14 -14 Q 30 -8 24 10 Q 20 18 0 18 Q -20 18 -24 10 Z"
+                fill="#e8bf80" stroke="#b8864a" stroke-width="2"/>
+          <!-- Структура хлеба -->
+          <circle cx="-8" cy="-2" r="1.5" fill="#c0946a" opacity="0.6"/>
+          <circle cx="6" cy="-4" r="1.5" fill="#c0946a" opacity="0.6"/>
+          <circle cx="0" cy="6" r="1.5" fill="#c0946a" opacity="0.6"/>
+          <circle cx="-12" cy="8" r="1" fill="#c0946a" opacity="0.6"/>
+          <circle cx="12" cy="6" r="1.2" fill="#c0946a" opacity="0.6"/>
+        </g>
+        <!-- Салфетка -->
+        <g transform="translate(60, 210) rotate(-10)">
+          <rect x="0" y="0" width="50" height="36" fill="#0693e3" opacity="0.3" rx="2"/>
+          <rect x="2" y="2" width="46" height="32" fill="none" stroke="#0693e3" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+        </g>
+      </svg>
+      <div class="photo-hint">[ здесь будет реальное фото блюд ]</div>
     </div>
     <div class="feature-content">
       <h3 class="feature-title">Сбалансированный рацион</h3>
-      <p class="feature-text">Меню разработано с учётом возраста и норм санаторного питания. Порции достаточные.</p>
+      <p class="feature-text">Меню разработано с учётом возраста и норм санаторного питания. Порции достаточные — ребёнок точно не останется голодным.</p>
       <ul class="feature-list">
         <li>Завтрак: каша, яйцо, хлеб, напиток</li>
         <li>Обед: суп, горячее, гарнир, компот</li>
@@ -611,29 +1633,92 @@ footer a { color: rgba(255,255,255,0.7); }
     </div>
   </div>
 
-  <div class="card" style="background: #eafaf1; border-left: 4px solid #1a9e5c;">
-    <span class="card-icon">💚</span>
-    <div class="card-title">Если у ребёнка аллергия или диета</div>
-    <div class="card-text">Сообщите об этом заранее — при бронировании или по телефону. Медперсонал учтёт особенности питания.<br>
-    <strong>Бронирование: <a href="https://wa.me/79785500570" style="color:#1a9e5c">WhatsApp +7 (978) 550-05-70</a></strong></div>
+  <div class="care-card care-green">
+    <div class="care-icon">💚</div>
+    <div>
+      <div class="care-title">Если у ребёнка аллергия или диета</div>
+      <div class="care-text">Сообщите об этом заранее — при бронировании или по телефону. Медперсонал учтёт особенности питания.<br>
+      <strong>Бронирование: <a href="https://wa.me/79785500570">WhatsApp +7 (978) 550-05-70</a></strong></div>
+    </div>
   </div>
 </section>
 
-<hr class="divider">
+<svg class="wave-divider" viewBox="0 0 900 24" preserveAspectRatio="none">
+  <path d="M0,12 Q112,2 225,12 T450,12 T675,12 T900,12" fill="none" stroke="#c8dded" stroke-width="2" stroke-linecap="round"/>
+</svg>
 
-<!-- ═══ ЛЕЧЕНИЕ ═══ -->
-<section id="health">
+<!-- ═══════════════ ЛЕЧЕНИЕ ═══════════════ -->
+<section id="health" class="fade-in">
   <div class="section-label">Здоровье</div>
   <h2 class="section-title">Лечение и медицина</h2>
   <p class="section-sub">Южнобережный — это санаторий, а не просто лагерь. Медицинская помощь здесь — основная часть смены.</p>
 
   <div class="feature-row reverse">
-    <div class="feature-photo">
-      <div class="photo-placeholder" style="min-height:220px">
-        <span class="ph-icon">🏥</span>
-        <strong>Медицинский корпус</strong>
-        <span class="ph-text">[ Вставьте фото медкабинета ]</span>
-      </div>
+    <div class="feature-photo svg-illus tall">
+      <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="medBg" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="100%" stop-color="#e8f4fd"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="400" height="280" fill="url(#medBg)"/>
+        <!-- Декоративные круги -->
+        <circle cx="60" cy="60" r="40" fill="#fff7e0" opacity="0.6"/>
+        <circle cx="340" cy="220" r="50" fill="#e8f4fd" opacity="0.8"/>
+
+        <!-- Стетоскоп (большой круг) -->
+        <g transform="translate(200, 140)">
+          <!-- Трубка стетоскопа -->
+          <path d="M -80 -60 Q -100 0 -60 40 Q -20 70 0 50 Q 20 70 60 40 Q 100 0 80 -60"
+                stroke="#0578c1" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <!-- Наконечники -->
+          <circle cx="-80" cy="-60" r="6" fill="#32373c"/>
+          <circle cx="80" cy="-60" r="6" fill="#32373c"/>
+          <!-- Диск стетоскопа (внизу) -->
+          <circle cx="0" cy="80" r="28" fill="#c0c6cc" stroke="#5a6b7a" stroke-width="3"/>
+          <circle cx="0" cy="80" r="22" fill="#e8ecf0"/>
+          <circle cx="0" cy="80" r="14" fill="#c0c6cc"/>
+          <!-- Трубка к диску -->
+          <path d="M 0 50 L 0 60" stroke="#0578c1" stroke-width="8" stroke-linecap="round"/>
+        </g>
+
+        <!-- Сердце внутри стетоскопа -->
+        <g transform="translate(200, 130)">
+          <path d="M 0 -8 C -20 -30 -50 -20 -50 5 C -50 25 -20 45 0 60 C 20 45 50 25 50 5 C 50 -20 20 -30 0 -8 Z"
+                fill="#e85656"/>
+          <!-- Блик на сердце -->
+          <ellipse cx="-18" cy="-2" rx="10" ry="6" fill="#ffffff" opacity="0.4"/>
+        </g>
+
+        <!-- Красный крест (аптечка) в углу -->
+        <g transform="translate(330, 70)">
+          <rect x="-24" y="-18" width="48" height="36" rx="6" fill="#ffffff" stroke="#0693e3" stroke-width="3"/>
+          <!-- Ручка -->
+          <rect x="-10" y="-24" width="20" height="8" rx="2" fill="#ffffff" stroke="#0693e3" stroke-width="2"/>
+          <!-- Крест -->
+          <rect x="-3" y="-10" width="6" height="20" fill="#e85656"/>
+          <rect x="-10" y="-3" width="20" height="6" fill="#e85656"/>
+        </g>
+
+        <!-- Таблетки -->
+        <g transform="translate(70, 220)">
+          <ellipse cx="0" cy="0" rx="14" ry="8" fill="#ffffff" stroke="#0693e3" stroke-width="2"/>
+          <path d="M -14 0 L 14 0" stroke="#0693e3" stroke-width="2"/>
+        </g>
+        <g transform="translate(100, 235) rotate(-20)">
+          <ellipse cx="0" cy="0" rx="12" ry="7" fill="#ffd76b" stroke="#c98a1a" stroke-width="2"/>
+          <path d="M -12 0 L 12 0" stroke="#c98a1a" stroke-width="1.5"/>
+        </g>
+
+        <!-- Мелкие искорки заботы -->
+        <g fill="#ffc94a" opacity="0.7">
+          <circle cx="120" cy="60" r="3"/>
+          <circle cx="280" cy="210" r="3"/>
+          <circle cx="85" cy="140" r="2"/>
+        </g>
+      </svg>
+      <div class="photo-hint">[ здесь будет реальное фото медкабинета ]</div>
     </div>
     <div class="feature-content">
       <h3 class="feature-title">Медперсонал работает круглосуточно</h3>
@@ -666,32 +1751,110 @@ footer a { color: rgba(255,255,255,0.7); }
     </div>
   </div>
 
-  <div class="card" style="background: var(--blue-light); border-left: 4px solid var(--blue);">
-    <span class="card-icon">💊</span>
-    <div class="card-title">Если ребёнок принимает лекарства</div>
-    <div class="card-text">Привезите лекарства в оригинальной упаковке с инструкцией. Медсестра будет контролировать приём. Об особенностях сообщите заранее.</div>
+  <div class="care-card care-blue">
+    <div class="care-icon">💊</div>
+    <div>
+      <div class="care-title">Если ребёнок принимает лекарства</div>
+      <div class="care-text">Привезите лекарства в оригинальной упаковке с инструкцией. Медсестра будет контролировать приём. Об особенностях сообщите заранее.</div>
+    </div>
   </div>
 </section>
 
-<hr class="divider">
+<svg class="wave-divider" viewBox="0 0 900 24" preserveAspectRatio="none">
+  <path d="M0,12 Q112,2 225,12 T450,12 T675,12 T900,12" fill="none" stroke="#c8dded" stroke-width="2" stroke-linecap="round"/>
+</svg>
 
-<!-- ═══ ДОСУГ ═══ -->
-<section id="activities">
+<!-- ═══════════════ ДОСУГ ═══════════════ -->
+<section id="activities" class="fade-in">
   <div class="section-label">Что делают дети</div>
   <h2 class="section-title">Досуг и активности</h2>
   <p class="section-sub">Смена — это не только процедуры. Дети активно отдыхают, заводят друзей и открывают что-то новое.</p>
 
   <div class="feature-row">
-    <div class="feature-photo">
-      <div class="photo-placeholder" style="min-height:220px">
-        <span class="ph-icon">🎭</span>
-        <strong>Мероприятия</strong>
-        <span class="ph-text">[ Вставьте фото активностей ]</span>
-      </div>
+    <div class="feature-photo svg-illus tall">
+      <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nightSky" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#1a2b4a"/>
+            <stop offset="70%" stop-color="#2d4870"/>
+            <stop offset="100%" stop-color="#4a5d80"/>
+          </linearGradient>
+        </defs>
+        <!-- Ночное небо -->
+        <rect x="0" y="0" width="400" height="210" fill="url(#nightSky)"/>
+        <!-- Земля -->
+        <path d="M 0 200 Q 100 190 200 200 T 400 200 L 400 280 L 0 280 Z" fill="#2a3f2a"/>
+        <!-- Звёзды -->
+        <g fill="#fff7e0">
+          <circle cx="60" cy="40" r="1.8"/>
+          <circle cx="120" cy="70" r="1.5"/>
+          <circle cx="250" cy="50" r="2"/>
+          <circle cx="340" cy="80" r="1.5"/>
+          <circle cx="380" cy="30" r="1.5"/>
+          <circle cx="30" cy="100" r="1.2"/>
+          <circle cx="180" cy="30" r="1.2"/>
+        </g>
+        <!-- Большая звезда с лучами -->
+        <g transform="translate(320, 50)">
+          <g stroke="#ffd76b" stroke-width="1.5" stroke-linecap="round" opacity="0.9">
+            <line x1="0" y1="-10" x2="0" y2="10"/>
+            <line x1="-10" y1="0" x2="10" y2="0"/>
+            <line x1="-7" y1="-7" x2="7" y2="7"/>
+            <line x1="7" y1="-7" x2="-7" y2="7"/>
+          </g>
+          <circle r="3" fill="#fff7e0"/>
+        </g>
+        <!-- Луна -->
+        <g transform="translate(80, 50)">
+          <circle r="18" fill="#fff7c8" opacity="0.95"/>
+          <circle cx="4" cy="-2" r="16" fill="url(#nightSky)"/>
+        </g>
+        <!-- Костёр -->
+        <g transform="translate(200, 200)">
+          <!-- Камни -->
+          <ellipse cx="0" cy="14" rx="32" ry="6" fill="#5a5550"/>
+          <!-- Поленья -->
+          <rect x="-22" y="8" width="44" height="6" rx="3" fill="#6b4226"/>
+          <rect x="-18" y="2" width="36" height="6" rx="3" fill="#8b5a2b" transform="rotate(-10)"/>
+          <!-- Пламя -->
+          <path d="M -14 0 Q -20 -20 -8 -30 Q 0 -40 8 -30 Q 20 -20 14 0 Z" fill="#ff8c42"/>
+          <path d="M -8 -4 Q -12 -22 -4 -30 Q 0 -38 4 -30 Q 12 -22 8 -4 Z" fill="#ffd76b"/>
+          <path d="M -3 -10 Q -5 -22 0 -30 Q 5 -22 3 -10 Z" fill="#fff7c8"/>
+          <!-- Искры -->
+          <circle cx="-10" cy="-40" r="1.5" fill="#ffd76b"/>
+          <circle cx="8" cy="-48" r="1.5" fill="#ffd76b"/>
+          <circle cx="0" cy="-55" r="1" fill="#fff7c8"/>
+        </g>
+        <!-- Силуэты детей вокруг костра -->
+        <g fill="#1a1f24">
+          <!-- Ребёнок 1 (слева) -->
+          <g transform="translate(120, 190)">
+            <circle cx="0" cy="0" r="7"/>
+            <path d="M -8 6 Q -8 30 0 36 Q 8 30 8 6 Z"/>
+          </g>
+          <!-- Ребёнок 2 (справа, сидит) -->
+          <g transform="translate(280, 190)">
+            <circle cx="0" cy="0" r="7"/>
+            <path d="M -8 6 Q -8 30 0 36 Q 8 30 8 6 Z"/>
+          </g>
+          <!-- Ребёнок 3 с гитарой (ближе) -->
+          <g transform="translate(320, 180)">
+            <circle cx="0" cy="0" r="8"/>
+            <path d="M -10 8 Q -10 36 0 40 Q 10 36 10 8 Z"/>
+            <!-- Гитара -->
+            <g transform="translate(-4, 20)">
+              <ellipse cx="0" cy="6" rx="10" ry="7" fill="#8b4513"/>
+              <circle cx="0" cy="6" r="3" fill="#1a1f24"/>
+              <rect x="-1" y="-14" width="2" height="18" fill="#8b4513"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div class="photo-hint">[ здесь будет реальное фото мероприятий ]</div>
     </div>
     <div class="feature-content">
       <h3 class="feature-title">Каждый день — что-то интересное</h3>
-      <p class="feature-text">Вожатые планируют программу смены заранее: от тихих творческих занятий до спортивных соревнований.</p>
+      <p class="feature-text">Вожатые планируют программу смены заранее: от тихих творческих занятий до спортивных соревнований и вечерних огоньков у костра.</p>
       <ul class="feature-list">
         <li>Конкурсы, концерты и вечерние огоньки</li>
         <li>Спортивные игры и соревнования</li>
@@ -703,33 +1866,140 @@ footer a { color: rgba(255,255,255,0.7); }
   </div>
 
   <div class="grid-2">
-    <div class="photo-placeholder" style="height:180px">
-      <span class="ph-icon">⚽</span>
-      <span class="ph-text">Спорт [ фото ]</span>
+    <div class="svg-illus mini">
+      <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="260" height="110" fill="#e8f5fd"/>
+        <rect x="0" y="100" width="260" height="80" fill="#8bc779"/>
+        <!-- Солнце -->
+        <circle cx="220" cy="40" r="16" fill="#ffd76b"/>
+        <circle cx="220" cy="40" r="11" fill="#ffc94a"/>
+        <!-- Футбольный мяч -->
+        <g transform="translate(70, 130)">
+          <circle r="26" fill="#ffffff" stroke="#32373c" stroke-width="2"/>
+          <path d="M 0 -26 L 8 -10 L -8 -10 Z" fill="#32373c"/>
+          <path d="M -26 0 L -10 5 L -12 -12 Z" fill="#32373c"/>
+          <path d="M 26 0 L 10 5 L 12 -12 Z" fill="#32373c"/>
+          <path d="M 0 26 L 10 10 L -10 10 Z" fill="#32373c"/>
+        </g>
+        <!-- Волейбольный мяч -->
+        <g transform="translate(165, 130)">
+          <circle r="22" fill="#ffffff" stroke="#0578c1" stroke-width="2"/>
+          <path d="M -22 0 Q 0 -8 22 0" stroke="#0578c1" stroke-width="2" fill="none"/>
+          <path d="M -22 0 Q 0 8 22 0" stroke="#0578c1" stroke-width="2" fill="none"/>
+          <path d="M 0 -22 Q -8 0 0 22" stroke="#0578c1" stroke-width="2" fill="none"/>
+          <path d="M 0 -22 Q 8 0 0 22" stroke="#0578c1" stroke-width="2" fill="none"/>
+        </g>
+        <!-- Кубок -->
+        <g transform="translate(220, 135)">
+          <path d="M -12 -20 L 12 -20 L 10 0 Q 0 6 -10 0 Z" fill="#ffd76b" stroke="#c98a1a" stroke-width="1.5"/>
+          <rect x="-8" y="0" width="16" height="4" fill="#c98a1a"/>
+          <rect x="-12" y="4" width="24" height="5" rx="1" fill="#c98a1a"/>
+          <path d="M -12 -14 Q -20 -12 -18 -4" stroke="#ffd76b" stroke-width="2" fill="none"/>
+          <path d="M 12 -14 Q 20 -12 18 -4" stroke="#ffd76b" stroke-width="2" fill="none"/>
+        </g>
+      </svg>
+      <div class="photo-hint">[ фото спорта ]</div>
     </div>
-    <div class="photo-placeholder" style="height:180px">
-      <span class="ph-icon">🎨</span>
-      <span class="ph-text">Творчество [ фото ]</span>
+    <div class="svg-illus mini">
+      <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="260" height="180" fill="#fff7e0"/>
+        <!-- Мольберт -->
+        <g transform="translate(130, 100)">
+          <!-- Ножки -->
+          <path d="M -40 60 L -10 -40" stroke="#8b6f47" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 40 60 L 10 -40" stroke="#8b6f47" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 0 60 L 0 -40" stroke="#8b6f47" stroke-width="4" stroke-linecap="round"/>
+          <!-- Холст -->
+          <rect x="-42" y="-44" width="84" height="64" fill="#ffffff" stroke="#8b6f47" stroke-width="3"/>
+          <!-- Картина: солнце море -->
+          <rect x="-39" y="-41" width="78" height="30" fill="#cdebfb"/>
+          <rect x="-39" y="-11" width="78" height="28" fill="#5fc1ee"/>
+          <circle cx="24" cy="-28" r="8" fill="#ffd76b"/>
+          <path d="M -39 -2 Q -20 -6 0 -2 T 39 -2" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.7"/>
+          <!-- Подставка под кисти -->
+          <rect x="-50" y="20" width="100" height="4" rx="1" fill="#8b6f47"/>
+        </g>
+        <!-- Палитра -->
+        <g transform="translate(40, 140)">
+          <ellipse cx="0" cy="0" rx="24" ry="16" fill="#e8bf80" stroke="#8b6f47" stroke-width="2"/>
+          <circle cx="10" cy="-4" r="3" fill="#e85656"/>
+          <circle cx="0" cy="-6" r="3" fill="#ffd76b"/>
+          <circle cx="-10" cy="-2" r="3" fill="#0693e3"/>
+          <circle cx="-8" cy="6" r="3" fill="#8bc34a"/>
+          <circle cx="8" cy="6" r="3" fill="#a64dff"/>
+        </g>
+        <!-- Кисти -->
+        <g transform="translate(220, 140) rotate(20)">
+          <rect x="-2" y="0" width="4" height="40" fill="#8b6f47"/>
+          <rect x="-4" y="-10" width="8" height="12" fill="#b5b5b5"/>
+          <path d="M -4 -10 L 0 -20 L 4 -10 Z" fill="#e85656"/>
+        </g>
+        <g transform="translate(200, 150) rotate(-15)">
+          <rect x="-2" y="0" width="4" height="36" fill="#8b6f47"/>
+          <rect x="-3" y="-8" width="6" height="10" fill="#b5b5b5"/>
+          <path d="M -3 -8 L 0 -16 L 3 -8 Z" fill="#0693e3"/>
+        </g>
+      </svg>
+      <div class="photo-hint">[ фото творчества ]</div>
     </div>
   </div>
 
-  <div class="card" style="background: #fff3e0; border-left: 4px solid #f0a500;">
-    <span class="card-icon">📱</span>
-    <div class="card-title">Телефон и связь с ребёнком</div>
-    <div class="card-text">
-      Уточняйте правила использования телефонов у вожатого при заезде — они могут различаться по сменам.<br>
-      <strong>Экстренная связь всегда доступна через дежурного вожатого.</strong>
+  <div class="care-card care-amber">
+    <div class="care-icon">📱</div>
+    <div>
+      <div class="care-title">Телефон и связь с ребёнком</div>
+      <div class="care-text">
+        Уточняйте правила использования телефонов у вожатого при заезде — они могут различаться по сменам.<br>
+        <strong>Экстренная связь всегда доступна через дежурного вожатого.</strong>
+      </div>
     </div>
   </div>
 </section>
 
-<hr class="divider">
+<!-- ═══════════════ СОЦСЕТИ ═══════════════ -->
+<div class="social-block fade-in">
+  <div class="section-label" style="margin-bottom: 14px;">Больше живых моментов</div>
+  <h2 class="section-title" style="margin-bottom: 8px;">Реальные фото — в наших соцсетях</h2>
+  <p class="section-sub">Пока мы работаем над галереей, загляните в наши каналы — там настоящие фото смен, детей, моря и территории.</p>
+  <div class="social-grid">
+    <a class="social-card" href="https://vk.com/ujnoberejniyalupka" target="_blank" rel="noopener">
+      <div class="social-icon vk">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26 34 C19 34 14 29 14 22 L14 14 L19 14 L19 22 C19 27 22 29 26 29 L26 14 L31 14 L31 22 C33 22 35 20 36 14 L41 14 C40 20 37 24 33 25 C37 26 40 30 41 34 L36 34 C35 31 33 28 31 27 L31 34 Z"
+                fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="social-text">
+        <div class="social-title">ВКонтакте</div>
+        <div class="social-sub">Альбомы с реальными фото смен, детей и территории</div>
+        <span class="social-cta">Открыть в ВК →</span>
+      </div>
+    </a>
+    <a class="social-card" href="https://t.me/southcoastYalta" target="_blank" rel="noopener">
+      <div class="social-icon tg">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 22 L39 10 L34 38 L24 31 L19 36 L19 27 L34 14 L17 26 Z"
+                fill="#ffffff" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="social-text">
+        <div class="social-title">Telegram-канал</div>
+        <div class="social-sub">Свежие новости санатория и фото с каждой смены</div>
+        <span class="social-cta">Открыть в Telegram →</span>
+      </div>
+    </a>
+  </div>
+</div>
 
-<!-- ═══ FAQ ═══ -->
-<section id="faq">
+<svg class="wave-divider" viewBox="0 0 900 24" preserveAspectRatio="none">
+  <path d="M0,12 Q112,2 225,12 T450,12 T675,12 T900,12" fill="none" stroke="#c8dded" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section id="faq" class="fade-in">
   <div class="section-label">Вопросы родителей</div>
   <h2 class="section-title">Отвечаем честно</h2>
-  <p class="section-sub">Это вопросы, которые задают чаще всего. Отвечаем как есть.</p>
+  <p class="section-sub">Это вопросы, которые задают чаще всего. Отвечаем как есть — без прикрас.</p>
 
   <div class="faq-list">
 
@@ -832,32 +2102,34 @@ footer a { color: rgba(255,255,255,0.7); }
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ═══════════════ CTA ═══════════════ -->
 <div class="cta-section" id="contact">
-  <h2>Готовы отправить ребёнка?</h2>
-  <p>Остались вопросы — позвоните нам. Мы ответим честно и поможем принять решение.</p>
-  <div class="cta-buttons">
-    <a href="https://wa.me/79785500570" class="btn-cta">WhatsApp — написать сейчас</a>
-    <a href="tel:+79787389618" class="btn-cta-outline">📞 Позвонить в приёмную</a>
-  </div>
-  <div class="cta-contacts">
-    <strong>Приёмная (круглосуточно):</strong> <a href="tel:+79787389618">+7 (978) 738-96-18</a><br>
-    <strong>WhatsApp (бронирование):</strong> <a href="https://wa.me/79785500570">+7 (978) 550-05-70</a><br>
-    <strong>Email:</strong> <a href="mailto:ujnoberejniy@mail.ru">ujnoberejniy@mail.ru</a><br>
-    г. Алупка, ул. им. Ленина, д. 29
-  </div>
+  <div class="cta-inner">
+    <h2>Готовы отправить ребёнка?</h2>
+    <p>Остались вопросы — позвоните нам. Мы ответим честно и поможем принять решение без давления.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/79785500570" class="btn-cta">💬 WhatsApp — написать сейчас</a>
+      <a href="tel:+79787389618" class="btn-cta-outline">📞 Позвонить в приёмную</a>
+    </div>
+    <div class="cta-contacts">
+      <strong>Приёмная (круглосуточно):</strong> <a href="tel:+79787389618">+7 (978) 738-96-18</a><br>
+      <strong>WhatsApp (бронирование):</strong> <a href="https://wa.me/79785500570">+7 (978) 550-05-70</a><br>
+      <strong>Email:</strong> <a href="mailto:ujnoberejniy@mail.ru">ujnoberejniy@mail.ru</a><br>
+      г. Алупка, ул. им. Ленина, д. 29
+    </div>
 
-  <div style="margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-    <a href="ryukzak.html" style="color:rgba(255,255,255,0.7); font-size:14px;">📋 Собери рюкзак</a>
-    <a href="quiz.html" style="color:rgba(255,255,255,0.7); font-size:14px;">✅ Тест: готов ли ребёнок?</a>
-    <a href="https://vk.com/ujnoberejniyalupka" style="color:rgba(255,255,255,0.7); font-size:14px;">ВКонтакте</a>
-    <a href="https://t.me/southcoastYalta" style="color:rgba(255,255,255,0.7); font-size:14px;">Telegram</a>
+    <div class="cta-links">
+      <a href="ryukzak.html">📋 Собери рюкзак</a>
+      <a href="quiz.html">✅ Тест: готов ли ребёнок?</a>
+      <a href="https://vk.com/ujnoberejniyalupka">ВКонтакте</a>
+      <a href="https://t.me/southcoastYalta">Telegram</a>
+    </div>
   </div>
 </div>
 
 <footer>
-  ГБУ РК СДДР «Южнобережный» · г. Алупка, Крым · <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a><br>
-  «Безопасно, полезно и с улыбкой каждый день»
+  ГБУ РК СДДР «Южнобережный» · г. Алупка, Крым · <a href="https://ujnoberejniy.ru">ujnoberejniy.ru</a>
+  <div class="slogan">«Безопасно, полезно и с улыбкой каждый день»</div>
 </footer>
 
 <!-- Кнопка вверх -->
@@ -866,12 +2138,12 @@ footer a { color: rgba(255,255,255,0.7); }
 <script>
 // FAQ аккордеон
 function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const answer = item.querySelector('.faq-a');
-  const isOpen = item.classList.contains('open');
+  var item = btn.closest('.faq-item');
+  var answer = item.querySelector('.faq-a');
+  var isOpen = item.classList.contains('open');
 
   // Закрыть все
-  document.querySelectorAll('.faq-item.open').forEach(el => {
+  document.querySelectorAll('.faq-item.open').forEach(function(el) {
     el.classList.remove('open');
     el.querySelector('.faq-a').style.maxHeight = '0';
   });
@@ -884,26 +2156,39 @@ function toggleFaq(btn) {
 }
 
 // Кнопка «наверх»
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backTop');
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('backTop');
   btn.classList.toggle('visible', window.scrollY > 400);
 });
 
 // Активный пункт навигации
-const sections = document.querySelectorAll('section[id], div[id="contact"]');
-const navLinks = document.querySelectorAll('.topnav a');
+var sections = document.querySelectorAll('section[id], div[id="contact"]');
+var navLinks = document.querySelectorAll('.topnav a');
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+var navObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
     if (entry.isIntersecting) {
-      navLinks.forEach(a => a.style.color = '');
-      const active = document.querySelector(`.topnav a[href="#${entry.target.id}"]`);
-      if (active) active.style.color = '#0693e3';
+      navLinks.forEach(function(a) { a.classList.remove('active'); });
+      var active = document.querySelector('.topnav a[href="#' + entry.target.id + '"]');
+      if (active) active.classList.add('active');
     }
   });
-}, { threshold: 0.4 });
+}, { threshold: 0.35 });
 
-sections.forEach(s => observer.observe(s));
+sections.forEach(function(s) { navObserver.observe(s); });
+
+// Fade-in при скролле
+var fadeEls = document.querySelectorAll('.fade-in');
+var fadeObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+fadeEls.forEach(function(el) { fadeObserver.observe(el); });
 </script>
 
 </body>
