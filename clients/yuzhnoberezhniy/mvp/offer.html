@@ -301,7 +301,105 @@
   .method-name{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--green-deep);margin-bottom:6px;font-weight:700}
   .method-desc{font-size:.82rem;color:var(--muted);line-height:1.5}
 
-  /* ───── 8. Phase 2 ───── */
+  /* ───── 8. Phase 2 — матрица платформ ───── */
+  .platform-matrix{
+    background:linear-gradient(180deg,var(--warm-3) 0%,var(--warm-2) 100%);
+    border:2px solid var(--gold);
+    border-radius:20px;
+    padding:clamp(28px,4vw,44px);
+    margin-top:24px;
+  }
+  .matrix-head{text-align:center;margin-bottom:28px}
+  .matrix-head h3{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.4rem,3vw,1.9rem);
+    color:var(--green-deep);
+    margin:6px 0 10px;
+    font-weight:700;
+  }
+  .matrix-head p{
+    color:var(--muted);
+    font-size:.92rem;
+    max-width:560px;
+    margin:0 auto;
+    line-height:1.6;
+  }
+
+  .matrix-table-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    background:var(--bg);
+    border-radius:14px;
+    border:1px solid var(--line-gold);
+    padding:4px;
+  }
+  .matrix-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    font-family:'Montserrat',sans-serif;
+    min-width:520px;
+  }
+  .matrix-table thead th{
+    background:var(--green-deep);
+    color:#f9f6f0;
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:.85rem;
+    padding:14px 10px;
+    text-align:center;
+    letter-spacing:.3px;
+  }
+  .matrix-table thead th:first-child{
+    text-align:left;padding-left:18px;border-top-left-radius:10px;
+  }
+  .matrix-table thead th:last-child{border-top-right-radius:10px}
+  .matrix-table tbody tr{
+    transition:background .2s;
+  }
+  .matrix-table tbody tr:nth-child(even){background:var(--warm-1)}
+  .matrix-table tbody tr:hover{background:rgba(212,175,55,.08)}
+  .matrix-product{
+    padding:16px 18px;
+    font-weight:600;
+    color:var(--ink);
+    font-size:.92rem;
+    border-bottom:1px solid var(--line);
+  }
+  .matrix-cell{
+    text-align:center;
+    padding:16px 10px;
+    font-size:1.15rem;
+    font-weight:700;
+    border-bottom:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .matrix-done{
+    color:#2d6b3d;
+    background:rgba(75,120,80,.12);
+  }
+  .matrix-plan{
+    color:var(--gold-dark);
+    background:rgba(212,175,55,.10);
+    font-size:.95rem;
+  }
+  .matrix-na{
+    color:var(--muted);
+    opacity:.55;
+  }
+  .matrix-note{
+    margin-top:20px;
+    padding:14px 18px;
+    background:rgba(75,120,80,.08);
+    border-left:3px solid var(--green);
+    border-radius:8px;
+    font-size:.88rem;
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .matrix-note strong{color:var(--green-deep)}
+
+  /* ───── 8b. Phase 2 — список новых возможностей ───── */
   .phase2{
     background:var(--warm-2);
     border:1px dashed var(--line-gold);
@@ -810,22 +908,82 @@
 <!-- ══════════════ 8. Phase 2 ══════════════ -->
 <section>
   <span class="eyebrow">07 · Что дальше</span>
-  <h2 class="section-title">Возможные расширения — фаза 2</h2>
+  <h2 class="section-title">Экосистема, которая растёт с&nbsp;вашими задачами</h2>
   <hr class="divider-short"/>
-  <p class="section-sub">Когда четыре базовых инструмента приживутся и покажут результат, мы готовы двигаться дальше. Вот что можно добавить в следующих итерациях.</p>
+  <p class="section-sub">Четыре готовых инструмента — это базовая экосистема. Мы уже сделали рюкзак в двух версиях (браузер + Telegram). По той же логике можно расширить квиз, экскурсию и будущие продукты на все российские платформы. Ниже — матрица роста и список новых возможностей.</p>
 
-  <div class="phase2">
+  <!-- ─── МАТРИЦА МУЛЬТИПЛАТФОРМЕННОСТИ ─── -->
+  <div class="platform-matrix">
+    <div class="matrix-head">
+      <span class="eyebrow" style="color:var(--gold-dark)">Мультиплатформенность</span>
+      <h3>Один инструмент — несколько точек входа</h3>
+      <p>Каждый из четырёх продуктов можно расширить на любую из платформ. Сейчас у вас 5 готовых реализаций (зелёные), остальное — в следующих фазах.</p>
+    </div>
+
+    <div class="matrix-table-wrap">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Продукт</th>
+            <th>Браузер</th>
+            <th>Telegram</th>
+            <th>МАКС</th>
+            <th>ВКонтакте</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="matrix-product">🎒 Рюкзак</td>
+            <td class="matrix-cell matrix-done" title="Готово">✓</td>
+            <td class="matrix-cell matrix-done" title="Готово">✓</td>
+            <td class="matrix-cell matrix-plan" title="В фазе 2">🔜</td>
+            <td class="matrix-cell matrix-plan" title="В фазе 2">🔜</td>
+          </tr>
+          <tr>
+            <td class="matrix-product">✅ Квиз готовности</td>
+            <td class="matrix-cell matrix-done">✓</td>
+            <td class="matrix-cell matrix-plan">🔜</td>
+            <td class="matrix-cell matrix-plan">🔜</td>
+            <td class="matrix-cell matrix-plan">🔜</td>
+          </tr>
+          <tr>
+            <td class="matrix-product">🏖 Экскурсия</td>
+            <td class="matrix-cell matrix-done">✓</td>
+            <td class="matrix-cell matrix-plan">🔜</td>
+            <td class="matrix-cell matrix-plan">🔜</td>
+            <td class="matrix-cell matrix-plan">🔜</td>
+          </tr>
+          <tr>
+            <td class="matrix-product">🏠 Каталог</td>
+            <td class="matrix-cell matrix-done">✓</td>
+            <td class="matrix-cell matrix-na" title="Не нужно — каталог это web-витрина">—</td>
+            <td class="matrix-cell matrix-na">—</td>
+            <td class="matrix-cell matrix-na">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="matrix-note">
+      <strong>Почему это важно:</strong> родители приходят с разных платформ. Одни откроют ссылку в браузере, другие живут в Telegram, третьи уже перешли в МАКС. Чтобы не терять ни одного — каждый ключевой инструмент должен быть доступен везде.
+    </p>
+  </div>
+
+  <!-- ─── НОВЫЕ ВОЗМОЖНОСТИ ─── -->
+  <div class="phase2" style="margin-top:36px">
+    <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--green-deep);margin-bottom:6px">Новые инструменты и интеграции</h3>
+    <p style="color:var(--muted);margin-bottom:18px;font-size:14px">Помимо расширения четырёх базовых продуктов — вот что мы готовы построить, когда это станет нужно.</p>
     <ul class="phase2-list">
-      <li>Чат-бот для родительских чатов с автоответами на типовые вопросы</li>
-      <li>Интеграция МАКС / ВКонтакте / Telegram — кросспостинг по требованию Минздрава</li>
-      <li>Личный кабинет родителя с историей обращений и документами</li>
-      <li>CRM для базы контактов и сегментированных рассылок</li>
-      <li>Полноценное бронирование путёвок прямо на сайте</li>
-      <li>Telegram Mini App-версии квиза и экскурсии</li>
-      <li>Адаптация продуктов под ВКонтакте и МАКС (российский мессенджер)</li>
-      <li>Аналитика поведения и конверсий по каждому инструменту</li>
+      <li><strong>Квиз и экскурсия в Telegram Mini App</strong> — по той же технологии, что рюкзак. Родители открывают прямо в Telegram, без переходов в браузер.</li>
+      <li><strong>Адаптация всей экосистемы под МАКС</strong> — российский мессенджер от VK. Сначала мы изучим API МАКСа и выясним, что можно реализовать (канал, бот, мини-приложение), а затем перенесём ваши продукты туда.</li>
+      <li><strong>Чат-бот для родительских чатов</strong> — с автоответами на типовые вопросы (горячая вода, питание, болезнь, интернет). Работает в Telegram и МАКС параллельно.</li>
+      <li><strong>Кросспостинг</strong> во все соцсети (МАКС → ВКонтакте → Telegram) по требованию Минздрава — одним действием.</li>
+      <li><strong>Личный кабинет родителя</strong> с историей записей, документами смены и памятками.</li>
+      <li><strong>CRM для базы контактов</strong> и сегментированных рассылок по смене/направлению/возрасту.</li>
+      <li><strong>Полноценное бронирование путёвок</strong> прямо на сайте — расширение текущего TravelLine.</li>
+      <li><strong>Аналитика поведения</strong> — какие инструменты работают, откуда приходят родители, на каком шаге теряются.</li>
     </ul>
-    <p style="margin-top:22px;font-style:italic;color:var(--green-deep);font-family:'Playfair Display',serif;text-align:center">Хотите больше? Вот что мы можем добавить, когда вы будете готовы.</p>
+    <p style="margin-top:22px;font-style:italic;color:var(--green-deep);font-family:'Playfair Display',serif;text-align:center">Хотите больше? Каждый пункт можно взять отдельно или в пакете.</p>
   </div>
 </section>
 
