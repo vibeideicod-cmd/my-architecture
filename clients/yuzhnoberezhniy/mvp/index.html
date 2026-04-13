@@ -261,6 +261,34 @@ body {
     inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
+/* Карточка с двумя кнопками (рюкзак: браузер + Telegram) */
+.card.card-dual { cursor: default; }
+.card-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.card-btns .card-btn {
+  text-decoration: none;
+}
+.card-btns .card-btn-tg {
+  background: #fff;
+  color: #0578c1;
+  border: 2px solid #4fc3f7;
+  box-shadow: 0 4px 12px -4px rgba(6, 147, 227, 0.22);
+}
+.card:hover .card-btns .card-btn-tg {
+  background: #e8f4fd;
+  border-color: #0693e3;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px -6px rgba(6, 147, 227, 0.35);
+}
+@media (max-width: 440px) {
+  .card-btns { flex-direction: column; }
+  .card-btns .card-btn { width: 100%; justify-content: center; }
+}
+
 /* ─── FOOTER ─── */
 footer {
   position: relative;
@@ -445,7 +473,7 @@ footer {
 <section class="cards-section">
   <div class="cards">
 
-    <a class="card" href="ryukzak.html">
+    <div class="card card-dual">
       <div class="card-illus" aria-hidden="true">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <!-- Лямки -->
@@ -472,9 +500,12 @@ footer {
         <span class="card-tag">Чеклист сборов</span>
         <div class="card-title">Собери рюкзак</div>
         <p class="card-text">Интерактивный список всего что нужно взять на 21-дневную смену. Отдельно для мальчиков и девочек. Под возраст, сезон и санаторно-курортное лечение.</p>
-        <span class="card-btn">Открыть чеклист →</span>
+        <div class="card-btns">
+          <a class="card-btn" href="ryukzak.html">Открыть в браузере →</a>
+          <a class="card-btn card-btn-tg" href="https://t.me/ryukzak_yub_bot" target="_blank" rel="noopener">📱 В Telegram</a>
+        </div>
       </div>
-    </a>
+    </div>
 
     <a class="card" href="quiz.html">
       <div class="card-illus" aria-hidden="true">

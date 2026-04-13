@@ -88,58 +88,67 @@ h1, h2, h3, .display { font-family: 'Fredoka', Arial, sans-serif; }
   margin-bottom: 22px;
 }
 
-.hero-links-label {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--blue);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin-bottom: 12px;
-}
-.hero-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.hero-link {
+.hero-cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   text-decoration: none;
-  background: var(--blue-light);
-  color: var(--dark);
-  padding: 11px 16px 11px 14px;
-  border-radius: 14px;
-  border: 2px solid transparent;
-  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-  line-height: 1.2;
+  background: linear-gradient(135deg, #0aa5f5 0%, #0693e3 50%, #0578c1 100%);
+  color: #fff;
+  padding: 16px 26px 16px 22px;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px -8px rgba(6, 147, 227, 0.5), 0 4px 12px -4px rgba(6, 147, 227, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  line-height: 1.25;
 }
-.hero-link:hover {
+.hero-cta:hover {
   transform: translateY(-2px);
-  border-color: var(--blue);
-  box-shadow: 0 6px 18px rgba(6,147,227,0.18);
+  box-shadow: 0 14px 32px -8px rgba(6, 147, 227, 0.6), 0 6px 14px -4px rgba(6, 147, 227, 0.35);
 }
-.hero-link-icon {
-  font-size: 22px;
+.hero-cta-icon {
+  font-size: 30px;
   flex-shrink: 0;
 }
-.hero-link-text {
+.hero-cta-text {
   display: flex;
   flex-direction: column;
   font-family: 'Fredoka', sans-serif;
 }
-.hero-link-text strong {
-  font-size: 14px;
+.hero-cta-text strong {
+  font-size: 17px;
   font-weight: 600;
-  color: var(--dark);
 }
-.hero-link-text em {
-  font-size: 11px;
+.hero-cta-text em {
+  font-size: 12px;
   font-style: normal;
-  color: var(--muted);
+  opacity: 0.92;
   font-weight: 500;
+  margin-top: 2px;
 }
+
+/* ─── ВАЖНАЯ ЗАМЕТКА ─── */
+.notice {
+  background: linear-gradient(135deg, #fff8e1 0%, #fef3c7 100%);
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  border-left: 4px solid #ffc94a;
+}
+.notice-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+  line-height: 1;
+  padding-top: 2px;
+}
+.notice-body {
+  font-size: 14px;
+  color: #5a4a1a;
+  line-height: 1.6;
+}
+.notice-body strong { color: #32373c; }
 
 /* ─── 3 ШАГА ─── */
 .steps {
@@ -359,8 +368,9 @@ footer a { color: var(--blue); text-decoration: none; }
   .hero-deco { width: 110px; height: 110px; opacity: 0.5; }
   .product-head { gap: 10px; }
   .product-icon { font-size: 28px; }
-  .hero-link { padding: 10px 14px; }
-  .hero-link-text strong { font-size: 13px; }
+  .hero-cta { padding: 14px 20px; gap: 10px; }
+  .hero-cta-icon { font-size: 26px; }
+  .hero-cta-text strong { font-size: 15px; }
 }
 </style>
 </head>
@@ -375,32 +385,25 @@ footer a { color: var(--blue); text-decoration: none; }
       <path d="M0 130 Q 50 110, 100 130 T 200 130 L 200 200 L 0 200 Z" fill="#0693e3" opacity="0.18"/>
       <path d="M0 150 Q 50 130, 100 150 T 200 150 L 200 200 L 0 200 Z" fill="#0693e3" opacity="0.28"/>
     </svg>
-    <span class="hero-badge">Обратная связь</span>
-    <h1>Помогите нам сделать инструменты <span>под ваши требования</span></h1>
-    <p class="hero-sub">Все четыре продукта можно скорректировать. Откройте их по ссылкам ниже — посмотрите на телефоне и компьютере, решите, что хочется изменить. Ниже — инструкция как описать правки.</p>
+    <span class="hero-badge">Инструкция</span>
+    <h1>Как правильно дать обратную связь <span>по доработке продуктов</span></h1>
+    <p class="hero-sub">Откройте каталог — там сразу увидите все четыре продукта (рюкзак, квиз, экскурсия, а также каталог сам по себе). Посмотрите их, решите что хочется изменить — и напишите нам в общую Telegram-группу. Ниже — пошагово как описать правки, чтобы мы их быстро внесли.</p>
 
-    <div class="hero-links-label">Откройте продукты:</div>
-    <div class="hero-links">
-      <a class="hero-link" href="https://demo.ideidlyabiznesa1913.ru/yub/ryukzak.html" target="_blank">
-        <span class="hero-link-icon">🎒</span>
-        <span class="hero-link-text"><strong>Рюкзак</strong><em>в браузере</em></span>
-      </a>
-      <a class="hero-link" href="https://t.me/ryukzak_yub_bot" target="_blank">
-        <span class="hero-link-icon">📱</span>
-        <span class="hero-link-text"><strong>Рюкзак</strong><em>в Telegram</em></span>
-      </a>
-      <a class="hero-link" href="https://demo.ideidlyabiznesa1913.ru/yub/quiz.html" target="_blank">
-        <span class="hero-link-icon">✅</span>
-        <span class="hero-link-text"><strong>Квиз</strong><em>в браузере</em></span>
-      </a>
-      <a class="hero-link" href="https://demo.ideidlyabiznesa1913.ru/yub/tour.html" target="_blank">
-        <span class="hero-link-icon">🏖</span>
-        <span class="hero-link-text"><strong>Экскурсия</strong><em>в браузере</em></span>
-      </a>
-      <a class="hero-link" href="https://demo.ideidlyabiznesa1913.ru/yub/" target="_blank">
-        <span class="hero-link-icon">🏠</span>
-        <span class="hero-link-text"><strong>Каталог</strong><em>в браузере</em></span>
-      </a>
+    <a class="hero-cta" href="https://demo.ideidlyabiznesa1913.ru/yub/" target="_blank">
+      <span class="hero-cta-icon">🏠</span>
+      <span class="hero-cta-text">
+        <strong>Открыть каталог</strong>
+        <em>все 4 продукта в одном месте →</em>
+      </span>
+    </a>
+  </div>
+
+  <!-- ═══ ВАЖНАЯ ЗАМЕТКА ═══ -->
+  <div class="notice">
+    <div class="notice-icon">💡</div>
+    <div class="notice-body">
+      <strong>Всё что вы видите в продуктах — можно поменять.</strong>
+      Телефоны, адреса, мессенджеры, тексты кнопок, заголовки, списки, цвета, иконки, картинки — это всё примеры, которые мы подставили как образец. Вы можете попросить заменить любое место на то, что нужно вам. Не ограничивайтесь списками «что можно менять» в этой инструкции — в каждом продукте можно менять <strong>абсолютно всё</strong>.
     </div>
   </div>
 
@@ -415,12 +418,12 @@ footer a { color: var(--blue); text-decoration: none; }
 
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-text"><strong>Опишите правку</strong> в свободной форме — что именно поменять, добавить или убрать. Чем конкретнее — тем быстрее внесём.</div>
+      <div class="step-text"><strong>Опишите правку</strong> в свободной форме — что именно поменять, добавить или убрать. Можно <strong>текстом</strong>, можно <strong>голосовым сообщением</strong>, можно со скриншотом. Чем конкретнее — тем быстрее внесём.</div>
     </div>
 
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-text"><strong>Пришлите нам</strong> через WhatsApp или Telegram — кнопки в самом низу страницы. Правки внесём в течение 1–2 рабочих дней.</div>
+      <div class="step-text"><strong>Пришлите нам</strong> прямо в нашу общую Telegram-группу, в которой мы с вами работаем. Правки внесём в течение 1–2 рабочих дней и пришлём обновлённую ссылку в ту же группу.</div>
     </div>
   </div>
 
