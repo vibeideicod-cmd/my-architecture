@@ -1,0 +1,10 @@
+{
+  "name": "my-architecture-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Локальные скрипты для работы с базой (миграции Supabase и т.п.)",
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}
