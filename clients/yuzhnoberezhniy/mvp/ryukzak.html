@@ -28,6 +28,7 @@
       min-height: 100vh;
       color: var(--text);
       overflow-x: hidden;
+      padding-bottom: 96px; /* место под sticky bottom bar */
     }
 
     /* ── ПЛЫВУЩИЕ ОБЛАКА ─────────────────────────────────── */
@@ -708,6 +709,155 @@
     .forgot-box p { font-size: 13px; color: #8a5c1a; line-height: 1.75; }
     .forgot-box a { color: var(--orange); font-weight: 700; }
 
+    /* ── PERSISTENT HINT — прогресс сохраняется ──────────── */
+    .save-hint {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: linear-gradient(135deg, #e8f4fd, #d4ebfa);
+      border: 1px solid #b3daf3;
+      border-radius: 14px;
+      padding: 12px 15px;
+      font-size: 13px;
+      color: #0a5c8a;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .save-hint .save-hint-icon { font-size: 20px; flex-shrink: 0; line-height: 1.2; }
+    .save-hint strong { font-weight: 700; color: var(--blue-dark); }
+
+    /* ── STICKY BOTTOM BAR ───────────────────────────────── */
+    .sticky-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      padding: 12px 16px;
+      z-index: 900;
+      display: none;
+    }
+    .sticky-bar.show { display: block; }
+    .sticky-bar-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sticky-bar-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .sticky-bar-count {
+      font-size: 14px; font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .sticky-bar-saved {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .sticky-bar-btn {
+      flex-shrink: 0;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 22px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 4px 14px rgba(6,147,227,0.3);
+    }
+    .sticky-bar-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(6,147,227,0.4); }
+    .sticky-bar-btn:active { transform: scale(0.97); }
+    .sticky-bar-btn.idle {
+      background: #dde6ef;
+      color: #8a96a8;
+      box-shadow: none;
+      cursor: default;
+    }
+    .sticky-bar-btn.idle:hover { transform: none; box-shadow: none; }
+    .sticky-bar-btn.done {
+      background: var(--green);
+      box-shadow: 0 4px 14px rgba(39,174,96,0.4);
+      animation: donePulse 1.6s ease-in-out infinite;
+    }
+    @keyframes donePulse {
+      0%,100% { box-shadow: 0 4px 14px rgba(39,174,96,0.4); }
+      50%     { box-shadow: 0 6px 22px rgba(39,174,96,0.6); }
+    }
+    @media (max-width: 520px) {
+      .sticky-bar { padding: 10px 12px; }
+      .sticky-bar-btn { padding: 12px 16px; font-size: 12.5px; }
+      .sticky-bar-count { font-size: 13px; }
+    }
+
+    /* ── FINISH MODAL (100%) ─────────────────────────────── */
+    .finish-modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(20,35,60,0.55);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 9000;
+      padding: 20px;
+    }
+    .finish-modal-backdrop.show { display: flex; animation: fadeIn 0.25s ease; }
+    .finish-modal {
+      background: white;
+      border-radius: 22px;
+      max-width: 420px;
+      width: 100%;
+      padding: 30px 24px 24px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .finish-modal .fm-emoji {
+      font-size: 64px; display: block;
+      margin-bottom: 8px;
+    }
+    .finish-modal h3 {
+      font-size: 22px; font-weight: 800;
+      color: var(--green); margin-bottom: 8px;
+    }
+    .finish-modal p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.55; margin-bottom: 18px;
+    }
+    .finish-modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .finish-modal-btn {
+      border: none;
+      border-radius: 50px;
+      padding: 13px 18px;
+      font-family: inherit;
+      font-size: 14px; font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .finish-modal-btn.primary { background: var(--green); color: white; }
+    .finish-modal-btn.primary:hover { background: #1f8f4f; }
+    .finish-modal-btn.secondary { background: var(--blue-light); color: var(--blue-dark); }
+    .finish-modal-btn.secondary:hover { background: var(--blue-mid); }
+    .finish-modal-btn.ghost {
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .finish-modal-btn.ghost:hover { background: #f5f8fb; color: var(--text); }
+
     /* ── КОНФЕТТИ CANVAS ─────────────────────────────────── */
     #confetti-canvas {
       position: fixed; top: 0; left: 0;
@@ -1149,11 +1299,17 @@
   <div class="params-summary" id="paramsSummary"></div>
   <div style="height:10px"></div>
 
+  <!-- PERSISTENT HINT — прогресс сохраняется -->
+  <div class="save-hint">
+    <span class="save-hint-icon">💾</span>
+    <div><strong>Не беспокойтесь</strong> — ваш прогресс автоматически сохраняется в браузере. Можете закрыть страницу и вернуться позже — всё будет на месте.</div>
+  </div>
+
   <!-- ФИНАЛЬНЫЙ БАННЕР -->
   <div class="done-banner" id="doneBanner">
-    <span class="done-big-emoji">🏖️</span>
-    <h2>Всё собрано! Хорошей смены!</h2>
-    <p>Ваш ребёнок готов. Ждём его в лагере «Республика ДОРИ» —<br>безопасно, полезно и с улыбкой каждый день!</p>
+    <span class="done-big-emoji">🎉</span>
+    <h2>Отлично! Рюкзак собран!</h2>
+    <p>Ваш ребёнок готов к смене в санатории «Южнобережный». Мы ждём его — безопасно, полезно и с улыбкой каждый день!</p>
     <a href="quiz.html" class="btn">Квиз «Готов ли ребёнок?»</a>
     <button onclick="window.print()" class="btn btn-outline">🖨 Распечатать список</button>
   </div>
@@ -1763,6 +1919,32 @@
   <div class="slogan">«Безопасно, полезно и с улыбкой каждый день»</div>
 </footer>
 
+  <!-- ═══ STICKY BOTTOM BAR (persistent CTA) ═══════════ -->
+  <div class="sticky-bar" id="stickyBar" aria-live="polite">
+    <div class="sticky-bar-inner">
+      <div class="sticky-bar-info">
+        <div class="sticky-bar-count" id="stickyBarCount">0 / 0</div>
+        <div class="sticky-bar-saved">💾 Прогресс сохранён</div>
+      </div>
+      <button type="button" class="sticky-bar-btn idle" id="stickyBarBtn" onclick="handleStickyBarClick()">🎒 Начните отмечать</button>
+    </div>
+  </div>
+
+  <!-- ═══ FINISH MODAL (при 100%) ═══════════════════════ -->
+  <div class="finish-modal-backdrop" id="finishModal" onclick="if(event.target===this)closeFinishModal()">
+    <div class="finish-modal">
+      <span class="fm-emoji">🎉</span>
+      <h3>Всё готово!</h3>
+      <p>Рюкзак собран полностью. Ваш ребёнок готов к смене в санатории «Южнобережный».</p>
+      <div class="finish-modal-actions">
+        <button class="finish-modal-btn primary" onclick="window.print()">🖨 Распечатать список</button>
+        <button class="finish-modal-btn secondary" onclick="shareList()">📤 Поделиться</button>
+        <button class="finish-modal-btn ghost" onclick="closeFinishModal(); resetAll();">↻ Начать заново</button>
+        <button class="finish-modal-btn ghost" onclick="closeFinishModal()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /mainApp -->
 
 </div><!-- /page-wrap -->
@@ -1850,6 +2032,7 @@
     });
     updateProgress(false);
     CATS.forEach(c => checkCategoryDone(c, false));
+    document.getElementById('stickyBar').classList.add('show');
     if (animate) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1866,6 +2049,7 @@
     checkOnbComplete();
     document.getElementById('mainApp').style.display = 'none';
     document.getElementById('onboarding').style.display = 'flex';
+    document.getElementById('stickyBar').classList.remove('show');
     window.scrollTo({ top: 0 });
   }
 
@@ -2062,6 +2246,12 @@
         setTimeout(launchConfetti, 400);
       }
     }
+    if (pct < 100) {
+      document.getElementById('doneBanner').classList.remove('show');
+    }
+
+    // Обновляем sticky bottom bar
+    updateStickyBar(done, total, pct);
 
     // Счётчики разделов — только видимые пункты
     CATS.forEach(cat => {
@@ -2074,6 +2264,53 @@
       const doneCat = visible.filter(it => it.classList.contains('checked')).length;
       el.textContent = `${doneCat} / ${allCat}`;
     });
+  }
+
+  // ── STICKY BAR (persistent CTA) ───────────────────────────
+  let stickyBarMode = 'idle'; // 'idle' | 'save' | 'done'
+  function updateStickyBar(done, total, pct) {
+    const bar = document.getElementById('stickyBar');
+    const btn = document.getElementById('stickyBarBtn');
+    const count = document.getElementById('stickyBarCount');
+    if (!bar || !btn || !count) return;
+    count.textContent = `${done} / ${total}`;
+
+    btn.classList.remove('idle', 'done');
+    if (total === 0 || done === 0) {
+      stickyBarMode = 'idle';
+      btn.classList.add('idle');
+      btn.textContent = '🎒 Начните отмечать';
+    } else if (pct < 100) {
+      stickyBarMode = 'save';
+      btn.textContent = `💾 Собрано ${done}/${total} • Сохранить и закрыть`;
+    } else {
+      stickyBarMode = 'done';
+      btn.classList.add('done');
+      btn.textContent = '✅ Всё готово!';
+    }
+  }
+
+  function handleStickyBarClick() {
+    if (stickyBarMode === 'idle') {
+      // Просто скроллим к первой секции
+      const firstCat = document.querySelector('.category');
+      if (firstCat) firstCat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (stickyBarMode === 'save') {
+      showToast('💾 Прогресс сохранён в браузере — откройте страницу снова чтобы продолжить');
+      return;
+    }
+    if (stickyBarMode === 'done') {
+      openFinishModal();
+    }
+  }
+
+  function openFinishModal() {
+    document.getElementById('finishModal').classList.add('show');
+  }
+  function closeFinishModal() {
+    document.getElementById('finishModal').classList.remove('show');
   }
 
   // ── КОНФЕТТИ (canvas) ─────────────────────────────────────

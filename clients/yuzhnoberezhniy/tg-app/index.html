@@ -226,6 +226,31 @@
     }
 
     /* ══════════════════════════════════════════════════════
+       PERSISTENT HINT — прогресс сохраняется
+    ══════════════════════════════════════════════════════ */
+    .save-hint {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(6,147,227,0.08), rgba(51,165,173,0.08));
+      border: 1px solid rgba(6,147,227,0.22);
+      border-radius: var(--r-sm);
+      padding: 11px 13px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #0a5c8a;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .save-hint-icon { font-size: 18px; flex-shrink: 0; line-height: 1.2; }
+    .save-hint strong { font-weight: 700; }
+    [data-theme="dark"] .save-hint {
+      background: rgba(6,147,227,0.12);
+      border-color: rgba(6,147,227,0.3);
+      color: #7ec8f0;
+    }
+
+    /* ══════════════════════════════════════════════════════
        ГОТОВО-БАННЕР
     ══════════════════════════════════════════════════════ */
     .done-banner {
@@ -1052,12 +1077,18 @@
     Медперсонал и вожатые всегда помогут. Главное — документы!
   </div>
 
+  <!-- PERSISTENT HINT — прогресс сохраняется -->
+  <div class="save-hint">
+    <span class="save-hint-icon">💾</span>
+    <div><strong>Не беспокойтесь</strong> — прогресс сохраняется автоматически. Можете закрыть приложение и вернуться позже — всё будет на месте.</div>
+  </div>
+
   <!-- ФИНАЛЬНЫЙ БАННЕР (появляется при 100%) -->
   <div class="done-banner" id="doneBanner">
-    <span class="done-emoji">🏖️</span>
-    <h2>Всё собрано!</h2>
-    <p>Ваш ребёнок готов к смене. Ждём в санатории «Южнобережный» —<br>безопасно, полезно и с улыбкой каждый день!</p>
-    <button class="done-print-btn" onclick="window.print()">🖨 Распечатать список</button>
+    <span class="done-emoji">🎉</span>
+    <h2>Отлично! Рюкзак собран!</h2>
+    <p>Ваш ребёнок готов к смене в санатории «Южнобережный». Мы ждём его — безопасно, полезно и с улыбкой каждый день!</p>
+    <p style="margin-top:-6px;font-size:12.5px;color:var(--c-navy);font-weight:600;">👇 Нажмите «✅ Всё готово!» внизу, чтобы закрыть приложение</p>
   </div>
 
   <!-- САНАТОРИЙ ОБЕСПЕЧИВАЕТ -->
@@ -1672,15 +1703,15 @@
     tg.BackButton.show();
     tg.BackButton.onClick(() => tg.close());
 
-    // MainButton появится при 100% (настраивается в updateProgress)
+    // MainButton — динамическая кнопка завершения (настраивается в updateMainButton)
     tg.MainButton.setParams({
-      text: '🏖 Рюкзак собран! Закрыть',
-      color: '#179543',
+      text: '🎒 Начните отмечать вещи',
+      color: '#b0b8c4',
       text_color: '#ffffff',
-      is_active: true,
+      is_active: false,
       is_visible: false,
     });
-    tg.MainButton.onClick(() => tg.close());
+    tg.MainButton.onClick(handleMainButtonClick);
   }
 
   // Поддержка prefers-color-scheme для обычного браузера (вне Telegram)
@@ -1764,6 +1795,7 @@
     checkQsComplete();
     document.getElementById('mainApp').style.display = 'none';
     document.getElementById('quickstart').style.display = 'block';
+    tg?.MainButton.hide();
     tg?.HapticFeedback.impactOccurred('soft');
     window.scrollTo({ top: 0 });
   }
@@ -1989,9 +2021,67 @@
         setTimeout(() => banner.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         setTimeout(launchConfetti, 380);
       }
-      tg?.MainButton.show();
+    }
+    if (pct < 100) {
+      document.getElementById('doneBanner').classList.remove('show');
+    }
+
+    // Обновляем динамическую MainButton
+    updateMainButton(done, total, pct);
+  }
+
+  // ── ДИНАМИЧЕСКАЯ MAIN BUTTON ─────────────────────────────────
+  // Хранит текущее состояние, чтобы handleMainButtonClick знал что делать
+  let mainBtnMode = 'idle'; // 'idle' | 'save' | 'done'
+  function updateMainButton(done, total, pct) {
+    if (!tg || !tg.MainButton) return;
+    // Если пользователь в онбординге — кнопка скрыта
+    const mainAppVisible = document.getElementById('mainApp').style.display !== 'none';
+    if (!mainAppVisible) {
+      tg.MainButton.hide();
+      return;
+    }
+
+    if (total === 0 || done === 0) {
+      mainBtnMode = 'idle';
+      tg.MainButton.setParams({
+        text: '🎒 Начните отмечать вещи',
+        color: '#b0b8c4',
+        text_color: '#ffffff',
+        is_active: false,
+        is_visible: true,
+      });
+    } else if (pct < 100) {
+      mainBtnMode = 'save';
+      tg.MainButton.setParams({
+        text: `💾 Собрано ${done}/${total} • Закрыть позже`,
+        color: '#3e3e86',
+        text_color: '#ffffff',
+        is_active: true,
+        is_visible: true,
+      });
     } else {
-      tg?.MainButton.hide();
+      mainBtnMode = 'done';
+      tg.MainButton.setParams({
+        text: '✅ Всё готово! Закрыть',
+        color: '#179543',
+        text_color: '#ffffff',
+        is_active: true,
+        is_visible: true,
+      });
+    }
+  }
+
+  function handleMainButtonClick() {
+    if (mainBtnMode === 'idle') return;
+    if (mainBtnMode === 'save') {
+      tg?.HapticFeedback.notificationOccurred('success');
+      showToast('💾 Прогресс сохранён. Откройте бот снова чтобы продолжить');
+      setTimeout(() => tg?.close(), 1200);
+    } else if (mainBtnMode === 'done') {
+      tg?.HapticFeedback.notificationOccurred('success');
+      showToast('🎉 Отлично! Приезжайте в санаторий — мы ждём вашего ребёнка с улыбкой!');
+      setTimeout(() => tg?.close(), 1800);
     }
   }
 
@@ -2081,7 +2171,6 @@
     state.checked = [];
     saveState();
     lastPct = -1;
-    tg?.MainButton.hide();
     tg?.HapticFeedback.notificationOccurred('warning');
     updateProgress(false);
     SECTIONS.forEach(s => updateSection(s, false));
