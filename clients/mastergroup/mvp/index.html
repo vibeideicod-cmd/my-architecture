@@ -4,39 +4,58 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Мастер-группы · Нейро Бабки СССР</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --text-hint:  rgba(76, 70, 81, 0.45);
+    --yellow:     #ffc403;
+  }
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html,body { background: #0a0a0a; color: #e8e0d8; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; min-height: 100vh; }
-  body { background: radial-gradient(1200px 600px at 50% -10%, #1a1510, #0a0a0a 50%); padding: 0 clamp(16px, 4vw, 48px); }
-  .wrap { max-width: 880px; margin: 0 auto; padding: clamp(40px, 8vw, 80px) 0; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.7; min-height: 100vh; }
+  body { padding: 0 clamp(16px, 4vw, 48px); }
+  .wrap { max-width: 920px; margin: 0 auto; padding: clamp(44px, 8vw, 96px) 0 88px; }
 
-  .brand { color: #c99700; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; margin-bottom: 20px; }
-  h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 6vw, 56px); line-height: 1.1; margin-bottom: 20px; }
-  .lead { color: #c8c0b8; font-size: clamp(16px, 2.2vw, 19px); max-width: 620px; margin-bottom: 40px; }
-  .lead b { color: #e86c3a; }
+  .brand { color: var(--mustard); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; margin-bottom: 24px; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 62px); line-height: 1.08; margin-bottom: 24px; color: var(--green-deep); }
+  .lead { color: var(--text); font-size: clamp(16px, 2.2vw, 20px); max-width: 660px; margin-bottom: 52px; line-height: 1.65; }
+  .lead b { color: var(--mustard); font-weight: 700; }
 
-  .card { background: #141414; border: 1px solid #252525; border-radius: 16px; padding: clamp(24px, 4vw, 40px); margin-bottom: 20px; }
-  .card h2 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3vw, 30px); margin-bottom: 14px; }
-  .card p { color: #c8c0b8; font-size: 15px; margin-bottom: 12px; }
+  .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 52px 0; }
 
-  .three { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .feat { background: #1a1a1a; border: 1px solid #252525; border-radius: 12px; padding: 22px; }
-  .feat__ico { font-size: 32px; margin-bottom: 10px; }
-  .feat__t { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 8px; color: #e86c3a; }
-  .feat__d { color: #c8c0b8; font-size: 14px; }
+  .card { background: var(--bg-warm); border-radius: 22px; padding: clamp(30px, 4vw, 48px); margin-bottom: 22px; }
+  .card.alt { background: #fff; border: 1px solid var(--bg-warm); }
+  .card h2 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3vw, 36px); margin-bottom: 18px; color: var(--green-deep); }
+  .card p { color: var(--text); font-size: 15px; margin-bottom: 14px; line-height: 1.75; }
 
-  .demo { display: grid; gap: 14px; margin-top: 12px; }
-  .demo a { display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; border: 1px solid #252525; border-radius: 12px; padding: 16px 20px; color: #e8e0d8; text-decoration: none; transition: border-color .2s, transform .1s; }
-  .demo a:hover { border-color: #e86c3a; transform: translateY(-1px); }
-  .demo__t { font-weight: 600; }
-  .demo__d { color: #8a8680; font-size: 13px; margin-top: 2px; }
-  .demo__arrow { color: #e86c3a; font-size: 20px; }
+  .three { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-top: 26px; }
+  .feat { background: #fff; border-radius: 16px; padding: 28px; transition: transform .2s, box-shadow .2s; }
+  .feat:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(76,70,81,0.1); }
+  .feat__ico { font-size: 40px; margin-bottom: 14px; }
+  .feat__t { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 10px; color: var(--green-deep); }
+  .feat__d { color: var(--text); font-size: 14px; line-height: 1.65; }
 
-  .note { background: #0f0f0f; border-left: 3px solid #c99700; padding: 16px 20px; color: #c8c0b8; font-size: 14px; border-radius: 0 8px 8px 0; margin-top: 20px; }
-  .note b { color: #c99700; }
+  .demo { display: grid; gap: 14px; margin-top: 18px; }
+  .demo a { display: flex; align-items: center; justify-content: space-between; background: var(--bg-warm); border: 1px solid transparent; border-radius: 16px; padding: 20px 26px; color: var(--text); text-decoration: none; transition: all .2s; }
+  .demo a:hover { border-color: var(--gold); transform: translateY(-1px); }
+  .demo__t { font-weight: 700; font-size: 15px; color: var(--green-deep); }
+  .demo__d { color: var(--text-soft); font-size: 13px; margin-top: 3px; }
+  .demo__arrow { color: var(--mustard); font-size: 24px; font-weight: 700; }
 
-  .footer { text-align: center; color: #5a5650; font-size: 12px; margin-top: 60px; }
+  .note { background: #fff; border-left: 4px solid var(--gold); padding: 20px 24px; color: var(--text); font-size: 14px; border-radius: 0 12px 12px 0; margin-top: 24px; line-height: 1.65; }
+  .note b { color: var(--green-deep); }
+
+  .footer { text-align: center; color: var(--text-soft); font-size: 12px; margin-top: 72px; letter-spacing: 1.2px; }
 </style>
 </head>
 <body>
@@ -44,6 +63,8 @@
   <div class="brand">Нейро Бабки СССР · Платформа мастер-групп</div>
   <h1>Твоя мастер-группа живёт вне Telegram</h1>
   <p class="lead">Браузерная платформа для ведения мастер-групп. <b>Витрина для привлечения</b>, <b>кабинет для работы с группой</b>, <b>единая база участников</b>. Работает везде, где есть интернет. Не зависит от блокировок мессенджеров.</p>
+
+  <div class="divider"></div>
 
   <div class="card">
     <h2>Три интерфейса — одна система</h2>
@@ -66,7 +87,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card alt">
     <h2>Пощупать прямо сейчас</h2>
     <p>Первый мастер уже в системе — Инна Андрейченко, «Маркетинг без хаоса».</p>
     <div class="demo">
@@ -101,7 +122,7 @@
   <div class="card">
     <h2>Что дальше</h2>
     <p>Этого MVP достаточно чтобы <b>показать продукт живому мастеру</b> и собрать обратную связь. После валидации добавим: загрузку PDF/видео в Storage, отметки выполнения заданий, форму сбора кейсов от участников, Telegram Mini App, платёжку.</p>
-    <p style="color:#8a8680;font-size:13px">Бэкенд — Supabase, фронт — чистый HTML без фреймворков. Деплой — Beget. Так же как и остальные наши инструменты.</p>
+    <p style="color:var(--text-soft);font-size:13px">Бэкенд — Supabase, фронт — чистый HTML без фреймворков. Деплой — Beget.</p>
   </div>
 
   <div class="footer">

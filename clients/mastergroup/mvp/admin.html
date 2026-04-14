@@ -4,58 +4,76 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Админ-панель · мастер-группы</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --text-hint:  rgba(76, 70, 81, 0.45);
+    --yellow:     #ffc403;
+  }
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html,body { background: #0a0a0a; color: #e8e0d8; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.5; min-height: 100vh; }
-  body { background: radial-gradient(1400px 700px at 20% -10%, #101a10, #0a0a0a 60%); padding: 0 clamp(16px, 3vw, 32px); }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 0 80px; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; min-height: 100vh; }
+  body { padding: 0 clamp(16px, 3vw, 32px); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 0 80px; }
 
-  .gate { max-width: 420px; margin: 120px auto 0; background: #141414; border: 1px solid #252525; border-radius: 16px; padding: 32px; text-align: center; }
-  .gate h1 { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 12px; }
-  .gate p { color: #8a8680; font-size: 14px; margin-bottom: 20px; }
-  .gate input { width: 100%; background: #0f0f0f; border: 1px solid #2a2a2a; color: #e8e0d8; padding: 14px 16px; border-radius: 10px; font: inherit; font-size: 15px; margin-bottom: 12px; }
-  .gate input:focus { outline: none; border-color: #c99700; }
-  .gate button { width: 100%; background: #c99700; color: #0a0a0a; border: 0; padding: 14px; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
-  .gate .err { color: #ff7a7a; margin-top: 12px; font-size: 13px; }
+  .gate { max-width: 440px; margin: 120px auto 0; background: var(--bg-warm); border: 1px solid rgba(212,175,55,0.35); border-radius: 20px; padding: 44px 40px; text-align: center; }
+  .gate h1 { font-family: 'Playfair Display', serif; font-size: 30px; margin-bottom: 14px; color: var(--green-deep); }
+  .gate p { color: var(--text); font-size: 14px; margin-bottom: 24px; }
+  .gate input { width: 100%; background: #fff; border: 1px solid rgba(76,70,81,0.15); color: var(--text); padding: 15px 18px; border-radius: 12px; font: inherit; font-size: 15px; margin-bottom: 14px; }
+  .gate input::placeholder { color: var(--text-hint); }
+  .gate input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+  .gate button { width: 100%; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; border: 0; padding: 15px; border-radius: 50px; font: inherit; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1.2px; font-size: 13px; box-shadow: 0 5px 18px rgba(212,175,55,0.35); }
+  .gate button:hover { transform: translateY(-1px); }
+  .gate .err { color: var(--green-deep); margin-top: 14px; font-size: 13px; font-weight: 600; }
 
-  .hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
-  .hdr h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4vw, 38px); }
-  .hdr__sub { color: #8a8680; font-size: 14px; }
+  .hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; padding-bottom: 24px; border-bottom: 1px solid var(--bg-warm); }
+  .hdr h1 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 42px); color: var(--green-deep); line-height: 1.1; }
+  .hdr__sub { color: var(--text-soft); font-size: 14px; margin-top: 6px; }
 
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
-  .stat { background: #141414; border: 1px solid #252525; border-radius: 14px; padding: 22px; }
-  .stat__n { font-family: 'Playfair Display', serif; font-size: 40px; color: #c99700; line-height: 1; }
-  .stat__l { color: #8a8680; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 36px; }
+  .stat { background: var(--bg-warm); border: 1px solid rgba(212,175,55,0.25); border-radius: 16px; padding: 26px; }
+  .stat__n { font-family: 'Playfair Display', serif; font-size: 48px; color: var(--green-deep); line-height: 1; font-weight: 700; }
+  .stat__l { color: var(--text-soft); font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; margin-top: 10px; font-weight: 700; }
 
-  h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin: 28px 0 14px; }
+  h2 { font-family: 'Playfair Display', serif; font-size: 28px; margin: 32px 0 18px; color: var(--green-deep); }
 
-  .masters { display: grid; gap: 14px; }
-  .master { background: #141414; border: 1px solid #252525; border-radius: 14px; padding: 20px; cursor: pointer; transition: border-color .2s, transform .1s; }
-  .master:hover { border-color: #c99700; }
+  .masters { display: grid; gap: 16px; }
+  .master { background: #fff; border: 1px solid var(--bg-warm); border-radius: 18px; padding: 26px; cursor: pointer; transition: all .2s; }
+  .master:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,175,55,0.12); }
   .master__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .master__name { font-family: 'Playfair Display', serif; font-size: 20px; }
-  .master__niche { color: #c99700; font-size: 13px; margin-top: 2px; }
-  .master__stats { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
-  .master__stat { color: #c8c0b8; font-size: 13px; }
-  .master__stat b { color: #e8e0d8; font-size: 16px; }
+  .master__name { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--green-deep); }
+  .master__niche { color: var(--mustard); font-size: 11px; margin-top: 5px; text-transform: uppercase; letter-spacing: 1.3px; font-weight: 700; }
+  .master__slug { color: var(--text-soft); font-size: 12px; font-family: monospace; }
+  .master__stats { display: flex; gap: 24px; margin-top: 18px; flex-wrap: wrap; }
+  .master__stat { color: var(--text); font-size: 13px; }
+  .master__stat b { color: var(--green-deep); font-size: 20px; font-family: 'Playfair Display', serif; margin-right: 4px; font-weight: 700; }
 
-  .detail { background: #141414; border: 1px solid #252525; border-radius: 14px; padding: 24px; margin-top: 16px; display: none; }
+  .detail { background: var(--bg-warm); border-radius: 14px; padding: 22px; margin-top: 18px; display: none; }
   .detail.on { display: block; }
-  .detail h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 12px; }
+  .detail h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--mustard); margin-bottom: 12px; font-family: 'Montserrat', sans-serif; }
   .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 720px) { .detail-grid { grid-template-columns: 1fr; } }
   .list { display: grid; gap: 8px; }
-  .list__item { background: #1a1a1a; border: 1px solid #252525; border-radius: 10px; padding: 12px 14px; font-size: 13px; }
-  .list__item b { color: #e8e0d8; }
-  .list__item span { color: #8a8680; }
-  .empty { color: #6a6660; font-size: 13px; padding: 14px; text-align: center; }
+  .list__item { background: #fff; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--text); }
+  .list__item b { color: var(--green-deep); font-weight: 700; }
+  .list__item span { color: var(--text-soft); }
+  .empty { color: var(--text-soft); font-size: 13px; padding: 18px; text-align: center; }
 
-  .export { background: #1a1a1a; border: 1px solid #2a2a2a; color: #c8c0b8; padding: 10px 16px; border-radius: 10px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
-  .export:hover { border-color: #c99700; color: #c99700; }
+  .export { background: #fff; border: 1px solid var(--gold); color: var(--mustard); padding: 12px 22px; border-radius: 50px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .2s; text-transform: uppercase; letter-spacing: 1px; }
+  .export:hover { background: var(--bg-warm); }
 
-  .logout { background: transparent; border: 0; color: #6a6660; cursor: pointer; font: inherit; font-size: 13px; }
-  .logout:hover { color: #ff7a7a; }
+  .logout { background: transparent; border: 0; color: var(--text-soft); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+  .logout:hover { color: var(--mustard); }
 </style>
 </head>
 <body>
@@ -119,7 +137,7 @@ async function show() {
     sb.from('mg_tasks').select('id,master_id'),
     sb.from('mg_messages').select('id,master_id'),
   ]);
-  if (mastersRes.error) { main.innerHTML = `<div style="color:#ff7a7a">${esc(mastersRes.error.message)}</div>`; return; }
+  if (mastersRes.error) { main.innerHTML = `<div class="err" style="color:#103206">${esc(mastersRes.error.message)}</div>`; return; }
 
   const masters = mastersRes.data || [];
   const parts = partsRes.data || [];
@@ -148,10 +166,10 @@ async function show() {
 
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <h2 style="margin:0">Мастера</h2>
-      <button class="export" id="export">⬇ Скачать всех участников CSV</button>
+      <button class="export" id="export">⬇ Скачать участников CSV</button>
     </div>
 
-    <div class="masters" id="masters">
+    <div class="masters" id="masters" style="margin-top:18px">
       ${masters.map(m => {
         const mp = by(parts, m.id); const mc = by(cases, m.id);
         return `
@@ -161,7 +179,7 @@ async function show() {
               <div class="master__name">${esc(m.name)}</div>
               <div class="master__niche">${esc(m.niche || '')}</div>
             </div>
-            <div style="color:#6a6660;font-size:12px">slug: ${esc(m.id)}</div>
+            <div class="master__slug">slug: ${esc(m.id)}</div>
           </div>
           <div class="master__stats">
             <div class="master__stat"><b>${mp.length}</b> участников</div>
@@ -180,7 +198,7 @@ async function show() {
               <div>
                 <h3>Кейсы</h3>
                 <div class="list">
-                  ${mc.length ? mc.map(c => `<div class="list__item"><b>${esc(c.participant_name)}</b><div style="color:#c8c0b8;margin-top:4px">${esc(c.result)}</div></div>`).join('') : '<div class="empty">Нет кейсов</div>'}
+                  ${mc.length ? mc.map(c => `<div class="list__item"><b>${esc(c.participant_name)}</b><div style="margin-top:4px">${esc(c.result)}</div></div>`).join('') : '<div class="empty">Нет кейсов</div>'}
                 </div>
               </div>
             </div>

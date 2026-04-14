@@ -4,51 +4,70 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Мастер-группа</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --text-hint:  rgba(76, 70, 81, 0.45);
+    --yellow:     #ffc403;
+  }
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html,body { background: #0a0a0a; color: #e8e0d8; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.5; }
-  body { min-height: 100vh; background: radial-gradient(1200px 600px at 50% -20%, #1a1510, #0a0a0a 60%); padding: 0 clamp(16px, 4vw, 48px); }
-  .wrap { max-width: 780px; margin: 0 auto; padding: clamp(32px, 6vw, 64px) 0 80px; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+  body { min-height: 100vh; padding: 0 clamp(16px, 4vw, 48px); }
+  .wrap { max-width: 780px; margin: 0 auto; padding: clamp(32px, 6vw, 72px) 0 80px; }
 
-  .status { padding: 40px; text-align: center; color: #8a8680; }
-  .err { color: #ff7a7a; background: #1a0a0a; border: 1px solid #3a1a1a; padding: 20px; border-radius: 12px; margin: 40px 0; }
+  .status { padding: 60px 20px; text-align: center; color: var(--text-soft); }
+  .err { color: var(--green-deep); background: var(--bg-warm); border: 1px solid var(--mustard); padding: 20px 24px; border-radius: 12px; margin: 40px 0; }
 
   .hero { text-align: center; margin-bottom: 48px; }
-  .hero__avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent, #e86c3a), #c99700); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 48px; color: #0a0a0a; margin: 0 auto 20px; font-weight: 700; }
-  .hero__name { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); margin-bottom: 8px; }
-  .hero__niche { color: var(--accent, #e86c3a); font-weight: 600; font-size: 16px; margin-bottom: 4px; }
-  .hero__city { color: #8a8680; font-size: 14px; }
-  .hero__bio { margin-top: 24px; color: #c8c0b8; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .hero__avatar { width: 128px; height: 128px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--mustard)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 52px; color: #fff; margin: 0 auto 22px; font-weight: 700; box-shadow: 0 12px 34px rgba(212, 175, 55, 0.3); border: 3px solid #fff; }
+  .hero__name { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; margin-bottom: 12px; color: var(--green-deep); }
+  .hero__niche { color: var(--mustard); font-weight: 700; font-size: 12px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 2.5px; }
+  .hero__city { color: var(--text-soft); font-size: 14px; }
+  .hero__bio { margin-top: 26px; color: var(--text); font-size: 16px; max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.7; }
 
-  .section { background: #141414; border: 1px solid #252525; border-radius: 16px; padding: clamp(24px, 4vw, 40px); margin-bottom: 24px; }
-  .section__label { display: inline-block; color: var(--accent, #e86c3a); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-  .section__title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 30px); margin-bottom: 8px; line-height: 1.2; }
-  .section__tagline { color: #c99700; font-size: 16px; margin-bottom: 16px; font-style: italic; }
-  .section__body { color: #c8c0b8; font-size: 15px; white-space: pre-line; }
+  .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 40px auto; }
 
-  .meta { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 0; }
-  .meta__item { background: #1f1f1f; border: 1px solid #2a2a2a; border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 140px; }
-  .meta__label { color: #8a8680; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .meta__value { color: #e8e0d8; font-weight: 600; font-size: 14px; }
+  .section { background: var(--bg-warm); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 20px; padding: clamp(26px, 4vw, 44px); margin-bottom: 20px; }
+  .section.alt { background: #fff; border-color: var(--bg-warm); }
+  .section__label { display: inline-block; color: var(--mustard); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 14px; }
+  .section__title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.5vw, 32px); margin-bottom: 12px; line-height: 1.2; color: var(--green-deep); }
+  .section__tagline { color: var(--green); font-size: 17px; margin-bottom: 18px; font-style: italic; font-family: 'Playfair Display', serif; }
+  .section__body { color: var(--text); font-size: 15px; white-space: pre-line; line-height: 1.75; }
 
-  .who { color: #c8c0b8; font-size: 15px; background: #0f0f0f; border-left: 3px solid var(--accent, #e86c3a); padding: 16px 20px; border-radius: 0 8px 8px 0; margin-top: 12px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 0; }
+  .meta__item { background: #fff; border: 1px solid var(--bg-warm); border-radius: 12px; padding: 14px 18px; flex: 1; min-width: 140px; }
+  .meta__label { color: var(--text-soft); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+  .meta__value { color: var(--green-deep); font-weight: 700; font-size: 14px; }
 
-  .form { display: grid; gap: 12px; margin-top: 20px; }
-  .form input, .form textarea { background: #0f0f0f; border: 1px solid #2a2a2a; color: #e8e0d8; padding: 14px 16px; border-radius: 10px; font: inherit; font-size: 15px; transition: border-color .2s; }
-  .form input:focus, .form textarea:focus { outline: none; border-color: var(--accent, #e86c3a); }
-  .form button { background: var(--accent, #e86c3a); color: #0a0a0a; border: 0; padding: 16px 24px; border-radius: 10px; font: inherit; font-weight: 700; font-size: 16px; cursor: pointer; transition: transform .1s, opacity .2s; }
-  .form button:hover { transform: translateY(-1px); }
-  .form button:disabled { opacity: .5; cursor: not-allowed; }
-  .form__hint { color: #6a6660; font-size: 13px; margin-top: 4px; }
+  .who { color: var(--text); font-size: 15px; background: #fff; border-left: 4px solid var(--green); padding: 20px 24px; border-radius: 0 10px 10px 0; margin-top: 14px; line-height: 1.7; }
+
+  .form { display: grid; gap: 12px; margin-top: 22px; }
+  .form input, .form textarea { background: #fff; border: 1px solid var(--bg-warm); color: var(--text); padding: 15px 18px; border-radius: 12px; font: inherit; font-size: 15px; transition: border-color .2s, box-shadow .2s; }
+  .form input::placeholder, .form textarea::placeholder { color: var(--text-hint); }
+  .form input:focus, .form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+  .form button { background: linear-gradient(135deg, var(--gold) 0%, var(--mustard) 100%); color: #fff; border: 0; padding: 17px 28px; border-radius: 50px; font: inherit; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: transform .15s, box-shadow .2s; box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35); }
+  .form button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.45); }
+  .form button:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+  .form__hint { color: var(--text-soft); font-size: 13px; margin-top: 6px; text-align: center; }
 
   .success { text-align: center; padding: 40px 20px; }
-  .success__emoji { font-size: 64px; margin-bottom: 16px; }
-  .success__title { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 12px; }
-  .success__text { color: #c8c0b8; font-size: 16px; }
+  .success__emoji { font-size: 68px; margin-bottom: 18px; }
+  .success__title { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 14px; color: var(--green); }
+  .success__text { color: var(--text); font-size: 16px; line-height: 1.7; }
 
-  .footer { text-align: center; color: #5a5650; font-size: 12px; margin-top: 48px; }
-  .footer a { color: #8a8680; text-decoration: none; }
+  .footer { text-align: center; color: var(--text-soft); font-size: 12px; margin-top: 56px; letter-spacing: 1px; }
+  .footer a { color: var(--mustard); text-decoration: none; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -85,7 +104,6 @@ async function load() {
 function render(m) {
   const initial = (m.name || '?').trim()[0] || '?';
   document.title = `${m.name} — мастер-группа`;
-  document.documentElement.style.setProperty('--accent', m.accent || '#e86c3a');
 
   const startDate = m.start_date ? new Date(m.start_date).toLocaleDateString('ru-RU', { day:'numeric', month:'long' }) : '—';
   const duration = `${m.weeks || 5} недель`;
@@ -94,13 +112,15 @@ function render(m) {
   root.innerHTML = `
     <div class="hero">
       ${m.photo_url
-        ? `<img src="${esc(m.photo_url)}" alt="" style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:20px">`
-        : `<div class="hero__avatar" style="--accent:${esc(m.accent||'#e86c3a')}">${esc(initial)}</div>`}
+        ? `<img src="${esc(m.photo_url)}" alt="" style="width:128px;height:128px;border-radius:50%;object-fit:cover;margin-bottom:22px;box-shadow:0 12px 34px rgba(76,70,81,0.15);border:3px solid #fff">`
+        : `<div class="hero__avatar">${esc(initial)}</div>`}
       <h1 class="hero__name">${esc(m.name)}</h1>
       ${m.niche ? `<div class="hero__niche">${esc(m.niche)}</div>` : ''}
       ${m.city ? `<div class="hero__city">${esc(m.city)}</div>` : ''}
       ${m.bio ? `<p class="hero__bio">${esc(m.bio)}</p>` : ''}
     </div>
+
+    <div class="divider"></div>
 
     <div class="section">
       <div class="section__label">Программа</div>
@@ -117,7 +137,7 @@ function render(m) {
     </div>
 
     ${m.what_you_get ? `
-    <div class="section">
+    <div class="section alt">
       <div class="section__label">Что ты получишь</div>
       <p class="section__body">${esc(m.what_you_get)}</p>
     </div>` : ''}
@@ -128,13 +148,13 @@ function render(m) {
       <div class="who">${esc(m.who_for)}</div>
     </div>` : ''}
 
-    <div class="section" id="signup">
+    <div class="section alt" id="signup">
       <div class="section__label">Записаться</div>
-      <h3 class="section__title" style="font-size:22px">Хочу в группу</h3>
+      <h3 class="section__title" style="font-size:26px">Хочу в группу</h3>
       <form class="form" id="form">
         <input name="name" required placeholder="Как тебя зовут?" />
         <input name="contact" placeholder="Email или Telegram — как с тобой связаться" />
-        <button type="submit" id="submit">Записаться в группу →</button>
+        <button type="submit" id="submit">Записаться в группу</button>
         <div class="form__hint">Мастер увидит тебя в своём кабинете сразу.</div>
       </form>
       <div id="result"></div>
@@ -160,7 +180,7 @@ function render(m) {
     form.style.display = 'none';
     document.getElementById('result').innerHTML = `
       <div class="success">
-        <div class="success__emoji">🎉</div>
+        <div class="success__emoji">🌿</div>
         <div class="success__title">Ты в группе!</div>
         <p class="success__text">${esc(m.name)} сейчас увидит запись в своём кабинете. Скоро пришлём ссылку на первую встречу.</p>
       </div>`;
