@@ -68,6 +68,19 @@ try {
   process.exit(1);
 }
 
+// ── Таблица учёта применённых миграций ─────────────────
+// Без неё каждый запуск пытается прогнать все .sql заново
+// и идемпотентные миграции прокатывают, а сиды — падают.
+await client.query(`
+  create table if not exists schema_migrations (
+    filename   text primary key,
+    applied_at timestamptz default now()
+  )
+`);
+
+const appliedRes = await client.query('select filename from schema_migrations');
+const applied = new Set(appliedRes.rows.map(r => r.filename));
+
 // ── Запускаем миграции по очереди ──────────────────────
 const files = fs.readdirSync(migrations)
   .filter(f => f.endsWith('.sql'))
@@ -79,17 +92,30 @@ if (files.length === 0) {
 }
 
 let ok = 0;
+let skipped = 0;
 let failed = false;
 
 for (const file of files) {
+  if (applied.has(file)) {
+    console.log(`→ ${file} … (уже применён, пропускаю)`);
+    skipped++;
+    continue;
+  }
   const full = path.join(migrations, file);
   const sql  = fs.readFileSync(full, 'utf8');
   process.stdout.write(`→ ${file} … `);
   try {
+    await client.query('begin');
     await client.query(sql);
+    await client.query(
+      'insert into schema_migrations(filename) values($1)',
+      [file]
+    );
+    await client.query('commit');
     console.log('✓');
     ok++;
   } catch (e) {
+    await client.query('rollback').catch(() => {});
     console.log('❌');
     console.error(`   ${e.message}`);
     if (e.detail) console.error(`   detail: ${e.detail}`);

@@ -232,7 +232,7 @@ function createCategoryCard(cat) {
   div.className = 'category-card';
   div.setAttribute('role', 'button');
   div.setAttribute('aria-label', cat.name);
-  div.setAttribute('data-cat', cat.id);
+  div.setAttribute('data-cat', cat.slug || cat.id);
 
   const price = cat.min_price.toLocaleString('ru-RU');
   const meta  = `от ${price} ₽ · ${cat.count} услуг`;
@@ -955,8 +955,22 @@ function initScreen_bookings() {
 }
 
 // ── Запуск ───────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initTelegram();
+
+  // Загружаем данные мастера из Supabase до запуска экранов.
+  // Пока идёт запрос — на экране активный screen-loading со спиннером.
+  try {
+    await bootstrapData();
+  } catch (e) {
+    console.error('[bootstrap]', e);
+    const loading = document.querySelector('#screen-loading p');
+    if (loading) {
+      loading.textContent = 'Не удалось загрузить данные: ' + e.message;
+      loading.style.color = '#e06c75';
+    }
+    return;
+  }
 
   // Закрытие fullscreen
   document.getElementById('fullscreen-close')

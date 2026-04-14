@@ -1,156 +1,102 @@
 // ============================================================
-// data.js — Mock-данные для Beauty TMA (MVP без бэкенда)
-// Источник: brief-beauty-tma.md, research-beauty.md
+// data.js — Загрузка данных мастера + утилиты
+// Источник данных: Supabase (см. supabase-config.js)
+// До bootstrapData() глобалы MASTER/CATEGORIES/SERVICES = null/{}.
 // ============================================================
 
 'use strict';
 
-// ── Профиль мастера ────────────────────────────────────────
-const MASTER = {
-  id:          'master_demo',
-  name:        'Анна Смирнова',
-  specialty:   'Бьюти-мастер',
-  city:        'Москва',
-  bio:         'Работаю с гель-лаком, акрилом и дизайном. Принимаю на Арбате.',
-  avatar:      'img/avatar.jpg',
-  accent:      '#b49fd4',
-  status:      'Принимаю записи на май 🌸',
-};
+// ── Глобальные данные (заполняются в bootstrapData) ─────
+let MASTER     = null;   // профиль мастера
+let CATEGORIES = [];     // [{id, name, icon, min_price, count}]
+let SERVICES   = {};     // { [category_id]: [{id, name, price_from, ...}] }
 
-// ── Категории услуг ───────────────────────────────────────
-// min_price — ценовой ориентир на главном экране
-const CATEGORIES = [
-  { id: 'manicure', name: 'Маникюр',  icon: '💅', min_price: 1200, count: 4 },
-  { id: 'pedicure', name: 'Педикюр',  icon: '🦶', min_price: 1500, count: 3 },
-  { id: 'design',   name: 'Дизайн',   icon: '✨', min_price: 500,  count: 6 },
-  { id: 'care',     name: 'Уход',     icon: '🌿', min_price: 800,  count: 2 },
-];
+// ── Загрузка данных мастера из Supabase ─────────────────
+// Тянет master, categories, services параллельно. Считает
+// min_price и count для каждой категории на клиенте.
+// Возвращает true при успехе, бросает ошибку при провале.
+async function bootstrapData(masterId) {
+  if (!BeautyDB?.client) {
+    throw new Error('Supabase client не инициализирован');
+  }
+  const id = masterId || BeautyDB.MASTER_ID;
 
-// ── Услуги по категориям ──────────────────────────────────
-// price_exact: true — показываем без «от», false — «от X ₽»
-const SERVICES = {
-  manicure: [
-    {
-      id:          'svc_1',
-      name:        'Маникюр классический',
-      price_from:  1200,
-      price_exact: true,
-      duration:    60,
-      description: 'Обработка кутикулы, придание формы, покрытие по желанию. Включает массаж рук.',
-      tags:        ['Гель-лак', 'Классика'],
-      photos:      ['img/svc/manicure-1.jpg', 'img/svc/manicure-2.jpg'],
-    },
-    {
-      id:          'svc_2',
-      name:        'Маникюр гель-лак',
-      price_from:  1800,
-      price_exact: true,
-      duration:    90,
-      description: 'Стойкое покрытие до 3 недель. Широкая палитра — более 200 оттенков.',
-      tags:        ['Гель-лак', 'Стойкость'],
-      photos:      ['img/svc/gel-1.jpg', 'img/svc/gel-2.jpg', 'img/svc/gel-3.jpg'],
-    },
-    {
-      id:          'svc_3',
-      name:        'Комби-маникюр',
-      price_from:  2000,
-      price_exact: false, // зависит от сложности кутикулы
-      duration:    75,
-      description: 'Аппаратная + классическая обработка. Идеально для плотной кутикулы.',
-      tags:        ['Аппаратный', 'Комби'],
-      photos:      ['img/svc/combi-1.jpg'],
-    },
-    {
-      id:          'svc_4',
-      name:        'Снятие + маникюр',
-      price_from:  2200,
-      price_exact: true,
-      duration:    120,
-      description: 'Бережное снятие старого покрытия + полный маникюр с новым гель-лаком.',
-      tags:        ['Снятие', 'Гель-лак'],
-      photos:      ['img/svc/removal-1.jpg'],
-    },
-  ],
-  pedicure: [
-    {
-      id:          'svc_5',
-      name:        'Педикюр классический',
-      price_from:  2000,
-      price_exact: true,
-      duration:    90,
-      description: 'Обработка стоп, ногтей и кутикулы. Завершается увлажняющим кремом.',
-      tags:        ['Классика'],
-      photos:      ['img/svc/ped-1.jpg'],
-    },
-    {
-      id:          'svc_6',
-      name:        'Педикюр гель-лак',
-      price_from:  2500,
-      price_exact: true,
-      duration:    110,
-      description: 'Педикюр + стойкое покрытие гель-лаком. Держится до 4 недель.',
-      tags:        ['Гель-лак'],
-      photos:      ['img/svc/ped-gel-1.jpg', 'img/svc/ped-gel-2.jpg'],
-    },
-    {
-      id:          'svc_7',
-      name:        'Аппаратный педикюр',
-      price_from:  2800,
-      price_exact: false,
-      duration:    90,
-      description: 'Аппаратная обработка — нет воды, нет порезов. Особенно эффективен при мозолях.',
-      tags:        ['Аппаратный'],
-      photos:      ['img/svc/ped-hw-1.jpg'],
-    },
-  ],
-  design: [
-    {
-      id:          'svc_8',
-      name:        'Простой дизайн',
-      price_from:  500,
-      price_exact: true,
-      duration:    30,
-      description: 'Французский маникюр, омбре, однотонный с декором. 1–2 пальца.',
-      tags:        ['Дизайн', 'Омбре'],
-      photos:      ['img/svc/design-simple-1.jpg'],
-    },
-    {
-      id:          'svc_9',
-      name:        'Сложный дизайн',
-      price_from:  800,
-      price_exact: false,
-      duration:    60,
-      description: 'Роспись, объёмный дизайн, nail-art. Цена зависит от сложности узора.',
-      tags:        ['Nail-art', 'Роспись'],
-      photos:      ['img/svc/design-hard-1.jpg', 'img/svc/design-hard-2.jpg'],
-    },
-  ],
-  care: [
-    {
-      id:          'svc_10',
-      name:        'SPA-маникюр',
-      price_from:  2500,
-      price_exact: true,
-      duration:    90,
-      description: 'Маникюр + ванночка + скраб + маска + массаж рук. Максимальное расслабление.',
-      tags:        ['SPA', 'Уход'],
-      photos:      ['img/svc/spa-1.jpg'],
-    },
-    {
-      id:          'svc_11',
-      name:        'Укрепление ногтей',
-      price_from:  1500,
-      price_exact: true,
-      duration:    60,
-      description: 'Укрепление биогелем или базой. Восстанавливает ломкие и слоящиеся ногти.',
-      tags:        ['Укрепление'],
-      photos:      ['img/svc/strengthen-1.jpg'],
-    },
-  ],
-};
+  const [masterRes, catRes, svcRes] = await Promise.all([
+    BeautyDB.client
+      .from('masters')
+      .select('id,name,specialty,city,bio,avatar_url,accent_color,status_text')
+      .eq('id', id)
+      .single(),
+    BeautyDB.client
+      .from('categories')
+      .select('id,slug,name,icon,position')
+      .eq('master_id', id)
+      .eq('is_active', true)
+      .order('position', { ascending: true }),
+    BeautyDB.client
+      .from('services')
+      .select('id,category_id,name,description,price_from,price_exact,duration,tags,position')
+      .eq('master_id', id)
+      .eq('is_active', true)
+      .order('position', { ascending: true }),
+  ]);
 
-// ── Генератор слотов ──────────────────────────────────────
-// Возвращаем только свободные слоты (занятые не показываем — снижает тревогу)
+  if (masterRes.error) throw new Error('masters: ' + masterRes.error.message);
+  if (catRes.error)    throw new Error('categories: ' + catRes.error.message);
+  if (svcRes.error)    throw new Error('services: ' + svcRes.error.message);
+  if (!masterRes.data) throw new Error('Мастер «' + id + '» не найден');
+
+  // Маппим master → форма, которую ожидает app.js
+  MASTER = {
+    id:        masterRes.data.id,
+    name:      masterRes.data.name,
+    specialty: masterRes.data.specialty || '',
+    city:      masterRes.data.city || '',
+    bio:       masterRes.data.bio || '',
+    avatar:    masterRes.data.avatar_url || '',
+    accent:    masterRes.data.accent_color || '#b49fd4',
+    status:    masterRes.data.status_text || '',
+  };
+
+  // Группируем услуги по category_id
+  SERVICES = {};
+  for (const s of svcRes.data) {
+    const k = s.category_id;
+    if (!SERVICES[k]) SERVICES[k] = [];
+    SERVICES[k].push({
+      id:          'svc_' + s.id,
+      name:        s.name,
+      description: s.description || '',
+      price_from:  s.price_from,
+      price_exact: s.price_exact,
+      duration:    s.duration,
+      tags:        s.tags || [],
+      photos:      [], // фото пока не подключены — фолбэк на emoji в галерее
+    });
+  }
+
+  // Категории с расчётом min_price и count из services
+  CATEGORIES = catRes.data.map(c => {
+    const svcs = SERVICES[c.id] || [];
+    const minPrice = svcs.length
+      ? Math.min(...svcs.map(s => s.price_from))
+      : 0;
+    return {
+      id:        c.id,
+      slug:      c.slug || null,
+      name:      c.name,
+      icon:      c.icon || '✨',
+      min_price: minPrice,
+      count:     svcs.length,
+    };
+  });
+
+  return true;
+}
+
+// ── Генератор слотов (пока mock) ────────────────────────
+// TODO: заменить на чтение schedules + bookings из Supabase.
+// Возвращаем только свободные слоты (занятые не показываем).
 function getMockSlots(dateStr) {
   const d = new Date(dateStr);
   const day = d.getDay(); // 0 = вс, 6 = сб
@@ -161,11 +107,10 @@ function getMockSlots(dateStr) {
   const ALL = ['10:00', '10:30', '11:30', '12:00', '12:30',
                '14:00', '14:30', '15:30', '16:00', '17:00'];
 
-  // В MVP все слоты свободны — в реальном API будем запрашивать занятые
   return ALL.map(time => ({ time, available: true }));
 }
 
-// Следующий доступный день с открытыми слотами
+// Следующий доступный день со слотами
 function getNextAvailableSlot(fromDateStr) {
   const d = new Date(fromDateStr);
   for (let i = 1; i <= 14; i++) {
@@ -201,7 +146,7 @@ function formatDateFull(dateStr, timeStr) {
   return `${dayName}, ${d.getDate()} ${RU_MONTHS[d.getMonth()]} · ${timeStr}`;
 }
 
-// Генерируем 14 дней вперёд для DatePicker
+// 14 дней вперёд для DatePicker
 function getNext14Days() {
   const days = [];
   const today = new Date();
@@ -223,13 +168,13 @@ function getNext14Days() {
   return days;
 }
 
-// Форматируем цену с учётом price_exact
+// Цена с учётом price_exact
 function formatPrice(service) {
   const p = service.price_from.toLocaleString('ru-RU');
   return service.price_exact ? `${p} ₽` : `от ${p} ₽`;
 }
 
-// Форматируем длительность
+// Длительность
 function formatDuration(minutes) {
   if (minutes < 60) return `${minutes} мин`;
   const h = Math.floor(minutes / 60);
