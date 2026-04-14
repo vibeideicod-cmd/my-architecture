@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Статус анкеты — МГ-платформа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --yellow:     #ffc403;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; min-height: 100vh; }
+  body { padding: 0 clamp(16px, 4vw, 48px); }
+  .wrap { max-width: 680px; margin: 0 auto; padding: clamp(40px, 8vw, 96px) 0 80px; }
+
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--text-soft); text-decoration: none; font-size: 13px; margin-bottom: 24px; font-weight: 600; }
+  .back:hover { color: var(--mustard); }
+
+  .card { background: var(--bg-warm); border-radius: 22px; padding: clamp(32px, 5vw, 56px); text-align: center; }
+  .card__emoji { font-size: 72px; margin-bottom: 20px; line-height: 1; }
+  .card__title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 38px); color: var(--green-deep); margin-bottom: 16px; line-height: 1.15; }
+  .card__text { color: var(--text); font-size: 16px; line-height: 1.7; max-width: 480px; margin: 0 auto; }
+  .card__meta { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(76,70,81,0.15); font-size: 13px; color: var(--text-soft); }
+
+  .btn-primary { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; text-decoration: none; padding: 18px 36px; border-radius: 50px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 28px; box-shadow: 0 6px 22px rgba(212,175,55,0.35); transition: transform .15s, box-shadow .2s; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,175,55,0.45); }
+
+  .note-box { background: #fff; border-left: 4px solid var(--green); padding: 18px 22px; border-radius: 0 12px 12px 0; margin-top: 20px; text-align: left; color: var(--text); font-size: 14px; line-height: 1.6; }
+  .note-box b { color: var(--green-deep); }
+
+  .err { background: #fff; border: 1px solid var(--mustard); color: var(--green-deep); padding: 18px 22px; border-radius: 12px; font-size: 14px; }
+
+  .footer { text-align: center; color: var(--text-soft); font-size: 12px; margin-top: 48px; letter-spacing: 1px; }
+  .footer a { color: var(--mustard); text-decoration: none; font-weight: 600; }
+
+  .loading { text-align: center; padding: 60px 20px; color: var(--text-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">← Главная</a>
+  <div id="root"><div class="loading">Проверяем статус...</div></div>
+  <div class="footer">Платформа <a href="./">Нейро Бабки СССР</a></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+const SB_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmtTime(s){if(!s)return'';const d=new Date(s);return d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+
+const params = new URLSearchParams(location.search);
+const appToken = params.get('a');
+const root = document.getElementById('root');
+
+async function load() {
+  if (!appToken) {
+    root.innerHTML = '<div class="err">В ссылке не указан токен анкеты. Ожидается <code>?a=...</code></div>';
+    return;
+  }
+  const { data, error } = await sb.rpc('mg_get_application_by_token', { token: appToken });
+  if (error) {
+    root.innerHTML = `<div class="err">Ошибка: ${esc(error.message)}</div>`;
+    return;
+  }
+  if (!data) {
+    root.innerHTML = '<div class="err">Анкета не найдена. Проверь ссылку — возможно, она неполная.</div>';
+    return;
+  }
+  render(data);
+}
+
+function render(a) {
+  const name = (a.full_name || '').split(' ')[0];
+
+  if (a.status === 'submitted' || a.status === 'under_review') {
+    root.innerHTML = `
+      <div class="card">
+        <div class="card__emoji">⏳</div>
+        <h1 class="card__title">На рассмотрении</h1>
+        <p class="card__text">${esc(name)}, Инна скоро посмотрит твою анкету. Обычно это занимает пару часов, максимум — день. Ссылку на конструктор она пришлёт тебе лично в контакт, который ты указала в анкете.</p>
+        <div class="card__meta">Анкета отправлена ${esc(fmtTime(a.created_at))}</div>
+      </div>
+    `;
+    return;
+  }
+
+  if (a.status === 'approved') {
+    const buildUrl = new URL('build.html', location.href);
+    buildUrl.searchParams.set('m', a.master_slug || '');
+    // Токен конструктора доставляется мастеру Инной лично, не через эту страницу
+    root.innerHTML = `
+      <div class="card">
+        <div class="card__emoji">🎉</div>
+        <h1 class="card__title">Анкета одобрена!</h1>
+        <p class="card__text">Поздравляем, ${esc(name)}! Инна одобрила твою заявку. Ссылку на конструктор твоей страницы Инна отправит тебе лично в Telegram — в конструкторе 8 вопросов, 20 минут работы.</p>
+        ${a.moderation_note ? `<div class="note-box"><b>Сообщение от Инны:</b><br>${esc(a.moderation_note)}</div>` : ''}
+        <div class="card__meta">Одобрено ${esc(fmtTime(a.reviewed_at))}</div>
+      </div>
+    `;
+    return;
+  }
+
+  if (a.status === 'rejected') {
+    root.innerHTML = `
+      <div class="card">
+        <div class="card__emoji">🌱</div>
+        <h1 class="card__title">Пока не получилось</h1>
+        <p class="card__text">${esc(name)}, сейчас анкета не одобрена. Можешь подать ещё раз с уточнениями.</p>
+        ${a.moderation_note ? `<div class="note-box"><b>Причина:</b><br>${esc(a.moderation_note)}</div>` : ''}
+        <a class="btn-primary" href="apply.html">Подать новую анкету</a>
+        <div class="card__meta">Рассмотрено ${esc(fmtTime(a.reviewed_at))}</div>
+      </div>
+    `;
+    return;
+  }
+
+  root.innerHTML = `<div class="err">Неизвестный статус: ${esc(a.status)}</div>`;
+}
+
+load();
+</script>
+</body>
+</html>

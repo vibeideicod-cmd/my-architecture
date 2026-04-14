@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мастер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --text-hint:  rgba(76, 70, 81, 0.45);
+    --yellow:     #ffc403;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.7; min-height: 100vh; }
+  body { padding: 0 clamp(16px, 4vw, 48px); }
+  .wrap { max-width: 720px; margin: 0 auto; padding: clamp(32px, 7vw, 80px) 0 64px; }
+
+  .preview-badge { position: fixed; top: 16px; right: 16px; background: var(--yellow); color: var(--green-deep); padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; z-index: 100; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+
+  .loading { padding: 80px 20px; text-align: center; color: var(--text-soft); }
+  .err { background: var(--bg-warm); border: 1px solid var(--mustard); padding: 28px; border-radius: 16px; color: var(--green-deep); text-align: center; }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 48px; }
+  .hero__avatar { width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--mustard)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 60px; color: #fff; margin: 0 auto 24px; font-weight: 700; box-shadow: 0 12px 36px rgba(212,175,55,0.35); border: 4px solid #fff; overflow: hidden; }
+  .hero__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__name { font-family: 'Playfair Display', serif; font-size: clamp(34px, 6vw, 52px); line-height: 1.1; color: var(--green-deep); margin-bottom: 14px; }
+  .hero__headline { color: var(--mustard); font-size: clamp(16px, 2.4vw, 20px); font-weight: 600; max-width: 560px; margin: 0 auto; }
+
+  .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 48px auto; }
+
+  /* Section */
+  .section { background: var(--bg-warm); border-radius: 20px; padding: clamp(28px, 4vw, 44px); margin-bottom: 20px; }
+  .section.alt { background: #fff; border: 1px solid var(--bg-warm); }
+  .section__label { display: block; color: var(--mustard); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
+  .section__title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.5vw, 32px); color: var(--green-deep); margin-bottom: 16px; line-height: 1.2; }
+  .section__body { color: var(--text); font-size: 16px; line-height: 1.75; white-space: pre-line; }
+
+  .benefits { display: grid; gap: 12px; margin-top: 20px; }
+  .benefits__item { background: #fff; border-left: 4px solid var(--green); padding: 16px 20px; border-radius: 0 12px 12px 0; color: var(--text); font-size: 15px; font-weight: 500; }
+
+  /* CTA block */
+  .cta-block { text-align: center; margin-top: 32px; }
+  .cta-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; text-decoration: none; padding: 20px 40px; border-radius: 50px; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1.2px; box-shadow: 0 8px 28px rgba(212,175,55,0.4); transition: transform .15s, box-shadow .2s; border: 0; cursor: pointer; font-family: inherit; }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212,175,55,0.5); }
+
+  /* Lead form */
+  .lead-form { display: none; background: #fff; border: 2px solid var(--gold); border-radius: 16px; padding: 24px; margin-top: 20px; text-align: left; }
+  .lead-form.on { display: grid; gap: 12px; }
+  .lead-form input, .lead-form textarea { background: var(--bg-warm); border: 1px solid rgba(76,70,81,0.15); padding: 13px 16px; border-radius: 10px; font: inherit; font-size: 15px; color: var(--text); }
+  .lead-form input::placeholder, .lead-form textarea::placeholder { color: var(--text-hint); }
+  .lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--gold); }
+  .lead-form textarea { resize: vertical; min-height: 70px; }
+  .lead-form button { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; border: 0; padding: 14px 22px; border-radius: 50px; font: inherit; font-weight: 700; cursor: pointer; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+  .lead-form button:disabled { opacity: .5; }
+  .lead-sent { display: none; text-align: center; padding: 30px 20px; background: #fff; border: 2px solid var(--green); border-radius: 16px; margin-top: 20px; color: var(--green-deep); font-size: 15px; }
+  .lead-sent.on { display: block; }
+
+  .footer { text-align: center; color: var(--text-soft); font-size: 11px; margin-top: 60px; letter-spacing: 1px; }
+  .footer a { color: var(--mustard); text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="root"><div class="loading">Загружаем...</div></div>
+  <div class="footer">
+    Собрано на <a href="./">МГ-платформе</a> · Нейро Бабки СССР
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+const SB_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escAttr(s){return esc(s);}
+
+const params = new URLSearchParams(location.search);
+const slug = params.get('m');
+const isPreview = params.get('preview') === '1';
+
+const root = document.getElementById('root');
+
+async function load() {
+  if (!slug) {
+    root.innerHTML = '<div class="err">В ссылке не указан мастер. Ожидается <code>?m=slug</code></div>';
+    return;
+  }
+
+  const viewName = isPreview ? 'mg_master_pages_preview' : 'mg_master_pages_public';
+  const { data, error } = await sb.from(viewName).select('*').eq('slug', slug).maybeSingle();
+
+  if (error) {
+    root.innerHTML = `<div class="err">Ошибка: ${esc(error.message)}</div>`;
+    return;
+  }
+  if (!data) {
+    const msg = isPreview ? 'Страница не найдена' : 'Эта страница ещё не опубликована или не существует';
+    root.innerHTML = `<div class="err">${esc(msg)}</div>`;
+    return;
+  }
+
+  render(data);
+}
+
+function render(p) {
+  const cfg = p.page_config || {};
+  const hero = cfg.hero || {};
+  const about = cfg.about || {};
+  const offer = cfg.offer || {};
+  const cta = cfg.cta || {};
+
+  const displayName = hero.display_name || p.display_name || 'Мастер';
+  const initial = (displayName.trim()[0] || '?').toUpperCase();
+
+  document.title = displayName;
+
+  // Preview badge
+  const badgeHtml = (isPreview && !p.published) ? '<div class="preview-badge">⚠️ Черновик — ещё не опубликовано</div>' : '';
+
+  // Hero avatar
+  const avatarHtml = hero.photo_url
+    ? `<div class="hero__avatar"><img src="${escAttr(hero.photo_url)}" alt="${escAttr(displayName)}" onerror="this.parentElement.innerHTML='${esc(initial)}'" /></div>`
+    : `<div class="hero__avatar">${esc(initial)}</div>`;
+
+  // CTA
+  let ctaHtml = '';
+  const ctaText = cta.text || 'Записаться';
+  const linkType = cta.link_type;
+  const linkValue = (cta.link_value || '').trim();
+
+  if (linkType === 'telegram' && linkValue) {
+    const uname = linkValue.replace(/^@/, '').replace(/^https?:\/\/(t\.me\/|telegram\.me\/)/, '');
+    ctaHtml = `<a class="cta-btn" href="https://t.me/${encodeURIComponent(uname)}" target="_blank" rel="noopener">${esc(ctaText)}</a>`;
+  } else if (linkType === 'whatsapp' && linkValue) {
+    const num = linkValue.replace(/\D/g, '');
+    ctaHtml = `<a class="cta-btn" href="https://wa.me/${encodeURIComponent(num)}" target="_blank" rel="noopener">${esc(ctaText)}</a>`;
+  } else if (linkType === 'phone' && linkValue) {
+    ctaHtml = `<a class="cta-btn" href="tel:${encodeURIComponent(linkValue)}">${esc(ctaText)}</a>`;
+  } else if (linkType === 'form') {
+    ctaHtml = `
+      <button class="cta-btn" id="showLeadBtn">${esc(ctaText)}</button>
+      <form class="lead-form" id="leadForm">
+        <input name="visitor_name" placeholder="Как тебя зовут?" required />
+        <input name="visitor_contact" placeholder="Телефон или @username в Telegram" required />
+        <textarea name="message" placeholder="Пара слов — по какому вопросу? (необязательно)"></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+      <div class="lead-sent" id="leadSent">
+        <div style="font-size:42px;margin-bottom:8px">🌿</div>
+        <b>${esc(displayName)}</b> получит твою заявку и скоро свяжется!
+      </div>
+    `;
+  } else {
+    ctaHtml = '<button class="cta-btn" disabled>Способ связи не настроен</button>';
+  }
+
+  // Benefits
+  let benefitsRaw = offer.benefits;
+  if (typeof benefitsRaw === 'string') {
+    benefitsRaw = benefitsRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+  const benefits = Array.isArray(benefitsRaw) ? benefitsRaw : [];
+  const benefitsHtml = benefits.length ? `
+    <div class="benefits">
+      ${benefits.map(b => `<div class="benefits__item">${esc(b)}</div>`).join('')}
+    </div>
+  ` : '';
+
+  root.innerHTML = `
+    ${badgeHtml}
+    <div class="hero">
+      ${avatarHtml}
+      <h1 class="hero__name">${esc(displayName)}</h1>
+      ${hero.headline ? `<div class="hero__headline">${esc(hero.headline)}</div>` : ''}
+    </div>
+
+    <div class="divider"></div>
+
+    ${about.bio ? `
+      <div class="section alt">
+        <div class="section__label">Обо мне</div>
+        <div class="section__body">${esc(about.bio)}</div>
+      </div>
+    ` : ''}
+
+    <div class="section">
+      <div class="section__label">Предложение</div>
+      ${offer.title ? `<h2 class="section__title">${esc(offer.title)}</h2>` : ''}
+      ${offer.description ? `<div class="section__body">${esc(offer.description)}</div>` : ''}
+      ${benefitsHtml}
+      <div class="cta-block">
+        ${ctaHtml}
+      </div>
+    </div>
+  `;
+
+  // Lead form interactivity
+  if (linkType === 'form') {
+    const showBtn = document.getElementById('showLeadBtn');
+    const form = document.getElementById('leadForm');
+    const sent = document.getElementById('leadSent');
+
+    showBtn.addEventListener('click', () => {
+      form.classList.add('on');
+      showBtn.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = 'Отправляем...';
+      const fd = new FormData(form);
+      const { error } = await sb.rpc('mg_submit_lead', {
+        p_master_slug: slug,
+        p_visitor_name: fd.get('visitor_name'),
+        p_visitor_contact: fd.get('visitor_contact'),
+        p_message: fd.get('message') || '',
+      });
+      if (error) {
+        btn.disabled = false; btn.textContent = 'Попробовать ещё раз';
+        alert('Ошибка: ' + error.message);
+        return;
+      }
+      form.classList.remove('on');
+      sent.classList.add('on');
+    });
+  }
+}
+
+load();
+</script>
+</body>
+</html>

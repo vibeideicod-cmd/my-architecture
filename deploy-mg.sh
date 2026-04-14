@@ -28,14 +28,21 @@ scp \
   "${LOCAL_PATH}/vitrina.html" \
   "${LOCAL_PATH}/cabinet.html" \
   "${LOCAL_PATH}/admin.html" \
+  "${LOCAL_PATH}/apply.html" \
+  "${LOCAL_PATH}/status.html" \
+  "${LOCAL_PATH}/build.html" \
+  "${LOCAL_PATH}/master-page.html" \
   "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
 
 echo ""
 echo "✅ Готово!"
 echo ""
-echo "   🏠 Лендинг:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
-echo "   🎯 Витрина:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/vitrina.html?m=inna"
-echo "   🎓 Кабинет:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/cabinet.html?m=inna&t=innademo2026"
-echo "   📊 Админка:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/admin.html"
+echo "   🏠 Лендинг:      https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/"
+echo "   🚀 Стать мастером: https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/apply.html"
+echo "   📊 Админка:      https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/admin.html"
 echo ""
-echo "   🔑 Админ-ключ:  nbcccp-2026"
+echo "   v1 (legacy):"
+echo "   🎯 Витрина:      https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/vitrina.html?m=inna"
+echo "   🎓 Кабинет:      https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/cabinet.html?m=inna&t=innademo2026"
+echo ""
+echo "   🔑 Админ-ключ:   nbcccp-2026"

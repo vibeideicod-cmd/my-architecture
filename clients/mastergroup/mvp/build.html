@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Конструктор страницы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --text-hint:  rgba(76, 70, 81, 0.45);
+    --yellow:     #ffc403;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; min-height: 100vh; }
+  body { padding: 0 clamp(16px, 4vw, 48px) 140px; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: clamp(32px, 6vw, 64px) 0 40px; }
+
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--text-soft); text-decoration: none; font-size: 13px; margin-bottom: 20px; font-weight: 600; }
+  .back:hover { color: var(--mustard); }
+
+  .hero { text-align: center; margin-bottom: 36px; }
+  .hero__label { color: var(--mustard); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .hero__title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; color: var(--green-deep); margin-bottom: 14px; }
+  .hero__sub { color: var(--text); font-size: 15px; max-width: 540px; margin: 0 auto; }
+
+  .status-bar { background: var(--bg-warm); border-radius: 14px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; font-size: 13px; }
+  .status-bar__left { color: var(--text); font-weight: 600; }
+  .status-bar__save { color: var(--green); font-weight: 600; font-size: 12px; }
+  .status-bar__save.saving { color: var(--mustard); }
+  .status-bar__save.error { color: var(--green-deep); }
+
+  .block { background: var(--bg-warm); border-radius: 20px; padding: clamp(24px, 4vw, 36px); margin-bottom: 18px; position: relative; }
+  .block.alt { background: #fff; border: 1px solid var(--bg-warm); }
+  .block__num { display: inline-block; background: var(--gold); color: #fff; width: 32px; height: 32px; border-radius: 50%; font-weight: 700; text-align: center; line-height: 32px; margin-right: 10px; font-size: 14px; }
+  .block__title { display: flex; align-items: center; font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 28px); color: var(--green-deep); margin-bottom: 8px; }
+  .block__desc { color: var(--text-soft); font-size: 14px; margin-bottom: 20px; }
+
+  .q { margin-bottom: 22px; }
+  .q:last-child { margin-bottom: 0; }
+  .q__label { display: block; font-weight: 600; color: var(--green-deep); font-size: 14px; margin-bottom: 6px; }
+  .q__label .req { color: var(--mustard); }
+  .q__hint { font-size: 12px; color: var(--text-soft); margin-bottom: 8px; line-height: 1.5; }
+  .q input, .q textarea, .q select { width: 100%; background: #fff; border: 1px solid rgba(76,70,81,0.15); color: var(--text); padding: 13px 16px; border-radius: 12px; font: inherit; font-size: 15px; transition: border-color .2s, box-shadow .2s; }
+  .q input::placeholder, .q textarea::placeholder { color: var(--text-hint); }
+  .q input:focus, .q textarea:focus, .q select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+  .q textarea { resize: vertical; min-height: 100px; line-height: 1.65; }
+  .q__counter { font-size: 11px; color: var(--text-soft); text-align: right; margin-top: 4px; }
+
+  /* CTA choice */
+  .cta-radios { display: grid; gap: 10px; }
+  .cta-radio { background: #fff; border: 1px solid rgba(76,70,81,0.15); border-radius: 12px; padding: 14px 18px; cursor: pointer; transition: border-color .2s, background .2s; }
+  .cta-radio:hover { border-color: var(--gold); }
+  .cta-radio input { display: none; }
+  .cta-radio.on { border-color: var(--gold); background: #fff9e6; }
+  .cta-radio__label { font-weight: 600; color: var(--green-deep); font-size: 14px; margin-bottom: 4px; }
+  .cta-radio__hint { font-size: 12px; color: var(--text-soft); }
+
+  .preview-btn { display: block; width: 100%; text-align: center; background: #fff; border: 1.5px dashed var(--gold); color: var(--mustard); padding: 14px; border-radius: 12px; font: inherit; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-top: 16px; text-decoration: none; transition: all .15s; }
+  .preview-btn:hover { background: var(--bg-warm); transform: translateY(-1px); }
+
+  /* Sticky footer with publish */
+  .footer-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--bg-warm); padding: 14px 20px; z-index: 100; box-shadow: 0 -4px 20px rgba(76,70,81,0.08); }
+  .footer-bar__inner { max-width: 780px; margin: 0 auto; display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+  .publish-btn { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; border: 0; padding: 16px 32px; border-radius: 50px; font: inherit; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 6px 22px rgba(212,175,55,0.35); transition: transform .15s, box-shadow .2s; }
+  .publish-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,175,55,0.45); }
+  .publish-btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+  .footer-bar__help { color: var(--text-soft); font-size: 12px; }
+  @media (max-width: 560px) {
+    .footer-bar__help { display: none; }
+  }
+
+  /* Published screen */
+  .published { text-align: center; background: var(--bg-warm); border-radius: 22px; padding: clamp(32px, 5vw, 56px); }
+  .published__emoji { font-size: 80px; margin-bottom: 20px; line-height: 1; }
+  .published__title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 44px); color: var(--green-deep); margin-bottom: 12px; }
+  .published__text { color: var(--text); font-size: 16px; margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .url-box { background: #fff; border: 2px solid var(--gold); border-radius: 16px; padding: 20px; margin: 0 auto 20px; max-width: 600px; }
+  .url-box__url { font-family: monospace; font-size: 14px; color: var(--green-deep); word-break: break-all; user-select: all; cursor: pointer; padding: 12px 16px; background: var(--bg-warm); border-radius: 10px; margin-bottom: 14px; font-weight: 600; }
+  .url-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .url-btn { background: #fff; border: 1px solid var(--gold); color: var(--mustard); padding: 12px 16px; border-radius: 10px; font: inherit; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none; text-align: center; transition: all .15s; }
+  .url-btn:hover { background: var(--bg-warm); }
+  .url-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+  .url-btn.primary { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; border: 0; }
+  .url-btn.primary:hover { transform: translateY(-1px); }
+
+  .loading { padding: 80px 20px; text-align: center; color: var(--text-soft); }
+  .err { background: #fff; border: 1px solid var(--mustard); color: var(--green-deep); padding: 22px 26px; border-radius: 14px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">← Главная</a>
+  <div id="root"><div class="loading">Проверяем доступ...</div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+const SB_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function sha256(str){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+
+const params = new URLSearchParams(location.search);
+const slug = params.get('m');
+const rawToken = params.get('t');
+
+const root = document.getElementById('root');
+
+let questions = [];
+let pageData = null;
+let pageConfig = {};
+
+// Определение блоков вопросов
+const BLOCK_META = {
+  hero:  { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит клиент' },
+  about: { num: 2, title: 'Расскажи о себе', desc: 'Почему тебе можно доверять' },
+  offer: { num: 3, title: 'Твоё предложение', desc: 'Что ты даёшь клиенту, который пришёл' },
+  cta:   { num: 4, title: 'Как связаться', desc: 'Куда клиент нажмёт, чтобы записаться' },
+};
+
+async function boot() {
+  if (!slug || !rawToken) {
+    root.innerHTML = '<div class="err">Неправильная ссылка. Нужен <code>?m=slug&t=token</code>. Проверь сообщение от Инны.</div>';
+    return;
+  }
+
+  // Загружаем страницу (без проверки токена через SELECT — это preview view)
+  const { data: page, error: pageErr } = await sb.from('mg_master_pages_preview').select('*').eq('slug', slug).maybeSingle();
+  if (pageErr) { root.innerHTML = `<div class="err">Ошибка: ${esc(pageErr.message)}</div>`; return; }
+  if (!page) { root.innerHTML = '<div class="err">Страница не найдена. Проверь ссылку.</div>'; return; }
+
+  // Проверяем токен локально через save-попытку — но сначала загрузим вопросы
+  const { data: qs, error: qsErr } = await sb.from('mg_config_questions').select('*').order('block').order('order_idx');
+  if (qsErr) { root.innerHTML = `<div class="err">Ошибка загрузки вопросов: ${esc(qsErr.message)}</div>`; return; }
+
+  questions = qs || [];
+  pageData = page;
+  pageConfig = page.page_config || {};
+
+  // Тестовый вызов save с пустым patch — проверяет токен
+  const { error: saveErr } = await sb.rpc('mg_save_page', { p_slug: slug, p_token: rawToken, p_patch: {} });
+  if (saveErr) {
+    root.innerHTML = `<div class="err">Неверный токен. Проверь ссылку от Инны — возможно, она неполная.</div>`;
+    return;
+  }
+
+  renderBuilder();
+}
+
+function getAnswer(block, code) {
+  return (pageConfig[block] && pageConfig[block][code]) || '';
+}
+
+function setAnswer(block, code, value) {
+  if (!pageConfig[block]) pageConfig[block] = {};
+  pageConfig[block][code] = value;
+}
+
+function renderBuilder() {
+  const byBlock = {};
+  for (const q of questions) {
+    if (!byBlock[q.block]) byBlock[q.block] = [];
+    byBlock[q.block].push(q);
+  }
+
+  let html = `
+    <div class="hero">
+      <div class="hero__label">Конструктор страницы</div>
+      <h1 class="hero__title">Собери свою страницу за 20 минут</h1>
+      <p class="hero__sub">Ответь на 8 простых вопросов — из ответов соберётся твоя бизнес-визитка.</p>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-bar__left">${pageData.published ? '✅ Опубликовано' : '📝 Черновик'}</div>
+      <div class="status-bar__save" id="saveStatus">Все изменения сохраняются автоматически</div>
+    </div>
+  `;
+
+  const blockOrder = ['hero', 'about', 'offer', 'cta'];
+  for (let i = 0; i < blockOrder.length; i++) {
+    const bk = blockOrder[i];
+    const meta = BLOCK_META[bk];
+    const qs = byBlock[bk] || [];
+    const altClass = i % 2 === 1 ? ' alt' : '';
+    html += `
+      <div class="block${altClass}">
+        <div class="block__title"><span class="block__num">${meta.num}</span>${meta.title}</div>
+        <div class="block__desc">${meta.desc}</div>
+        ${qs.map(q => renderQuestion(bk, q)).join('')}
+        ${i === blockOrder.length - 1 ? '' : `<button class="preview-btn" data-preview>👁 Посмотреть, как выглядит</button>`}
+      </div>
+    `;
+  }
+
+  html += `
+    <button class="preview-btn" data-preview>👁 Посмотреть полную страницу</button>
+  `;
+
+  html += `
+    <div class="footer-bar">
+      <div class="footer-bar__inner">
+        <div class="footer-bar__help">Когда всё готово — жми «Опубликовать»</div>
+        <button class="publish-btn" id="publishBtn">🚀 Опубликовать</button>
+      </div>
+    </div>
+  `;
+
+  root.innerHTML = html;
+
+  // Bind handlers
+  bindQuestionHandlers();
+  document.querySelectorAll('[data-preview]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const u = new URL('master-page.html', location.href);
+      u.searchParams.set('m', slug);
+      u.searchParams.set('preview', '1');
+      window.open(u.href, '_blank');
+    });
+  });
+  document.getElementById('publishBtn').addEventListener('click', publish);
+}
+
+function renderQuestion(block, q) {
+  const val = getAnswer(block, q.code);
+  const reqMark = q.required ? '<span class="req">*</span>' : '';
+  let field = '';
+
+  if (q.type === 'text' || q.type === 'url') {
+    field = `<input data-block="${esc(block)}" data-code="${esc(q.code)}" type="${q.type === 'url' ? 'url' : 'text'}" value="${esc(val)}" placeholder="${esc(q.example || '')}" ${q.max_length ? `maxlength="${q.max_length}"` : ''} />`;
+  } else if (q.type === 'textarea') {
+    field = `<textarea data-block="${esc(block)}" data-code="${esc(q.code)}" placeholder="${esc(q.example || '')}">${esc(val)}</textarea>`;
+    if (q.max_length) {
+      field += `<div class="q__counter" data-counter-for="${esc(q.code)}">${val.length} / ${q.max_length}</div>`;
+    }
+  } else if (q.type === 'list') {
+    const listValue = Array.isArray(val) ? val.join('\n') : (val || '');
+    field = `<textarea data-block="${esc(block)}" data-code="${esc(q.code)}" data-list="1" placeholder="${esc(q.example || '')}">${esc(listValue)}</textarea>`;
+  } else if (q.type === 'cta_choice') {
+    const currentType = (pageConfig.cta && pageConfig.cta.link_type) || '';
+    const currentValue = (pageConfig.cta && pageConfig.cta.link_value) || '';
+    const options = q.options || [];
+    let radiosHtml = '<div class="cta-radios">';
+    for (const opt of options) {
+      const isOn = currentType === opt.value;
+      radiosHtml += `
+        <label class="cta-radio ${isOn ? 'on' : ''}" data-cta-opt="${esc(opt.value)}">
+          <input type="radio" name="cta_link_type" value="${esc(opt.value)}" ${isOn ? 'checked' : ''} />
+          <div class="cta-radio__label">${esc(opt.label)}</div>
+          ${opt.value !== 'form' ? `<input type="text" data-cta-value="${esc(opt.value)}" placeholder="${esc(opt.placeholder || '')}" value="${isOn ? esc(currentValue) : ''}" style="margin-top:10px;background:var(--bg-warm)" ${!isOn ? 'disabled' : ''} />` : '<div class="cta-radio__hint">Клиенты оставят свои контакты через форму на твоей странице</div>'}
+        </label>
+      `;
+    }
+    radiosHtml += '</div>';
+    // Отдельный вопрос для cta_text (текст кнопки)
+    const ctaText = (pageConfig.cta && pageConfig.cta.text) || '';
+    field = `
+      ${radiosHtml}
+      <div class="q" style="margin-top:20px;margin-bottom:0">
+        <label class="q__label">Текст на кнопке <span class="req">*</span></label>
+        <input data-block="cta" data-code="text" type="text" value="${esc(ctaText)}" placeholder="Например: Записаться на первый урок" maxlength="40" />
+      </div>
+    `;
+  }
+
+  return `
+    <div class="q">
+      <label class="q__label">${esc(q.label)} ${reqMark}</label>
+      ${q.hint ? `<div class="q__hint">${esc(q.hint)}</div>` : ''}
+      ${field}
+    </div>
+  `;
+}
+
+let saveTimer = null;
+function scheduleSave(patch) {
+  if (saveTimer) clearTimeout(saveTimer);
+  const status = document.getElementById('saveStatus');
+  status.textContent = 'Сохраняем...';
+  status.className = 'status-bar__save saving';
+
+  saveTimer = setTimeout(async () => {
+    const { error } = await sb.rpc('mg_save_page', { p_slug: slug, p_token: rawToken, p_patch: patch });
+    if (error) {
+      status.textContent = 'Ошибка: ' + error.message;
+      status.className = 'status-bar__save error';
+    } else {
+      status.textContent = '✓ Сохранено';
+      status.className = 'status-bar__save';
+    }
+  }, 600);
+}
+
+function bindQuestionHandlers() {
+  // Обычные поля (text, textarea, url)
+  root.querySelectorAll('[data-block][data-code]').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const block = input.dataset.block;
+      const code = input.dataset.code;
+      let value = input.value;
+
+      // list type: split по переводу строк
+      if (input.dataset.list) {
+        value = value.split('\n').map(s => s.trim()).filter(Boolean);
+      }
+
+      setAnswer(block, code, value);
+
+      // Счётчик
+      const counter = root.querySelector(`[data-counter-for="${code}"]`);
+      if (counter) {
+        const len = (typeof value === 'string' ? value : (value || []).join('\n')).length;
+        const parts = counter.textContent.split('/');
+        const max = parts[1] ? parts[1].trim() : '';
+        counter.textContent = `${len} / ${max}`;
+      }
+
+      // Patch: только изменённый блок
+      const patch = { [block]: { ...pageConfig[block] } };
+      scheduleSave(patch);
+    });
+  });
+
+  // Radio для cta_choice
+  root.querySelectorAll('[data-cta-opt]').forEach(radio => {
+    radio.addEventListener('click', (e) => {
+      const value = radio.dataset.ctaOpt;
+      // Сбросить все
+      root.querySelectorAll('[data-cta-opt]').forEach(r => r.classList.remove('on'));
+      root.querySelectorAll('[data-cta-value]').forEach(inp => { inp.disabled = true; inp.value = inp.dataset.ctaValue === value ? inp.value : ''; });
+      radio.classList.add('on');
+      radio.querySelector('input[type=radio]').checked = true;
+
+      // Активируем поле значения
+      const valueInput = radio.querySelector('[data-cta-value]');
+      if (valueInput) {
+        valueInput.disabled = false;
+        valueInput.focus();
+      }
+
+      setAnswer('cta', 'link_type', value);
+      if (value === 'form') setAnswer('cta', 'link_value', '');
+      scheduleSave({ cta: { ...pageConfig.cta } });
+    });
+  });
+
+  // Поля значения cta (telegram / whatsapp / phone)
+  root.querySelectorAll('[data-cta-value]').forEach(input => {
+    input.addEventListener('input', (e) => {
+      if (input.disabled) return;
+      setAnswer('cta', 'link_value', input.value);
+      scheduleSave({ cta: { ...pageConfig.cta } });
+    });
+  });
+}
+
+async function publish() {
+  const btn = document.getElementById('publishBtn');
+  btn.disabled = true; btn.textContent = 'Публикуем...';
+
+  // Убедимся что все изменения сохранены
+  if (saveTimer) clearTimeout(saveTimer);
+  await sb.rpc('mg_save_page', { p_slug: slug, p_token: rawToken, p_patch: pageConfig });
+
+  const { data, error } = await sb.rpc('mg_publish_page', { p_slug: slug, p_token: rawToken });
+  if (error) {
+    btn.disabled = false; btn.textContent = '🚀 Опубликовать';
+    alert('Ошибка публикации: ' + error.message);
+    return;
+  }
+  if (!data.published) {
+    btn.disabled = false; btn.textContent = '🚀 Опубликовать';
+    const missing = data.missing || [];
+    alert('Не заполнены обязательные поля: ' + missing.join(', ') + '. Допиши и попробуй ещё раз.');
+    return;
+  }
+
+  // Успех — показываем published-экран
+  showPublished(data.slug);
+}
+
+function showPublished(publishedSlug) {
+  const pageUrl = new URL('master-page.html', location.href);
+  pageUrl.searchParams.set('m', publishedSlug);
+  const fullUrl = pageUrl.href;
+  const tgShare = `https://t.me/share/url?url=${encodeURIComponent(fullUrl)}&text=${encodeURIComponent('Моя страница: ')}`;
+
+  root.innerHTML = `
+    <div class="published">
+      <div class="published__emoji">🎉</div>
+      <h1 class="published__title">Готово! Твоя страница живёт</h1>
+      <p class="published__text">Отправь эту ссылку первому клиенту — пусть посмотрит, как у тебя всё устроено. Если что-то хочешь поправить, вернись к конструктору и нажми «Опубликовать» ещё раз.</p>
+
+      <div class="url-box">
+        <div class="url-box__url" id="publicUrl">${esc(fullUrl)}</div>
+        <div class="url-actions">
+          <button class="url-btn primary" id="copyUrlBtn">📋 Скопировать</button>
+          <a class="url-btn" href="${esc(fullUrl)}" target="_blank">👁 Посмотреть</a>
+          <a class="url-btn" href="${esc(tgShare)}" target="_blank">✉️ В Telegram</a>
+          <button class="url-btn" id="qrBtn">📱 QR-код</button>
+        </div>
+        <div id="qrSlot" style="margin-top:16px"></div>
+      </div>
+
+      <a class="url-btn" style="display:inline-block;margin-top:20px" href="${location.href}">← Вернуться к конструктору</a>
+    </div>
+  `;
+
+  document.getElementById('copyUrlBtn').addEventListener('click', (e) => {
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      e.target.textContent = '✓ Скопировано!';
+      e.target.classList.add('copied');
+      setTimeout(() => { e.target.textContent = '📋 Скопировать'; e.target.classList.remove('copied'); }, 1800);
+    });
+  });
+
+  document.getElementById('qrBtn').addEventListener('click', (e) => {
+    const slot = document.getElementById('qrSlot');
+    if (slot.innerHTML) { slot.innerHTML = ''; e.target.textContent = '📱 QR-код'; return; }
+    slot.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(fullUrl)}" alt="QR" style="border-radius:12px;background:#fff;padding:10px;border:1px solid rgba(76,70,81,0.12)" />`;
+    e.target.textContent = '📱 Скрыть QR';
+  });
+
+  // Убираем footer bar
+  const fb = document.querySelector('.footer-bar');
+  if (fb) fb.remove();
+}
+
+boot();
+</script>
+</body>
+</html>
