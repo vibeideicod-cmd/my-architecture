@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Кабинет мастера</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: #0a0a0a; color: #e8e0d8; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.5; min-height: 100vh; }
+  body { background: radial-gradient(1400px 700px at 80% -10%, #1a1510, #0a0a0a 60%); padding: 0 clamp(16px, 3vw, 32px); }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 32px 0 80px; }
+
+  .status { padding: 80px 20px; text-align: center; color: #8a8680; }
+  .err { color: #ff7a7a; background: #1a0a0a; border: 1px solid #3a1a1a; padding: 20px; border-radius: 12px; margin: 20px 0; }
+
+  .hdr { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+  .hdr__left { display: flex; align-items: center; gap: 16px; }
+  .hdr__avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #e86c3a, #c99700); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 26px; color: #0a0a0a; font-weight: 700; }
+  .hdr__name { font-family: 'Playfair Display', serif; font-size: 22px; }
+  .hdr__sub { color: #8a8680; font-size: 13px; }
+  .hdr__link { background: #1a1a1a; border: 1px solid #2a2a2a; color: #c8c0b8; padding: 10px 14px; border-radius: 10px; font-size: 13px; text-decoration: none; transition: border-color .2s; }
+  .hdr__link:hover { border-color: #e86c3a; color: #e86c3a; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat { background: #141414; border: 1px solid #252525; border-radius: 14px; padding: 18px 20px; }
+  .stat__n { font-family: 'Playfair Display', serif; font-size: 32px; color: #e86c3a; line-height: 1; }
+  .stat__l { color: #8a8680; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+  .tabs { display: flex; gap: 4px; background: #141414; border: 1px solid #252525; border-radius: 14px; padding: 6px; margin-bottom: 20px; overflow-x: auto; }
+  .tab { flex: 1; min-width: max-content; background: transparent; border: 0; color: #8a8680; padding: 12px 18px; border-radius: 10px; font: inherit; font-weight: 600; font-size: 14px; cursor: pointer; transition: all .2s; white-space: nowrap; }
+  .tab:hover { color: #e8e0d8; }
+  .tab.on { background: #1f1f1f; color: #e86c3a; }
+
+  .pane { display: none; background: #141414; border: 1px solid #252525; border-radius: 16px; padding: clamp(20px, 3vw, 32px); }
+  .pane.on { display: block; }
+
+  h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 16px; }
+  .muted { color: #8a8680; font-size: 14px; }
+
+  .list { display: grid; gap: 12px; margin-top: 8px; }
+  .item { background: #1a1a1a; border: 1px solid #252525; border-radius: 12px; padding: 16px 18px; }
+  .item__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .item__name { font-weight: 600; color: #e8e0d8; font-size: 15px; }
+  .item__time { color: #6a6660; font-size: 12px; white-space: nowrap; }
+  .item__contact { color: #8a8680; font-size: 13px; }
+  .item__body { color: #c8c0b8; font-size: 14px; margin-top: 4px; white-space: pre-line; }
+  .item__meta { display: flex; gap: 12px; flex-wrap: wrap; color: #8a8680; font-size: 12px; margin-top: 6px; }
+  .item__meta span { background: #0f0f0f; padding: 3px 8px; border-radius: 6px; }
+  .item a { color: #e86c3a; text-decoration: none; }
+
+  .form { display: grid; gap: 10px; background: #0f0f0f; border: 1px solid #252525; border-radius: 12px; padding: 18px; margin-bottom: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+  .form input, .form textarea, .form select { background: #1a1a1a; border: 1px solid #2a2a2a; color: #e8e0d8; padding: 12px 14px; border-radius: 10px; font: inherit; font-size: 14px; }
+  .form input:focus, .form textarea:focus, .form select:focus { outline: none; border-color: #e86c3a; }
+  .form textarea { resize: vertical; min-height: 70px; }
+  .form button { background: #e86c3a; color: #0a0a0a; border: 0; padding: 12px 18px; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
+  .form button:disabled { opacity: .5; }
+
+  .empty { text-align: center; color: #6a6660; padding: 40px 20px; font-size: 14px; }
+
+  .chat { max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 8px; margin-bottom: 16px; }
+  .msg { background: #1a1a1a; border: 1px solid #252525; border-radius: 12px; padding: 12px 14px; max-width: 80%; }
+  .msg.master { align-self: flex-end; border-color: #e86c3a33; background: #1f1612; }
+  .msg__author { color: #e86c3a; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .msg.participant .msg__author { color: #c99700; }
+  .msg__body { color: #c8c0b8; font-size: 14px; white-space: pre-line; }
+  .msg__time { color: #6a6660; font-size: 11px; margin-top: 4px; }
+
+  .link-copy { cursor: pointer; }
+  .link-copy:active { transform: scale(0.98); }
+
+  .new-flash { animation: flash 1.5s ease-out; }
+  @keyframes flash { 0% { background: #2a1a08; border-color: #e86c3a; } 100% { background: #1a1a1a; border-color: #252525; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="root"><div class="status">Проверяем доступ...</div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+const SB_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+const root = document.getElementById('root');
+const params = new URLSearchParams(location.search);
+const masterId = params.get('m');
+const rawToken = params.get('t');
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmtTime(s){const d=new Date(s);return d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+async function sha256(str){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+
+let master = null;
+
+async function boot() {
+  if (!masterId || !rawToken) {
+    root.innerHTML = '<div class="err">Нужна ссылка вида <code>?m=slug&t=твой_токен</code></div>';
+    return;
+  }
+  const hash = await sha256(rawToken);
+  const { data, error } = await sb.from('mg_masters').select('*').eq('id', masterId).eq('token_hash', hash).maybeSingle();
+  if (error) { root.innerHTML = `<div class="err">Ошибка: ${esc(error.message)}</div>`; return; }
+  if (!data) { root.innerHTML = '<div class="err">Неверный токен или мастер не найден. Проверь ссылку.</div>'; return; }
+  master = data;
+  await renderShell();
+  await reloadAll();
+  subscribeRealtime();
+}
+
+async function renderShell() {
+  const vitrinaUrl = `vitrina.html?m=${encodeURIComponent(master.id)}`;
+  root.innerHTML = `
+    <div class="hdr">
+      <div class="hdr__left">
+        <div class="hdr__avatar">${esc((master.name||'?')[0])}</div>
+        <div>
+          <div class="hdr__name">${esc(master.name)}</div>
+          <div class="hdr__sub">Кабинет мастера · ${esc(master.program_title)}</div>
+        </div>
+      </div>
+      <a class="hdr__link link-copy" id="copyvit" href="${vitrinaUrl}" target="_blank">📋 Копировать ссылку на витрину</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat__n" id="s-p">0</div><div class="stat__l">участников</div></div>
+      <div class="stat"><div class="stat__n" id="s-m">0</div><div class="stat__l">материалов</div></div>
+      <div class="stat"><div class="stat__n" id="s-t">0</div><div class="stat__l">заданий</div></div>
+      <div class="stat"><div class="stat__n" id="s-c">0</div><div class="stat__l">кейсов</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab on" data-p="pane-p">👥 Участники</button>
+      <button class="tab" data-p="pane-m">📚 Материалы</button>
+      <button class="tab" data-p="pane-t">✅ Задания</button>
+      <button class="tab" data-p="pane-c">🏆 Кейсы</button>
+      <button class="tab" data-p="pane-ch">💬 Чат группы</button>
+    </div>
+
+    <div class="pane on" id="pane-p">
+      <h3>Кто уже записался</h3>
+      <p class="muted">Обновляется в реальном времени. Как только кто-то зайдёт на витрину и нажмёт «Записаться» — появится здесь.</p>
+      <div class="list" id="list-p"><div class="empty">Пока пусто. Отправь ссылку на витрину — и жди.</div></div>
+    </div>
+
+    <div class="pane" id="pane-m">
+      <h3>Материалы группы</h3>
+      <form class="form" id="form-m">
+        <div class="form-row">
+          <input name="title" placeholder="Название" required />
+          <input name="week" type="number" min="1" max="20" value="1" placeholder="Неделя" />
+        </div>
+        <textarea name="body" placeholder="Текст, конспект, заметки..."></textarea>
+        <input name="url" placeholder="Ссылка на видео / PDF / Google Doc (необязательно)" />
+        <button type="submit">Добавить материал</button>
+      </form>
+      <div class="list" id="list-m"></div>
+    </div>
+
+    <div class="pane" id="pane-t">
+      <h3>Задания недели</h3>
+      <form class="form" id="form-t">
+        <div class="form-row">
+          <input name="title" placeholder="Название задания" required />
+          <input name="week" type="number" min="1" max="20" value="1" placeholder="Неделя" />
+        </div>
+        <textarea name="description" placeholder="Что сделать, на что обратить внимание"></textarea>
+        <input name="deadline" type="date" />
+        <button type="submit">Выдать задание</button>
+      </form>
+      <div class="list" id="list-t"></div>
+    </div>
+
+    <div class="pane" id="pane-c">
+      <h3>Кейсы и результаты</h3>
+      <p class="muted">Здесь появятся результаты, которые пришлют участники. Форму отправки добавим в следующей версии — пока кейсы можно собирать через чат.</p>
+      <div class="list" id="list-c"><div class="empty">Пока кейсов нет.</div></div>
+    </div>
+
+    <div class="pane" id="pane-ch">
+      <h3>Общий чат группы</h3>
+      <div class="chat" id="chat"></div>
+      <form class="form" id="form-ch">
+        <textarea name="body" placeholder="Написать всей группе..." required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  `;
+
+  // Tabs
+  root.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    root.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    root.querySelectorAll('.pane').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    root.querySelector('#' + t.dataset.p).classList.add('on');
+  }));
+
+  // Copy vitrina link
+  document.getElementById('copyvit').addEventListener('click', (e) => {
+    e.preventDefault();
+    const full = new URL(vitrinaUrl, location.href).href;
+    navigator.clipboard.writeText(full).then(() => {
+      const el = document.getElementById('copyvit');
+      const prev = el.textContent;
+      el.textContent = '✓ Скопировано!';
+      setTimeout(() => el.textContent = prev, 1500);
+    });
+  });
+
+  // Forms
+  document.getElementById('form-m').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const { error } = await sb.from('mg_materials').insert({
+      master_id: master.id, week: parseInt(fd.get('week'))||1,
+      title: fd.get('title'), body: fd.get('body')||null, url: fd.get('url')||null,
+    });
+    if (error) { alert('Ошибка: ' + error.message); return; }
+    e.target.reset(); e.target.elements.week.value = 1;
+    await reloadMaterials();
+  });
+
+  document.getElementById('form-t').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const { error } = await sb.from('mg_tasks').insert({
+      master_id: master.id, week: parseInt(fd.get('week'))||1,
+      title: fd.get('title'), description: fd.get('description')||null,
+      deadline: fd.get('deadline') || null,
+    });
+    if (error) { alert('Ошибка: ' + error.message); return; }
+    e.target.reset(); e.target.elements.week.value = 1;
+    await reloadTasks();
+  });
+
+  document.getElementById('form-ch').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const { error } = await sb.from('mg_messages').insert({
+      master_id: master.id, author_name: master.name, author_kind: 'master', body: fd.get('body'),
+    });
+    if (error) { alert('Ошибка: ' + error.message); return; }
+    e.target.reset();
+  });
+}
+
+async function reloadAll() {
+  await Promise.all([reloadParticipants(), reloadMaterials(), reloadTasks(), reloadCases(), reloadMessages()]);
+}
+
+async function reloadParticipants() {
+  const { data } = await sb.from('mg_participants').select('*').eq('master_id', master.id).order('created_at', { ascending: false });
+  document.getElementById('s-p').textContent = (data || []).length;
+  const el = document.getElementById('list-p');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty">Пока пусто. Отправь ссылку на витрину — и жди.</div>'; return; }
+  el.innerHTML = data.map(p => `
+    <div class="item" data-id="${p.id}">
+      <div class="item__top">
+        <div class="item__name">${esc(p.name)}</div>
+        <div class="item__time">${esc(fmtTime(p.created_at))}</div>
+      </div>
+      ${p.contact ? `<div class="item__contact">${esc(p.contact)}</div>` : ''}
+    </div>`).join('');
+}
+
+async function reloadMaterials() {
+  const { data } = await sb.from('mg_materials').select('*').eq('master_id', master.id).order('week').order('created_at');
+  document.getElementById('s-m').textContent = (data || []).length;
+  const el = document.getElementById('list-m');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty">Материалов ещё нет.</div>'; return; }
+  el.innerHTML = data.map(x => `
+    <div class="item">
+      <div class="item__top">
+        <div class="item__name">${esc(x.title)}</div>
+        <div class="item__time">Неделя ${x.week}</div>
+      </div>
+      ${x.body ? `<div class="item__body">${esc(x.body)}</div>` : ''}
+      ${x.url ? `<div class="item__meta"><a href="${esc(x.url)}" target="_blank" rel="noopener">🔗 Открыть материал</a></div>` : ''}
+    </div>`).join('');
+}
+
+async function reloadTasks() {
+  const { data } = await sb.from('mg_tasks').select('*').eq('master_id', master.id).order('week').order('created_at');
+  document.getElementById('s-t').textContent = (data || []).length;
+  const el = document.getElementById('list-t');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty">Заданий ещё нет.</div>'; return; }
+  el.innerHTML = data.map(x => `
+    <div class="item">
+      <div class="item__top">
+        <div class="item__name">${esc(x.title)}</div>
+        <div class="item__time">Неделя ${x.week}</div>
+      </div>
+      ${x.description ? `<div class="item__body">${esc(x.description)}</div>` : ''}
+      <div class="item__meta">
+        ${x.deadline ? `<span>⏰ До ${esc(new Date(x.deadline).toLocaleDateString('ru-RU'))}</span>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+async function reloadCases() {
+  const { data } = await sb.from('mg_cases').select('*').eq('master_id', master.id).order('created_at', { ascending: false });
+  document.getElementById('s-c').textContent = (data || []).length;
+  const el = document.getElementById('list-c');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty">Пока кейсов нет.</div>'; return; }
+  el.innerHTML = data.map(x => `
+    <div class="item">
+      <div class="item__top">
+        <div class="item__name">${esc(x.participant_name)}</div>
+        <div class="item__time">${esc(fmtTime(x.created_at))}</div>
+      </div>
+      <div class="item__body">${esc(x.result)}</div>
+    </div>`).join('');
+}
+
+async function reloadMessages() {
+  const { data } = await sb.from('mg_messages').select('*').eq('master_id', master.id).order('created_at');
+  const el = document.getElementById('chat');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty">Чат пока пустой. Напиши первое сообщение — поздоровайся с группой!</div>'; return; }
+  el.innerHTML = data.map(m => `
+    <div class="msg ${esc(m.author_kind)}">
+      <div class="msg__author">${esc(m.author_name)} ${m.author_kind==='master'?'(мастер)':''}</div>
+      <div class="msg__body">${esc(m.body)}</div>
+      <div class="msg__time">${esc(fmtTime(m.created_at))}</div>
+    </div>`).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function subscribeRealtime() {
+  sb.channel('mg-' + master.id + '-p')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mg_participants', filter: `master_id=eq.${master.id}` },
+      () => { reloadParticipants().then(() => {
+        const first = document.querySelector('#list-p .item');
+        if (first) { first.classList.add('new-flash'); }
+      }); })
+    .subscribe();
+  sb.channel('mg-' + master.id + '-m')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mg_messages', filter: `master_id=eq.${master.id}` },
+      () => reloadMessages())
+    .subscribe();
+}
+
+boot();
+</script>
+</body>
+</html>

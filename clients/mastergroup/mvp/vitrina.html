@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мастер-группа</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: #0a0a0a; color: #e8e0d8; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.5; }
+  body { min-height: 100vh; background: radial-gradient(1200px 600px at 50% -20%, #1a1510, #0a0a0a 60%); padding: 0 clamp(16px, 4vw, 48px); }
+  .wrap { max-width: 780px; margin: 0 auto; padding: clamp(32px, 6vw, 64px) 0 80px; }
+
+  .status { padding: 40px; text-align: center; color: #8a8680; }
+  .err { color: #ff7a7a; background: #1a0a0a; border: 1px solid #3a1a1a; padding: 20px; border-radius: 12px; margin: 40px 0; }
+
+  .hero { text-align: center; margin-bottom: 48px; }
+  .hero__avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent, #e86c3a), #c99700); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 48px; color: #0a0a0a; margin: 0 auto 20px; font-weight: 700; }
+  .hero__name { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); margin-bottom: 8px; }
+  .hero__niche { color: var(--accent, #e86c3a); font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+  .hero__city { color: #8a8680; font-size: 14px; }
+  .hero__bio { margin-top: 24px; color: #c8c0b8; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .section { background: #141414; border: 1px solid #252525; border-radius: 16px; padding: clamp(24px, 4vw, 40px); margin-bottom: 24px; }
+  .section__label { display: inline-block; color: var(--accent, #e86c3a); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .section__title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 30px); margin-bottom: 8px; line-height: 1.2; }
+  .section__tagline { color: #c99700; font-size: 16px; margin-bottom: 16px; font-style: italic; }
+  .section__body { color: #c8c0b8; font-size: 15px; white-space: pre-line; }
+
+  .meta { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 0; }
+  .meta__item { background: #1f1f1f; border: 1px solid #2a2a2a; border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 140px; }
+  .meta__label { color: #8a8680; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .meta__value { color: #e8e0d8; font-weight: 600; font-size: 14px; }
+
+  .who { color: #c8c0b8; font-size: 15px; background: #0f0f0f; border-left: 3px solid var(--accent, #e86c3a); padding: 16px 20px; border-radius: 0 8px 8px 0; margin-top: 12px; }
+
+  .form { display: grid; gap: 12px; margin-top: 20px; }
+  .form input, .form textarea { background: #0f0f0f; border: 1px solid #2a2a2a; color: #e8e0d8; padding: 14px 16px; border-radius: 10px; font: inherit; font-size: 15px; transition: border-color .2s; }
+  .form input:focus, .form textarea:focus { outline: none; border-color: var(--accent, #e86c3a); }
+  .form button { background: var(--accent, #e86c3a); color: #0a0a0a; border: 0; padding: 16px 24px; border-radius: 10px; font: inherit; font-weight: 700; font-size: 16px; cursor: pointer; transition: transform .1s, opacity .2s; }
+  .form button:hover { transform: translateY(-1px); }
+  .form button:disabled { opacity: .5; cursor: not-allowed; }
+  .form__hint { color: #6a6660; font-size: 13px; margin-top: 4px; }
+
+  .success { text-align: center; padding: 40px 20px; }
+  .success__emoji { font-size: 64px; margin-bottom: 16px; }
+  .success__title { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 12px; }
+  .success__text { color: #c8c0b8; font-size: 16px; }
+
+  .footer { text-align: center; color: #5a5650; font-size: 12px; margin-top: 48px; }
+  .footer a { color: #8a8680; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="root"><div class="status">Загружаем...</div></div>
+  <div class="footer">
+    Платформа <a href="./">Нейро Бабки СССР · мастер-группы</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+const SB_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+const root = document.getElementById('root');
+const params = new URLSearchParams(location.search);
+const masterId = params.get('m');
+
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function load() {
+  if (!masterId) {
+    root.innerHTML = '<div class="err">В ссылке не указан мастер. Ожидается <code>?m=slug</code></div>';
+    return;
+  }
+  const { data: m, error } = await sb.from('mg_masters').select('*').eq('id', masterId).maybeSingle();
+  if (error) { root.innerHTML = `<div class="err">Ошибка загрузки: ${esc(error.message)}</div>`; return; }
+  if (!m) { root.innerHTML = `<div class="err">Мастер <b>${esc(masterId)}</b> не найден.</div>`; return; }
+  render(m);
+}
+
+function render(m) {
+  const initial = (m.name || '?').trim()[0] || '?';
+  document.title = `${m.name} — мастер-группа`;
+  document.documentElement.style.setProperty('--accent', m.accent || '#e86c3a');
+
+  const startDate = m.start_date ? new Date(m.start_date).toLocaleDateString('ru-RU', { day:'numeric', month:'long' }) : '—';
+  const duration = `${m.weeks || 5} недель`;
+  const rhythm = m.meetings_per_week ? `${m.meetings_per_week} встречи в неделю` : '—';
+
+  root.innerHTML = `
+    <div class="hero">
+      ${m.photo_url
+        ? `<img src="${esc(m.photo_url)}" alt="" style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:20px">`
+        : `<div class="hero__avatar" style="--accent:${esc(m.accent||'#e86c3a')}">${esc(initial)}</div>`}
+      <h1 class="hero__name">${esc(m.name)}</h1>
+      ${m.niche ? `<div class="hero__niche">${esc(m.niche)}</div>` : ''}
+      ${m.city ? `<div class="hero__city">${esc(m.city)}</div>` : ''}
+      ${m.bio ? `<p class="hero__bio">${esc(m.bio)}</p>` : ''}
+    </div>
+
+    <div class="section">
+      <div class="section__label">Программа</div>
+      <h2 class="section__title">${esc(m.program_title)}</h2>
+      ${m.program_tagline ? `<div class="section__tagline">${esc(m.program_tagline)}</div>` : ''}
+      ${m.program_desc ? `<p class="section__body">${esc(m.program_desc)}</p>` : ''}
+
+      <div class="meta">
+        <div class="meta__item"><div class="meta__label">Длительность</div><div class="meta__value">${esc(duration)}</div></div>
+        <div class="meta__item"><div class="meta__label">Ритм</div><div class="meta__value">${esc(rhythm)}</div></div>
+        <div class="meta__item"><div class="meta__label">Старт</div><div class="meta__value">${esc(startDate)}</div></div>
+        ${m.format ? `<div class="meta__item"><div class="meta__label">Формат</div><div class="meta__value">${esc(m.format)}</div></div>` : ''}
+      </div>
+    </div>
+
+    ${m.what_you_get ? `
+    <div class="section">
+      <div class="section__label">Что ты получишь</div>
+      <p class="section__body">${esc(m.what_you_get)}</p>
+    </div>` : ''}
+
+    ${m.who_for ? `
+    <div class="section">
+      <div class="section__label">Кому подойдёт</div>
+      <div class="who">${esc(m.who_for)}</div>
+    </div>` : ''}
+
+    <div class="section" id="signup">
+      <div class="section__label">Записаться</div>
+      <h3 class="section__title" style="font-size:22px">Хочу в группу</h3>
+      <form class="form" id="form">
+        <input name="name" required placeholder="Как тебя зовут?" />
+        <input name="contact" placeholder="Email или Telegram — как с тобой связаться" />
+        <button type="submit" id="submit">Записаться в группу →</button>
+        <div class="form__hint">Мастер увидит тебя в своём кабинете сразу.</div>
+      </form>
+      <div id="result"></div>
+    </div>
+  `;
+
+  const form = document.getElementById('form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit');
+    btn.disabled = true; btn.textContent = 'Записываем...';
+    const fd = new FormData(form);
+    const { error } = await sb.from('mg_participants').insert({
+      master_id: masterId,
+      name: fd.get('name'),
+      contact: fd.get('contact') || null,
+    });
+    if (error) {
+      document.getElementById('result').innerHTML = `<div class="err">Не записалось: ${esc(error.message)}</div>`;
+      btn.disabled = false; btn.textContent = 'Попробовать ещё раз';
+      return;
+    }
+    form.style.display = 'none';
+    document.getElementById('result').innerHTML = `
+      <div class="success">
+        <div class="success__emoji">🎉</div>
+        <div class="success__title">Ты в группе!</div>
+        <p class="success__text">${esc(m.name)} сейчас увидит запись в своём кабинете. Скоро пришлём ссылку на первую встречу.</p>
+      </div>`;
+  });
+}
+
+load();
+</script>
+</body>
+</html>

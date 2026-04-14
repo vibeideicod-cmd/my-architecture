@@ -12,7 +12,14 @@ import pg from 'pg';
 const __dirname  = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot   = path.resolve(__dirname, '..');
 const envPath    = path.join(repoRoot, '.env');
-const migrations = path.join(repoRoot, 'clients/beauty/supabase/migrations');
+
+// ── Какого клиента мигрируем ───────────────────────────
+// По умолчанию beauty (исторически). Можно явно указать:
+//   node scripts/supabase-migrate.mjs --client mastergroup
+const clientArgIdx = process.argv.indexOf('--client');
+const clientName = clientArgIdx !== -1 ? process.argv[clientArgIdx + 1] : 'beauty';
+const migrations = path.join(repoRoot, `clients/${clientName}/supabase/migrations`);
+console.log(`→ Клиент: ${clientName}`);
 
 // ── Читаем .env без внешних зависимостей ───────────────
 function loadEnv(file) {
@@ -129,13 +136,24 @@ for (const file of files) {
 if (!failed) {
   console.log('');
   console.log('── Проверка содержимого ──');
-  const checks = [
-    { label: 'мастера',     sql: 'select count(*)::int as n from masters' },
-    { label: 'категории',   sql: 'select count(*)::int as n from categories' },
-    { label: 'услуги',      sql: 'select count(*)::int as n from services' },
-    { label: 'расписание',  sql: 'select count(*)::int as n from schedules' },
-    { label: 'брони',       sql: 'select count(*)::int as n from bookings' },
-  ];
+  const checksByClient = {
+    beauty: [
+      { label: 'мастера',     sql: 'select count(*)::int as n from masters' },
+      { label: 'категории',   sql: 'select count(*)::int as n from categories' },
+      { label: 'услуги',      sql: 'select count(*)::int as n from services' },
+      { label: 'расписание',  sql: 'select count(*)::int as n from schedules' },
+      { label: 'брони',       sql: 'select count(*)::int as n from bookings' },
+    ],
+    mastergroup: [
+      { label: 'мастера МГ',  sql: 'select count(*)::int as n from mg_masters' },
+      { label: 'участники',   sql: 'select count(*)::int as n from mg_participants' },
+      { label: 'материалы',   sql: 'select count(*)::int as n from mg_materials' },
+      { label: 'задания',     sql: 'select count(*)::int as n from mg_tasks' },
+      { label: 'сообщения',   sql: 'select count(*)::int as n from mg_messages' },
+      { label: 'кейсы',       sql: 'select count(*)::int as n from mg_cases' },
+    ],
+  };
+  const checks = checksByClient[clientName] || [];
   for (const c of checks) {
     try {
       const r = await client.query(c.sql);
