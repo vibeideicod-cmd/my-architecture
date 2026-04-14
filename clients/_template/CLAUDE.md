@@ -12,11 +12,26 @@
 
 [Особые требования клиента, фирменные цвета, тон коммуникации, ограничения, что нельзя трогать]
 
-## Документы проекта
+## Документы проекта (по Playbook)
 
-- [brief.md](brief.md) — полный бриф (заполняется Аналитиком в фазе Research)
-- [PLAN.md](PLAN.md) — тактический план с текущей фазой
-- [project-log.md](project-log.md) — хроника задач и решений
+Не все файлы нужны сразу — они появляются по ходу фаз:
+
+| Файл | Фаза | Ответственный |
+|---|---|---|
+| [idea.md](idea.md) | 1 Discovery | product-builder |
+| [research.md](research.md) | 2 Research | analyst |
+| [critique.md](critique.md) | 2.5 Critique | product-builder |
+| [brief.md](brief.md) | 3 Plan | product-builder → специалист |
+| [BACKEND-PLAN.md](BACKEND-PLAN.md) | 3 Plan | systems (если нужен бэкенд) |
+| Код проекта + CLAUDE.md-карта | 4-5 Build/Content | websites / systems |
+| [TESTING.md](TESTING.md) | 6 QA | qa |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | 6 Deploy | deployer-beget |
+| [PLAN.md](PLAN.md) | сквозной | Директор (обновляет фазы) |
+| [project-log.md](project-log.md) | сквозной | Директор (хроника) |
+
+## Универсальный процесс
+
+Перед любой задачей читай [knowledge/playbooks/product-creation.md](../../knowledge/playbooks/product-creation.md) — там собраны все фазы, типы продуктов, промпт-шаблоны.
 
 ## Корневые правила
 

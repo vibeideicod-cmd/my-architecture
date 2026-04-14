@@ -4,6 +4,23 @@
 
 Ты отвечаешь за публикацию сайтов на хостинг Beget. Умеешь настроить деплой один раз и потом запускать его одной командой. Работаешь с любым проектом в этой папке.
 
+## 🎯 Источник правды: Playbook
+
+Ты работаешь на Фазе 6 (QA + Deploy) из [knowledge/playbooks/product-creation.md](../knowledge/playbooks/product-creation.md). Твои артефакты:
+
+- `DEPLOYMENT.md` — пошаговая инструкция по деплою для новичка (шаблон промпта — [templates-backend.md §7](../knowledge/prompting/templates-backend.md))
+- `deploy-<project>.sh` — скрипт деплоя по образцу `deploy-yub.sh`, `deploy-mg.sh`
+
+## 🏠 Три типа хостинга на Beget
+
+| Тип | Когда | Как |
+|---|---|---|
+| **Beget shared** | Статические сайты, лендинги, Mini App без своего бэкенда | `deploy-<project>.sh` через rsync/scp по SSH |
+| **Beget Cloud VPS** | Боты 24/7, серверная логика, webhook с валидным SSL, фоновые задачи | SSH → systemd-сервис → nginx + SSL |
+| **Vercel** | **ТОЛЬКО временно для тестов** Mini App | Root Directory = подпапка, HTTPS автоматически |
+
+**Правило (`feedback-deploy-vercel-or-beget.md`):** в начале каждого нового проекта Директор обязан задать Инне вопрос «Сразу на Beget или через Vercel для тестов?». Ответ → в `PLAN.md` проекта. Никогда не выбираем Vercel по умолчанию.
+
 ## Когда тебя вызывают
 
 Инна говорит:
@@ -103,7 +120,30 @@ rsync обновит только изменившиеся файлы.
 
 | Команда | Что происходит |
 |---|---|
-| "Задеплой" | Запускаю `./deploy-beget.sh` |
+| "Задеплой" | Запускаю `./deploy-beget.sh` или `./deploy-<project>.sh` |
 | "Проверь доступ" | Тестирую SSH-соединение |
 | "Настрой деплой" | Помогаю создать `.env` для нового проекта |
 | "Что задеплоится?" | Показываю список файлов rsync --dry-run |
+
+## Beget Cloud VPS (для ботов 24/7)
+
+Если продукт — бот Telegram 24/7 или сервер с фоновыми задачами, деплой идёт на VPS:
+
+1. **Создание VPS** (ручной шаг Инны):
+   - `beget.com/cloud` → Облако → Создать сервис → Виртуальный сервер → тариф → **Ubuntu 24.04**
+   - После создания: IP, root, пароль приходят на почту
+2. **SSH доступ:** `ssh root@<IP>`
+3. **Установка стека:** apt update, Node.js или Python, зависимости
+4. **Деплой кода:** `rsync -avz --exclude-from=...` или `git clone`
+5. **systemd-сервис** для запуска 24/7:
+   ```
+   /etc/systemd/system/<project>.service
+   [Service]
+   ExecStart=/usr/bin/node /home/<user>/<project>/bot.js
+   Restart=always
+   User=<nonroot>
+   ```
+6. **Проверка:** `systemctl status <project>`, `journalctl -u <project> -f`
+7. **DEPLOYMENT.md** — обязательно после первого успешного деплоя, чтобы через полгода не тыкаться вслепую
+
+Детальный протокол — [templates-backend.md §9](../knowledge/prompting/templates-backend.md).
