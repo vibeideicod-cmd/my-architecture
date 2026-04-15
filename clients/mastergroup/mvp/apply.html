@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
     --bg:         #ffffff;
@@ -72,13 +74,13 @@
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="./">← Назад на главную</a>
+  <a class="back" href="/mg/">← Назад на главную</a>
 
   <div id="root">
     <div class="hero">
       <div class="hero__label">Стать мастером</div>
       <h1 class="hero__title">Расскажи о себе и своём деле</h1>
-      <p class="hero__sub">Заполни анкету — это занимает 3 минуты. После проверки Инна пришлёт ссылку на конструктор твоего мини-приложения.</p>
+      <p class="hero__sub">Заполни анкету — это 3 минуты. После проверки команда МГ пришлёт ссылку на конструктор твоего мини-приложения. <a href="/mg/guide" target="_blank" style="color:var(--mustard);font-weight:600;text-decoration:underline">Подробная инструкция →</a></p>
     </div>
 
     <form class="form" id="form">
@@ -129,7 +131,7 @@
 
       <div class="field">
         <label>Что ты хочешь получить от своего приложения? <span class="req">*</span></label>
-        <textarea name="goal" required placeholder="Что должно произойти, когда клиент откроет твою ссылку?"></textarea>
+        <textarea name="goal" required placeholder="Что должно произойти, когда участник откроет твою ссылку?"></textarea>
       </div>
 
       <div class="field">
@@ -144,7 +146,7 @@
 
       <div class="field check">
         <input type="checkbox" id="consent" name="consent_pd" required />
-        <label for="consent">Я согласна на обработку моих персональных данных для работы с платформой «Нейро Бабки СССР». Мои данные видит только Инна и её команда.</label>
+        <label for="consent">Даю согласие на обработку моих персональных данных для работы с платформой «Нейро Бабки СССР». Мои данные видит только команда админов МГ.</label>
       </div>
 
       <button type="submit" class="submit" id="submitBtn">Отправить анкету</button>
@@ -153,7 +155,7 @@
   </div>
 
   <div class="footer">
-    Платформа <a href="./">Нейро Бабки СССР · мастер-группы</a>
+    Платформа <a href="/mg/">Нейро Бабки СССР · мастер-группы</a>
   </div>
 </div>
 
@@ -196,7 +198,7 @@ form.addEventListener('submit', async (e) => {
   }
 
   const name = payload.full_name.split(' ')[0];
-  const statusUrl = new URL('status.html', location.href);
+  const statusUrl = new URL('/mg/status', location.href);
   statusUrl.searchParams.set('a', data.application_token);
   const fullUrl = statusUrl.href;
 
@@ -211,15 +213,16 @@ form.addEventListener('submit', async (e) => {
     <div class="success">
       <div class="success__emoji">🌿</div>
       <h1 class="success__title">Спасибо, ${esc(name)}!</h1>
-      <p class="success__text">Твоя анкета принята. Инна скоро её посмотрит — обычно это занимает пару часов.</p>
+      <p class="success__text">Твоя анкета принята. Команда МГ скоро её посмотрит — обычно это занимает пару часов.</p>
 
       <div class="save-block">
         <div class="save-block__title">⚠️ Обязательно сохрани эту ссылку</div>
         <p style="color:var(--text);font-size:14px;margin-bottom:14px">По ней ты проверишь статус анкеты и получишь доступ к конструктору после одобрения.</p>
         <div class="save-block__url" id="statusUrl">${esc(fullUrl)}</div>
         <div class="save-buttons">
+          ${window.isTMA ? `<button class="save-btn" id="tmaShareBtn" style="background:linear-gradient(135deg,var(--gold),var(--mustard));color:#fff;font-weight:700">📥 Сохранить в Telegram</button>` : ''}
           <button class="save-btn" id="copyBtn">📋 Скопировать</button>
-          <a class="save-btn" href="${esc(tgShare)}" target="_blank">✉️ Отправить в Telegram</a>
+          ${!window.isTMA ? `<a class="save-btn" href="${esc(tgShare)}" target="_blank">✉️ Отправить в Telegram</a>` : ''}
           <a class="save-btn" href="${fileUrl}" download="moya-anketa-mg.txt">💾 Скачать файл</a>
           <button class="save-btn" id="showQrBtn">📱 Показать QR</button>
         </div>
@@ -227,7 +230,7 @@ form.addEventListener('submit', async (e) => {
       </div>
 
       <p class="success__text" style="margin-top:24px;font-size:14px;color:var(--text-soft)">
-        Как Инна одобрит анкету — здесь появится ссылка на конструктор твоей страницы.
+        Как только анкету одобрят — здесь появится ссылка на конструктор твоей страницы.
       </p>
     </div>
   `;
@@ -239,6 +242,13 @@ form.addEventListener('submit', async (e) => {
       setTimeout(() => { ev.target.textContent = '📋 Скопировать'; ev.target.classList.remove('copied'); }, 1800);
     });
   });
+
+  const tmaShareBtn = document.getElementById('tmaShareBtn');
+  if (tmaShareBtn) {
+    tmaShareBtn.addEventListener('click', () => {
+      window.tmaShareLink(fullUrl, `Моя анкета на МГ-платформе — сохрани ссылку, по ней откроешь статус и конструктор`);
+    });
+  }
 
   document.getElementById('showQrBtn').addEventListener('click', async (ev) => {
     const slot = document.getElementById('qrSlot');

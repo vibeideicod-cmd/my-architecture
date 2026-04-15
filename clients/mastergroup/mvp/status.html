@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
     --bg:         #ffffff;
@@ -50,9 +52,9 @@
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="./">← Главная</a>
+  <a class="back" href="/mg/">← Главная</a>
   <div id="root"><div class="loading">Проверяем статус...</div></div>
-  <div class="footer">Платформа <a href="./">Нейро Бабки СССР</a></div>
+  <div class="footer">Платформа <a href="/mg/">Нейро Бабки СССР</a></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -93,7 +95,7 @@ function render(a) {
       <div class="card">
         <div class="card__emoji">⏳</div>
         <h1 class="card__title">На рассмотрении</h1>
-        <p class="card__text">${esc(name)}, Инна скоро посмотрит твою анкету. Обычно это занимает пару часов, максимум — день. Ссылку на конструктор она пришлёт тебе лично в контакт, который ты указала в анкете.</p>
+        <p class="card__text">${esc(name)}, команда МГ скоро посмотрит твою анкету. Обычно это занимает пару часов, максимум — день. Ссылку на конструктор пришлют тебе лично в контакт, который ты указал в анкете.</p>
         <div class="card__meta">Анкета отправлена ${esc(fmtTime(a.created_at))}</div>
       </div>
     `;
@@ -101,15 +103,15 @@ function render(a) {
   }
 
   if (a.status === 'approved') {
-    const buildUrl = new URL('build.html', location.href);
+    const buildUrl = new URL('/mg/build', location.href);
     buildUrl.searchParams.set('m', a.master_slug || '');
-    // Токен конструктора доставляется мастеру Инной лично, не через эту страницу
+    // Токен конструктора доставляется мастеру лично командой МГ, не через эту страницу
     root.innerHTML = `
       <div class="card">
         <div class="card__emoji">🎉</div>
         <h1 class="card__title">Анкета одобрена!</h1>
-        <p class="card__text">Поздравляем, ${esc(name)}! Инна одобрила твою заявку. Ссылку на конструктор твоей страницы Инна отправит тебе лично в Telegram — в конструкторе 8 вопросов, 20 минут работы.</p>
-        ${a.moderation_note ? `<div class="note-box"><b>Сообщение от Инны:</b><br>${esc(a.moderation_note)}</div>` : ''}
+        <p class="card__text">Поздравляем, ${esc(name)}! Твоя заявка одобрена. Ссылку на конструктор твоей страницы пришлют тебе лично в Telegram — в конструкторе 8 вопросов, 20 минут работы.</p>
+        ${a.moderation_note ? `<div class="note-box"><b>Сообщение от команды МГ:</b><br>${esc(a.moderation_note)}</div>` : ''}
         <div class="card__meta">Одобрено ${esc(fmtTime(a.reviewed_at))}</div>
       </div>
     `;
@@ -123,7 +125,7 @@ function render(a) {
         <h1 class="card__title">Пока не получилось</h1>
         <p class="card__text">${esc(name)}, сейчас анкета не одобрена. Можешь подать ещё раз с уточнениями.</p>
         ${a.moderation_note ? `<div class="note-box"><b>Причина:</b><br>${esc(a.moderation_note)}</div>` : ''}
-        <a class="btn-primary" href="apply.html">Подать новую анкету</a>
+        <a class="btn-primary" href="/mg/join">Подать новую анкету</a>
         <div class="card__meta">Рассмотрено ${esc(fmtTime(a.reviewed_at))}</div>
       </div>
     `;

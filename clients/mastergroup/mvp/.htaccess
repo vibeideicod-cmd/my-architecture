@@ -1,0 +1,27 @@
+# МГ-платформа — чистые URL через mod_rewrite
+# Обслуживает /mg/join → apply.html, /mg/admin → admin.html и т.д.
+
+RewriteEngine On
+RewriteBase /mg/
+
+# Если запрошенный путь существует как файл или папка — отдаём как есть
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Чистые алиасы
+RewriteRule ^join/?$         apply.html        [L,QSA]
+RewriteRule ^admin/?$        admin.html        [L,QSA]
+RewriteRule ^guide/?$        guide-master.html [L,QSA]
+RewriteRule ^help/?$         guide-admin.html  [L,QSA]
+RewriteRule ^status/?$       status.html       [L,QSA]
+RewriteRule ^build/?$        build.html        [L,QSA]
+RewriteRule ^page/?$         master-page.html  [L,QSA]
+
+# Красивый публичный URL для страницы мастера: /mg/m/<slug>
+RewriteRule ^m/([^/]+)/?$    master-page.html?m=$1 [L,QSA]
+
+# 301 редиректы со старых .html на чистые URL (для обратной совместимости)
+RewriteRule ^apply\.html$        /mg/join   [R=301,L]
+RewriteRule ^guide-master\.html$ /mg/guide  [R=301,L]
+RewriteRule ^guide-admin\.html$  /mg/help   [R=301,L]

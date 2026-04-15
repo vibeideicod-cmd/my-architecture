@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
     --bg:         #ffffff;
@@ -75,10 +77,10 @@
 <div class="wrap">
   <div class="brand">Нейро Бабки СССР · Платформа мастер-групп</div>
   <h1>Твоё мини-приложение<br>без блокировок и программистов</h1>
-  <p class="lead">Ответь на <b>8 простых вопросов</b> — и через 20 минут у тебя будет своя страница-визитка: имя, о чём ты, предложение для клиента, кнопка «Записаться». <b>Одна ссылка, которую можно отправить кому угодно.</b> Не зависит от того, работает ли сегодня Telegram или нет.</p>
+  <p class="lead">Ответь на <b>8 простых вопросов</b> — и через 20 минут у тебя будет своя страница-визитка: имя, о чём ты, твоё предложение, кнопка «Записаться». <b>Одна ссылка, которую можно отправить кому угодно.</b> Не зависит от того, работает ли сегодня Telegram или нет.</p>
 
   <div class="cta-hero">
-    <a class="cta-primary" href="apply.html">🚀 Стать мастером</a>
+    <a class="cta-primary" href="join">🚀 Стать мастером</a>
     <a class="cta-secondary" href="#how">Как это работает</a>
   </div>
   <div class="hint">Подходит если ты куратор Университета Бизнеса или эксперт со своим делом в любой нише</div>
@@ -95,8 +97,8 @@
       </div>
       <div class="step">
         <div class="step__num">2</div>
-        <div class="step__title">Инна одобряет</div>
-        <div class="step__desc">Смотрит анкету, присылает ссылку на конструктор в Telegram</div>
+        <div class="step__title">Получаешь одобрение</div>
+        <div class="step__desc">Команда МГ смотрит анкету и присылает ссылку на конструктор в Telegram</div>
       </div>
       <div class="step">
         <div class="step__num">3</div>
@@ -106,7 +108,7 @@
       <div class="step">
         <div class="step__num">4</div>
         <div class="step__title">Получаешь ссылку</div>
-        <div class="step__desc">Твоя живая страница — отправляй первому клиенту</div>
+        <div class="step__desc">Твоя живая страница — отправляй первому участнику мастер-группы</div>
       </div>
     </div>
   </div>
@@ -122,46 +124,19 @@
       <div class="feat">
         <div class="feat__ico">🎁</div>
         <div class="feat__t">Предложение</div>
-        <div class="feat__d">Что ты даёшь клиенту, который откликнулся. Кнопка «Записаться» — в Telegram, WhatsApp или через форму</div>
+        <div class="feat__d">Что ты даёшь тому, кто откликнулся. Кнопка «Записаться» — в Telegram, WhatsApp или через форму</div>
       </div>
       <div class="feat">
         <div class="feat__ico">🔗</div>
         <div class="feat__t">Одна ссылка</div>
-        <div class="feat__d">Отправляй её клиентам — работает везде, где есть интернет. Не зависит от блокировок</div>
+        <div class="feat__d">Отправляй её участникам МГ — работает везде, где есть интернет. Не зависит от блокировок</div>
       </div>
     </div>
     <div class="note">
-      <b>Почему это важно сейчас:</b> мессенджеры периодически блокируются, клиенты теряются. Твоя страница на МГ-платформе всегда доступна — любой человек может открыть ссылку в браузере и увидеть, чем ты занимаешься.
+      <b>Почему это важно сейчас:</b> мессенджеры периодически блокируются, контакты теряются. Твоя страница на МГ-платформе всегда доступна — любой человек может открыть ссылку в браузере и увидеть, чем ты занимаешься.
     </div>
   </div>
 
-  <div class="card">
-    <h2>Старая версия платформы (v1)</h2>
-    <p style="color:var(--text-soft);font-size:13px">Первая версия МГ-платформы — для ведения мастер-групп с участниками, материалами и заданиями. Остаётся для обратной совместимости. Новые функции (анкета, конструктор) — в кнопке «Стать мастером» выше.</p>
-    <div class="legacy-block">
-      <a href="vitrina.html?m=inna" target="_blank">
-        <div>
-          <div class="legacy-block__t">🎯 Витрина v1 (Инна)</div>
-          <div class="legacy-block__d">Пример страницы мастера в первой версии</div>
-        </div>
-        <div class="legacy-block__arrow">→</div>
-      </a>
-      <a href="cabinet.html?m=inna&t=innademo2026" target="_blank">
-        <div>
-          <div class="legacy-block__t">🎓 Кабинет v1 (Инна)</div>
-          <div class="legacy-block__d">Демо приватного кабинета с участниками и чатом</div>
-        </div>
-        <div class="legacy-block__arrow">→</div>
-      </a>
-      <a href="admin.html" target="_blank">
-        <div>
-          <div class="legacy-block__t">📊 Админ-панель</div>
-          <div class="legacy-block__d">Анкеты, страницы и v1-мастера — для Инны</div>
-        </div>
-        <div class="legacy-block__arrow">→</div>
-      </a>
-    </div>
-  </div>
 
   <div class="footer">
     © 2026 Нейро Бабки СССР · Структура · Стратегия · Свобода · Результат

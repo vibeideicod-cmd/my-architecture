@@ -93,6 +93,24 @@
   .moderation-note { margin-top: 12px; }
   .moderation-note textarea { width: 100%; background: var(--bg-warm); border: 1px solid rgba(76,70,81,0.15); padding: 12px 14px; border-radius: 10px; font: inherit; font-size: 13px; resize: vertical; min-height: 60px; color: var(--text); }
 
+  /* Header guide buttons */
+  .hdr__guides { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .guide-btn { background: #fff; border: 1px solid var(--gold); color: var(--mustard); padding: 9px 16px; border-radius: 50px; font: inherit; font-weight: 600; font-size: 12px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .15s; }
+  .guide-btn:hover { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; }
+  .guide-btn small { font-size: 10px; opacity: 0.8; font-weight: 500; }
+
+  /* Lead card */
+  .lead { background: #fff; border: 1px solid var(--bg-warm); border-radius: 16px; padding: 20px 22px; margin-bottom: 12px; transition: border-color .2s; }
+  .lead:hover { border-color: var(--gold); }
+  .lead.new { animation: flash 2s ease-out; }
+  .lead__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .lead__visitor { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--green-deep); }
+  .lead__master { font-size: 11px; color: var(--mustard); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 3px; }
+  .lead__time { font-size: 11px; color: var(--text-soft); font-family: monospace; }
+  .lead__body { display: grid; gap: 10px; padding-top: 12px; border-top: 1px solid var(--bg-warm); font-size: 14px; }
+  .lead__body b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--green-deep); margin-bottom: 3px; }
+  .lead__filter { background: var(--bg-warm); border: 1px solid rgba(76,70,81,0.15); color: var(--text); padding: 10px 14px; border-radius: 10px; font: inherit; font-size: 13px; margin-bottom: 16px; min-width: 220px; }
+
   /* Master page card */
   .mp { background: #fff; border: 1px solid var(--bg-warm); border-radius: 16px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
   .mp:hover { border-color: var(--gold); }
@@ -115,7 +133,7 @@
 <div class="wrap" id="wrap">
   <div class="gate" id="gate">
     <h1>Админ-панель</h1>
-    <p>Закрытая зона Инны. Введи ключ доступа.</p>
+    <p>Закрытая зона для команды МГ. Введи ключ доступа.</p>
     <input type="password" id="pwd" placeholder="Ключ" autofocus />
     <button id="enter">Войти</button>
     <div class="err" id="gateErr" style="display:none"></div>
@@ -143,7 +161,8 @@ async function sha256(str){const b=await crypto.subtle.digest('SHA-256',new Text
 let adminPwd = null;
 let appsData = [];
 let pagesData = [];
-let v1Data = { masters: [], parts: [], cases: [], msgs: [] };
+let leadsData = [];
+let leadsFilter = '';
 
 // ── GATE ─────────────────────────────────────────────────
 document.getElementById('enter').addEventListener('click', async () => {
@@ -191,25 +210,18 @@ async function loadAll() {
   pagesData = pages.data || [];
   if (pages.error) { console.error('pages error:', pages.error); }
 
-  // V1 данные (совместимость)
-  const [m, p, c, ms] = await Promise.all([
-    sb.from('mg_masters').select('*').order('created_at'),
-    sb.from('mg_participants').select('*').order('created_at', { ascending: false }),
-    sb.from('mg_cases').select('*'),
-    sb.from('mg_messages').select('id,master_id'),
-  ]);
-  v1Data = {
-    masters: m.data || [],
-    parts: p.data || [],
-    cases: c.data || [],
-    msgs: ms.data || [],
-  };
+  // Заявки участников (лиды) через RPC
+  const leads = await sb.rpc('mg_admin_list_leads', { admin_secret: adminPwd });
+  leadsData = leads.data || [];
+  if (leads.error) { console.error('leads error:', leads.error); }
+
 }
 
 function renderShell() {
   const submittedCount = appsData.filter(a => a.status === 'submitted' || a.status === 'under_review').length;
   const approvedCount = appsData.filter(a => a.status === 'approved').length;
   const publishedCount = pagesData.filter(p => p.published).length;
+  const leadsCount = leadsData.length;
 
   const main = document.getElementById('main');
   main.innerHTML = `
@@ -217,6 +229,12 @@ function renderShell() {
       <div>
         <h1>МГ · админ-панель</h1>
         <div class="hdr__sub">Нейро Бабки СССР · модерация анкет и страниц</div>
+        <div class="hdr__guides" style="margin-top:14px">
+          <a class="guide-btn" href="/mg/guide" target="_blank">📘 Гайд для мастера <small>↗</small></a>
+          <button class="guide-btn" id="copyGuideBtn">📋 Скопировать ссылку на гайд</button>
+          <button class="guide-btn" id="copyJoinBtn">📋 Скопировать ссылку на анкету</button>
+          <a class="guide-btn" href="/mg/help" target="_blank">📕 Моя инструкция <small>↗</small></a>
+        </div>
       </div>
       <button class="logout" id="logout">Выйти</button>
     </div>
@@ -234,16 +252,16 @@ function renderShell() {
         <div class="stat__n">${publishedCount}</div>
         <div class="stat__l">Опубликовано</div>
       </div>
-      <div class="stat">
-        <div class="stat__n">${v1Data.parts.length}</div>
-        <div class="stat__l">Участников v1</div>
+      <div class="stat ${leadsCount > 0 ? 'highlight' : ''}">
+        <div class="stat__n">${leadsCount}</div>
+        <div class="stat__l">Заявки участников</div>
       </div>
     </div>
 
     <div class="tabs">
       <button class="tab on" data-p="pane-apps">🆕 Анкеты ${submittedCount > 0 ? `(${submittedCount})` : ''}</button>
-      <button class="tab" data-p="pane-pages">📄 Собранные страницы</button>
-      <button class="tab" data-p="pane-v1">👥 v1 Legacy</button>
+      <button class="tab" data-p="pane-pages">📄 Страницы</button>
+      <button class="tab" data-p="pane-leads">📨 Заявки участников ${leadsCount > 0 ? `(${leadsCount})` : ''}</button>
     </div>
 
     <div class="pane on" id="pane-apps">
@@ -258,11 +276,13 @@ function renderShell() {
       <div id="pagesList"></div>
     </div>
 
-    <div class="pane" id="pane-v1">
-      <h2>v1 Legacy (мастера старой версии)</h2>
-      <p class="pane-desc">Первая версия МГ-платформы. Остаётся для обратной совместимости.</p>
-      <div id="v1List"></div>
+    <div class="pane" id="pane-leads">
+      <h2>Заявки участников</h2>
+      <p class="pane-desc">Когда участник мастер-группы заполняет форму на публичной странице другого мастера — заявка падает сюда в реальном времени. Показывает, к какому мастеру пришла запись.</p>
+      <div id="leadsFilterWrap"></div>
+      <div id="leadsList"></div>
     </div>
+
   `;
 
   main.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
@@ -277,9 +297,27 @@ function renderShell() {
     location.reload();
   });
 
+  document.getElementById('copyGuideBtn').addEventListener('click', (e) => {
+    const url = new URL('/mg/guide', location.href).href;
+    navigator.clipboard.writeText(url).then(() => {
+      const original = e.target.innerHTML;
+      e.target.innerHTML = '✓ Скопировано';
+      setTimeout(() => { e.target.innerHTML = original; }, 2000);
+    });
+  });
+
+  document.getElementById('copyJoinBtn').addEventListener('click', (e) => {
+    const url = new URL('/mg/join', location.href).href;
+    navigator.clipboard.writeText(url).then(() => {
+      const original = e.target.innerHTML;
+      e.target.innerHTML = '✓ Скопировано';
+      setTimeout(() => { e.target.innerHTML = original; }, 2000);
+    });
+  });
+
   renderApps();
   renderPages();
-  renderV1();
+  renderLeads();
 }
 
 function renderApps() {
@@ -289,7 +327,7 @@ function renderApps() {
   const sorted = [...appsData].sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9) || new Date(b.created_at) - new Date(a.created_at));
 
   if (!sorted.length) {
-    el.innerHTML = '<div class="empty">Пока анкет нет. Когда кто-то заполнит форму на apply.html — появится здесь в реальном времени.</div>';
+    el.innerHTML = '<div class="empty">Пока анкет нет. Когда кто-то заполнит форму на /mg/join — появится здесь в реальном времени.</div>';
     return;
   }
 
@@ -378,7 +416,7 @@ async function moderate(appId, newStatus, cardEl) {
 function showApprovedModal(data, app) {
   const slug = data.slug;
   const token = data.master_token;
-  const buildUrl = new URL('build.html', location.href);
+  const buildUrl = new URL('/mg/build', location.href);
   buildUrl.searchParams.set('m', slug);
   buildUrl.searchParams.set('t', token);
   const fullUrl = buildUrl.href;
@@ -398,7 +436,7 @@ function showApprovedModal(data, app) {
       <button class="btn btn-ghost" id="copyUrlBtn">Только ссылку</button>
       <button class="btn btn-reject" id="closeBtn">Закрыть</button>
     </div>
-    <p style="margin-top:14px;font-size:12px;color:var(--text-soft)">⚠️ Эта ссылка показывается ОДИН РАЗ. Мастер-токен не сохраняется в админке. Если потеряешь — надо будет генерить новую.</p>
+    <p style="margin-top:14px;font-size:12px;color:var(--text-soft)">💾 Ссылка сохранена в админке — если мастер её потеряет, открой вкладку «Страницы» и нажми «📋 Ссылка на конструктор», пришлётся та же самая.</p>
   `;
 
   backdrop.classList.add('on');
@@ -428,12 +466,13 @@ function renderPages() {
     return;
   }
   el.innerHTML = pagesData.map(p => {
-    const pageUrl = new URL('master-page.html', location.href);
-    pageUrl.searchParams.set('m', p.slug);
-    const previewUrl = new URL(pageUrl);
+    // Публичная красивая ссылка: /mg/m/<slug>
+    const pageUrl = new URL(`/mg/m/${encodeURIComponent(p.slug)}`, location.href);
+    const previewUrl = new URL('/mg/page', location.href);
+    previewUrl.searchParams.set('m', p.slug);
     previewUrl.searchParams.set('preview', '1');
     return `
-      <div class="mp">
+      <div class="mp" data-slug="${esc(p.slug)}">
         <div>
           <div class="mp__name">${esc(p.display_name || p.full_name || 'Без имени')}</div>
           <div class="mp__meta">
@@ -444,6 +483,7 @@ function renderPages() {
           </div>
         </div>
         <div class="mp__actions">
+          <button class="btn btn-ghost" data-action="copy-build-link">📋 Ссылка на конструктор</button>
           ${p.published
             ? `<a class="btn btn-approve" href="${pageUrl.href}" target="_blank">Открыть</a>`
             : `<a class="btn btn-ghost" href="${previewUrl.href}" target="_blank">Превью</a>`
@@ -452,26 +492,95 @@ function renderPages() {
       </div>
     `;
   }).join('');
+
+  // Bind: кнопка "Ссылка на конструктор" — копирует в буфер для пересылки мастеру
+  el.querySelectorAll('[data-action="copy-build-link"]').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const card = e.target.closest('.mp');
+      const slug = card.dataset.slug;
+      const origText = e.target.textContent;
+      e.target.textContent = '…';
+
+      const { data, error } = await sb.rpc('mg_admin_get_master_link', {
+        admin_secret: adminPwd,
+        p_slug: slug,
+      });
+
+      if (error) { alert('Ошибка: ' + error.message); e.target.textContent = origText; return; }
+
+      if (data.needs_regenerate) {
+        // Старая страница до миграции 205 — токен не сохранён
+        if (!confirm(`У этой страницы не сохранён токен (создана до апдейта). Перевыпустить токен? Старая ссылка перестанет работать — убедись, что у мастера её нет на руках.`)) {
+          e.target.textContent = origText;
+          return;
+        }
+        const regen = await sb.rpc('mg_admin_regenerate_token', { admin_secret: adminPwd, p_slug: slug });
+        if (regen.error) { alert('Ошибка: ' + regen.error.message); e.target.textContent = origText; return; }
+        data.master_token = regen.data.master_token;
+      }
+
+      const buildUrl = new URL('/mg/build', location.href);
+      buildUrl.searchParams.set('m', slug);
+      buildUrl.searchParams.set('t', data.master_token);
+      const fullUrl = buildUrl.href;
+
+      const firstName = (data.master_name || '').split(' ')[0] || 'Мастер';
+      const tgMessage = `Привет, ${firstName}! Вот ссылка на конструктор твоей страницы на МГ-платформе:\n\n${fullUrl}\n\n8 коротких вопросов — примерно 20 минут работы. Сохрани ссылку в заметках, она твоя личная.`;
+
+      await navigator.clipboard.writeText(tgMessage);
+      e.target.textContent = '✓ Сообщение скопировано';
+      setTimeout(() => { e.target.textContent = origText; }, 2500);
+    });
+  });
 }
 
-function renderV1() {
-  const el = document.getElementById('v1List');
-  const by = (arr, mid) => arr.filter(x => x.master_id === mid);
-  if (!v1Data.masters.length) { el.innerHTML = '<div class="empty">Мастеров v1 нет</div>'; return; }
-  el.innerHTML = v1Data.masters.map(m => {
-    const mp = by(v1Data.parts, m.id);
-    return `
-      <div class="mp">
-        <div>
-          <div class="mp__name">${esc(m.name)}</div>
-          <div class="mp__meta">${esc(m.niche || '')} · ${mp.length} участников · ${by(v1Data.cases, m.id).length} кейсов</div>
-        </div>
-        <div class="mp__actions">
-          <a class="btn btn-ghost" href="vitrina.html?m=${esc(m.id)}" target="_blank">Витрина v1</a>
-        </div>
-      </div>
+function renderLeads() {
+  const filterWrap = document.getElementById('leadsFilterWrap');
+  const list = document.getElementById('leadsList');
+
+  // Уникальные мастера из лидов
+  const masters = [...new Map(leadsData.map(l => [l.master_slug, l.master_name || l.master_slug])).entries()];
+
+  if (masters.length > 0) {
+    filterWrap.innerHTML = `
+      <select class="lead__filter" id="leadsFilterSel">
+        <option value="">Все мастера (${leadsData.length})</option>
+        ${masters.map(([slug, name]) => {
+          const cnt = leadsData.filter(l => l.master_slug === slug).length;
+          return `<option value="${esc(slug)}" ${leadsFilter === slug ? 'selected' : ''}>${esc(name)} (${cnt})</option>`;
+        }).join('')}
+      </select>
     `;
-  }).join('');
+    document.getElementById('leadsFilterSel').addEventListener('change', (e) => {
+      leadsFilter = e.target.value;
+      renderLeads();
+    });
+  } else {
+    filterWrap.innerHTML = '';
+  }
+
+  const filtered = leadsFilter ? leadsData.filter(l => l.master_slug === leadsFilter) : leadsData;
+
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">Пока заявок нет. Когда участник заполнит форму на публичной странице мастера — появится здесь в реальном времени.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(l => `
+    <div class="lead">
+      <div class="lead__top">
+        <div>
+          <div class="lead__visitor">${esc(l.visitor_name)}</div>
+          <div class="lead__master">→ к мастеру: ${esc(l.master_name || l.master_slug)}</div>
+        </div>
+        <div class="lead__time">${esc(fmtTime(l.created_at))}</div>
+      </div>
+      <div class="lead__body">
+        <div><b>Контакт</b>${esc(l.visitor_contact)}</div>
+        ${l.message ? `<div><b>Сообщение</b>${esc(l.message)}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
 }
 
 function subscribeRealtime() {
@@ -479,6 +588,8 @@ function subscribeRealtime() {
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mg_applications' },
       async () => { await loadAll(); renderShell(); })
     .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'mg_applications' },
+      async () => { await loadAll(); renderShell(); })
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mg_leads' },
       async () => { await loadAll(); renderShell(); })
     .subscribe();
 }

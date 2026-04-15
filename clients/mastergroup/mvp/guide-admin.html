@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Моя инструкция · МГ-админка</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --yellow:     #ffc403;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
+  body { padding: 0 clamp(16px, 4vw, 32px); }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 48px 0 100px; }
+
+  .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--bg-warm); margin-bottom: 40px; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--green-deep); font-weight: 700; }
+  .logo span { color: var(--mustard); }
+  .top-nav a { color: var(--text-soft); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .top-nav a:hover { color: var(--mustard); }
+
+  .private-badge { display: inline-block; background: var(--green-deep); color: #fff; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 46px); color: var(--green-deep); line-height: 1.1; margin-bottom: 12px; font-weight: 700; }
+  .lede { font-size: 16px; color: var(--text); margin-bottom: 14px; }
+
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 28px); color: var(--green-deep); margin: 48px 0 14px; line-height: 1.2; padding-top: 18px; border-top: 1px solid var(--bg-warm); }
+  h2:first-of-type { border-top: 0; padding-top: 0; margin-top: 36px; }
+  h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--green-deep); margin: 22px 0 8px; }
+
+  p { margin-bottom: 12px; font-size: 15px; }
+  strong { color: var(--green-deep); font-weight: 700; }
+  code { background: var(--bg-warm); padding: 2px 8px; border-radius: 6px; font-family: 'SF Mono', Menlo, monospace; font-size: 13px; color: var(--green-deep); }
+
+  ul,ol { padding-left: 22px; margin-bottom: 14px; font-size: 15px; }
+  li { margin-bottom: 5px; }
+
+  .quick-links { background: var(--bg-warm); border-radius: 18px; padding: 24px 28px; margin: 0 0 30px; }
+  .quick-links__title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--green-deep); margin-bottom: 14px; font-weight: 700; }
+  .quick-links ul { list-style: none; padding: 0; margin: 0; }
+  .quick-links li { margin-bottom: 10px; }
+  .quick-links a { display: inline-flex; align-items: center; gap: 10px; background: #fff; padding: 10px 16px; border-radius: 10px; text-decoration: none; color: var(--green-deep); font-weight: 600; font-size: 13px; border: 1px solid transparent; transition: all .15s; }
+  .quick-links a:hover { border-color: var(--gold); color: var(--mustard); }
+
+  .tab-card { background: #fff; border: 1px solid var(--bg-warm); border-radius: 16px; padding: 22px 26px; margin: 16px 0; }
+  .tab-card h3 { margin-top: 0; }
+
+  .callout { background: #fff9e6; border: 2px solid var(--gold); border-radius: 14px; padding: 18px 22px; margin: 18px 0; font-size: 14px; }
+  .callout strong { color: var(--mustard); }
+
+  .danger { background: #fff0f0; border: 2px solid #c94545; border-radius: 14px; padding: 18px 22px; margin: 18px 0; font-size: 14px; }
+  .danger strong { color: #c94545; }
+
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(76,70,81,0.05); }
+  th,td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--bg-warm); font-size: 13px; }
+  th { background: var(--bg-warm); font-weight: 700; color: var(--green-deep); font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; }
+  td:first-child { font-weight: 700; color: var(--mustard); }
+  tr:last-child td { border-bottom: 0; }
+
+  footer { margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--bg-warm); color: var(--text-soft); font-size: 12px; text-align: center; }
+
+  @media (max-width: 640px) {
+    .tab-card { padding: 18px 20px; }
+    table { font-size: 12px; }
+    th,td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top-nav">
+    <div class="logo">Нейро Бабки <span>СССР</span></div>
+    <a href="/mg/admin">← в админку</a>
+  </nav>
+
+  <div class="private-badge">🔒 Только для админов</div>
+  <h1>Инструкция по МГ-админке</h1>
+  <p class="lede">Как модерировать анкеты, контролировать потоки и где что искать. Если что-то забыл — возвращайся сюда.</p>
+
+  <div class="quick-links">
+    <div class="quick-links__title">📌 Быстрые ссылки</div>
+    <ul>
+      <li><a href="/mg/admin" target="_blank">🔑 Админка <code>/mg/admin</code> (пароль <code>nbcccp-2026</code>)</a></li>
+      <li><a href="/mg/" target="_blank">🏠 Публичный лендинг <code>/mg/</code></a></li>
+      <li><a href="/mg/join" target="_blank">📝 Анкета <code>/mg/join</code> (что видит мастер)</a></li>
+      <li><a href="/mg/guide" target="_blank">📘 Гайд для мастера <code>/mg/guide</code> — шли эту ссылку мастерам</a></li>
+    </ul>
+  </div>
+
+  <h2>Три точки входа в систему</h2>
+  <p>Платформа работает для трёх типов пользователей — каждому нужно своё.</p>
+
+  <h3>1. Мастер (участник МГ)</h3>
+  <p>Подаёт анкету → ждёт одобрение → собирает страницу в конструкторе → публикует → делится ссылкой с другими участниками МГ.</p>
+
+  <h3>2. Участник мастера</h3>
+  <p>Другой участник мастер-группы получает ссылку от мастера → открывает публичную страницу → нажимает кнопку записи → пишет в Telegram/WhatsApp или оставляет заявку через форму.</p>
+
+  <h3>3. Ты (админ)</h3>
+  <p>Контролируешь всё: модерируешь анкеты, следишь за собранными страницами, видишь заявки от участников — всё по адресу <strong>/mg/admin</strong>, вход по паролю.</p>
+
+  <h2>🎛 Админка — 4 вкладки</h2>
+
+  <div class="tab-card">
+    <h3>🆕 Вкладка 1 — «Анкеты»</h3>
+    <p>Очередь заявок от мастеров, которые подали форму через <code>/mg/join</code>. <strong>Realtime</strong> — новая анкета всплывает сама, без F5.</p>
+    <p><strong>Что делаешь с карточкой:</strong></p>
+    <ol>
+      <li>Клик на карточку — раскрываются все поля (имя, контакт, ниша, чего хочет от приложения)</li>
+      <li>При желании — пишешь комментарий модератора</li>
+      <li>Жмёшь <strong>✅ Одобрить</strong> → откроется модалка с готовым сообщением для Telegram + кнопка «Скопировать»</li>
+      <li>Или <strong>❌ Отклонить</strong> с причиной — мастер увидит её у себя в статусе</li>
+    </ol>
+
+    <div class="callout">
+      <strong>💾 Ссылка на конструктор сохраняется в админке.</strong> Даже если закроешь модалку — в любой момент можно зайти во вкладку «📄 Страницы», нажать «📋 Ссылка на конструктор» и получить ту же самую ссылку. Мастер не теряет прогресс, если потерял ссылку — пришли её заново.
+    </div>
+  </div>
+
+  <div class="tab-card">
+    <h3>📄 Вкладка 2 — «Страницы»</h3>
+    <p>Все страницы одобренных мастеров. Видишь статус: <strong>draft</strong> (ещё собирает) или <strong>published</strong> (опубликовано).</p>
+    <p><strong>Зачем:</strong></p>
+    <ul>
+      <li>Смотришь, кто застрял на конструкторе и не допубликовал — можно написать и поддержать</li>
+      <li>Открываешь страницу и проверяешь качество перед тем, как мастер начнёт её распространять</li>
+      <li>Быстрый переход на публичную страницу любого мастера</li>
+    </ul>
+  </div>
+
+  <div class="tab-card">
+    <h3>📨 Вкладка 3 — «Заявки участников»</h3>
+    <p>Заявки от участников мастер-группы — когда участник заполняет форму на публичной странице другого мастера (если этот мастер выбрал CTA = «форма на странице»). <strong>Realtime</strong> — новая заявка всплывает сама.</p>
+    <p><strong>Что видишь по каждой заявке:</strong></p>
+    <ul>
+      <li>К какому мастеру пришёл участник</li>
+      <li>Имя и контакт</li>
+      <li>Сообщение</li>
+      <li>Время</li>
+    </ul>
+    <p><strong>Фильтр сверху</strong> — можно смотреть заявки только по одному мастеру.</p>
+
+    <div class="callout">
+      <strong>Зачем тебе это:</strong> ты видишь весь поток записей внутри мастер-группы. Если у мастера пошли записи от других участников — ты это увидишь первой. Можешь прямо из админки сообщить мастеру: «тебе пришла заявка от [имя], контакт такой-то».
+    </div>
+  </div>
+
+
+  <h2>📘 Как работать с гайдом для мастера</h2>
+  <p>В шапке админки три кнопки:</p>
+  <ul>
+    <li><strong>📘 Гайд для мастера</strong> — открывает публичный гайд в новой вкладке. Посмотри сама что там написано</li>
+    <li><strong>📋 Скопировать ссылку на гайд</strong> — кладёт URL гайда в буфер обмена. Вставляешь в Telegram мастеру перед тем как он сядет за конструктор</li>
+    <li><strong>📕 Моя инструкция</strong> — открывает эту самую страницу</li>
+  </ul>
+
+  <p><strong>Рекомендованный сценарий:</strong> когда одобряешь анкету, в Telegram-сообщении для мастера к ссылке на конструктор добавляй ещё и ссылку на гайд:</p>
+  <div class="callout">
+    «Привет, [имя]! Твоя анкета одобрена 🎉 Вот ссылка на конструктор: [...]. А вот пошаговая инструкция — пройди перед тем как садиться: [гайд]. 20 минут — и у тебя живая ссылка.»
+  </div>
+
+  <h2>🔄 Типичные сценарии</h2>
+
+  <h3>Новая анкета — что делать</h3>
+  <ol>
+    <li>Открываешь админку → вкладка «Анкеты» (уже открыта по умолчанию)</li>
+    <li>Видишь новую карточку (всплывает сама без F5)</li>
+    <li>Кликаешь → читаешь ответы</li>
+    <li>Жмёшь «Одобрить» → копируешь готовое сообщение → вставляешь мастеру в Telegram</li>
+  </ol>
+
+  <h3>Мастер потерял ссылку на конструктор</h3>
+  <p>Одним кликом — вкладка <strong>«📄 Страницы»</strong> → находишь мастера → кнопка <strong>📋 Ссылка на конструктор</strong>. В буфер скопируется готовое сообщение для Telegram с той же самой ссылкой, которую отправляли изначально. Ничего не теряется — всё, что мастер уже заполнил в конструкторе, остаётся на месте.</p>
+  <div class="callout">
+    <strong>Как это работает:</strong> raw-токен хранится в колонке <code>token_plain</code> таблицы <code>mg_master_pages</code>, доступен только через admin RPC <code>mg_admin_get_master_link</code>. Для старых страниц, созданных до этого апдейта, кнопка предложит перевыпустить токен — старая ссылка при этом перестанет работать.
+  </div>
+
+  <h3>Хочешь посмотреть, как выглядит чья-то страница</h3>
+  <p>Вкладка <strong>«Страницы»</strong> → находишь мастера → кнопка «Открыть» или «Превью» (для draft).</p>
+
+  <h3>Участник написал тебе, а не мастеру</h3>
+  <p>Зайди во вкладку «Заявки участников» → фильтр по мастеру → найди заявку. Если её нет — значит человек не проходил через форму на публичной странице. Скажи мастеру, пусть настроит CTA = Telegram/WhatsApp для прямых контактов или «форма на странице» для централизации.</p>
+
+  <h2>🔐 Безопасность</h2>
+  <ul>
+    <li><strong>Пароль админки:</strong> <code>nbcccp-2026</code> (хранится как hash в RPC, в коде только фронтовый hash для локального gate)</li>
+    <li><strong>Токены мастеров:</strong> в БД лежит и SHA-256 hash (для верификации), и raw-токен (для восстановления), raw доступен только через admin RPC</li>
+    <li><strong>RLS:</strong> закрыта полностью, все операции идут через RPC security definer — прямой INSERT/UPDATE невозможен</li>
+    <li><strong>Ключ Supabase в коде</strong> — публичный publishable key, ничего не даёт кроме вызова RPC</li>
+  </ul>
+
+  <h2>🗄 Где что хранится</h2>
+  <table>
+    <thead><tr><th>Таблица</th><th>Что</th></tr></thead>
+    <tbody>
+      <tr><td>mg_applications</td><td>Все анкеты со статусами</td></tr>
+      <tr><td>mg_master_pages</td><td>Собранные страницы + JSONB с конфигом</td></tr>
+      <tr><td>mg_config_questions</td><td>Справочник 8 вопросов конструктора</td></tr>
+      <tr><td>mg_leads</td><td>Заявки участников через форму (историческое имя таблицы)</td></tr>
+    </tbody>
+  </table>
+  <p>Всё в Supabase, проект <code>my-architecture</code>. Если прям нужно залезть вручную — Table Editor → <strong>только SELECT</strong>, модификации не пройдут (RLS).</p>
+
+  <h2>🆘 Если что-то сломалось</h2>
+  <ul>
+    <li><strong>Анкета не всплывает realtime</strong> — обнови страницу (F5). Проверь что publication на <code>mg_applications</code> живой</li>
+    <li><strong>Лид не всплывает realtime</strong> — то же самое, publication на <code>mg_leads</code></li>
+    <li><strong>RPC возвращает «Неверный админ-ключ»</strong> — sessionStorage сбросился, выйди и войди заново</li>
+    <li><strong>Всё сломалось</strong> — пиши Кодычу, разберёмся</li>
+  </ul>
+
+  <footer>
+    Нейро Бабки СССР · только для команды админов<br>
+    МГ-платформа v2 · внутренняя документация
+  </footer>
+
+</div>
+</body>
+</html>

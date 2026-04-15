@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
     --bg:         #ffffff;
@@ -75,7 +77,7 @@
 <div class="wrap">
   <div id="root"><div class="loading">Загружаем...</div></div>
   <div class="footer">
-    Собрано на <a href="./">МГ-платформе</a> · Нейро Бабки СССР
+    Собрано на <a href="/mg/">МГ-платформе</a> · Нейро Бабки СССР
   </div>
 </div>
 
@@ -89,7 +91,12 @@ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function escAttr(s){return esc(s);}
 
 const params = new URLSearchParams(location.search);
-const slug = params.get('m');
+// Slug приходит либо как query (?m=slug), либо из красивого URL /mg/m/<slug>
+let slug = params.get('m');
+if (!slug) {
+  const pathMatch = location.pathname.match(/\/mg\/m\/([^/]+)/);
+  if (pathMatch) slug = decodeURIComponent(pathMatch[1]);
+}
 const isPreview = params.get('preview') === '1';
 
 const root = document.getElementById('root');
@@ -237,6 +244,22 @@ function render(p) {
       }
       form.classList.remove('on');
       sent.classList.add('on');
+      if (window.tg && window.tg.HapticFeedback) {
+        window.tg.HapticFeedback.notificationOccurred('success');
+      }
+    });
+  }
+
+  // В TMA: Telegram CTA открывается через openTelegramLink (меньше конфликтов)
+  if (window.isTMA) {
+    document.querySelectorAll('a.cta-btn').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href.startsWith('https://t.me/') || href.startsWith('https://wa.me/')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.tmaOpenLink(href);
+        });
+      }
     });
   }
 }

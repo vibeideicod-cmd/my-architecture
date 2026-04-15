@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Как собрать свою страницу · МГ-платформа</title>
+<meta name="description" content="Инструкция для мастеров мастер-группы УБ — как за 20 минут собрать свою бизнес-визитку и получить живую ссылку для участников." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/mg/js/tma-init.js"></script>
+<style>
+  :root {
+    --bg:         #ffffff;
+    --bg-warm:    #d3bfb1;
+    --bg-cool:    #cbcbd4;
+    --gold:       #d4af37;
+    --mustard:    #c99700;
+    --green:      #4b7850;
+    --green-deep: #103206;
+    --text:       #4c4651;
+    --text-soft:  rgba(76, 70, 81, 0.62);
+    --yellow:     #ffc403;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
+  body { padding: 0 clamp(16px, 4vw, 32px); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 0 100px; }
+
+  .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--bg-warm); margin-bottom: 40px; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--green-deep); font-weight: 700; }
+  .logo span { color: var(--mustard); }
+  .top-nav a { color: var(--text-soft); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .top-nav a:hover { color: var(--mustard); }
+
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 6vw, 52px); color: var(--green-deep); line-height: 1.05; margin-bottom: 14px; font-weight: 700; }
+  .lede { font-size: 18px; color: var(--text); margin-bottom: 10px; line-height: 1.55; }
+  .est { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; }
+
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 32px); color: var(--green-deep); margin: 56px 0 18px; line-height: 1.15; }
+  h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--green-deep); margin: 24px 0 10px; }
+
+  p { margin-bottom: 14px; }
+  strong { color: var(--green-deep); font-weight: 700; }
+  em { color: var(--mustard); font-style: normal; font-weight: 600; }
+
+  ul,ol { padding-left: 22px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; }
+
+  .step { background: var(--bg-warm); border-radius: 20px; padding: 32px 36px; margin: 20px 0; position: relative; }
+  .step__num { position: absolute; top: -18px; left: 32px; width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(212,175,55,0.35); }
+  .step h2 { margin: 8px 0 12px; font-size: 26px; }
+  .step p { font-size: 15px; }
+  .step ul { font-size: 15px; }
+
+  .callout { background: #fff9e6; border: 2px solid var(--gold); border-radius: 16px; padding: 22px 26px; margin: 24px 0; }
+  .callout strong { color: var(--mustard); }
+  .callout__title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--mustard); margin-bottom: 8px; font-weight: 700; }
+
+  .save-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 18px 0; }
+  .save-method { background: #fff; border: 1px solid var(--bg-warm); border-radius: 14px; padding: 16px 18px; }
+  .save-method__icon { font-size: 24px; margin-bottom: 6px; }
+  .save-method__title { font-weight: 700; color: var(--green-deep); font-size: 14px; margin-bottom: 4px; }
+  .save-method__desc { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
+
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(76,70,81,0.05); }
+  th,td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--bg-warm); font-size: 14px; }
+  th { background: var(--bg-warm); font-weight: 700; color: var(--green-deep); font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; }
+  td:first-child { font-weight: 700; color: var(--mustard); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+
+  .contact-box { background: linear-gradient(135deg, var(--green-deep), var(--green)); color: #fff; border-radius: 20px; padding: 36px 40px; margin: 50px 0 0; text-align: center; }
+  .contact-box h2 { color: #fff; margin-top: 0; }
+  .contact-box p { color: rgba(255,255,255,0.85); font-size: 15px; }
+  .contact-box a { display: inline-block; margin-top: 18px; background: var(--gold); color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(212,175,55,0.35); transition: transform .15s; }
+  .contact-box a:hover { transform: translateY(-2px); }
+
+  footer { margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--bg-warm); color: var(--text-soft); font-size: 12px; text-align: center; }
+
+  @media (max-width: 640px) {
+    .step { padding: 28px 22px; }
+    .step__num { left: 22px; }
+    .contact-box { padding: 28px 22px; }
+    table { font-size: 13px; }
+    th,td { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top-nav">
+    <div class="logo">Нейро Бабки <span>СССР</span></div>
+    <a href="/mg/">← на главную МГ</a>
+  </nav>
+
+  <h1>Как собрать свою страницу</h1>
+  <p class="lede">Пошаговая инструкция для мастеров мастер-группы УБ. Ты получишь живую ссылку на свою бизнес-визитку — её можно отправлять участникам мастер-группы и ставить везде.</p>
+  <div class="est">⏱ Примерно 20 минут</div>
+
+  <h2>Что в итоге получишь</h2>
+  <p>Личную публичную страницу в интернете — с твоим именем, предложением, фото и одной кнопкой, через которую участник мастер-группы сможет к тебе записаться. Одна короткая ссылка, которая работает везде: в соцсетях, в визитке, в личных сообщениях. Никаких блокировок мессенджеров.</p>
+
+  <div class="step">
+    <div class="step__num">1</div>
+    <h2>Подай анкету</h2>
+    <p>Открой <strong>demo.ideidlyabiznesa1913.ru/mg/</strong> и нажми кнопку <strong>«Стать мастером»</strong>. Откроется короткая анкета на 9 вопросов — имя, контакт, ниша, чем ты занимаешься и чего хочешь от своего приложения.</p>
+    <p>Заполни спокойно, простым языком. Дальше нажми <strong>«Отправить»</strong>.</p>
+  </div>
+
+  <div class="step">
+    <div class="step__num">2</div>
+    <h2>⚠️ Обязательно сохрани свою ссылку</h2>
+    <p>Сразу после отправки появится экран с <strong>твоей персональной ссылкой на статус анкеты</strong>. Выглядит она примерно так: <em>.../mg/status?a=длинный-код</em></p>
+    <p><strong>Эта ссылка — единственный способ вернуться к своей анкете и потом к конструктору.</strong> Если её потеряешь — придётся подавать анкету заново.</p>
+
+    <div class="callout">
+      <div class="callout__title">Сохрани одним из 4 способов прямо на экране</div>
+      <div class="save-methods">
+        <div class="save-method">
+          <div class="save-method__icon">📋</div>
+          <div class="save-method__title">Скопировать</div>
+          <div class="save-method__desc">Вставить в заметки телефона или в избранное браузера</div>
+        </div>
+        <div class="save-method">
+          <div class="save-method__icon">✉️</div>
+          <div class="save-method__title">В Telegram</div>
+          <div class="save-method__desc">Одна кнопка — ссылка улетит тебе в избранное в Telegram</div>
+        </div>
+        <div class="save-method">
+          <div class="save-method__icon">💾</div>
+          <div class="save-method__title">Скачать файл</div>
+          <div class="save-method__desc">Ссылка сохранится текстовым файлом на устройство</div>
+        </div>
+        <div class="save-method">
+          <div class="save-method__icon">📱</div>
+          <div class="save-method__title">QR-код</div>
+          <div class="save-method__desc">Отсканируй с телефона — откроется прямо там</div>
+        </div>
+      </div>
+      <p style="margin-bottom:0;font-size:13px"><strong>Рекомендация:</strong> используй хотя бы два способа сразу. Лучше всего — скопировать в заметки + отправить себе в Telegram.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step__num">3</div>
+    <h2>Дождись одобрения</h2>
+    <p>Команда МГ проверит твою анкету — обычно это пара часов, максимум день. Одобрение придёт тебе двумя путями:</p>
+    <ul>
+      <li><strong>В Telegram от команды</strong> — тебе пришлют готовое сообщение со ссылкой на конструктор.</li>
+      <li><strong>В твоём статусе</strong> — если откроешь свою сохранённую ссылку, увидишь «✅ Одобрено» и кнопку <strong>«Открыть конструктор»</strong>.</li>
+    </ul>
+    <p>Если анкету отклонят — в том же статусе будет причина, и ты сможешь подать её заново.</p>
+  </div>
+
+  <div class="step">
+    <div class="step__num">4</div>
+    <h2>Собери страницу в конструкторе</h2>
+    <p>Откроется конструктор — это <strong>8 коротких вопросов в 4 блоках</strong>. В каждом блоке — подсказки и примеры, чтобы было понятно, что писать.</p>
+
+    <table>
+      <thead>
+        <tr><th>Блок</th><th>О чём</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1. Hero</td><td>Твоё имя, одна фраза о деле, ссылка на фотку</td></tr>
+        <tr><td>2. О тебе</td><td>2–3 абзаца о себе — кто ты и кому помогаешь</td></tr>
+        <tr><td>3. Предложение</td><td>Что именно ты предлагаешь и 3 причины выбрать тебя</td></tr>
+        <tr><td>4. Связь</td><td>Куда писать тому, кто хочет записаться: Telegram / WhatsApp / форма</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Полезные фишки конструктора</h3>
+    <ul>
+      <li><strong>Всё автосохраняется.</strong> Можешь закрыть вкладку и вернуться по той же ссылке — все данные будут на месте.</li>
+      <li><strong>Кнопка «Посмотреть, как выглядит».</strong> В любой момент откроет твою страницу в реальном виде в новом окне.</li>
+      <li><strong>Фото необязательное.</strong> Если не дашь ссылку — будет красивый кружок с первой буквой твоего имени.</li>
+      <li><strong>Как взять ссылку на фотку:</strong> загрузи фото на Яндекс.Диск → Поделиться → Скопировать ссылку. Вставь её в конструктор.</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="step__num">5</div>
+    <h2>Опубликуй страницу</h2>
+    <p>Когда все 4 блока готовы — нажми <strong>«Опубликовать»</strong>. Откроется экран с твоей <strong>публичной ссылкой</strong> и 4 способами поделиться:</p>
+    <ul>
+      <li>📋 Скопировать ссылку</li>
+      <li>✉️ Отправить себе в Telegram</li>
+      <li>📱 Показать QR-код</li>
+      <li>👁 Открыть и посмотреть вживую</li>
+    </ul>
+    <p>С этого момента твоя страница живёт в интернете и доступна каждому, кто откроет эту ссылку.</p>
+  </div>
+
+  <div class="step">
+    <div class="step__num">6</div>
+    <h2>Поделись с участниками</h2>
+    <p>Твоя ссылка — универсальная. Вставляй её куда угодно:</p>
+    <ul>
+      <li>В <strong>шапку соцсетей</strong> (вместо Linktree или таплинков)</li>
+      <li>В <strong>закреп Telegram-канала</strong> или описание</li>
+      <li>В <strong>визитки и объявления</strong> — можно распечатать QR-код</li>
+      <li>В <strong>личку</strong> тем, кто спрашивает «а где про тебя почитать?»</li>
+      <li>В <strong>рекламу</strong> и рассылки</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="step__num">7</div>
+    <h2>Протестируй на живых участниках</h2>
+    <p>Отправь свою ссылку <strong>первым 2–3 участникам мастер-группы</strong> и посмотри, что произойдёт:</p>
+    <ul>
+      <li>Открылась ли страница</li>
+      <li>Смог ли человек нажать кнопку записи</li>
+      <li>Пришёл ли к тебе контакт</li>
+    </ul>
+    <p>Если что-то захочешь поправить — <strong>возвращайся в конструктор</strong> по своей сохранённой ссылке, меняй что угодно и нажимай «Опубликовать» ещё раз. Публичная ссылка остаётся той же.</p>
+  </div>
+
+  <h2>Если что-то пошло не так</h2>
+  <h3>Потерял свою ссылку</h3>
+  <p>Напиши команде МГ — тебе пришлют ту же самую ссылку заново. <strong>Ничего не пропадает:</strong> всё, что ты уже заполнил в конструкторе, остаётся на месте. Просто откроешь по присланной ссылке и продолжишь с того же места.</p>
+  <h3>Участник не может открыть страницу</h3>
+  <p>Проверь, что нажал <strong>«Опубликовать»</strong> в конце — до этого момента страница видна только тебе. Если сомневаешься — напиши команде МГ, проверим статус.</p>
+  <h3>Хочу поменять что-то после публикации</h3>
+  <p>Спокойно меняй в конструкторе и публикуй заново — публичная ссылка та же, участники увидят новую версию.</p>
+
+  <div class="contact-box">
+    <h2>Застрял? Напиши команде МГ</h2>
+    <p>Расскажи, на каком шаге остановился — разберёмся за минуту.</p>
+    <a href="https://t.me/neuro_strateg_inna" target="_blank">Написать в Telegram</a>
+  </div>
+
+  <footer>
+    Нейро Бабки СССР · Структура · Стратегия · Свобода · Результат<br>
+    МГ-платформа v2 · инструкция для мастеров
+  </footer>
+
+</div>
+</body>
+</html>

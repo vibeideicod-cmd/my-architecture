@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
     --bg:         #ffffff;
@@ -100,7 +102,7 @@
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="./">← Главная</a>
+  <a class="back" href="/mg/">← Главная</a>
   <div id="root"><div class="loading">Проверяем доступ...</div></div>
 </div>
 
@@ -125,15 +127,15 @@ let pageConfig = {};
 
 // Определение блоков вопросов
 const BLOCK_META = {
-  hero:  { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит клиент' },
+  hero:  { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит участник' },
   about: { num: 2, title: 'Расскажи о себе', desc: 'Почему тебе можно доверять' },
-  offer: { num: 3, title: 'Твоё предложение', desc: 'Что ты даёшь клиенту, который пришёл' },
-  cta:   { num: 4, title: 'Как связаться', desc: 'Куда клиент нажмёт, чтобы записаться' },
+  offer: { num: 3, title: 'Твоё предложение', desc: 'Что ты даёшь тому, кто пришёл' },
+  cta:   { num: 4, title: 'Как связаться', desc: 'Куда нужно нажать, чтобы записаться' },
 };
 
 async function boot() {
   if (!slug || !rawToken) {
-    root.innerHTML = '<div class="err">Неправильная ссылка. Нужен <code>?m=slug&t=token</code>. Проверь сообщение от Инны.</div>';
+    root.innerHTML = '<div class="err">Неправильная ссылка. Нужен <code>?m=slug&t=token</code>. Проверь сообщение от команды МГ.</div>';
     return;
   }
 
@@ -153,7 +155,7 @@ async function boot() {
   // Тестовый вызов save с пустым patch — проверяет токен
   const { error: saveErr } = await sb.rpc('mg_save_page', { p_slug: slug, p_token: rawToken, p_patch: {} });
   if (saveErr) {
-    root.innerHTML = `<div class="err">Неверный токен. Проверь ссылку от Инны — возможно, она неполная.</div>`;
+    root.innerHTML = `<div class="err">Неверный токен. Проверь ссылку — возможно, она неполная. Если потерял — напиши команде МГ, пришлют ту же самую заново.</div>`;
     return;
   }
 
@@ -225,7 +227,7 @@ function renderBuilder() {
   document.querySelectorAll('[data-preview]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const u = new URL('master-page.html', location.href);
+      const u = new URL('/mg/page', location.href);
       u.searchParams.set('m', slug);
       u.searchParams.set('preview', '1');
       window.open(u.href, '_blank');
@@ -260,7 +262,7 @@ function renderQuestion(block, q) {
         <label class="cta-radio ${isOn ? 'on' : ''}" data-cta-opt="${esc(opt.value)}">
           <input type="radio" name="cta_link_type" value="${esc(opt.value)}" ${isOn ? 'checked' : ''} />
           <div class="cta-radio__label">${esc(opt.label)}</div>
-          ${opt.value !== 'form' ? `<input type="text" data-cta-value="${esc(opt.value)}" placeholder="${esc(opt.placeholder || '')}" value="${isOn ? esc(currentValue) : ''}" style="margin-top:10px;background:var(--bg-warm)" ${!isOn ? 'disabled' : ''} />` : '<div class="cta-radio__hint">Клиенты оставят свои контакты через форму на твоей странице</div>'}
+          ${opt.value !== 'form' ? `<input type="text" data-cta-value="${esc(opt.value)}" placeholder="${esc(opt.placeholder || '')}" value="${isOn ? esc(currentValue) : ''}" style="margin-top:10px;background:var(--bg-warm)" ${!isOn ? 'disabled' : ''} />` : '<div class="cta-radio__hint">Участники оставят свои контакты через форму на твоей странице</div>'}
         </label>
       `;
     }
@@ -393,23 +395,28 @@ async function publish() {
 }
 
 function showPublished(publishedSlug) {
-  const pageUrl = new URL('master-page.html', location.href);
-  pageUrl.searchParams.set('m', publishedSlug);
+  // Красивая публичная ссылка для мастера: /mg/m/<slug>
+  const pageUrl = new URL(`/mg/m/${encodeURIComponent(publishedSlug)}`, location.href);
   const fullUrl = pageUrl.href;
   const tgShare = `https://t.me/share/url?url=${encodeURIComponent(fullUrl)}&text=${encodeURIComponent('Моя страница: ')}`;
+
+  if (window.tg && window.tg.HapticFeedback) {
+    window.tg.HapticFeedback.notificationOccurred('success');
+  }
 
   root.innerHTML = `
     <div class="published">
       <div class="published__emoji">🎉</div>
       <h1 class="published__title">Готово! Твоя страница живёт</h1>
-      <p class="published__text">Отправь эту ссылку первому клиенту — пусть посмотрит, как у тебя всё устроено. Если что-то хочешь поправить, вернись к конструктору и нажми «Опубликовать» ещё раз.</p>
+      <p class="published__text">Отправь эту ссылку первому участнику мастер-группы — пусть посмотрит, как у тебя всё устроено. Если что-то хочешь поправить, вернись к конструктору и нажми «Опубликовать» ещё раз.</p>
 
       <div class="url-box">
         <div class="url-box__url" id="publicUrl">${esc(fullUrl)}</div>
         <div class="url-actions">
-          <button class="url-btn primary" id="copyUrlBtn">📋 Скопировать</button>
+          ${window.isTMA ? `<button class="url-btn primary" id="tmaShareBtn">📤 Поделиться в Telegram</button>` : ''}
+          <button class="url-btn ${window.isTMA ? '' : 'primary'}" id="copyUrlBtn">📋 Скопировать</button>
           <a class="url-btn" href="${esc(fullUrl)}" target="_blank">👁 Посмотреть</a>
-          <a class="url-btn" href="${esc(tgShare)}" target="_blank">✉️ В Telegram</a>
+          ${!window.isTMA ? `<a class="url-btn" href="${esc(tgShare)}" target="_blank">✉️ В Telegram</a>` : ''}
           <button class="url-btn" id="qrBtn">📱 QR-код</button>
         </div>
         <div id="qrSlot" style="margin-top:16px"></div>
@@ -418,6 +425,13 @@ function showPublished(publishedSlug) {
       <a class="url-btn" style="display:inline-block;margin-top:20px" href="${location.href}">← Вернуться к конструктору</a>
     </div>
   `;
+
+  const tmaShareBtn = document.getElementById('tmaShareBtn');
+  if (tmaShareBtn) {
+    tmaShareBtn.addEventListener('click', () => {
+      window.tmaShareLink(fullUrl, 'Моя страница на МГ-платформе');
+    });
+  }
 
   document.getElementById('copyUrlBtn').addEventListener('click', (e) => {
     navigator.clipboard.writeText(fullUrl).then(() => {
