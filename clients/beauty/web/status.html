@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Статус заявки — Beauty Визитка</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+  :root {
+    --bg:           #faf7f3;
+    --bg-soft:      #f3ece2;
+    --lavender:     #b49fd4;
+    --lavender-deep:#8a74b0;
+    --peach:        #f2c5a5;
+    --mint:         #a8d5ba;
+    --text:         #4c4651;
+    --text-soft:    #8b7d8f;
+    --error:        #d14545;
+    --success:      #4b7850;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body:    'Manrope', -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(at 15% 20%, hsla(267, 38%, 72%, 0.30) 0, transparent 50%),
+      radial-gradient(at 85% 80%, hsla(25, 72%, 80%, 0.25) 0, transparent 45%);
+    background-attachment: fixed;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    opacity: 0.04; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 48px);
+    position: relative;
+    z-index: 2;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-soft);
+    text-decoration: none;
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+  .back:hover { color: var(--text); }
+
+  .card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 28px;
+    padding: clamp(32px, 6vw, 56px);
+    box-shadow:
+      0 16px 40px -16px rgba(138, 116, 176, 0.3),
+      0 4px 16px -4px rgba(138, 116, 176, 0.15);
+    text-align: center;
+  }
+
+  .state-icon {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin: 0 auto 28px;
+  }
+  .state-pending  { background: linear-gradient(135deg, var(--peach), var(--lavender)); }
+  .state-approved { background: linear-gradient(135deg, var(--mint), var(--lavender));  }
+  .state-rejected { background: linear-gradient(135deg, #f0a0a0, #d14545); }
+  .state-loading  { background: rgba(180, 159, 212, 0.2); }
+  .state-notfound { background: rgba(139, 125, 143, 0.2); }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(28px, 4.5vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--lavender-deep);
+    font-weight: 400;
+  }
+  .lead {
+    font-size: 16px;
+    color: var(--text-soft);
+    margin-bottom: 32px;
+    line-height: 1.55;
+  }
+
+  .meta {
+    background: rgba(180, 159, 212, 0.08);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    text-align: left;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .meta-row .k { color: var(--text-soft); }
+  .meta-row .v { color: var(--text); font-weight: 600; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    background: var(--text);
+    color: var(--bg);
+    transition: transform 0.25s, background 0.25s;
+    box-shadow: 0 12px 32px -12px rgba(76, 70, 81, 0.45);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    background: var(--lavender-deep);
+    box-shadow: 0 16px 40px -12px rgba(138, 116, 176, 0.55);
+  }
+  .btn::after { content: '→'; transition: transform 0.25s; }
+  .btn:hover::after { transform: translateX(4px); }
+
+  .note {
+    background: rgba(209, 69, 69, 0.08);
+    border: 1px solid rgba(209, 69, 69, 0.2);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: var(--error);
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(180, 159, 212, 0.3);
+    border-top-color: var(--lavender-deep);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hidden { display: none !important; }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card { animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a href="landing.html" class="back">← На главную</a>
+
+  <div class="card">
+    <!-- Loading -->
+    <div id="view-loading">
+      <div class="state-icon state-loading"><div class="spinner"></div></div>
+      <h1>Проверяю <em>статус…</em></h1>
+      <p class="lead">Смотрим, что с твоей заявкой.</p>
+    </div>
+
+    <!-- Not found / no token -->
+    <div id="view-notfound" class="hidden">
+      <div class="state-icon state-notfound">🔍</div>
+      <h1>Заявка <em>не найдена</em></h1>
+      <p class="lead">Похоже, ссылка неправильная или заявка была удалена. Попробуй открыть ссылку ещё раз или подай новую заявку.</p>
+      <a href="apply.html" class="btn">Подать заявку</a>
+    </div>
+
+    <!-- Pending -->
+    <div id="view-pending" class="hidden">
+      <div class="state-icon state-pending">⏳</div>
+      <h1>Заявка <em>на рассмотрении</em></h1>
+      <p class="lead">Мы уже смотрим. Обычно занимает несколько часов, максимум сутки. Зайди сюда позже — статус обновится.</p>
+      <div class="meta" id="meta-pending"></div>
+      <p class="lead" style="margin-top: 20px; margin-bottom: 0; font-size: 14px;">
+        💡 Сохрани эту страницу в закладки, чтобы вернуться.
+      </p>
+    </div>
+
+    <!-- Approved -->
+    <div id="view-approved" class="hidden">
+      <div class="state-icon state-approved">✨</div>
+      <h1>Заявка <em>одобрена</em></h1>
+      <p class="lead">Добро пожаловать! Теперь можно настроить свою страницу — добавить услуги, расписание, фото.</p>
+      <div class="meta" id="meta-approved"></div>
+      <a id="cabinet-link" class="btn">Открыть кабинет</a>
+    </div>
+
+    <!-- Rejected -->
+    <div id="view-rejected" class="hidden">
+      <div class="state-icon state-rejected">✕</div>
+      <h1>Заявка <em>отклонена</em></h1>
+      <p class="lead">К сожалению, сейчас мы не можем открыть тебе доступ. Причина указана ниже.</p>
+      <div class="note" id="reject-note"></div>
+      <p class="lead" style="margin-top: 24px; margin-bottom: 0; font-size: 14px;">
+        Если думаешь, что это ошибка — напиши нам. Можно подать новую заявку через <a href="apply.html" style="color: var(--lavender-deep); font-weight: 600;">форму</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function show(viewId) {
+    ['view-loading','view-notfound','view-pending','view-approved','view-rejected']
+      .forEach(id => document.getElementById(id).classList.add('hidden'));
+    document.getElementById(viewId).classList.remove('hidden');
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' }) +
+           ' в ' +
+           d.toLocaleTimeString('ru-RU', { hour:'2-digit', minute:'2-digit' });
+  }
+
+  function metaHtml(row) {
+    return `
+      <div class="meta-row"><span class="k">Имя</span><span class="v">${escapeHtml(row.name)}</span></div>
+      <div class="meta-row"><span class="k">Город</span><span class="v">${escapeHtml(row.city)}</span></div>
+      <div class="meta-row"><span class="k">Направление</span><span class="v">${escapeHtml(row.specialty)}</span></div>
+      <div class="meta-row"><span class="k">Заявка подана</span><span class="v">${fmtDate(row.created_at)}</span></div>
+      ${row.moderated_at ? `<div class="meta-row"><span class="k">Рассмотрена</span><span class="v">${fmtDate(row.moderated_at)}</span></div>` : ''}
+    `;
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+  }
+
+  async function init() {
+    const token = new URLSearchParams(window.location.search).get('t');
+    if (!token) {
+      show('view-notfound');
+      return;
+    }
+
+    const { data, error } = await sb.rpc('beauty_application_status', { p_token: token });
+
+    if (error) {
+      console.error('status error:', error);
+      show('view-notfound');
+      return;
+    }
+
+    if (!data || !data.found) {
+      show('view-notfound');
+      return;
+    }
+
+    if (data.status === 'pending') {
+      document.getElementById('meta-pending').innerHTML = metaHtml(data);
+      show('view-pending');
+    } else if (data.status === 'approved') {
+      document.getElementById('meta-approved').innerHTML = metaHtml(data);
+      // Ссылка в кабинет — пока заглушка, cabinet.html появится в Этапе 2
+      const cabinetUrl = `cabinet.html?m=${encodeURIComponent(data.master_slug)}&t=${encodeURIComponent(token)}`;
+      document.getElementById('cabinet-link').href = cabinetUrl;
+      show('view-approved');
+    } else if (data.status === 'rejected') {
+      document.getElementById('reject-note').textContent =
+        data.moderator_note || 'Без комментария';
+      show('view-rejected');
+    } else {
+      show('view-notfound');
+    }
+  }
+
+  init();
+</script>
+
+</body>
+</html>
