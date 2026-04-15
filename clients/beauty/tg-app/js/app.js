@@ -579,13 +579,21 @@ function renderDates() {
   });
 }
 
-function renderSlots(dateStr) {
+async function renderSlots(dateStr) {
   const container = document.getElementById('slots-container');
-  const slots = getMockSlots(dateStr);
+
+  // Показываем индикатор загрузки пока RPC летит
+  container.innerHTML = `
+    <p style="color:var(--tg-hint);font-size:14px;text-align:center;padding:20px">
+      Ищу свободные окна…
+    </p>
+  `;
+
+  const slots = await getAvailableSlots(dateStr);
 
   if (slots.length === 0) {
     // Пустой день — показываем ближайший свободный
-    const next = getNextAvailableSlot(dateStr);
+    const next = await getNextAvailableSlot(dateStr);
     if (next) {
       container.innerHTML = `
         <div class="empty-slots">
@@ -636,7 +644,7 @@ function renderSlots(dateStr) {
 }
 
 // Прыжок к конкретной дате (из next-available)
-function jumpToDate(dateStr, timeStr) {
+async function jumpToDate(dateStr, timeStr) {
   const pills = document.querySelectorAll('.date-pill');
   const days  = getNext14Days();
 
@@ -649,15 +657,13 @@ function jumpToDate(dateStr, timeStr) {
   state.selectedDate = dateStr;
   state.selectedSlot = null;
   MainButton.disable();
-  renderSlots(dateStr);
+  await renderSlots(dateStr);
 
   // После рендера слотов — выбираем нужный
-  setTimeout(() => {
-    const slotEls = document.querySelectorAll('.slot');
-    slotEls.forEach(el => {
-      if (el.textContent === timeStr) el.click();
-    });
-  }, 50);
+  const slotEls = document.querySelectorAll('.slot');
+  slotEls.forEach(el => {
+    if (el.textContent === timeStr) el.click();
+  });
 }
 
 // ── ─────────────────────────────────────────────────────
@@ -717,8 +723,32 @@ async function handleConfirmSubmit() {
   MainButton.showProgress();
   MainButton.disable();
 
-  // Имитируем запрос к API
-  await delay(900);
+  // Реальный INSERT в bookings через Supabase RLS
+  // service_id хранится в state как 'svc_42' — снимаем префикс
+  const serviceIdNum = parseInt(String(state.selectedService.id).replace(/^svc_/, ''), 10);
+  const tgUser = tg?.initDataUnsafe?.user;
+  const rawName = (tgUser?.first_name || '').split('|')[0].trim();
+
+  try {
+    await createBooking({
+      serviceId:        serviceIdNum,
+      durationMin:      state.selectedService.duration,
+      dateStr:          state.selectedDate,
+      timeStr:          state.selectedSlot,
+      clientName:       rawName || null,
+      clientPhone:      phone,
+      clientTelegramId: tgUser?.id || null,
+    });
+  } catch (e) {
+    console.error('createBooking failed:', e.message);
+    MainButton.hideProgress();
+    MainButton.enable();
+    Haptic.error();
+    phoneInput.classList.add('is-error');
+    // Простое уведомление пока без модалки
+    alert('Не удалось сохранить запись. Попробуйте ещё раз через минуту.\n\n' + e.message);
+    return;
+  }
 
   Haptic.success();
 

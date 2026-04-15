@@ -94,37 +94,78 @@ async function bootstrapData(masterId) {
   return true;
 }
 
-// ── Генератор слотов (пока mock) ────────────────────────
-// TODO: заменить на чтение schedules + bookings из Supabase.
-// Возвращаем только свободные слоты (занятые не показываем).
-function getMockSlots(dateStr) {
-  const d = new Date(dateStr);
-  const day = d.getDay(); // 0 = вс, 6 = сб
-
-  // Выходные — мастер не работает
-  if (day === 0 || day === 6) return [];
-
-  const ALL = ['10:00', '10:30', '11:30', '12:00', '12:30',
-               '14:00', '14:30', '15:30', '16:00', '17:00'];
-
-  return ALL.map(time => ({ time, available: true }));
+// ── Свободные слоты записи ──────────────────────────────
+// Источник: PostgreSQL-функция get_available_slots в Supabase
+// (миграция 005). Функция читает schedules + bookings внутри
+// БД и возвращает только массив строк 'HH:MI' — никаких имён
+// и телефонов других клиенток наружу не утекает.
+//
+// Сохраняем форму [{time, available: true}] для совместимости
+// с уже существующим renderSlots в app.js.
+async function getAvailableSlots(dateStr) {
+  if (!BeautyDB?.client) return [];
+  const masterId = MASTER?.id || BeautyDB.MASTER_ID;
+  const { data, error } = await BeautyDB.client.rpc('get_available_slots', {
+    p_master_id: masterId,
+    p_date:      dateStr,
+  });
+  if (error) {
+    console.error('get_available_slots:', error.message);
+    return [];
+  }
+  return (data || []).map(time => ({ time, available: true }));
 }
 
-// Следующий доступный день со слотами
-function getNextAvailableSlot(fromDateStr) {
+// Следующий доступный день со слотами (последовательно до 14 дней вперёд).
+// Худший случай ~14 RPC-вызовов по ~150мс = ~2с, в среднем намного быстрее.
+async function getNextAvailableSlot(fromDateStr) {
   const d = new Date(fromDateStr);
   for (let i = 1; i <= 14; i++) {
     d.setDate(d.getDate() + 1);
-    const slots = getMockSlots(d.toISOString().slice(0, 10));
+    const dateStr = d.toISOString().slice(0, 10);
+    const slots = await getAvailableSlots(dateStr);
     if (slots.length > 0) {
       return {
-        date: d.toISOString().slice(0, 10),
-        time: slots[0].time,
+        date:  dateStr,
+        time:  slots[0].time,
         label: formatDate(d) + ' · ' + slots[0].time,
       };
     }
   }
   return null;
+}
+
+// ── Создание брони ──────────────────────────────────────
+// Прямой INSERT через anon-key: RLS разрешает только INSERT
+// в bookings, SELECT/UPDATE/DELETE закрыты (см. миграцию 002).
+//
+// scheduled_at собираем из локальной даты + времени Москвы:
+// '2026-04-16T10:00:00+03:00'. PostgreSQL приведёт к UTC при
+// сохранении timestamptz. Москва без перехода на летнее время,
+// поэтому +03:00 жёстко фиксированный.
+async function createBooking({ serviceId, durationMin, dateStr, timeStr, clientName, clientPhone, clientTelegramId }) {
+  if (!BeautyDB?.client) {
+    throw new Error('Supabase client не инициализирован');
+  }
+  const scheduledAt = `${dateStr}T${timeStr}:00+03:00`;
+  const { data, error } = await BeautyDB.client
+    .from('bookings')
+    .insert({
+      master_id:          MASTER.id,
+      service_id:         serviceId,
+      client_telegram_id: clientTelegramId || null,
+      client_name:        clientName || null,
+      client_phone:       clientPhone || null,
+      scheduled_at:       scheduledAt,
+      duration_min:       durationMin,
+      // status дефолтится в 'confirmed' на стороне БД
+    })
+    .select('id')
+    .single();
+  if (error) {
+    throw new Error('bookings insert: ' + error.message);
+  }
+  return data;
 }
 
 // ── Утилиты дат ──────────────────────────────────────────

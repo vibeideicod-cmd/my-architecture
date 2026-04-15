@@ -44,11 +44,13 @@ tg-app/
 
 ### Данные
 `data.js` содержит:
-- `MASTER` — профиль мастера
+- `MASTER` — профиль мастера (грузится из Supabase в `bootstrapData()`)
 - `CATEGORIES` — с `min_price` (ценовой ориентир на главном)
 - `SERVICES` — по категориям, с `price_exact: bool`
-- `getMockSlots(dateStr)` — только свободные слоты
-- `getNextAvailableSlot(dateStr)` — ближайший день со слотами
+- `bootstrapData(masterId)` — async, грузит master+categories+services из Supabase параллельно
+- `getAvailableSlots(dateStr)` — async, RPC `get_available_slots` (миграция 005), возвращает только свободные слоты
+- `getNextAvailableSlot(dateStr)` — async, ищет ближайший день со слотами, до 14 дней вперёд
+- `createBooking({...})` — async, прямой INSERT в `bookings` через RLS-policy (см. миграцию 002)
 - Утилиты: `formatPrice`, `formatDuration`, `formatDate`, `getNext14Days`
 
 ### Telegram SDK
@@ -99,10 +101,12 @@ vercel --cwd clients/beauty/tg-app
 
 ---
 
-## Подключение бэкенда (после MVP)
+## Бэкенд
 
-Заменить вызовы в `app.js`:
-- `getMockSlots(dateStr)` → `fetch('/api/slots?masterId=X&date=Y')`
-- `delay(900)` в `handleConfirmSubmit` → `fetch('/api/bookings', { method: 'POST', ... })`
+**Сейчас:** Supabase BaaS (см. `clients/beauty/supabase/migrations/`). Фронт обращается напрямую через `@supabase/supabase-js` под `anon` ключом. RLS защищает приватные данные клиенток.
 
-Добавить валидацию `initData` на сервере (HMAC-SHA256).
+- Каталог (master/categories/services) → SELECT через RLS policy `public_read_*`
+- Свободные слоты → RPC `get_available_slots` с SECURITY DEFINER (читает bookings внутри БД, не открывая SELECT наружу)
+- Создание брони → INSERT в `bookings` через RLS policy `public_create_bookings`
+
+**Что отложено (Вариант Б):** свой Node.js API на VPS Cheerful Marik, валидация `initData` HMAC-SHA256, платежи ЮKassa, multi-bot. Триггер запуска — когда дойдём до self-serve онбординга мастеров. См. `memory/project-beauty-backend-path.md`.
