@@ -37,6 +37,7 @@ scp \
   "${LOCAL_PATH}/master-page.html" \
   "${LOCAL_PATH}/guide-master.html" \
   "${LOCAL_PATH}/guide-admin.html" \
+  "${LOCAL_PATH}/test-checklist.html" \
   "${DEMO_USER}@${BEGET_HOST}:~/${CLIENT_FOLDER}/"
 
 # JS (Telegram Mini App SDK-инициализация и другие разделяемые скрипты)
@@ -56,6 +57,7 @@ echo ""
 echo "   Внутреннее (для команды):"
 echo "   📊 Админка:          https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/admin"
 echo "   📕 Моя инструкция:   https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/help"
+echo "   🧪 Тест-чеклист:    https://demo.ideidlyabiznesa1913.ru/${CLIENT_FOLDER}/test"
 echo "   🔑 Админ-ключ:       nbcccp-2026"
 echo ""
 echo "   Legacy v1 перенесены в _archive/ — публично недоступны"

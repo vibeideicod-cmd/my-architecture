@@ -17,6 +17,7 @@ RewriteRule ^help/?$         guide-admin.html  [L,QSA]
 RewriteRule ^status/?$       status.html       [L,QSA]
 RewriteRule ^build/?$        build.html        [L,QSA]
 RewriteRule ^page/?$         master-page.html  [L,QSA]
+RewriteRule ^test/?$         test-checklist.html [L,QSA]
 
 # Красивый публичный URL для страницы мастера: /mg/m/<slug>
 RewriteRule ^m/([^/]+)/?$    master-page.html?m=$1 [L,QSA]
