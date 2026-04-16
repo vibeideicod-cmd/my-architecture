@@ -98,6 +98,21 @@
 
   .loading { padding: 80px 20px; text-align: center; color: var(--text-soft); }
   .err { background: #fff; border: 1px solid var(--mustard); color: var(--green-deep); padding: 22px 26px; border-radius: 14px; font-size: 14px; }
+
+  /* Photo upload */
+  .photo-upload { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .photo-upload__preview { width: 120px; height: 120px; border-radius: 50%; background: var(--bg-warm); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 3px solid var(--bg-warm); }
+  .photo-upload__preview img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-upload__placeholder { font-size: 36px; opacity: 0.4; }
+  .photo-upload__actions { display: flex; flex-direction: column; gap: 8px; }
+  .photo-upload__btn { display: inline-block; background: #fff; border: 1px solid var(--gold); color: var(--mustard); padding: 10px 18px; border-radius: 50px; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer; transition: all .15s; text-align: center; }
+  .photo-upload__btn:hover { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; }
+  .photo-upload__remove { background: transparent; border: 0; color: var(--text-soft); font: inherit; font-size: 12px; cursor: pointer; text-decoration: underline; padding: 0; text-align: left; }
+  .photo-upload__remove:hover { color: #c94545; }
+  .photo-upload__hint { font-size: 11px; color: var(--text-soft); line-height: 1.5; max-width: 260px; }
+  .photo-upload__status { width: 100%; font-size: 12px; color: var(--mustard); font-weight: 600; margin-top: 4px; }
+  .photo-upload__status.error { color: #c94545; }
+  .photo-upload__status.ok { color: var(--green); }
 </style>
 </head>
 <body>
@@ -241,7 +256,26 @@ function renderQuestion(block, q) {
   const reqMark = q.required ? '<span class="req">*</span>' : '';
   let field = '';
 
-  if (q.type === 'text' || q.type === 'url') {
+  if (q.code === 'photo_url') {
+    // Загрузка фото вместо URL
+    const hasPhoto = !!val;
+    field = `
+      <div class="photo-upload" data-block="${esc(block)}" data-code="${esc(q.code)}">
+        <div class="photo-upload__preview" id="photoPreview">
+          ${hasPhoto ? `<img src="${esc(val)}" alt="Фото" />` : '<div class="photo-upload__placeholder">📷</div>'}
+        </div>
+        <div class="photo-upload__actions">
+          <label class="photo-upload__btn">
+            <input type="file" accept="image/jpeg,image/png,image/webp" style="display:none" id="photoFileInput" />
+            ${hasPhoto ? '📷 Заменить фото' : '📷 Загрузить фото'}
+          </label>
+          ${hasPhoto ? '<button class="photo-upload__remove" id="photoRemoveBtn">Удалить</button>' : ''}
+          <div class="photo-upload__hint">JPG, PNG или WebP, до 5 МБ. Автоматически обрежется до квадрата.</div>
+        </div>
+        <div class="photo-upload__status" id="photoStatus"></div>
+      </div>
+    `;
+  } else if (q.type === 'text' || q.type === 'url') {
     field = `<input data-block="${esc(block)}" data-code="${esc(q.code)}" type="${q.type === 'url' ? 'url' : 'text'}" value="${esc(val)}" placeholder="${esc(q.example || '')}" ${q.max_length ? `maxlength="${q.max_length}"` : ''} />`;
   } else if (q.type === 'textarea') {
     field = `<textarea data-block="${esc(block)}" data-code="${esc(q.code)}" placeholder="${esc(q.example || '')}">${esc(val)}</textarea>`;
@@ -366,6 +400,128 @@ function bindQuestionHandlers() {
       setAnswer('cta', 'link_value', input.value);
       scheduleSave({ cta: { ...pageConfig.cta } });
     });
+  });
+
+  // Загрузка фото
+  bindPhotoUpload();
+}
+
+function bindPhotoUpload() {
+  const fileInput = document.getElementById('photoFileInput');
+  const removeBtn = document.getElementById('photoRemoveBtn');
+  if (!fileInput) return;
+
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const status = document.getElementById('photoStatus');
+    const preview = document.getElementById('photoPreview');
+
+    if (file.size > 5 * 1024 * 1024) {
+      status.textContent = 'Файл слишком большой (макс. 5 МБ)';
+      status.className = 'photo-upload__status error';
+      return;
+    }
+
+    status.textContent = 'Обрабатываем...';
+    status.className = 'photo-upload__status';
+
+    try {
+      // Ресайз через canvas: квадрат 400x400, JPEG 85%
+      const resized = await resizePhoto(file, 400);
+
+      status.textContent = 'Загружаем...';
+
+      // Путь: masters/<slug>/photo-<timestamp>.jpg
+      const fileName = `masters/${slug}/photo-${Date.now()}.jpg`;
+      const { data: uploadData, error: uploadError } = await sb.storage
+        .from('mg-photos')
+        .upload(fileName, resized, {
+          contentType: 'image/jpeg',
+          upsert: true,
+        });
+
+      if (uploadError) throw new Error(uploadError.message);
+
+      // Публичная ссылка
+      const { data: urlData } = sb.storage.from('mg-photos').getPublicUrl(fileName);
+      const publicUrl = urlData.publicUrl;
+
+      // Сохраняем в page_config
+      setAnswer('hero', 'photo_url', publicUrl);
+      scheduleSave({ hero: { ...pageConfig.hero } });
+
+      // Обновляем превью
+      preview.innerHTML = `<img src="${esc(publicUrl)}" alt="Фото" />`;
+      status.textContent = '✓ Фото загружено';
+      status.className = 'photo-upload__status ok';
+
+      // Обновляем текст кнопки и показываем «Удалить»
+      const btn = fileInput.parentElement;
+      btn.innerHTML = `<input type="file" accept="image/jpeg,image/png,image/webp" style="display:none" id="photoFileInput" />${'📷 Заменить фото'}`;
+      document.getElementById('photoFileInput').addEventListener('change', arguments.callee);
+
+      if (!document.getElementById('photoRemoveBtn')) {
+        const rmBtn = document.createElement('button');
+        rmBtn.className = 'photo-upload__remove';
+        rmBtn.id = 'photoRemoveBtn';
+        rmBtn.textContent = 'Удалить';
+        rmBtn.addEventListener('click', removePhoto);
+        btn.parentElement.insertBefore(rmBtn, btn.nextSibling);
+      }
+
+    } catch (err) {
+      status.textContent = 'Ошибка: ' + err.message;
+      status.className = 'photo-upload__status error';
+    }
+  });
+
+  if (removeBtn) removeBtn.addEventListener('click', removePhoto);
+}
+
+function removePhoto() {
+  setAnswer('hero', 'photo_url', '');
+  scheduleSave({ hero: { ...pageConfig.hero } });
+  document.getElementById('photoPreview').innerHTML = '<div class="photo-upload__placeholder">📷</div>';
+  document.getElementById('photoStatus').textContent = '';
+  const rmBtn = document.getElementById('photoRemoveBtn');
+  if (rmBtn) rmBtn.remove();
+}
+
+function resizePhoto(file, maxSize) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Crop to center square
+        const size = Math.min(img.width, img.height);
+        const sx = (img.width - size) / 2;
+        const sy = (img.height - size) / 2;
+
+        // Output size — max 400x400
+        const outSize = Math.min(size, maxSize);
+        canvas.width = outSize;
+        canvas.height = outSize;
+
+        ctx.drawImage(img, sx, sy, size, size, 0, 0, outSize, outSize);
+
+        canvas.toBlob(
+          (blob) => blob ? resolve(blob) : reject(new Error('Не удалось обработать фото')),
+          'image/jpeg',
+          0.85
+        );
+      };
+      img.onerror = () => reject(new Error('Не удалось прочитать фото'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Не удалось прочитать файл'));
+    reader.readAsDataURL(file);
   });
 }
 
