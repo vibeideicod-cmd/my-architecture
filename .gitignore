@@ -3,5 +3,5 @@
 *.log
 node_modules/
 .claude/settings.local.json
-inbox/archive/*
-!inbox/archive/.gitkeep
+inbox-inna/archive/*
+!inbox-inna/archive/.gitkeep
