@@ -50,7 +50,25 @@
       "Bash(curl -L \"https://drive.google.com/uc?export=download&id=1AfVstSO9Y-mC8xlw-vq1l86OsGODPi9n\" -o clients/yuzhnoberezhniy/mvp/hero.png)",
       "Bash(curl -sI \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")",
       "Bash(curl -v \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")",
-      "Bash(curl -sk \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")"
+      "Bash(curl -sk \"https://demo.ideidlyabiznesa1913.ru/yub-tg/\")",
+      "Bash(wc -l /Users/innaandreychenko/Documents/Projects/my-architecture/clients/yuzhnoberezhniy/mvp/*.html /Users/innaandreychenko/Documents/Projects/my-architecture/clients/yuzhnoberezhniy/tg-app/*.html)",
+      "Bash(chmod +x deploy-yub-bot.sh)",
+      "Bash(./deploy-yub-bot.sh)",
+      "Bash(curl -sv https://ideidlyabiznesa1913.ru/)",
+      "Bash(curl -sk -o /dev/null -w \"HTTP %{http_code} size %{size_download}b\\\\n\" https://ideidlyabiznesa1913.ru/)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://ideidlyabiznesa1913.ru/)",
+      "Bash(curl -s -o /dev/null -w \"Quiz demo: HTTP %{http_code}, size %{size_download}b\\\\n\" https://demo.ideidlyabiznesa1913.ru/yub/quiz.html)",
+      "Bash(node -e \"const fs=require\\('fs'\\); const h=fs.readFileSync\\('quiz.html','utf8'\\); const scripts=[...h.matchAll\\(/<script\\(?:[^>]*\\)>\\([\\\\s\\\\S]*?\\)<\\\\/script>/g\\)].map\\(m=>m[1]\\).filter\\(s=>s.trim\\(\\) && !s.includes\\('googleapis'\\)\\); scripts.forEach\\(\\(s,i\\)=>{try{new Function\\(s\\); console.log\\('script',i,'OK'\\)}catch\\(e\\){console.log\\('ERROR:',e.message\\)}}\\); console.log\\('scripts:',scripts.length\\);\")",
+      "Bash(curl -s https://demo.ideidlyabiznesa1913.ru/yub/tour.html)",
+      "Bash(curl -s -o /dev/null -w \"size: %{size_download}b\\\\n\" https://demo.ideidlyabiznesa1913.ru/yub/tour.html)",
+      "Read(//Users/innaandreychenko/Documents/Projects/my-architecture/**)",
+      "Bash(curl -s -o /tmp/deployed-feedback.html -w \"Feedback HTTP %{http_code}, size %{size_download}b\\\\n\" https://demo.ideidlyabiznesa1913.ru/yub/feedback.html)",
+      "Read(//private/tmp/yub-qr/**)",
+      "Bash(node --check /Users/innaandreychenko/Documents/Projects/my-architecture/clients/beauty/tg-app/js/app.js)",
+      "Bash(node -e ':*)",
+      "Bash(du -sh ~/Desktop/*)",
+      "Bash(du -sh ~/Library/Caches/*)",
+      "Read(//Users/innaandreychenko/Documents/Zoom/**)"
     ]
   }
 }
