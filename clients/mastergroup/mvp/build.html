@@ -138,7 +138,7 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
   <a class="back" href="/mg/">← Главная</a>
   <div id="root"><div class="loading">Проверяем доступ...</div></div>
 </div>
@@ -276,6 +276,12 @@ function renderBuilder() {
 
   html += `
     <button class="preview-btn" data-preview>👁 Посмотреть полную страницу</button>
+  `;
+
+  html += `
+    <div style="text-align:center;margin-top:28px;margin-bottom:40px">
+      <a href="#top" style="color:var(--text-soft);text-decoration:none;font-size:13px;font-weight:500">↑ Наверх</a>
+    </div>
   `;
 
   html += `
