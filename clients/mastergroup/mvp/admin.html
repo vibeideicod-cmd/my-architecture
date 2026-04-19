@@ -154,6 +154,13 @@ const sb = window.supabase.createClient(SB_URL, SB_KEY);
 const ADMIN_HASH = 'a5b4f151eae19e3decba7a00c66c1d487062791e3deb0d690594ad7923fac6a5';
 const LS_KEY = 'mg-admin-pwd';
 
+const AI_LEVEL_LABEL = {
+  none:      'Не использую, только узнаёт',
+  beginner:  'Начальный — пробовал(а) бесплатные',
+  confident: 'Уверенный — регулярно использует бесплатные',
+  advanced:  'Продвинутый — платит за подписки, встроил(а) в работу',
+};
+
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function fmtTime(s){if(!s)return'—';const d=new Date(s);return d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
 async function sha256(str){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
@@ -370,9 +377,19 @@ function renderAppCard(a) {
       <div class="app__body">
         <div class="app__field"><b>Контакт</b>${esc(a.contact)}</div>
         ${a.business_desc ? `<div class="app__field"><b>Бизнес</b>${esc(a.business_desc)}</div>` : ''}
-        ${a.mg_context ? `<div class="app__field"><b>В мастер-группе</b>${esc(a.mg_context)}</div>` : ''}
-        ${a.goal ? `<div class="app__field"><b>Хочет получить</b>${esc(a.goal)}</div>` : ''}
-        ${a.experience ? `<div class="app__field"><b>Опыт</b>${esc(a.experience)}</div>` : ''}
+        ${a.mg_context ? `<div class="app__field"><b>Тема мастер-группы</b>${esc(a.mg_context)}</div>` : ''}
+        ${a.goal ? `<div class="app__field"><b>Зачем в МГ / что изменится</b>${esc(a.goal)}</div>` : ''}
+        ${a.team_expectations ? `<div class="app__field"><b>Ожидания от команды</b>${esc(a.team_expectations)}</div>` : ''}
+        ${a.ai_level ? `<div class="app__field"><b>Уровень с нейросетями</b>${esc(AI_LEVEL_LABEL[a.ai_level] || a.ai_level)}</div>` : ''}
+        ${a.experience ? `<div class="app__field"><b>Опыт в бизнесе</b>${esc(a.experience)}</div>` : ''}
+        ${(a.meetings_per_week || a.program_duration_weeks || a.tuesday_20_msk_commitment !== undefined) ? `
+          <div class="app__field"><b>График</b>
+            ${a.meetings_per_week ? `встреч в неделю: ${esc(a.meetings_per_week)}` : ''}${a.meetings_per_week && a.program_duration_weeks ? ' · ' : ''}
+            ${a.program_duration_weeks ? `длительность: ${esc(a.program_duration_weeks)} нед.` : ''}
+            ${(a.meetings_per_week || a.program_duration_weeks) ? '<br>' : ''}
+            ${a.tuesday_20_msk_commitment === true ? '✅ Готов(а) на вторник 20:00 МСК' : (a.tuesday_20_msk_commitment === false ? '⛔ Не подтвердил(а) вторник 20:00 МСК' : '')}
+          </div>
+        ` : ''}
         ${a.moderation_note ? `<div class="app__field"><b>Твой комментарий</b>${esc(a.moderation_note)}</div>` : ''}
 
         ${canModerate ? `
