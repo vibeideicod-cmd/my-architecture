@@ -84,11 +84,21 @@
   .btn-approve:hover { transform: translateY(-1px); }
   .btn-reject { background: #fff; border: 1px solid var(--bg-warm); color: var(--text-soft); }
   .btn-reject:hover { border-color: var(--green-deep); color: var(--green-deep); }
+  .btn-pre-approve { background: #fff; border: 2px solid var(--gold); color: var(--mustard); }
+  .btn-pre-approve:hover { background: var(--gold); color: #fff; transform: translateY(-1px); }
+  .btn-revoke { background: #fff; border: 1px dashed var(--mustard); color: var(--mustard); }
+  .btn-revoke:hover { background: #FCE4EC; }
+  .btn-archive { background: #fff; border: 1px solid var(--text-soft); color: var(--text-soft); }
+  .btn-archive:hover { border-color: var(--green-deep); color: var(--green-deep); }
+  .btn-unarchive { background: var(--bg-warm); border: 0; color: var(--green-deep); }
+  .btn-unarchive:hover { transform: translateY(-1px); }
   .btn-ghost { background: transparent; border: 1px solid var(--gold); color: var(--mustard); }
   .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
   .status-submitted { background: var(--yellow); color: var(--green-deep); }
+  .status-under_review { background: #fff4d9; color: var(--green-deep); border: 1px solid var(--gold); }
   .status-approved { background: var(--green); color: #fff; }
   .status-rejected { background: var(--bg-cool); color: var(--text); }
+  .status-archived { background: #e8e4ec; color: var(--text-soft); }
 
   .moderation-note { margin-top: 12px; }
   .moderation-note textarea { width: 100%; background: var(--bg-warm); border: 1px solid rgba(76,70,81,0.15); padding: 12px 14px; border-radius: 10px; font: inherit; font-size: 13px; resize: vertical; min-height: 60px; color: var(--text); }
@@ -330,7 +340,7 @@ function renderShell() {
 function renderApps() {
   const el = document.getElementById('appsList');
   // Сначала submitted, потом под review, потом approved, потом rejected
-  const order = { 'submitted': 0, 'under_review': 1, 'approved': 2, 'rejected': 3 };
+  const order = { 'submitted': 0, 'under_review': 1, 'approved': 2, 'rejected': 3, 'archived': 4 };
   const sorted = [...appsData].sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9) || new Date(b.created_at) - new Date(a.created_at));
 
   if (!sorted.length) {
@@ -350,20 +360,29 @@ function renderApps() {
     const preApproveBtn = card.querySelector('.btn-pre-approve');
     const approveBtn = card.querySelector('.btn-approve');
     const rejectBtn = card.querySelector('.btn-reject');
+    const revokeBtn = card.querySelector('.btn-revoke');
+    const archiveBtn = card.querySelector('.btn-archive');
+    const unarchiveBtn = card.querySelector('.btn-unarchive');
     if (preApproveBtn) preApproveBtn.addEventListener('click', (e) => { e.stopPropagation(); moderate(id, 'pre_approved', card); });
     if (approveBtn)    approveBtn.addEventListener('click',    (e) => { e.stopPropagation(); moderate(id, 'approved', card); });
     if (rejectBtn)     rejectBtn.addEventListener('click',     (e) => { e.stopPropagation(); moderate(id, 'rejected', card); });
+    if (revokeBtn)     revokeBtn.addEventListener('click',     (e) => { e.stopPropagation(); revokeApproval(id, card); });
+    if (archiveBtn)    archiveBtn.addEventListener('click',    (e) => { e.stopPropagation(); archiveApp(id); });
+    if (unarchiveBtn)  unarchiveBtn.addEventListener('click',  (e) => { e.stopPropagation(); unarchiveApp(id); });
   });
 }
 
 function renderAppCard(a) {
-  const canStage1  = a.status === 'submitted';
-  const canStage2  = a.status === 'under_review' && !!a.stage_1_approved_at;
-  const canReject  = a.status === 'submitted' || a.status === 'under_review';
-  const canModerate = canStage1 || canStage2 || canReject;
+  const canStage1   = a.status === 'submitted';
+  const canStage2   = a.status === 'under_review' && !!a.stage_1_approved_at;
+  const canReject   = a.status === 'submitted' || a.status === 'under_review';
+  const canRevoke   = a.status === 'approved' || (a.status === 'under_review' && !!a.stage_1_approved_at);
+  const canArchive  = a.status !== 'archived';
+  const canUnarchive = a.status === 'archived';
+  const canModerate = canStage1 || canStage2 || canReject || canRevoke || canArchive || canUnarchive;
   const statusCls = `status-${a.status}`;
-  let statusText = { submitted: 'Новая', under_review: 'В рабочей группе', approved: 'Финально одобрена', rejected: 'Отклонена' }[a.status] || a.status;
-  const newCls = canModerate ? 'new' : '';
+  let statusText = { submitted: 'Новая', under_review: 'В рабочей группе', approved: 'Финально одобрена', rejected: 'Отклонена', archived: 'В архиве' }[a.status] || a.status;
+  const newCls = (canStage1 || canStage2) ? 'new' : '';
 
   return `
     <div class="app ${newCls}" data-id="${a.id}">
@@ -407,6 +426,9 @@ function renderAppCard(a) {
             ${canStage1 ? '<button class="btn btn-pre-approve">✅ Одобрить (дать ссылку на рабочую группу)</button>' : ''}
             ${canStage2 ? '<button class="btn btn-approve">🚀 Финальное одобрение (создать конструктор)</button>' : ''}
             ${canReject ? '<button class="btn btn-reject">Отклонить</button>' : ''}
+            ${canRevoke ? '<button class="btn btn-revoke">↩ Отозвать одобрение</button>' : ''}
+            ${canArchive ? '<button class="btn btn-archive">🗄 В архив</button>' : ''}
+            ${canUnarchive ? '<button class="btn btn-unarchive">↻ Вернуть из архива</button>' : ''}
           </div>
         ` : ''}
       </div>
@@ -437,6 +459,48 @@ async function moderate(appId, newStatus, cardEl) {
   } else if (newStatus === 'approved') {
     showApprovedModal(data, appsData.find(a => a.id === appId));
   }
+
+  await loadAll();
+  renderShell();
+}
+
+async function revokeApproval(appId, cardEl) {
+  const note = cardEl.querySelector('.note-input')?.value || '';
+  if (!confirm('Отозвать одобрение?\n\nСтраница мастера будет удалена, анкета вернётся в статус «Новая» — можно одобрить заново или отклонить. Если у мастера уже есть опубликованная страница — она пропадёт.')) return;
+
+  const { data, error } = await sb.rpc('mg_admin_revoke_approval', {
+    app_id: appId,
+    admin_secret: adminPwd,
+    p_note: note || null,
+  });
+  if (error) { alert('Ошибка: ' + error.message); return; }
+
+  alert('Одобрение отозвано. Анкета снова в очереди.');
+  await loadAll();
+  renderShell();
+}
+
+async function archiveApp(appId) {
+  if (!confirm('Отправить анкету в архив?\n\nАнкета спрячется из активной очереди, страница снимется с публикации (но данные сохранятся). Можно вернуть из архива в любой момент.')) return;
+
+  const { error } = await sb.rpc('mg_admin_archive_application', {
+    app_id: appId,
+    admin_secret: adminPwd,
+  });
+  if (error) { alert('Ошибка: ' + error.message); return; }
+
+  await loadAll();
+  renderShell();
+}
+
+async function unarchiveApp(appId) {
+  if (!confirm('Вернуть анкету из архива?')) return;
+
+  const { error } = await sb.rpc('mg_admin_unarchive_application', {
+    app_id: appId,
+    admin_secret: adminPwd,
+  });
+  if (error) { alert('Ошибка: ' + error.message); return; }
 
   await loadAll();
   renderShell();
