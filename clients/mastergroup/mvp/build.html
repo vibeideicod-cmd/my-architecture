@@ -11,17 +11,17 @@
 <script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
-    --bg:         #ffffff;
-    --bg-warm:    #d3bfb1;
-    --bg-cool:    #cbcbd4;
-    --gold:       #d4af37;
-    --mustard:    #c99700;
+    --bg:         #FAF8F0;
+    --bg-warm:    #DFCBDB;
+    --bg-cool:    #EFE4EA;
+    --gold:       #F64A8A;
+    --mustard:    #C91E5F;
     --green:      #4b7850;
-    --green-deep: #103206;
-    --text:       #4c4651;
-    --text-soft:  rgba(76, 70, 81, 0.62);
-    --text-hint:  rgba(76, 70, 81, 0.45);
-    --yellow:     #ffc403;
+    --green-deep: #2E2249;
+    --text:       #2E2249;
+    --text-soft:  rgba(46, 34, 73, 0.62);
+    --text-hint:  rgba(46, 34, 73, 0.45);
+    --yellow:     #F64A8A;
   }
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
   html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; min-height: 100vh; }
@@ -53,29 +53,29 @@
   .q__label { display: block; font-weight: 600; color: var(--green-deep); font-size: 14px; margin-bottom: 6px; }
   .q__label .req { color: var(--mustard); }
   .q__hint { font-size: 12px; color: var(--text-soft); margin-bottom: 8px; line-height: 1.5; }
-  .q input, .q textarea, .q select { width: 100%; background: #fff; border: 1px solid rgba(76,70,81,0.15); color: var(--text); padding: 13px 16px; border-radius: 12px; font: inherit; font-size: 15px; transition: border-color .2s, box-shadow .2s; }
+  .q input, .q textarea, .q select { width: 100%; background: #fff; border: 1px solid rgba(46,34,73,0.15); color: var(--text); padding: 13px 16px; border-radius: 12px; font: inherit; font-size: 15px; transition: border-color .2s, box-shadow .2s; }
   .q input::placeholder, .q textarea::placeholder { color: var(--text-hint); }
-  .q input:focus, .q textarea:focus, .q select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+  .q input:focus, .q textarea:focus, .q select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(246,74,138,0.15); }
   .q textarea { resize: vertical; min-height: 100px; line-height: 1.65; }
   .q__counter { font-size: 11px; color: var(--text-soft); text-align: right; margin-top: 4px; }
 
   /* CTA choice (legacy) */
   .cta-radios { display: grid; gap: 10px; }
-  .cta-radio { background: #fff; border: 1px solid rgba(76,70,81,0.15); border-radius: 12px; padding: 14px 18px; cursor: pointer; transition: border-color .2s, background .2s; }
+  .cta-radio { background: #fff; border: 1px solid rgba(46,34,73,0.15); border-radius: 12px; padding: 14px 18px; cursor: pointer; transition: border-color .2s, background .2s; }
   .cta-radio:hover { border-color: var(--gold); }
   .cta-radio input { display: none; }
-  .cta-radio.on { border-color: var(--gold); background: #fff9e6; }
+  .cta-radio.on { border-color: var(--gold); background: #FCE4EC; }
   .cta-radio__label { font-weight: 600; color: var(--green-deep); font-size: 14px; margin-bottom: 4px; }
   .cta-radio__hint { font-size: 12px; color: var(--text-soft); }
 
   /* CTA multi — набор каналов связи */
   .cta-multi { display: grid; gap: 12px; }
-  .cta-channel { background: #fff; border: 1px solid rgba(76,70,81,0.15); border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; transition: border-color .2s; }
-  .cta-channel:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+  .cta-channel { background: #fff; border: 1px solid rgba(46,34,73,0.15); border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; transition: border-color .2s; }
+  .cta-channel:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(246,74,138,0.15); }
   .cta-channel__head { display: flex; align-items: center; gap: 10px; }
   .cta-channel__dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .cta-channel__label { font-weight: 600; color: var(--green-deep); font-size: 14px; }
-  .cta-channel input { background: #fff; border: 1px solid rgba(76,70,81,0.15); color: var(--text); padding: 12px 14px; border-radius: 10px; font: inherit; font-size: 15px; width: 100%; }
+  .cta-channel input { background: #fff; border: 1px solid rgba(46,34,73,0.15); color: var(--text); padding: 12px 14px; border-radius: 10px; font: inherit; font-size: 15px; width: 100%; }
   .cta-channel input::placeholder { color: var(--text-hint); }
   .cta-channel input:focus { outline: none; border-color: var(--gold); }
   .cta-hint { font-size: 12px; color: var(--text-soft); margin-top: 4px; line-height: 1.5; }
@@ -84,10 +84,10 @@
   .preview-btn:hover { background: var(--bg-warm); transform: translateY(-1px); }
 
   /* Sticky footer with publish */
-  .footer-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--bg-warm); padding: 14px 20px; z-index: 100; box-shadow: 0 -4px 20px rgba(76,70,81,0.08); }
+  .footer-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--bg-warm); padding: 14px 20px; z-index: 100; box-shadow: 0 -4px 20px rgba(46,34,73,0.08); }
   .footer-bar__inner { max-width: 780px; margin: 0 auto; display: flex; align-items: center; gap: 12px; justify-content: space-between; }
-  .publish-btn { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; border: 0; padding: 16px 32px; border-radius: 50px; font: inherit; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 6px 22px rgba(212,175,55,0.35); transition: transform .15s, box-shadow .2s; }
-  .publish-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,175,55,0.45); }
+  .publish-btn { background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; border: 0; padding: 16px 32px; border-radius: 50px; font: inherit; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 6px 22px rgba(246,74,138,0.35); transition: transform .15s, box-shadow .2s; }
+  .publish-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(246,74,138,0.45); }
   .publish-btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
   .footer-bar__help { color: var(--text-soft); font-size: 12px; }
   @media (max-width: 560px) {
@@ -633,7 +633,7 @@ function showPublished(publishedSlug) {
   document.getElementById('qrBtn').addEventListener('click', (e) => {
     const slot = document.getElementById('qrSlot');
     if (slot.innerHTML) { slot.innerHTML = ''; e.target.textContent = '📱 QR-код'; return; }
-    slot.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(fullUrl)}" alt="QR" style="border-radius:12px;background:#fff;padding:10px;border:1px solid rgba(76,70,81,0.12)" />`;
+    slot.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(fullUrl)}" alt="QR" style="border-radius:12px;background:#fff;padding:10px;border:1px solid rgba(46,34,73,0.12)" />`;
     e.target.textContent = '📱 Скрыть QR';
   });
 

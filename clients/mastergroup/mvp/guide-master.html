@@ -12,16 +12,16 @@
 <script src="/mg/js/tma-init.js"></script>
 <style>
   :root {
-    --bg:         #ffffff;
-    --bg-warm:    #d3bfb1;
-    --bg-cool:    #cbcbd4;
-    --gold:       #d4af37;
-    --mustard:    #c99700;
+    --bg:         #FAF8F0;
+    --bg-warm:    #DFCBDB;
+    --bg-cool:    #EFE4EA;
+    --gold:       #F64A8A;
+    --mustard:    #C91E5F;
     --green:      #4b7850;
-    --green-deep: #103206;
-    --text:       #4c4651;
-    --text-soft:  rgba(76, 70, 81, 0.62);
-    --yellow:     #ffc403;
+    --green-deep: #2E2249;
+    --text:       #2E2249;
+    --text-soft:  rgba(46, 34, 73, 0.62);
+    --yellow:     #F64A8A;
   }
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
   html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
@@ -49,12 +49,12 @@
   li { margin-bottom: 6px; }
 
   .step { background: var(--bg-warm); border-radius: 20px; padding: 32px 36px; margin: 20px 0; position: relative; }
-  .step__num { position: absolute; top: -18px; left: 32px; width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(212,175,55,0.35); }
+  .step__num { position: absolute; top: -18px; left: 32px; width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(246,74,138,0.35); }
   .step h2 { margin: 8px 0 12px; font-size: 26px; }
   .step p { font-size: 15px; }
   .step ul { font-size: 15px; }
 
-  .callout { background: #fff9e6; border: 2px solid var(--gold); border-radius: 16px; padding: 22px 26px; margin: 24px 0; }
+  .callout { background: #FCE4EC; border: 2px solid var(--gold); border-radius: 16px; padding: 22px 26px; margin: 24px 0; }
   .callout strong { color: var(--mustard); }
   .callout__title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--mustard); margin-bottom: 8px; font-weight: 700; }
 
@@ -64,16 +64,16 @@
   .save-method__title { font-weight: 700; color: var(--green-deep); font-size: 14px; margin-bottom: 4px; }
   .save-method__desc { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
 
-  table { width: 100%; border-collapse: collapse; margin: 18px 0; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(76,70,81,0.05); }
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(46,34,73,0.05); }
   th,td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--bg-warm); font-size: 14px; }
   th { background: var(--bg-warm); font-weight: 700; color: var(--green-deep); font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; }
   td:first-child { font-weight: 700; color: var(--mustard); white-space: nowrap; }
   tr:last-child td { border-bottom: 0; }
 
-  .contact-box { background: linear-gradient(135deg, var(--green-deep), var(--green)); color: #fff; border-radius: 20px; padding: 36px 40px; margin: 50px 0 0; text-align: center; }
+  .contact-box { background: linear-gradient(135deg, var(--green-deep), var(--mustard)); color: #fff; border-radius: 20px; padding: 36px 40px; margin: 50px 0 0; text-align: center; }
   .contact-box h2 { color: #fff; margin-top: 0; }
   .contact-box p { color: rgba(255,255,255,0.85); font-size: 15px; }
-  .contact-box a { display: inline-block; margin-top: 18px; background: var(--gold); color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(212,175,55,0.35); transition: transform .15s; }
+  .contact-box a { display: inline-block; margin-top: 18px; background: var(--gold); color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(246,74,138,0.35); transition: transform .15s; }
   .contact-box a:hover { transform: translateY(-2px); }
 
   footer { margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--bg-warm); color: var(--text-soft); font-size: 12px; text-align: center; }
