@@ -70,6 +70,22 @@
 
   .footer { text-align: center; color: var(--text-soft); font-size: 12px; margin-top: 48px; letter-spacing: 1px; }
   .footer a { color: var(--mustard); text-decoration: none; font-weight: 600; }
+
+  /* Chips-подсказка с готовыми вариантами */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .chip { display: inline-block; background: #fff; border: 1px solid rgba(46,34,73,0.12); color: var(--text-soft); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+
+  /* Разделитель-подзаголовок секции внутри формы */
+  .section-title { font-family: 'Playfair Display', serif; color: var(--green-deep); font-size: 18px; font-weight: 700; margin-top: 12px; padding-top: 18px; border-top: 1px solid rgba(46,34,73,0.12); }
+  .section-sub { color: var(--text-soft); font-size: 13px; margin-top: -4px; }
+
+  /* Жёсткое условие — visually highlighted */
+  .field.must { background: rgba(246,74,138,0.06); border: 1px dashed var(--gold); padding: 14px; border-radius: 12px; }
+
+  /* Ссылка возврата внизу страницы */
+  .back-bottom { text-align: center; margin-top: 28px; }
+  .back-bottom a { color: var(--mustard); text-decoration: none; font-weight: 600; font-size: 14px; }
+  .back-bottom a:hover { color: var(--green-deep); }
 </style>
 </head>
 <body>
@@ -96,25 +112,15 @@
       </div>
 
       <div class="field">
-        <label>Город</label>
-        <input name="city" placeholder="Москва" />
+        <label>Город и часовой пояс <span class="req">*</span></label>
+        <input name="city" required placeholder="Например: Омск, +3 МСК" />
+        <div class="hint">Укажи часовой пояс относительно Москвы — чтобы мы понимали, когда тебе удобно</div>
       </div>
 
       <div class="field">
-        <label>Твоя ниша <span class="req">*</span></label>
-        <select name="niche" required>
-          <option value="">— Выбери свою нишу —</option>
-          <option>Музыка, обучение</option>
-          <option>Стиль и красота</option>
-          <option>Психология</option>
-          <option>Эзотерика</option>
-          <option>Тело и здоровье</option>
-          <option>Творчество</option>
-          <option>Коучинг</option>
-          <option>Бизнес-консультирование</option>
-          <option>Образование</option>
-          <option>Другое</option>
-        </select>
+        <label>Ниша <span class="req">*</span></label>
+        <input name="niche" required placeholder="Как ты сам называешь своё дело" />
+        <div class="hint">Например: психология, стиль, мышление, услуги для бизнеса, творчество, коучинг, обучение…</div>
       </div>
 
       <div class="field">
@@ -123,15 +129,41 @@
         <div class="hint">Например: «Провожу индивидуальные консультации для женщин 35+ по стилю. Помогаю собрать гардероб под образ жизни»</div>
       </div>
 
+      <div class="section-title">О твоей мастер-группе</div>
+
       <div class="field">
-        <label>Что ты делаешь в мастер-группе Лайка?</label>
-        <textarea name="mg_context" placeholder="Это для контекста, можно пропустить"></textarea>
-        <div class="hint">Какой продукт ты обкатываешь / тестируешь в мастер-группе</div>
+        <label>На какую тему ты будешь проводить свою мастер-группу? <span class="req">*</span></label>
+        <textarea name="mg_context" required placeholder="Тема или продукт, который будешь обкатывать"></textarea>
+        <div class="hint">Если готового продукта пока нет — тоже нормально, напиши, чем хочешь заняться. На основе этого решаем, какую помощь дать</div>
       </div>
 
       <div class="field">
-        <label>Что ты хочешь получить от своего приложения? <span class="req">*</span></label>
-        <textarea name="goal" required placeholder="Что должно произойти, когда участник откроет твою ссылку?"></textarea>
+        <label>Зачем ты идёшь в мастер-группу? Что должно измениться после участия? <span class="req">*</span></label>
+        <textarea name="goal" required placeholder="Твоя цель — какой шаг закрыть, что получить по итогу"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Что ты ожидаешь от нашей команды? Какая конкретно помощь нужна? <span class="req">*</span></label>
+        <textarea name="team_expectations" required placeholder="Опиши своими словами"></textarea>
+        <div class="chips">
+          <span class="chip">помощь с программой</span>
+          <span class="chip">помощь с оффером</span>
+          <span class="chip">обратная связь</span>
+          <span class="chip">кейсы</span>
+          <span class="chip">помощь с нейросетями</span>
+          <span class="chip">своё</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Твой уровень с нейросетями <span class="req">*</span></label>
+        <select name="ai_level" required>
+          <option value="">— Выбери уровень —</option>
+          <option value="none">Не использую, только узнаю про них</option>
+          <option value="beginner">Начальный — пробовал(а) бесплатные</option>
+          <option value="confident">Уверенный — регулярно использую бесплатные</option>
+          <option value="advanced">Продвинутый — плачу за подписки, встроил(а) в работу</option>
+        </select>
       </div>
 
       <div class="field">
@@ -144,14 +176,49 @@
         </select>
       </div>
 
+      <div class="section-title">График и участие</div>
+      <div class="section-sub">Без готовности к вторничным встречам мастеров анкета не принимается</div>
+
+      <div class="field">
+        <label>Сколько раз в неделю планируешь встречаться с участниками? <span class="req">*</span></label>
+        <select name="meetings_per_week" required>
+          <option value="">— Выбери —</option>
+          <option value="1">1 раз</option>
+          <option value="2">2 раза</option>
+          <option value="3">3 раза</option>
+          <option value="4+">4 и больше</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>На сколько недель рассчитана твоя программа? <span class="req">*</span></label>
+        <select name="program_duration_weeks" required>
+          <option value="">— Выбери —</option>
+          <option value="2">2 недели</option>
+          <option value="3">3 недели</option>
+          <option value="4">4 недели</option>
+          <option value="5">5 недель</option>
+          <option value="6+">6 недель и больше</option>
+        </select>
+      </div>
+
+      <div class="field check must">
+        <input type="checkbox" id="tuesday" name="tuesday_20_msk_commitment" required />
+        <label for="tuesday"><b>Я готов(а) приходить на встречу мастеров каждый вторник в 20:00 по МСК</b> — её организует команда. Это обязательное условие участия.</label>
+      </div>
+
       <div class="field check">
         <input type="checkbox" id="consent" name="consent_pd" required />
-        <label for="consent">Даю согласие на обработку моих персональных данных для работы с платформой «Мастер-Группа». Мои данные видит только команда админов МГ.</label>
+        <label for="consent">Даю согласие на обработку моих персональных данных для участия в проекте Мастер-Группа</label>
       </div>
 
       <button type="submit" class="submit" id="submitBtn">Отправить анкету</button>
       <div id="err"></div>
     </form>
+  </div>
+
+  <div class="back-bottom">
+    <a href="/mg/">← Вернуться на главную</a>
   </div>
 
   <div class="footer">
@@ -181,12 +248,17 @@ form.addEventListener('submit', async (e) => {
   const payload = {
     full_name: fd.get('full_name'),
     contact: fd.get('contact'),
-    city: fd.get('city') || '',
+    city: fd.get('city'),
     niche: fd.get('niche'),
     business_desc: fd.get('business_desc'),
-    mg_context: fd.get('mg_context') || '',
+    mg_context: fd.get('mg_context'),
     goal: fd.get('goal'),
+    team_expectations: fd.get('team_expectations'),
+    ai_level: fd.get('ai_level'),
     experience: fd.get('experience') || '',
+    meetings_per_week: fd.get('meetings_per_week'),
+    program_duration_weeks: fd.get('program_duration_weeks'),
+    tuesday_20_msk_commitment: fd.get('tuesday_20_msk_commitment') === 'on',
     consent_pd: fd.get('consent_pd') === 'on',
   };
 
