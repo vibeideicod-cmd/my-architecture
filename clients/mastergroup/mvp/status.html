@@ -92,13 +92,43 @@ async function load() {
 
 function render(a) {
   const name = (a.full_name || '').split(' ')[0];
+  const isPreApproved = !!a.stage_1_approved_at && a.status === 'under_review';
 
-  if (a.status === 'submitted' || a.status === 'under_review') {
+  if (a.status === 'submitted') {
+    root.innerHTML = `
+      <div class="card">
+        <div class="card__emoji">⏳</div>
+        <h1 class="card__title">Ждём первого одобрения</h1>
+        <p class="card__text">${esc(name)}, команда МГ скоро посмотрит твою анкету. Обычно это пара часов, максимум — день. После первого одобрения мы пришлём ссылку на <b>рабочую группу мастеров</b>.</p>
+        <div class="card__meta">Анкета отправлена ${esc(fmtTime(a.created_at))}</div>
+      </div>
+    `;
+    return;
+  }
+
+  // Первое одобрение: мастер получил ссылку на рабочую группу, ждёт финального
+  if (isPreApproved) {
+    const groupUrl = a.working_group_url || '';
+    root.innerHTML = `
+      <div class="card">
+        <div class="card__emoji">✅</div>
+        <h1 class="card__title">Первое одобрение!</h1>
+        <p class="card__text">Отлично, ${esc(name)}! Анкета прошла первичный отбор. Заходи в рабочую группу мастеров — там мы знакомимся и обсуждаем детали. После общения в группе команда даст финальное одобрение, и здесь же появится кнопка <b>«Открыть конструктор»</b>.</p>
+        ${groupUrl ? `<a class="btn-primary" href="${esc(groupUrl)}" target="_blank" rel="noopener">💬 Зайти в рабочую группу</a>` : ''}
+        ${a.moderation_note ? `<div class="note-box"><b>Сообщение от команды МГ:</b><br>${esc(a.moderation_note)}</div>` : ''}
+        <div class="card__meta">Первое одобрение ${esc(fmtTime(a.stage_1_approved_at))}</div>
+      </div>
+    `;
+    return;
+  }
+
+  // Переходный — если вдруг статус under_review без stage_1_approved_at
+  if (a.status === 'under_review') {
     root.innerHTML = `
       <div class="card">
         <div class="card__emoji">⏳</div>
         <h1 class="card__title">На рассмотрении</h1>
-        <p class="card__text">${esc(name)}, команда МГ скоро посмотрит твою анкету. Обычно это занимает пару часов, максимум — день. Ссылку на конструктор пришлют тебе лично в контакт, который ты указал в анкете.</p>
+        <p class="card__text">${esc(name)}, команда смотрит твою анкету.</p>
         <div class="card__meta">Анкета отправлена ${esc(fmtTime(a.created_at))}</div>
       </div>
     `;
@@ -106,16 +136,14 @@ function render(a) {
   }
 
   if (a.status === 'approved') {
-    const buildUrl = new URL('/mg/build', location.href);
-    buildUrl.searchParams.set('m', a.master_slug || '');
     // Токен конструктора доставляется мастеру лично командой МГ, не через эту страницу
     root.innerHTML = `
       <div class="card">
         <div class="card__emoji">🎉</div>
-        <h1 class="card__title">Анкета одобрена!</h1>
-        <p class="card__text">Поздравляем, ${esc(name)}! Твоя заявка одобрена. Ссылку на конструктор твоей страницы пришлют тебе лично в Telegram — в конструкторе 8 вопросов, 20 минут работы.</p>
+        <h1 class="card__title">Финальное одобрение!</h1>
+        <p class="card__text">Поздравляем, ${esc(name)}! Твоя заявка финально одобрена. Ссылку на конструктор твоей страницы пришлёт тебе команда лично — она секретная, с токеном доступа.</p>
         ${a.moderation_note ? `<div class="note-box"><b>Сообщение от команды МГ:</b><br>${esc(a.moderation_note)}</div>` : ''}
-        <div class="card__meta">Одобрено ${esc(fmtTime(a.reviewed_at))}</div>
+        <div class="card__meta">Финально одобрено ${esc(fmtTime(a.reviewed_at))}</div>
       </div>
     `;
     return;

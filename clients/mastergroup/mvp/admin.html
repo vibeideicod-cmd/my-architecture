@@ -347,17 +347,22 @@ function renderApps() {
     card.querySelector('.app__top').addEventListener('click', () => {
       body.style.display = body.style.display === 'none' ? 'grid' : 'none';
     });
+    const preApproveBtn = card.querySelector('.btn-pre-approve');
     const approveBtn = card.querySelector('.btn-approve');
     const rejectBtn = card.querySelector('.btn-reject');
-    if (approveBtn) approveBtn.addEventListener('click', (e) => { e.stopPropagation(); moderate(id, 'approved', card); });
-    if (rejectBtn) rejectBtn.addEventListener('click', (e) => { e.stopPropagation(); moderate(id, 'rejected', card); });
+    if (preApproveBtn) preApproveBtn.addEventListener('click', (e) => { e.stopPropagation(); moderate(id, 'pre_approved', card); });
+    if (approveBtn)    approveBtn.addEventListener('click',    (e) => { e.stopPropagation(); moderate(id, 'approved', card); });
+    if (rejectBtn)     rejectBtn.addEventListener('click',     (e) => { e.stopPropagation(); moderate(id, 'rejected', card); });
   });
 }
 
 function renderAppCard(a) {
-  const canModerate = a.status === 'submitted' || a.status === 'under_review';
+  const canStage1  = a.status === 'submitted';
+  const canStage2  = a.status === 'under_review' && !!a.stage_1_approved_at;
+  const canReject  = a.status === 'submitted' || a.status === 'under_review';
+  const canModerate = canStage1 || canStage2 || canReject;
   const statusCls = `status-${a.status}`;
-  const statusText = { submitted: 'Новая', under_review: 'На рассмотрении', approved: 'Одобрена', rejected: 'Отклонена' }[a.status] || a.status;
+  let statusText = { submitted: 'Новая', under_review: 'В рабочей группе', approved: 'Финально одобрена', rejected: 'Отклонена' }[a.status] || a.status;
   const newCls = canModerate ? 'new' : '';
 
   return `
@@ -392,13 +397,16 @@ function renderAppCard(a) {
         ` : ''}
         ${a.moderation_note ? `<div class="app__field"><b>Твой комментарий</b>${esc(a.moderation_note)}</div>` : ''}
 
+        ${a.stage_1_approved_at ? `<div class="app__field"><b>1-е одобрение</b>${esc(fmtTime(a.stage_1_approved_at))} — мастер получил ссылку на рабочую группу</div>` : ''}
+
         ${canModerate ? `
           <div class="moderation-note">
             <textarea class="note-input" placeholder="Комментарий к решению (необязательно)"></textarea>
           </div>
           <div class="app__actions">
-            <button class="btn btn-approve">✅ Одобрить</button>
-            <button class="btn btn-reject">Отклонить</button>
+            ${canStage1 ? '<button class="btn btn-pre-approve">✅ Одобрить (дать ссылку на рабочую группу)</button>' : ''}
+            ${canStage2 ? '<button class="btn btn-approve">🚀 Финальное одобрение (создать конструктор)</button>' : ''}
+            ${canReject ? '<button class="btn btn-reject">Отклонить</button>' : ''}
           </div>
         ` : ''}
       </div>
@@ -408,9 +416,11 @@ function renderAppCard(a) {
 
 async function moderate(appId, newStatus, cardEl) {
   const note = cardEl.querySelector('.note-input')?.value || '';
-  const confirmMsg = newStatus === 'approved'
-    ? 'Одобрить анкету? Будет создана страница мастера и сгенерирован токен конструктора — его нужно будет отправить мастеру.'
-    : 'Отклонить анкету?';
+  const confirmMsg = {
+    pre_approved: 'Первое одобрение: мастер получит ссылку на рабочую группу в Telegram. Продолжить?',
+    approved:     'Финальное одобрение: будет создана страница мастера и сгенерирован токен конструктора. Продолжить?',
+    rejected:     'Отклонить анкету?',
+  }[newStatus];
   if (!confirm(confirmMsg)) return;
 
   const { data, error } = await sb.rpc('mg_moderate', {
@@ -422,12 +432,49 @@ async function moderate(appId, newStatus, cardEl) {
 
   if (error) { alert('Ошибка: ' + error.message); return; }
 
-  if (newStatus === 'approved') {
+  if (newStatus === 'pre_approved') {
+    showPreApprovedModal(data, appsData.find(a => a.id === appId));
+  } else if (newStatus === 'approved') {
     showApprovedModal(data, appsData.find(a => a.id === appId));
   }
 
   await loadAll();
   renderShell();
+}
+
+function showPreApprovedModal(data, app) {
+  const firstName = (app?.full_name || '').split(' ')[0] || 'Мастер';
+  const groupUrl = data.working_group_url || '';
+  const tgMessage = `Привет, ${firstName}! Твоя анкета прошла первичный отбор 🎉\n\nПриглашаю тебя в рабочую группу мастеров — там мы знакомимся и обсудим детали:\n${groupUrl}\n\nПосле общения в группе ты получишь финальное одобрение и доступ к конструктору своей страницы.`;
+
+  const modal = document.getElementById('modal');
+  const backdrop = document.getElementById('modalBackdrop');
+
+  modal.innerHTML = `
+    <h2>✅ Первое одобрение</h2>
+    <p><strong>${esc(firstName)}</strong> — Мастер ${data.master_number}. Мастер переводится на этап <em>«в рабочей группе»</em>. Отправь ему ссылку:</p>
+    <div class="modal__url">${esc(groupUrl)}</div>
+    <div class="modal__actions">
+      <button class="btn btn-approve" id="copyMsgBtn">📋 Скопировать готовое сообщение для Telegram</button>
+      <button class="btn btn-ghost" id="copyUrlBtn">Только ссылку</button>
+      <button class="btn btn-reject" id="closeBtn">Закрыть</button>
+    </div>
+    <p style="margin-top:14px;font-size:12px;color:var(--text-soft)">💡 Мастер увидит эту же ссылку в своём статусе (по сохранённой ссылке анкеты).</p>
+  `;
+
+  backdrop.classList.add('on');
+
+  document.getElementById('copyMsgBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(tgMessage).then(() => {
+      document.getElementById('copyMsgBtn').textContent = '✓ Скопировано';
+    });
+  });
+  document.getElementById('copyUrlBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(groupUrl).then(() => {
+      document.getElementById('copyUrlBtn').textContent = '✓ Скопировано';
+    });
+  });
+  document.getElementById('closeBtn').addEventListener('click', () => backdrop.classList.remove('on'));
 }
 
 function showApprovedModal(data, app) {
