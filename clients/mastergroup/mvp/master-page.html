@@ -57,6 +57,17 @@
   .cta-btn { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--mustard)); color: #fff; text-decoration: none; padding: 20px 40px; border-radius: 50px; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1.2px; box-shadow: 0 8px 28px rgba(212,175,55,0.4); transition: transform .15s, box-shadow .2s; border: 0; cursor: pointer; font-family: inherit; }
   .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212,175,55,0.5); }
 
+  /* Multi-channel contact buttons */
+  .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 24px; }
+  .contact-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 22px; border-radius: 14px; font-weight: 700; font-size: 15px; letter-spacing: .4px; text-decoration: none; color: #fff; border: 0; cursor: pointer; font-family: inherit; transition: transform .15s, box-shadow .2s, filter .15s; box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+  .contact-btn:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+  .contact-btn--telegram { background: #229ED9; }
+  .contact-btn--whatsapp { background: #25D366; }
+  .contact-btn--phone    { background: #4B7850; }
+  .contact-btn--vk       { background: #0077FF; }
+  .contact-btn--max      { background: linear-gradient(135deg, #FF6B35, #F15A29); }
+  .contact-btn__icon { font-size: 18px; line-height: 1; }
+
   /* Lead form */
   .lead-form { display: none; background: #fff; border: 2px solid var(--gold); border-radius: 16px; padding: 24px; margin-top: 20px; text-align: left; }
   .lead-form.on { display: grid; gap: 12px; }
@@ -143,36 +154,78 @@ function render(p) {
     ? `<div class="hero__avatar"><img src="${escAttr(hero.photo_url)}" alt="${escAttr(displayName)}" onerror="this.parentElement.innerHTML='${esc(initial)}'" /></div>`
     : `<div class="hero__avatar">${esc(initial)}</div>`;
 
-  // CTA
+  // CTA — приоритет у multi-channel, fallback на legacy single-channel
   let ctaHtml = '';
   const ctaText = cta.text || 'Записаться';
-  const linkType = cta.link_type;
-  const linkValue = (cta.link_value || '').trim();
 
-  if (linkType === 'telegram' && linkValue) {
-    const uname = linkValue.replace(/^@/, '').replace(/^https?:\/\/(t\.me\/|telegram\.me\/)/, '');
-    ctaHtml = `<a class="cta-btn" href="https://t.me/${encodeURIComponent(uname)}" target="_blank" rel="noopener">${esc(ctaText)}</a>`;
-  } else if (linkType === 'whatsapp' && linkValue) {
-    const num = linkValue.replace(/\D/g, '');
-    ctaHtml = `<a class="cta-btn" href="https://wa.me/${encodeURIComponent(num)}" target="_blank" rel="noopener">${esc(ctaText)}</a>`;
-  } else if (linkType === 'phone' && linkValue) {
-    ctaHtml = `<a class="cta-btn" href="tel:${encodeURIComponent(linkValue)}">${esc(ctaText)}</a>`;
-  } else if (linkType === 'form') {
-    ctaHtml = `
-      <button class="cta-btn" id="showLeadBtn">${esc(ctaText)}</button>
-      <form class="lead-form" id="leadForm">
-        <input name="visitor_name" placeholder="Как тебя зовут?" required />
-        <input name="visitor_contact" placeholder="Телефон или @username в Telegram" required />
-        <textarea name="message" placeholder="Пара слов — по какому вопросу? (необязательно)"></textarea>
-        <button type="submit">Отправить</button>
-      </form>
-      <div class="lead-sent" id="leadSent">
-        <div style="font-size:42px;margin-bottom:8px">🌿</div>
-        <b>${esc(displayName)}</b> получит твою заявку и скоро свяжется!
-      </div>
-    `;
+  // Нормализация значений новых multi-каналов
+  const tgRaw    = (cta.telegram || '').trim();
+  const waRaw    = (cta.whatsapp || '').trim();
+  const phoneRaw = (cta.phone || '').trim();
+  const vkRaw    = (cta.vk || '').trim();
+  const maxRaw   = (cta.max || '').trim();
+  const hasMulti = !!(tgRaw || waRaw || phoneRaw || vkRaw || maxRaw);
+
+  function normalizeTg(s) {
+    return s.replace(/^@/, '').replace(/^https?:\/\/(t\.me\/|telegram\.me\/)/, '');
+  }
+  function normalizeVk(s) {
+    if (/^https?:\/\//i.test(s)) return s;
+    return 'https://vk.com/' + s.replace(/^@/, '').replace(/^vk\.com\//i, '');
+  }
+  function normalizeMax(s) {
+    if (/^https?:\/\//i.test(s)) return s;
+    return s;
+  }
+
+  if (hasMulti) {
+    const buttons = [];
+    if (tgRaw) {
+      buttons.push(`<a class="contact-btn contact-btn--telegram" href="https://t.me/${encodeURIComponent(normalizeTg(tgRaw))}" target="_blank" rel="noopener"><span class="contact-btn__icon">✈</span> Telegram</a>`);
+    }
+    if (waRaw) {
+      const num = waRaw.replace(/\D/g, '');
+      buttons.push(`<a class="contact-btn contact-btn--whatsapp" href="https://wa.me/${encodeURIComponent(num)}" target="_blank" rel="noopener"><span class="contact-btn__icon">✆</span> WhatsApp</a>`);
+    }
+    if (phoneRaw) {
+      buttons.push(`<a class="contact-btn contact-btn--phone" href="tel:${encodeURIComponent(phoneRaw)}"><span class="contact-btn__icon">☎</span> Позвонить</a>`);
+    }
+    if (vkRaw) {
+      buttons.push(`<a class="contact-btn contact-btn--vk" href="${escAttr(normalizeVk(vkRaw))}" target="_blank" rel="noopener"><span class="contact-btn__icon">VK</span> ВКонтакте</a>`);
+    }
+    if (maxRaw) {
+      buttons.push(`<a class="contact-btn contact-btn--max" href="${escAttr(normalizeMax(maxRaw))}" target="_blank" rel="noopener"><span class="contact-btn__icon">M</span> MAX</a>`);
+    }
+    ctaHtml = `<div class="contacts">${buttons.join('')}</div>`;
   } else {
-    ctaHtml = '<button class="cta-btn" disabled>Способ связи не настроен</button>';
+    // Legacy fallback — старый single-channel формат
+    const linkType = cta.link_type;
+    const linkValue = (cta.link_value || '').trim();
+
+    if (linkType === 'telegram' && linkValue) {
+      ctaHtml = `<a class="cta-btn" href="https://t.me/${encodeURIComponent(normalizeTg(linkValue))}" target="_blank" rel="noopener">${esc(ctaText)}</a>`;
+    } else if (linkType === 'whatsapp' && linkValue) {
+      const num = linkValue.replace(/\D/g, '');
+      ctaHtml = `<a class="cta-btn" href="https://wa.me/${encodeURIComponent(num)}" target="_blank" rel="noopener">${esc(ctaText)}</a>`;
+    } else if (linkType === 'phone' && linkValue) {
+      ctaHtml = `<a class="cta-btn" href="tel:${encodeURIComponent(linkValue)}">${esc(ctaText)}</a>`;
+    } else if (linkType === 'form') {
+      ctaHtml = `
+        <button class="cta-btn" id="showLeadBtn">${esc(ctaText)}</button>
+        <form class="lead-form" id="leadForm">
+          <input name="visitor_name" placeholder="Как тебя зовут?" required />
+          <input name="visitor_contact" placeholder="Телефон или @username в Telegram" required />
+          <textarea name="message" placeholder="Пара слов — по какому вопросу? (необязательно)"></textarea>
+          <button type="submit">Отправить</button>
+        </form>
+        <div class="lead-sent" id="leadSent">
+          <div style="font-size:42px;margin-bottom:8px">🌿</div>
+          <b>${esc(displayName)}</b> получит твою заявку и скоро свяжется!
+        </div>
+      `;
+    } else {
+      ctaHtml = '<button class="cta-btn" disabled>Способ связи не настроен</button>';
+    }
   }
 
   // Benefits
@@ -215,8 +268,8 @@ function render(p) {
     </div>
   `;
 
-  // Lead form interactivity
-  if (linkType === 'form') {
+  // Lead form interactivity — только для legacy single-channel формы
+  if (!hasMulti && cta.link_type === 'form') {
     const showBtn = document.getElementById('showLeadBtn');
     const form = document.getElementById('leadForm');
     const sent = document.getElementById('leadSent');
@@ -250,9 +303,9 @@ function render(p) {
     });
   }
 
-  // В TMA: Telegram CTA открывается через openTelegramLink (меньше конфликтов)
+  // В TMA: Telegram/WA CTA открывается через openTelegramLink (меньше конфликтов)
   if (window.isTMA) {
-    document.querySelectorAll('a.cta-btn').forEach(link => {
+    document.querySelectorAll('a.cta-btn, a.contact-btn').forEach(link => {
       const href = link.getAttribute('href') || '';
       if (href.startsWith('https://t.me/') || href.startsWith('https://wa.me/')) {
         link.addEventListener('click', (e) => {
