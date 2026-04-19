@@ -164,11 +164,12 @@ let pageConfig = {};
 
 // Определение блоков вопросов
 const BLOCK_META = {
-  hero:    { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит участник' },
+  hero:    { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит кандидат' },
   about:   { num: 2, title: 'Расскажи о себе', desc: 'Почему тебе можно доверять' },
   offer:   { num: 3, title: 'Твоё предложение', desc: 'Что ты даёшь тому, кто пришёл' },
-  cta:     { num: 4, title: 'Как связаться', desc: 'Куда нужно нажать, чтобы записаться' },
-  palette: { num: 5, title: 'Цвет страницы', desc: 'Выбери визуальный стиль, который подходит твоему делу' },
+  program: { num: 4, title: 'Программа мастер-группы', desc: 'Из чего состоит твоя МГ — темы, встречи. Черновик, правь в любой момент' },
+  cta:     { num: 5, title: 'Как связаться', desc: 'Куда нужно нажать, чтобы записаться' },
+  palette: { num: 6, title: 'Цвет страницы', desc: 'Выбери визуальный стиль, который подходит твоему делу' },
 };
 
 const PALETTES = [
@@ -250,7 +251,7 @@ function renderBuilder() {
     </div>
   `;
 
-  const blockOrder = ['hero', 'about', 'offer', 'cta', 'palette'];
+  const blockOrder = ['hero', 'about', 'offer', 'program', 'cta', 'palette'];
   for (let i = 0; i < blockOrder.length; i++) {
     const bk = blockOrder[i];
     const meta = BLOCK_META[bk];
