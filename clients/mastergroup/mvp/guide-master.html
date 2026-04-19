@@ -230,13 +230,92 @@
 
   <div class="contact-box">
     <h2>Застрял? Напиши команде МГ</h2>
-    <p>Расскажи, на каком шаге остановился — разберёмся за минуту.</p>
+    <p>Расскажи, на каком шаге остановился — разберёмся за минуту. Сообщение попадёт прямо в админку команды.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+      <a href="#" id="openSupportBtn" style="background:var(--gold)">✍ Написать прямо здесь</a>
       <a href="https://t.me/neuro_strateg_inna" target="_blank" style="background:#229ED9">✉ Telegram</a>
-      <a href="#" onclick="event.preventDefault();alert('Форма связи — скоро. Пока пиши в Telegram.')" style="background:#0077FF">VK (скоро)</a>
     </div>
-    <p style="font-size:13px;margin-top:16px;opacity:0.85">Скоро в этом месте появится прямая форма — напишешь прямо с этой страницы, команда увидит в админке.</p>
   </div>
+
+  <!-- Модалка формы поддержки -->
+  <div id="supportBackdrop" style="display:none;position:fixed;inset:0;background:rgba(46,34,73,0.55);z-index:1000;align-items:center;justify-content:center;padding:20px">
+    <div id="supportModal" style="background:var(--bg);border-radius:22px;padding:28px;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(46,34,73,0.3)">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--green-deep);margin:0 0 16px;font-size:26px">Написать команде</h2>
+      <p style="color:var(--text-soft);font-size:14px;margin:0 0 20px">Напиши, что нужно — команда увидит в админке и ответит тебе тем способом, который ты укажешь.</p>
+      <form id="supportForm" style="display:grid;gap:14px">
+        <div>
+          <label style="display:block;font-weight:600;color:var(--green-deep);font-size:14px;margin-bottom:6px">Как тебя зовут</label>
+          <input name="from_name" placeholder="Имя (необязательно)" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(46,34,73,0.15);font:inherit;font-size:15px;background:#fff;color:var(--text)" />
+        </div>
+        <div>
+          <label style="display:block;font-weight:600;color:var(--green-deep);font-size:14px;margin-bottom:6px">Куда тебе ответить</label>
+          <input name="from_contact" placeholder="Telegram, телефон, email — как удобно" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(46,34,73,0.15);font:inherit;font-size:15px;background:#fff;color:var(--text)" />
+        </div>
+        <div>
+          <label style="display:block;font-weight:600;color:var(--green-deep);font-size:14px;margin-bottom:6px">Сообщение *</label>
+          <textarea name="message" required placeholder="Расскажи, в чём дело" rows="5" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(46,34,73,0.15);font:inherit;font-size:15px;background:#fff;color:var(--text);resize:vertical;min-height:110px"></textarea>
+        </div>
+        <div id="supportErr" style="color:var(--mustard);font-size:13px;display:none"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:6px">
+          <button type="button" id="closeSupportBtn" style="background:#fff;border:1px solid rgba(46,34,73,0.15);color:var(--text-soft);padding:12px 20px;border-radius:50px;font:inherit;font-weight:600;font-size:13px;cursor:pointer">Отмена</button>
+          <button type="submit" id="submitSupportBtn" style="background:linear-gradient(135deg,var(--gold),var(--mustard));color:#fff;border:0;padding:12px 24px;border-radius:50px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px">Отправить</button>
+        </div>
+      </form>
+      <div id="supportOk" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:54px;margin-bottom:10px">✓</div>
+        <h3 style="color:var(--green-deep);margin:0 0 8px">Сообщение отправлено!</h3>
+        <p style="color:var(--text-soft);font-size:14px;margin:0 0 20px">Команда МГ увидит его в админке и скоро ответит.</p>
+        <button id="closeOkBtn" style="background:linear-gradient(135deg,var(--gold),var(--mustard));color:#fff;border:0;padding:12px 24px;border-radius:50px;font:inherit;font-weight:700;font-size:13px;cursor:pointer">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const SB_URL = 'https://qwoepdibvmwqgkkaabba.supabase.co';
+    const SB_KEY = 'sb_publishable_cbbjRN4EskeHOHy6pSCYLg_RCSH32fY';
+    const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+    const bd = document.getElementById('supportBackdrop');
+    const form = document.getElementById('supportForm');
+    const errBox = document.getElementById('supportErr');
+    const okBox = document.getElementById('supportOk');
+
+    function openSupport() { bd.style.display = 'flex'; form.style.display = 'grid'; okBox.style.display = 'none'; errBox.style.display = 'none'; form.reset(); }
+    function closeSupport() { bd.style.display = 'none'; }
+
+    document.getElementById('openSupportBtn').addEventListener('click', (e) => { e.preventDefault(); openSupport(); });
+    document.getElementById('closeSupportBtn').addEventListener('click', closeSupport);
+    document.getElementById('closeOkBtn').addEventListener('click', closeSupport);
+    bd.addEventListener('click', (e) => { if (e.target === bd) closeSupport(); });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitSupportBtn');
+      btn.disabled = true; btn.textContent = 'Отправляем...';
+      errBox.style.display = 'none';
+
+      const fd = new FormData(form);
+      const { error } = await sb.rpc('mg_submit_support_message', {
+        payload: {
+          from_name: fd.get('from_name') || '',
+          from_contact: fd.get('from_contact') || '',
+          message: fd.get('message'),
+          source_page: location.pathname,
+        },
+      });
+
+      if (error) {
+        errBox.textContent = 'Ошибка: ' + error.message;
+        errBox.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Отправить';
+        return;
+      }
+      form.style.display = 'none';
+      okBox.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Отправить';
+    });
+  </script>
 
   <div style="text-align:center;margin-top:40px">
     <a href="#top" style="color:var(--text-soft);text-decoration:none;font-size:13px;font-weight:500">↑ Наверх</a>
