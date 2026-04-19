@@ -68,6 +68,16 @@
   .cta-radio__label { font-weight: 600; color: var(--green-deep); font-size: 14px; margin-bottom: 4px; }
   .cta-radio__hint { font-size: 12px; color: var(--text-soft); }
 
+  /* Palette picker — выбор цвета страницы мастера */
+  .palette-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 8px; }
+  .palette-card { background: #fff; border: 2px solid transparent; border-radius: 16px; padding: 16px; cursor: pointer; transition: border-color .2s, transform .15s; display: grid; gap: 12px; text-align: center; }
+  .palette-card:hover { transform: translateY(-2px); border-color: rgba(246,74,138,0.35); }
+  .palette-card.on { border-color: var(--gold); box-shadow: 0 6px 22px rgba(246,74,138,0.2); }
+  .palette-card__preview { display: flex; border-radius: 10px; overflow: hidden; height: 60px; }
+  .palette-card__preview span { flex: 1; }
+  .palette-card__name { font-weight: 700; color: var(--green-deep); font-size: 14px; }
+  .palette-card__desc { font-size: 11px; color: var(--text-soft); line-height: 1.4; }
+
   /* CTA multi — набор каналов связи */
   .cta-multi { display: grid; gap: 12px; }
   .cta-channel { background: #fff; border: 1px solid rgba(46,34,73,0.15); border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; transition: border-color .2s; }
@@ -154,11 +164,33 @@ let pageConfig = {};
 
 // Определение блоков вопросов
 const BLOCK_META = {
-  hero:  { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит участник' },
-  about: { num: 2, title: 'Расскажи о себе', desc: 'Почему тебе можно доверять' },
-  offer: { num: 3, title: 'Твоё предложение', desc: 'Что ты даёшь тому, кто пришёл' },
-  cta:   { num: 4, title: 'Как связаться', desc: 'Куда нужно нажать, чтобы записаться' },
+  hero:    { num: 1, title: 'Кто ты', desc: 'Это первое, что увидит участник' },
+  about:   { num: 2, title: 'Расскажи о себе', desc: 'Почему тебе можно доверять' },
+  offer:   { num: 3, title: 'Твоё предложение', desc: 'Что ты даёшь тому, кто пришёл' },
+  cta:     { num: 4, title: 'Как связаться', desc: 'Куда нужно нажать, чтобы записаться' },
+  palette: { num: 5, title: 'Цвет страницы', desc: 'Выбери визуальный стиль, который подходит твоему делу' },
 };
+
+const PALETTES = [
+  {
+    value: 'sakura',
+    name: 'Сакура',
+    desc: 'Розово-фиолетовый — эстетика, стиль, красота',
+    preview: ['#2E2249', '#F64A8A', '#FAF8F0', '#DFCBDB'],
+  },
+  {
+    value: 'ocean',
+    name: 'Океан',
+    desc: 'Бирюзово-синий — профи, финансы, консультирование',
+    preview: ['#2F404F', '#3894A1', '#F0F1EE', '#C7DAD3'],
+  },
+  {
+    value: 'red-yellow',
+    name: 'Энергия',
+    desc: 'Красно-жёлтый — творчество, обучение, мотивация',
+    preview: ['#CF0A10', '#F7BC13', '#F6EFE3', '#88D9CF'],
+  },
+];
 
 async function boot() {
   if (!slug || !rawToken) {
@@ -218,17 +250,25 @@ function renderBuilder() {
     </div>
   `;
 
-  const blockOrder = ['hero', 'about', 'offer', 'cta'];
+  const blockOrder = ['hero', 'about', 'offer', 'cta', 'palette'];
   for (let i = 0; i < blockOrder.length; i++) {
     const bk = blockOrder[i];
     const meta = BLOCK_META[bk];
-    const qs = byBlock[bk] || [];
     const altClass = i % 2 === 1 ? ' alt' : '';
+
+    let body;
+    if (bk === 'palette') {
+      body = renderPaletteBlock();
+    } else {
+      const qs = byBlock[bk] || [];
+      body = qs.map(q => renderQuestion(bk, q)).join('');
+    }
+
     html += `
       <div class="block${altClass}">
         <div class="block__title"><span class="block__num">${meta.num}</span>${meta.title}</div>
         <div class="block__desc">${meta.desc}</div>
-        ${qs.map(q => renderQuestion(bk, q)).join('')}
+        ${body}
         ${i === blockOrder.length - 1 ? '' : `<button class="preview-btn" data-preview>👁 Посмотреть, как выглядит</button>`}
       </div>
     `;
@@ -261,6 +301,24 @@ function renderBuilder() {
     });
   });
   document.getElementById('publishBtn').addEventListener('click', publish);
+}
+
+function renderPaletteBlock() {
+  const currentPalette = pageConfig.palette || 'sakura';
+  let html = '<div class="palette-grid">';
+  for (const p of PALETTES) {
+    const isOn = p.value === currentPalette;
+    const preview = p.preview.map(c => `<span style="background:${c}"></span>`).join('');
+    html += `
+      <div class="palette-card ${isOn ? 'on' : ''}" data-palette-value="${esc(p.value)}">
+        <div class="palette-card__preview">${preview}</div>
+        <div class="palette-card__name">${esc(p.name)}</div>
+        <div class="palette-card__desc">${esc(p.desc)}</div>
+      </div>
+    `;
+  }
+  html += '</div>';
+  return html;
 }
 
 function renderQuestion(block, q) {
@@ -432,6 +490,17 @@ function bindQuestionHandlers() {
       if (input.disabled) return;
       setAnswer('cta', 'link_value', input.value);
       scheduleSave({ cta: { ...pageConfig.cta } });
+    });
+  });
+
+  // Palette picker
+  root.querySelectorAll('[data-palette-value]').forEach(card => {
+    card.addEventListener('click', () => {
+      const value = card.dataset.paletteValue;
+      root.querySelectorAll('[data-palette-value]').forEach(c => c.classList.remove('on'));
+      card.classList.add('on');
+      pageConfig.palette = value;
+      scheduleSave({ palette: value });
     });
   });
 

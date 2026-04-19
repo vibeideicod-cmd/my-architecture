@@ -10,7 +10,8 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="/mg/js/tma-init.js"></script>
 <style>
-  :root {
+  :root,
+  body[data-palette="sakura"] {
     --bg:         #FAF8F0;
     --bg-warm:    #DFCBDB;
     --bg-cool:    #EFE4EA;
@@ -22,6 +23,32 @@
     --text-soft:  rgba(46, 34, 73, 0.62);
     --text-hint:  rgba(46, 34, 73, 0.45);
     --yellow:     #F64A8A;
+  }
+  body[data-palette="ocean"] {
+    --bg:         #F0F1EE;
+    --bg-warm:    #C7DAD3;
+    --bg-cool:    #D8E3DF;
+    --gold:       #3894A1;
+    --mustard:    #2F404F;
+    --green:      #4b7850;
+    --green-deep: #2F404F;
+    --text:       #2F404F;
+    --text-soft:  rgba(47, 64, 79, 0.62);
+    --text-hint:  rgba(47, 64, 79, 0.45);
+    --yellow:     #3894A1;
+  }
+  body[data-palette="red-yellow"] {
+    --bg:         #F6EFE3;
+    --bg-warm:    #F9E5C0;
+    --bg-cool:    #FFF4D9;
+    --gold:       #CF0A10;
+    --mustard:    #F7BC13;
+    --green:      #4b7850;
+    --green-deep: #8A0509;
+    --text:       #2A1A1B;
+    --text-soft:  rgba(42, 26, 27, 0.62);
+    --text-hint:  rgba(42, 26, 27, 0.45);
+    --yellow:     #F7BC13;
   }
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
   html,body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.7; min-height: 100vh; }
@@ -140,6 +167,10 @@ function render(p) {
   const about = cfg.about || {};
   const offer = cfg.offer || {};
   const cta = cfg.cta || {};
+
+  // Применяем выбранную мастером палитру (дефолт — sakura)
+  const palette = (cfg.palette === 'ocean' || cfg.palette === 'red-yellow') ? cfg.palette : 'sakura';
+  document.body.setAttribute('data-palette', palette);
 
   const displayName = hero.display_name || p.display_name || 'Мастер';
   const initial = (displayName.trim()[0] || '?').toUpperCase();
