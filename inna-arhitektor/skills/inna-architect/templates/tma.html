@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<!--
+  Telegram Mini App версия посадочной «Инна Архитектор».
+
+  Отличия от browser.html (минимальные):
+  1. Скрипт TG SDK в <head>: https://telegram.org/js/telegram-web-app.js
+  2. После <body> — init-блок: tg.ready() + tg.expand() + setHeaderColor
+  3. В gate-modal вместо формы TG username / email — автоопределение через tg.initDataUnsafe.user + подтверждение кнопкой
+  4. MainButton вместо inline-кнопки "Забрать готовое" (опционально)
+  5. HapticFeedback на submit
+
+  Для v1: этот файл — копия browser.html + TG-патч. При первой генерации агент
+  берёт browser.html, применяет патч из references/platforms.md раздел "Telegram Mini App".
+
+  Точка отсечки v1 → v1.1 — TMA версия считается "готовой" после:
+  - tg.ready() отрабатывает в тестовом боте @beauty_vizitka_bot или отдельном test-боте
+  - username посетителя автоподтягивается и показывается в gate-модалке без ручного ввода
+  - лид в Supabase содержит tg_user_id и tg_username
+  - haptic feedback срабатывает на submit
+-->
+<head>
+  <meta charset="UTF-8">
+  <title>Инна Архитектор — TG Mini App (v1 TBD)</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<!-- TBD: полное содержимое копируется из browser.html + патчи из references/platforms.md -->
+<p style="padding:2rem;font-family:sans-serif;color:#e8e0d8;background:#103206;min-height:100vh;margin:0">
+  TMA версия пока в работе. Для Фазы 4 v1: копия browser.html + TG SDK init.<br>
+  Сейчас используйте браузерную версию.
+</p>
+</body>
+</html>

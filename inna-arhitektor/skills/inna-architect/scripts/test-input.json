@@ -1,0 +1,18 @@
+{
+  "platform": "browser",
+  "inna": {
+    "tg_channel": "https://t.me/inna_arhitektor",
+    "tg_direct":  "https://t.me/inna_architect_direct",
+    "email":      null,
+    "photo_url":  ""
+  },
+  "speed_triggers": [
+    {"format": "Визитка-упаковка эксперта",   "time": "2 часа",     "tech": "Нейроагенты + vibe-coding"},
+    {"format": "Сайт-визитка / лендинг",        "time": "1 сутки",    "tech": "Нейроагенты + готовые шаблоны"},
+    {"format": "Telegram Mini App",             "time": "3–5 дней",   "tech": "TMA SDK + Supabase"},
+    {"format": "ИИ-ассистент в отдел продаж",   "time": "1–2 недели", "tech": "Каскад скилов + CRM"},
+    {"format": "Автоворонка в мессенджере",     "time": "неделя",     "tech": "Скилл-цепочка + бот"}
+  ],
+  "visitor": null,
+  "supabase": null
+}

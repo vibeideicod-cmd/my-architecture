@@ -1,0 +1,93 @@
+{
+  "name": "inna-architect",
+  "description": "Тест-кейсы для генерации посадочной Инны Архитектор",
+  "cases": [
+    {
+      "id": "minimal",
+      "description": "Минимальные данные: только платформа и Инна, без посетителя. Проверяет что шаблон рендерится с чистым конструктором.",
+      "input": {
+        "platform": "browser",
+        "inna": {
+          "tg_channel": "https://t.me/inna_arhitektor_demo",
+          "tg_direct":  "https://t.me/inna_demo",
+          "email":      null,
+          "photo_url":  ""
+        },
+        "speed_triggers": [
+          {"format": "Визитка-упаковка", "time": "2 часа", "tech": "Нейроагенты + vibe-coding"},
+          {"format": "Сайт-визитка",     "time": "1 сутки", "tech": "Нейроагенты + шаблоны"},
+          {"format": "TG Mini App",       "time": "3–5 дней", "tech": "TMA SDK + Supabase"}
+        ],
+        "visitor": null,
+        "supabase": null
+      },
+      "assertions": [
+        "HTML содержит 'Инна Архитектор'",
+        "HTML содержит 'Собери свою упаковку за 60 секунд'",
+        "HTML НЕ содержит 'Нейро Бабки'",
+        "HTML НЕ содержит 'СССР'",
+        "HTML НЕ содержит оставшихся плейсхолдеров {{...}}",
+        "Монограмма 'ИА' отображается при отсутствии photo_url",
+        "Конструктор работает без Supabase (dev-режим)"
+      ]
+    },
+    {
+      "id": "full",
+      "description": "Полный набор: все поля Инны + предзаполненные данные посетителя для демо-страницы.",
+      "input": {
+        "platform": "browser",
+        "inna": {
+          "tg_channel": "https://t.me/inna_arhitektor",
+          "tg_direct":  "https://t.me/inna_a_direct",
+          "email":      "inna@inna-arhitektor.ru",
+          "photo_url":  "/clients/neuro-babki/assets/inna-portrait.jpg"
+        },
+        "speed_triggers": [
+          {"format": "Визитка-упаковка эксперта",   "time": "2 часа",     "tech": "Нейроагенты + vibe-coding"},
+          {"format": "Сайт-визитка / лендинг",        "time": "1 сутки",    "tech": "Нейроагенты + готовые шаблоны"},
+          {"format": "Telegram Mini App",             "time": "3–5 дней",   "tech": "TMA SDK + Supabase"},
+          {"format": "ИИ-ассистент в отдел продаж",   "time": "1–2 недели", "tech": "Каскад скилов + CRM"},
+          {"format": "Автоворонка в мессенджере",     "time": "неделя",     "tech": "Скилл-цепочка + бот"}
+        ],
+        "visitor": {
+          "name": "Светлана Петрова",
+          "role": "эксперт по женскому здоровью",
+          "achievement": "3 потока курса, 120 выпускниц за год",
+          "audience": "женщинам 35+",
+          "contact": "@svetlana_example"
+        },
+        "supabase": {
+          "url": "https://qwoepdibvmwqgkkaabba.supabase.co",
+          "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test",
+          "table": "inna_leads"
+        }
+      },
+      "assertions": [
+        "HTML содержит 'Светлана Петрова'",
+        "HTML содержит 'эксперт по женскому здоровью'",
+        "HTML содержит все 5 триггеров скорости",
+        "HTML содержит email-ссылку mailto:",
+        "Supabase креды подставлены в CONFIG"
+      ]
+    },
+    {
+      "id": "edge-missing-triggers",
+      "description": "Без speed_triggers — должна вернуться ошибка валидации, не рендер.",
+      "input": {
+        "platform": "browser",
+        "inna": {
+          "tg_channel": "https://t.me/x",
+          "tg_direct":  "https://t.me/y",
+          "email":      null,
+          "photo_url":  ""
+        },
+        "speed_triggers": [],
+        "visitor": null,
+        "supabase": null
+      },
+      "assertions": [
+        "Генерация падает с ошибкой 'speed_triggers пустой' ИЛИ варнинг + fallback-текст"
+      ]
+    }
+  ]
+}
