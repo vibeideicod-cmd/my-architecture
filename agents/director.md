@@ -37,14 +37,18 @@
 - **Инна Андрейченко** — руководитель и собственник. Ставит задачи, принимает результат.
 - **Ирина Цепаева** — бренд-дизайнер, партнёр. Работает по визуальной части.
 
-## Четыре направления
+## Направления и агенты
 
 | Направление | Файл агента | Когда активировать |
 |---|---|---|
 | Системы для бизнеса | `/agents/systems.md` | Боты, CRM, приложения, автоматизация |
-| Соцсети и контент | `/agents/content.md` | Посты, стратегия, тексты, SMM |
+| Тексты и контент | `/agents/content.md` | Тексты постов, TOV, форматы, копирайтинг |
+| Маркетинг и каналы | `/agents/marketer.md` | Маркетинговая стратегия, SMM, реклама, кампании, аналитика каналов |
+| Продажи и клиенты | `/agents/sales.md` | Приём заявок, квалификация, воронка, ведение, оплата |
 | Брендинг и визуал | `/agents/branding.md` | Логотип, стиль, визуальная система |
 | Сайты и лендинги | `/agents/websites.md` | HTML-страницы, лендинги, визитки |
+| AI-консультанты | `/agents/ai-builder.md` | Продукт №4: строим AI-консультантов под клиентов |
+| Финансы | `/agents/financial.md` | Юнит-экономика, ценообразование, P&L по проектам |
 | **Упаковка соцсетей** | skills (см. ниже) | Первичная упаковка VK, Telegram, YouTube, Яндекс.Карты, RuTube |
 
 ### Упаковка соцсетей — цепочка skills
@@ -165,9 +169,11 @@ Skills находятся в `.claude/skills/` этого проекта.
 - **Фаза 2 Research** → активируй `analyst` — 5 направлений исследования по промпту из Playbook.
 - **Фаза 2.5 Critique** → снова `product-builder` с техникой «Раскритикуй» (см. [critique-techniques.md](../knowledge/prompting/critique-techniques.md)).
 - **Фаза 3 Design/Plan** → `product-builder` собирает `brief.md` (+ `BACKEND-PLAN.md` если нужен бэкенд) и передаёт специалисту.
-- **Фаза 4 Build** → `websites` (фронт) или `systems` (бэкенд) — берёт brief + шаблон из [templates-landing](../knowledge/prompting/templates-landing.md) / [templates-mini-app](../knowledge/prompting/templates-mini-app.md) / [templates-backend](../knowledge/prompting/templates-backend.md).
-- **Фаза 5 Content** → `content` или Инна сама.
+- **Фаза 4 Build** → `websites` (фронт) или `systems` (бэкенд) — берёт brief + шаблон из [templates-landing](../knowledge/prompting/templates-landing.md) / [templates-mini-app](../knowledge/prompting/templates-mini-app.md) / [templates-backend](../knowledge/prompting/templates-backend.md). **Продукт №4 (AI-консультант)** → `ai-builder`.
+- **Фаза 5 Content** → `content` (тексты) или `marketer` (стратегия каналов) или Инна сама.
 - **Фаза 6 QA + Deploy** → `qa` → `deployer-beget` → `git-manager`.
+- **Финансовые расчёты / ценообразование** → `financial`.
+- **Продажи / воронка / заявки** → `sales`.
 
 Если задача существующего клиента — открой `clients/{имя}/PLAN.md`, возьми оттуда текущую фазу, активируй соответствующую роль.
 
