@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Брендбук С.С.С.Р. × Инна Андрейченко v4.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-ink: #103206;
+    --sage:      #4B7850;
+    --gold:      #D4AF37;
+    --yellow:    #FFDD4C;
+    --cream:     #FFF2E9;
+    --neon:      #13F740;
+    --acid:      #4DAA02;
+    --magenta:   #FF2EC4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #1a1a1a;
+    color: var(--cream);
+  }
+
+  /* ── PAGE LAYOUT ── */
+  .page {
+    width: 1200px;
+    margin: 0 auto 48px;
+    background: var(--green-ink);
+    border-radius: 16px;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  .page-light {
+    background: var(--cream);
+    color: var(--green-ink);
+  }
+
+  .page-inner {
+    padding: 64px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .page-light .section-label { color: var(--sage); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(212,175,55,0.2);
+    margin: 48px 0;
+  }
+
+  /* ═══════════════════════════════════════
+     ОБЛОЖКА
+  ═══════════════════════════════════════ */
+  .cover {
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 72px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(19,247,64,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .cover-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    border: 1px solid rgba(75,120,80,0.4);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .cover-version {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--sage);
+    letter-spacing: 0.08em;
+  }
+
+  .cover-center {
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  /* Печать SVG */
+  .seal {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 40px;
+  }
+
+  .cover-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--cream);
+    opacity: 0.7;
+    margin-bottom: 32px;
+  }
+
+  .cover-method {
+    display: inline-flex;
+    gap: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+  }
+
+  .cover-method span { opacity: 0.5; }
+
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--sage);
+    line-height: 1.8;
+  }
+
+  .cover-neon-line {
+    width: 80px;
+    height: 2px;
+    background: var(--neon);
+    margin-bottom: 12px;
+  }
+
+  /* ═══════════════════════════════════════
+     ПАЛИТРА
+  ═══════════════════════════════════════ */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .swatch-color {
+    height: 100px;
+    position: relative;
+  }
+
+  .swatch-star {
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+
+  .swatch-info {
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .swatch-hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .swatch-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 4px;
+  }
+
+  .swatch-role {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    color: rgba(255,242,233,0.5);
+    line-height: 1.4;
+  }
+
+  .layer-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 12px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(75,120,80,0.3);
+  }
+
+  /* Запрещённые цвета */
+  .forbidden-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .forbidden-swatch {
+    text-align: center;
+  }
+
+  .forbidden-color {
+    height: 48px;
+    border-radius: 8px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .forbidden-color::after {
+    content: '✕';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: rgba(255,46,196,0.8);
+    font-weight: 700;
+  }
+
+  .forbidden-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,242,233,0.4);
+    letter-spacing: 0.06em;
+  }
+
+  /* ═══════════════════════════════════════
+     ТИПОГРАФИКА
+  ═══════════════════════════════════════ */
+  .type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+  }
+
+  .type-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .type-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .type-spec {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--sage);
+    line-height: 1.6;
+  }
+
+  .type-sample-hero {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.1;
+  }
+
+  .type-sample-h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.15;
+  }
+
+  .type-sample-h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+
+  .type-sample-h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.25;
+  }
+
+  .type-sample-h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  .type-sample-body-l {
+    font-family: 'Manrope', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+
+  .type-sample-body {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.65;
+  }
+
+  .type-sample-small {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,242,233,0.6);
+    line-height: 1.5;
+  }
+
+  .type-sample-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ═══════════════════════════════════════
+     КОМПОНЕНТЫ
+  ═══════════════════════════════════════ */
+  .components-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .component-block {
+    background: rgba(75,120,80,0.08);
+    border: 1px solid rgba(212,175,55,0.12);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .component-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(75,120,80,0.3);
+  }
+
+  /* Кнопки */
+  .btn-demo {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .btn-primary-demo {
+    background: var(--magenta);
+    color: var(--cream);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    padding: 12px 28px;
+    border-radius: 40px;
+    border: none;
+    cursor: default;
+  }
+
+  .btn-secondary-demo {
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 11px 26px;
+    border-radius: 40px;
+    cursor: default;
+  }
+
+  .btn-hover-demo {
+    background: var(--acid);
+    color: var(--cream);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 40px;
+    border: none;
+    cursor: default;
+    box-shadow: 0 4px 20px rgba(255,46,196,0.3);
+  }
+
+  .btn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--sage);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .btn-with-label { display: inline-flex; flex-direction: column; }
+
+  /* Карточка */
+  .card-demo {
+    background: rgba(75,120,80,0.15);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--cream);
+  }
+
+  .card-demo-hover {
+    background: rgba(75,120,80,0.15);
+    border: 1px solid rgba(19,247,64,0.4);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--cream);
+    box-shadow: 0 0 20px rgba(19,247,64,0.08);
+  }
+
+  .card-heading {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .card-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: rgba(255,242,233,0.7);
+    line-height: 1.6;
+  }
+
+  .cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .cards-captions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  /* Теги */
+  .tags-demo {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag-demo {
+    display: inline-block;
+    background: rgba(212,175,55,0.15);
+    color: var(--gold);
+    border: 1px solid rgba(212,175,55,0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .tag-demo-new {
+    display: inline-block;
+    background: rgba(19,247,64,0.15);
+    color: var(--neon);
+    border: 1px solid rgba(19,247,64,0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .tag-demo-magenta {
+    display: inline-block;
+    background: rgba(255,46,196,0.15);
+    color: var(--magenta);
+    border: 1px solid rgba(255,46,196,0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* Прогресс */
+  .progress-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .progress-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: rgba(255,242,233,0.6);
+  }
+
+  .progress-track {
+    height: 6px;
+    background: rgba(75,120,80,0.3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon), var(--acid));
+    border-radius: 3px;
+  }
+
+  /* Акцентные линии */
+  .accent-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .accent-heading {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    display: inline-block;
+    position: relative;
+    padding-bottom: 6px;
+  }
+
+  .accent-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--neon);
+  }
+
+  .accent-heading-cream {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+    display: inline-block;
+    position: relative;
+    padding-bottom: 6px;
+  }
+
+  .accent-heading-cream::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--magenta);
+  }
+
+  /* ═══════════════════════════════════════
+     ПЕЧАТЬ С.С.С.Р.
+  ═══════════════════════════════════════ */
+  .seal-page {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .seal-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .seal-sizes {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .seal-spec {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .seal-spec-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+  }
+
+  .seal-spec-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage);
+    padding-top: 2px;
+  }
+
+  .seal-spec-val {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+
+  .seal-spec-val code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: rgba(212,175,55,0.12);
+    color: var(--gold);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* ═══════════════════════════════════════
+     СХЕМЫ КОМПОЗИЦИЙ
+  ═══════════════════════════════════════ */
+  .schemes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .scheme-card {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .scheme-dark {
+    background: var(--green-ink);
+    border: 1px solid rgba(212,175,55,0.2);
+  }
+
+  .scheme-light {
+    background: var(--cream);
+    border: 1px solid rgba(16,50,6,0.15);
+  }
+
+  .scheme-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+  }
+
+  .scheme-light .scheme-header {
+    border-bottom-color: rgba(16,50,6,0.1);
+  }
+
+  .scheme-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 4px;
+  }
+
+  .scheme-light .scheme-name {
+    color: var(--sage);
+  }
+
+  .scheme-desc {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: rgba(255,242,233,0.5);
+  }
+
+  .scheme-light .scheme-desc {
+    color: rgba(16,50,6,0.5);
+  }
+
+  .scheme-body {
+    padding: 24px;
+  }
+
+  /* Схема 1 — Официальная (тёмная) */
+  .scheme1-heading {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 4px;
+  }
+
+  .scheme1-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 1.5px;
+    background: var(--neon);
+  }
+
+  .scheme1-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--cream);
+    margin-top: 12px;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .scheme1-sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: var(--sage);
+    margin-top: 8px;
+  }
+
+  /* Схема 2 — Промо */
+  .scheme2-tag {
+    display: inline-block;
+    background: rgba(19,247,64,0.15);
+    color: var(--neon);
+    border: 1px solid rgba(19,247,64,0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .scheme2-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .scheme2-sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--cream);
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+
+  .scheme2-cta {
+    display: inline-block;
+    background: var(--magenta);
+    color: var(--cream);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 9px 20px;
+    border-radius: 40px;
+    box-shadow: 0 4px 16px rgba(255,46,196,0.3);
+  }
+
+  /* Схема 3 — UI */
+  .scheme3-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .scheme3-stat {
+    background: rgba(75,120,80,0.15);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .scheme3-stat-val {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--neon);
+  }
+
+  .scheme3-stat-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    color: var(--sage);
+    margin-top: 2px;
+  }
+
+  .scheme3-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .scheme3-p-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .scheme3-p-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--sage);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .scheme3-track {
+    height: 4px;
+    background: rgba(75,120,80,0.3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .scheme3-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon), var(--acid));
+    border-radius: 2px;
+  }
+
+  /* Схема 4 — Документ */
+  .scheme4-heading {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green-ink);
+    margin-bottom: 8px;
+  }
+
+  .scheme4-sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .scheme4-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--green-ink);
+    line-height: 1.65;
+    opacity: 0.8;
+  }
+
+  .scheme4-marker {
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: var(--neon);
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  /* ═══════════════════════════════════════
+     ГОЛОС И ТОН
+  ═══════════════════════════════════════ */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .voice-col-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
+
+  .voice-yes .voice-col-title {
+    color: var(--neon);
+    border-color: rgba(19,247,64,0.3);
+  }
+
+  .voice-no .voice-col-title {
+    color: var(--magenta);
+    border-color: rgba(255,46,196,0.3);
+  }
+
+  .voice-item {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,242,233,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .voice-item::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .voice-yes .voice-item {
+    color: rgba(255,242,233,0.85);
+  }
+
+  .voice-yes .voice-item::before {
+    background: var(--neon);
+  }
+
+  .voice-no .voice-item {
+    color: rgba(255,242,233,0.5);
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,46,196,0.4);
+  }
+
+  .voice-no .voice-item::before {
+    background: var(--magenta);
+  }
+
+  /* Пример до/после */
+  .example-box {
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .example-before {
+    background: rgba(255,46,196,0.06);
+    border: 1px solid rgba(255,46,196,0.2);
+  }
+
+  .example-after {
+    background: rgba(19,247,64,0.06);
+    border: 1px solid rgba(19,247,64,0.2);
+  }
+
+  .example-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .example-before .example-tag { color: var(--magenta); }
+  .example-after .example-tag  { color: var(--neon); }
+
+  .example-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--cream);
+  }
+
+  /* ═══════════════════════════════════════
+     ЧЕК-ЛИСТ
+  ═══════════════════════════════════════ */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .checklist-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .checklist-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: rgba(255,242,233,0.8);
+    line-height: 1.5;
+  }
+
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid rgba(212,175,55,0.5);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Правило 3 секунд */
+  .rule-3sec {
+    background: rgba(212,175,55,0.06);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .rule-3sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+
+  .rule-3sec-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .rule-3sec-cols {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    align-items: center;
+  }
+
+  .rule-3sec-item {
+    text-align: center;
+    padding: 0 32px;
+  }
+
+  .rule-3sec-item:not(:last-child) {
+    border-right: 1px solid rgba(212,175,55,0.15);
+  }
+
+  .rule-3sec-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .rule-3sec-heading {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .rule-3sec-sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: var(--sage);
+  }
+
+  /* ═══════════════════════════════════════
+     ОБЩИЕ ЗАГОЛОВКИ СТРАНИЦ
+  ═══════════════════════════════════════ */
+  .page-heading {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .page-heading-light {
+    color: var(--green-ink);
+  }
+
+  .page-subheading {
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    color: var(--sage);
+    margin-bottom: 48px;
+  }
+
+  .neon-line {
+    width: 48px;
+    height: 3px;
+    background: var(--neon);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  /* ═══════════════════════════════════════
+     PRINT
+  ═══════════════════════════════════════ */
+  @media print {
+    body { background: white; }
+    .page {
+      width: 100%;
+      border-radius: 0;
+      margin: 0;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page-inner { padding: 48px; }
+    .cover { min-height: auto; }
+  }
+
+  /* ═══════════════════════════════════════
+     УТИЛИТЫ
+  ═══════════════════════════════════════ */
+  .mt-8  { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .mb-8  { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .gap-8 { gap: 8px; }
+  .flex  { display: flex; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 1: ОБЛОЖКА
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-top">
+      <span class="cover-badge">Рабочий документ · Конфиденциально</span>
+      <span class="cover-version">Версия 4.0 · Апрель 2026</span>
+    </div>
+
+    <div class="cover-center">
+      <!-- Печать SVG -->
+      <svg class="seal" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sealGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#4B7850"/>
+            <stop offset="100%" stop-color="#103206"/>
+          </radialGradient>
+          <filter id="neonGlow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+        </defs>
+        <!-- Neon glow ring -->
+        <circle cx="80" cy="80" r="74" fill="none" stroke="#13F740" stroke-width="1" opacity="0.25" filter="url(#neonGlow)"/>
+        <!-- Main circle -->
+        <circle cx="80" cy="80" r="70" fill="url(#sealGrad)"/>
+        <!-- Gold border -->
+        <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+        <circle cx="80" cy="80" r="65" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.4"/>
+        <!-- Curved text top: С · С · С · Р -->
+        <path id="topArc" d="M 20,80 A 60,60 0 0,1 140,80" fill="none"/>
+        <text font-family="Unbounded, sans-serif" font-size="9" font-weight="700" fill="#D4AF37" letter-spacing="10">
+          <textPath href="#topArc" startOffset="8%">С · С · С · Р</textPath>
+        </text>
+        <!-- Curved text bottom -->
+        <path id="botArc" d="M 18,84 A 62,62 0 0,0 142,84" fill="none"/>
+        <text font-family="Manrope, sans-serif" font-size="6" font-weight="500" fill="#D4AF37" letter-spacing="2">
+          <textPath href="#botArc" startOffset="3%">СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ</textPath>
+        </text>
+        <!-- АРХИТЕКТОР -->
+        <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" font-weight="500" fill="#D4AF37" letter-spacing="3">АРХИТЕКТОР</text>
+        <!-- Monogram ИА -->
+        <text x="80" y="98" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+        <!-- Magenta dots at 3 and 9 o'clock -->
+        <circle cx="150" cy="80" r="4" fill="#FF2EC4"/>
+        <circle cx="10"  cy="80" r="4" fill="#FF2EC4"/>
+      </svg>
+
+      <div class="cover-title">Инна Андрейченко</div>
+      <div class="cover-subtitle">Архитектор автосистем и коммуникаций</div>
+      <div class="cover-method">
+        <span>СТРУКТУРА</span>
+        <span>·</span>
+        <span>СТРАТЕГИЯ</span>
+        <span>·</span>
+        <span>СВОБОДА</span>
+        <span>·</span>
+        <span>РЕЗУЛЬТАТ</span>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <div class="cover-neon-line"></div>
+        Брендбук С.С.С.Р. × Инна Андрейченко<br>
+        Официальная палитра: «26 04 Палитра Инны ВИЗУАЛ»<br>
+        ОКВЭД 70.22 · ИП Андрейченко
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sage);letter-spacing:0.08em;margin-bottom:8px;">АУДИТ · СОПРОВОЖДЕНИЕ · ЭКСПЕРТИЗА</div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#103206;border:1px solid #D4AF37;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#4B7850;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#D4AF37;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#13F740;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#FF2EC4;display:inline-block;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 2: ЦВЕТОВАЯ ПАЛИТРА
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 01</div>
+    <div class="page-heading">Цветовая палитра</div>
+    <div class="page-subheading">Официальный источник: «26 04 Палитра Инны ВИЗУАЛ» · Апрель 2026 · 8 цветов</div>
+
+    <!-- Слой 1 -->
+    <div class="layer-label">Слой 1 — Зрелость · 60% · Фундамент</div>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#103206;">
+          <span class="swatch-star">⭐</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-hex">#103206</div>
+          <div class="swatch-name">--green-ink</div>
+          <div class="swatch-role">Тёмный фон, заголовки на светлом, основной тон бренда</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4B7850;"></div>
+        <div class="swatch-info">
+          <div class="swatch-hex">#4B7850</div>
+          <div class="swatch-name">--sage</div>
+          <div class="swatch-role">Подзаголовки, поддержка, баланс между уровнями</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#D4AF37;">
+          <span class="swatch-star">⭐</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-hex" style="color:#103206;">#D4AF37</div>
+          <div class="swatch-name" style="color:#103206;opacity:0.6;">--gold</div>
+          <div class="swatch-role" style="color:rgba(16,50,6,0.6);">Заголовки на тёмном, имя, акценты премиум-уровня</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFF2E9;"></div>
+        <div class="swatch-info">
+          <div class="swatch-hex" style="color:#103206;">#FFF2E9</div>
+          <div class="swatch-name" style="color:#103206;opacity:0.6;">--cream</div>
+          <div class="swatch-role" style="color:rgba(16,50,6,0.6);">Основной светлый фон (60–70% площади). НЕ белый!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Слой 2 -->
+    <div class="layer-label">Слой 2 — Живость · 30% · Акцент</div>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#13F740;">
+          <span class="swatch-star">⭐</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-hex" style="color:#103206;">#13F740</div>
+          <div class="swatch-name" style="color:#103206;opacity:0.6;">--neon</div>
+          <div class="swatch-role" style="color:rgba(16,50,6,0.6);">Главный живой акцент. Линии, свечение, маркеры, рамки</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFDD4C;"></div>
+        <div class="swatch-info">
+          <div class="swatch-hex" style="color:#103206;">#FFDD4C</div>
+          <div class="swatch-name" style="color:#103206;opacity:0.6;">--yellow</div>
+          <div class="swatch-role" style="color:rgba(16,50,6,0.6);">Энергия, эмоциональный акцент. Точечно, не фон</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4DAA02;"></div>
+        <div class="swatch-info">
+          <div class="swatch-hex" style="color:#103206;">#4DAA02</div>
+          <div class="swatch-name" style="color:#103206;opacity:0.6;">--acid</div>
+          <div class="swatch-role" style="color:rgba(16,50,6,0.6);">Служебный. Тени, hover, градиент с neon. Никогда самостоятельно!</div>
+        </div>
+      </div>
+      <div class="swatch" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,242,233,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;padding:20px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--acid);margin-bottom:8px;">→</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);letter-spacing:0.08em;text-transform:uppercase;line-height:1.6;">Только как тень<br>под neon кнопкой<br>или hover-состояние</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Слой 3 -->
+    <div class="layer-label">Слой 3 — Акцент · 10% · Фокус</div>
+    <div style="display:grid;grid-template-columns:1fr 3fr;gap:16px;">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FF2EC4;">
+          <span class="swatch-star">⭐</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-hex">#FF2EC4</div>
+          <div class="swatch-name">--magenta</div>
+          <div class="swatch-role">CTA-кнопки, важные акценты, ссылки</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,242,233,0.08);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:32px;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Пример использования</div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <button style="background:#FF2EC4;color:#FFF2E9;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;padding:10px 24px;border-radius:40px;border:none;cursor:default;">Записаться на аудит</button>
+            <span style="font-family:'Manrope',sans-serif;font-size:13px;color:#FF2EC4;text-decoration:underline;cursor:default;">Узнать подробнее →</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Градиент с --acid</div>
+          <div style="height:32px;width:160px;border-radius:6px;background:linear-gradient(90deg,#13F740,#4DAA02);"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);margin-top:6px;">#13F740 → #4DAA02 (hover/progress)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Запрещённые цвета -->
+    <div class="section-label">Запрещённые цвета — никогда не использовать</div>
+    <div class="forbidden-grid">
+      <div class="forbidden-swatch">
+        <div class="forbidden-color" style="background:#000000;"></div>
+        <div class="forbidden-label">Чёрный<br>#000000</div>
+      </div>
+      <div class="forbidden-swatch">
+        <div class="forbidden-color" style="background:#FFFFFF;border:1px solid rgba(255,255,255,0.1);"></div>
+        <div class="forbidden-label" style="color:rgba(255,255,255,0.5);">Белый<br>#FFFFFF</div>
+      </div>
+      <div class="forbidden-swatch">
+        <div class="forbidden-color" style="background:#8B5CF6;"></div>
+        <div class="forbidden-label">Фиолетовый</div>
+      </div>
+      <div class="forbidden-swatch">
+        <div class="forbidden-color" style="background:#EF4444;"></div>
+        <div class="forbidden-label">Красный</div>
+      </div>
+      <div class="forbidden-swatch">
+        <div class="forbidden-color" style="background:#9CA3AF;"></div>
+        <div class="forbidden-label">Серый</div>
+      </div>
+      <div class="forbidden-swatch">
+        <div class="forbidden-color" style="background:#E86C3A;"></div>
+        <div class="forbidden-label">Оранжевый<br>#e86c3a</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 3: ТИПОГРАФИКА
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 02</div>
+    <div class="page-heading">Типографика</div>
+    <div class="page-subheading">Три шрифта · Unbounded · Manrope · JetBrains Mono</div>
+
+    <div class="type-scale">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">Hero</div>
+          <div class="type-spec">Unbounded 800<br>clamp(40, 6vw, 72px)<br>line-height 1.1</div>
+        </div>
+        <div class="type-sample-hero">Инна</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">H1</div>
+          <div class="type-spec">Unbounded 700<br>clamp(32, 4.5vw, 56px)<br>line-height 1.15</div>
+        </div>
+        <div class="type-sample-h1">Архитектор систем</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">H2</div>
+          <div class="type-spec">Unbounded 600<br>clamp(24, 3vw, 40px)<br>line-height 1.2</div>
+        </div>
+        <div class="type-sample-h2">Методология С.С.С.Р.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">H3</div>
+          <div class="type-spec">Unbounded 600<br>clamp(18, 2.2vw, 28px)<br>line-height 1.25</div>
+        </div>
+        <div class="type-sample-h3">Структура · Стратегия · Результат</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">H4</div>
+          <div class="type-spec">Manrope 700<br>clamp(16, 1.8vw, 22px)<br>line-height 1.3</div>
+        </div>
+        <div class="type-sample-h4">Внутренний заголовок блока или карточки</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">Body L</div>
+          <div class="type-spec">Manrope 400<br>clamp(16, 1.6vw, 20px)<br>line-height 1.6</div>
+        </div>
+        <div class="type-sample-body-l">Провожу аудит бизнес-процессов и сопровождаю внедрение систем автоматизации. Методология С.С.С.Р. — от структуры к результату.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">Body</div>
+          <div class="type-spec">Manrope 400<br>clamp(14, 1.4vw, 17px)<br>line-height 1.65</div>
+        </div>
+        <div class="type-sample-body">Для тех, кто тянет бизнес на себе 24/7 — есть другой путь. Сначала разбираемся со структурой, потом выстраиваем стратегию.</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-level">Small</div>
+          <div class="type-spec">Manrope 400<br>clamp(12, 1.1vw, 14px)<br>line-height 1.5</div>
+        </div>
+        <div class="type-sample-small">Подпись, сноска, вспомогательный текст · ИП Андрейченко · ОКВЭД 70.22</div>
+      </div>
+
+      <div class="type-row" style="border-bottom:none;">
+        <div class="type-meta">
+          <div class="type-level">Label</div>
+          <div class="type-spec">JetBrains Mono 500<br>11–13px<br>letter-spacing 0.08em</div>
+        </div>
+        <div class="type-sample-label">Тег · Бейдж · Метка · NEW · Код · Токен</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Примеры акцентных подчёркиваний -->
+    <div class="section-label">Акцентное подчёркивание — neon линия под ключевым словом</div>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:20px;">
+      <div style="font-family:'Unbounded',sans-serif;font-size:28px;font-weight:700;color:var(--gold);">
+        Аудит без <span style="display:inline-block;position:relative;padding-bottom:4px;">хаоса<span style="position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--neon);border-radius:1px;"></span></span> — с системой
+      </div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:600;color:var(--cream);">
+        <span style="display:inline-block;position:relative;padding-bottom:3px;">Структура<span style="position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--neon);border-radius:1px;"></span></span> — основа любого масштаба
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 4: ПЕЧАТЬ С.С.С.Р.
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 03</div>
+    <div class="page-heading">Печать С.С.С.Р. · Логотип</div>
+    <div class="page-subheading">Монограмма «ИА» · Дуговые надписи · Магентовые точки на 3 и 9 часах</div>
+
+    <div class="seal-page">
+      <!-- Левая колонка — печати в размерах -->
+      <div class="seal-showcase">
+        <div class="section-label" style="text-align:center;">Размеры</div>
+        <div class="seal-sizes">
+          <!-- Большая 160px -->
+          <div style="text-align:center;">
+            <svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sg2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#4B7850"/>
+                  <stop offset="100%" stop-color="#103206"/>
+                </radialGradient>
+              </defs>
+              <circle cx="80" cy="80" r="74" fill="none" stroke="#13F740" stroke-width="1" opacity="0.2"/>
+              <circle cx="80" cy="80" r="70" fill="url(#sg2)"/>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+              <path id="a2" d="M 20,80 A 60,60 0 0,1 140,80" fill="none"/>
+              <text font-family="Unbounded" font-size="9" font-weight="700" fill="#D4AF37" letter-spacing="10">
+                <textPath href="#a2" startOffset="8%">С · С · С · Р</textPath>
+              </text>
+              <path id="b2" d="M 18,84 A 62,62 0 0,0 142,84" fill="none"/>
+              <text font-family="Manrope" font-size="6" fill="#D4AF37" letter-spacing="2">
+                <textPath href="#b2" startOffset="3%">СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ</textPath>
+              </text>
+              <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#D4AF37" letter-spacing="3">АРХИТЕКТОР</text>
+              <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+              <circle cx="150" cy="80" r="4" fill="#FF2EC4"/>
+              <circle cx="10"  cy="80" r="4" fill="#FF2EC4"/>
+            </svg>
+            <div class="btn-label" style="margin-top:8px;">160px · Баннер</div>
+          </div>
+          <!-- Средняя 96px -->
+          <div style="text-align:center;">
+            <svg width="96" height="96" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sg3" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#4B7850"/>
+                  <stop offset="100%" stop-color="#103206"/>
+                </radialGradient>
+              </defs>
+              <circle cx="80" cy="80" r="70" fill="url(#sg3)"/>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+              <path id="a3" d="M 20,80 A 60,60 0 0,1 140,80" fill="none"/>
+              <text font-family="Unbounded" font-size="9" font-weight="700" fill="#D4AF37" letter-spacing="10">
+                <textPath href="#a3" startOffset="8%">С · С · С · Р</textPath>
+              </text>
+              <path id="b3" d="M 18,84 A 62,62 0 0,0 142,84" fill="none"/>
+              <text font-family="Manrope" font-size="6" fill="#D4AF37" letter-spacing="2">
+                <textPath href="#b3" startOffset="3%">СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ</textPath>
+              </text>
+              <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#D4AF37" letter-spacing="3">АРХИТЕКТОР</text>
+              <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+              <circle cx="150" cy="80" r="4" fill="#FF2EC4"/>
+              <circle cx="10"  cy="80" r="4" fill="#FF2EC4"/>
+            </svg>
+            <div class="btn-label" style="margin-top:8px;">96px · Пост</div>
+          </div>
+          <!-- Маленькая 56px -->
+          <div style="text-align:center;">
+            <svg width="56" height="56" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sg4" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#4B7850"/>
+                  <stop offset="100%" stop-color="#103206"/>
+                </radialGradient>
+              </defs>
+              <circle cx="80" cy="80" r="70" fill="url(#sg4)"/>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+              <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+              <circle cx="150" cy="80" r="5" fill="#FF2EC4"/>
+              <circle cx="10"  cy="80" r="5" fill="#FF2EC4"/>
+            </svg>
+            <div class="btn-label" style="margin-top:8px;">56px · Документ</div>
+          </div>
+        </div>
+
+        <!-- На светлом фоне -->
+        <div style="background:#FFF2E9;border-radius:12px;padding:20px 32px;display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:8px;">
+          <div class="btn-label" style="color:var(--sage);">На светлом фоне</div>
+          <svg width="80" height="80" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sg5" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#4B7850"/>
+                <stop offset="100%" stop-color="#103206"/>
+              </radialGradient>
+            </defs>
+            <circle cx="80" cy="80" r="70" fill="url(#sg5)"/>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+            <path id="a5" d="M 20,80 A 60,60 0 0,1 140,80" fill="none"/>
+            <text font-family="Unbounded" font-size="9" font-weight="700" fill="#D4AF37" letter-spacing="10">
+              <textPath href="#a5" startOffset="8%">С · С · С · Р</textPath>
+            </text>
+            <path id="b5" d="M 18,84 A 62,62 0 0,0 142,84" fill="none"/>
+            <text font-family="Manrope" font-size="6" fill="#D4AF37" letter-spacing="2">
+              <textPath href="#b5" startOffset="3%">СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ</textPath>
+            </text>
+            <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#D4AF37" letter-spacing="3">АРХИТЕКТОР</text>
+            <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+            <circle cx="150" cy="80" r="4" fill="#FF2EC4"/>
+            <circle cx="10"  cy="80" r="4" fill="#FF2EC4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Правая колонка — спецификация -->
+      <div class="seal-spec">
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Форма</div>
+          <div class="seal-spec-val">Круглая печать</div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Фон</div>
+          <div class="seal-spec-val">Радиальный градиент: <code>#4B7850</code> sage (центр) → <code>#103206</code> green-ink (края). Не фиолетовый, не чёрный!</div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Обводка</div>
+          <div class="seal-spec-val"><code>#D4AF37</code> gold, 1–2px. Внутренняя линия 0.5px opacity 30%</div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Монограмма</div>
+          <div class="seal-spec-val"><strong style="color:var(--gold);">«ИА»</strong> — Unbounded 800, цвет <code>#D4AF37</code>, ~50% диаметра</div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Над монограммой</div>
+          <div class="seal-spec-val">«АРХИТЕКТОР» — JetBrains Mono, <code>#D4AF37</code>, маленький</div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Верхняя дуга</div>
+          <div class="seal-spec-val"><strong>С · С · С · Р</strong> снаружи круга — Unbounded 700, letter-spacing 14–20, <code>#D4AF37</code></div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Нижняя дуга</div>
+          <div class="seal-spec-val">СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ — Manrope 500, <code>#D4AF37</code></div>
+        </div>
+        <div class="seal-spec-row">
+          <div class="seal-spec-key">Сигнатура</div>
+          <div class="seal-spec-val">Две точки <code>#FF2EC4</code> magenta на <strong>3 и 9 часах</strong> — фирменная деталь</div>
+        </div>
+        <div class="seal-spec-row" style="border-bottom:none;">
+          <div class="seal-spec-key">Живой акцент</div>
+          <div class="seal-spec-val">Тонкий <code>#13F740</code> ореол/свечение вокруг обводки (опционально)</div>
+        </div>
+
+        <!-- Запреты -->
+        <div style="margin-top:24px;background:rgba(255,46,196,0.06);border:1px solid rgba(255,46,196,0.2);border-radius:10px;padding:16px 20px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--magenta);margin-bottom:12px;">Запреты для логотипа</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="font-family:'Manrope',sans-serif;font-size:12px;color:rgba(255,242,233,0.6);">✕  С.С.С.Р. внутри круга — только дугой снаружи</div>
+            <div style="font-family:'Manrope',sans-serif;font-size:12px;color:rgba(255,242,233,0.6);">✕  Фиолетовый или чёрный фон печати</div>
+            <div style="font-family:'Manrope',sans-serif;font-size:12px;color:rgba(255,242,233,0.6);">✕  Градиент к фиолетовому или серому</div>
+            <div style="font-family:'Manrope',sans-serif;font-size:12px;color:rgba(255,242,233,0.6);">✕  Монограмма не в золотом цвете</div>
+            <div style="font-family:'Manrope',sans-serif;font-size:12px;color:rgba(255,242,233,0.6);">✕  Искажение пропорций</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 5: UI КОМПОНЕНТЫ
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 04</div>
+    <div class="page-heading">UI Компоненты</div>
+    <div class="page-subheading">Кнопки · Карточки · Теги · Прогресс · Акцентные линии</div>
+
+    <div class="components-grid">
+      <!-- Кнопки -->
+      <div class="component-block">
+        <div class="component-title">Кнопки</div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Primary — magenta CTA</div>
+            <div class="btn-demo">
+              <div class="btn-with-label">
+                <button class="btn-primary-demo">Записаться на аудит</button>
+                <div class="btn-label">default</div>
+              </div>
+              <div class="btn-with-label">
+                <button class="btn-hover-demo">Записаться на аудит</button>
+                <div class="btn-label">hover/active → acid</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Secondary — gold outline</div>
+            <div class="btn-demo">
+              <div class="btn-with-label">
+                <button class="btn-secondary-demo">Узнать подробнее</button>
+                <div class="btn-label">default</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Спецификация Primary</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,242,233,0.5);line-height:1.8;">
+              background: #FF2EC4<br>
+              color: #FFF2E9<br>
+              padding: 14px 32px<br>
+              border-radius: 40px<br>
+              font: Manrope 700 15px<br>
+              hover → background: #4DAA02
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточки -->
+      <div class="component-block">
+        <div class="component-title">Карточки</div>
+        <div class="cards-row">
+          <div class="card-demo">
+            <div class="card-heading">Аудит процессов</div>
+            <div class="card-text">Диагностика бизнес-системы по методологии С.С.С.Р.</div>
+          </div>
+          <div class="card-demo-hover">
+            <div class="card-heading" style="color:var(--neon);">Аудит процессов</div>
+            <div class="card-text">Диагностика бизнес-системы по методологии С.С.С.Р.</div>
+          </div>
+        </div>
+        <div class="cards-captions">
+          <div class="btn-label">default state</div>
+          <div class="btn-label">hover state → neon border</div>
+        </div>
+        <div style="margin-top:16px;background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,242,233,0.5);line-height:1.8;">
+            background: rgba(75,120,80, 0.15)<br>
+            border: rgba(212,175,55, 0.25)<br>
+            border-radius: 16px<br>
+            hover border: rgba(19,247,64, 0.4)<br>
+            hover glow: rgba(19,247,64, 0.08)
+          </div>
+        </div>
+      </div>
+
+      <!-- Теги -->
+      <div class="component-block">
+        <div class="component-title">Теги · Бейджи</div>
+        <div class="tags-demo" style="margin-bottom:20px;">
+          <span class="tag-demo">Аудит</span>
+          <span class="tag-demo">Стратегия</span>
+          <span class="tag-demo">Эксперт</span>
+          <span class="tag-demo-new">NEW</span>
+          <span class="tag-demo-new">Обновлено</span>
+          <span class="tag-demo-magenta">CTA</span>
+          <span class="tag-demo-magenta">Главное</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,242,233,0.5);line-height:1.8;">
+            gold tag: rgba(212,175,55, 0.15)<br>
+            neon tag (NEW): rgba(19,247,64, 0.15)<br>
+            magenta tag: rgba(255,46,196, 0.15)<br>
+            font: JetBrains Mono 500 11px<br>
+            letter-spacing: 0.08em · UPPERCASE
+          </div>
+        </div>
+      </div>
+
+      <!-- Прогресс + акцентные линии -->
+      <div class="component-block">
+        <div class="component-title">Прогресс-бар · Акцентные линии</div>
+        <div class="progress-demo" style="margin-bottom:24px;">
+          <div class="progress-item">
+            <div class="progress-label-row">
+              <span>Структура выстроена</span>
+              <span style="color:var(--neon);">85%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:85%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label-row">
+              <span>Стратегия готова</span>
+              <span style="color:var(--neon);">60%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:60%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label-row">
+              <span>Автоматизация</span>
+              <span style="color:var(--neon);">40%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:40%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="accent-demo">
+          <div><span class="accent-heading">Заголовок gold</span><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">neon underline</div></div>
+          <div><span class="accent-heading-cream">Заголовок cream</span><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;">magenta underline</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 6: СХЕМЫ КОМПОЗИЦИЙ
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 05</div>
+    <div class="page-heading">Схемы композиций</div>
+    <div class="page-subheading">4 готовые схемы · Официальная · Промо · UI · Документ</div>
+
+    <div class="schemes-grid">
+      <!-- Схема 1 — Официальная -->
+      <div class="scheme-card scheme-dark">
+        <div class="scheme-header">
+          <div class="scheme-name">Схема 1 — Официальная</div>
+          <div class="scheme-desc">Оферта · «Обо мне» · Экспертная подача</div>
+        </div>
+        <div class="scheme-body">
+          <div class="scheme1-heading">Аудит бизнеса</div>
+          <div class="scheme1-text">Провожу аудит бизнес-процессов и сопровождаю внедрение систем. Методология С.С.С.Р. — от структуры к результату.</div>
+          <div class="scheme1-sub">Инна Андрейченко · Архитектор</div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(212,175,55,0.1);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;line-height:1.8;">
+              Фон: #103206 · Заг.: #D4AF37<br>
+              Текст: #FFF2E9 · Саб: #4B7850<br>
+              Акцент: #13F740 тонкая линия<br>
+              Magenta: нет / минимум
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Схема 2 — Промо -->
+      <div class="scheme-card scheme-dark">
+        <div class="scheme-header">
+          <div class="scheme-name">Схема 2 — Промо-баннер</div>
+          <div class="scheme-desc">VK обложка · Рекламный баннер · Пост-анонс</div>
+        </div>
+        <div class="scheme-body">
+          <div class="scheme2-tag">Новый поток</div>
+          <div class="scheme2-title">Архитектор<br>автосистем</div>
+          <div class="scheme2-sub">Для тех, кто тянет бизнес на себе 24/7</div>
+          <span class="scheme2-cta">Записаться на аудит →</span>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(212,175,55,0.1);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;line-height:1.8;">
+              Имя: #D4AF37 Unbounded 800<br>
+              Акцент: #13F740 свечение логотипа<br>
+              CTA: #FF2EC4 с тенью #4DAA02
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Схема 3 — UI -->
+      <div class="scheme-card scheme-dark">
+        <div class="scheme-header">
+          <div class="scheme-name">Схема 3 — UI / Платформа</div>
+          <div class="scheme-desc">Веб-интерфейс · Диагностика · Личный кабинет</div>
+        </div>
+        <div class="scheme-body">
+          <div class="scheme3-stats">
+            <div class="scheme3-stat">
+              <div class="scheme3-stat-val">87%</div>
+              <div class="scheme3-stat-label">Автоматизировано</div>
+            </div>
+            <div class="scheme3-stat">
+              <div class="scheme3-stat-val">3×</div>
+              <div class="scheme3-stat-label">Рост продуктивности</div>
+            </div>
+          </div>
+          <div class="scheme3-progress">
+            <div class="scheme3-p-row">
+              <div class="scheme3-p-label">Структура</div>
+              <div class="scheme3-track"><div class="scheme3-fill" style="width:90%;"></div></div>
+            </div>
+            <div class="scheme3-p-row">
+              <div class="scheme3-p-label">Стратегия</div>
+              <div class="scheme3-track"><div class="scheme3-fill" style="width:70%;"></div></div>
+            </div>
+            <div class="scheme3-p-row">
+              <div class="scheme3-p-label">Результат</div>
+              <div class="scheme3-track"><div class="scheme3-fill" style="width:55%;"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(212,175,55,0.1);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;line-height:1.8;">
+              Индикаторы: #13F740 → #4DAA02<br>
+              Кнопки: #FF2EC4 · Статус OK: #4B7850<br>
+              Карточки: rgba(75,120,80,0.15)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Схема 4 — Документ (светлый) -->
+      <div class="scheme-card scheme-light">
+        <div class="scheme-header">
+          <div class="scheme-name" style="color:var(--sage);">Схема 4 — Документ</div>
+          <div class="scheme-desc" style="color:rgba(16,50,6,0.5);">Методичка · Оферта для чтения · Печать A4</div>
+        </div>
+        <div class="scheme-body">
+          <div class="scheme4-heading">Аудит бизнес-процессов</div>
+          <div class="scheme4-sub">Методология С.С.С.Р.</div>
+          <div class="scheme4-text">
+            <span class="scheme4-marker"></span>Провожу диагностику текущего состояния бизнеса и выстраиваю систему от хаоса к масштабу.
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(16,50,6,0.08);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);text-transform:uppercase;letter-spacing:0.08em;line-height:1.8;">
+              Фон: #FFF2E9 · Текст: #103206<br>
+              Подзаг.: #4B7850 · Акцент: #13F740<br>
+              Логотип: нижний колонтитул
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 7: ГОЛОС И ТОН
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 06</div>
+    <div class="page-heading">Голос и тон</div>
+    <div class="page-subheading">ОКВЭД 70.22 · Технологии — только цветом, не словами</div>
+
+    <div class="voice-grid">
+      <div class="voice-yes">
+        <div class="voice-col-title">Говорим</div>
+        <div class="voice-item">аудит, AI-аудит</div>
+        <div class="voice-item">экспертный аудит</div>
+        <div class="voice-item">сопровождение внедрения</div>
+        <div class="voice-item">экспертное сопровождение</div>
+        <div class="voice-item">архитектор, эксперт</div>
+        <div class="voice-item">рекомендации, стратегия</div>
+        <div class="voice-item">методология, внедрение</div>
+        <div class="voice-item">консультация</div>
+      </div>
+      <div class="voice-no">
+        <div class="voice-col-title">Не говорим</div>
+        <div class="voice-item">делаю, создаю</div>
+        <div class="voice-item">разрабатываю, программирую</div>
+        <div class="voice-item">разработчик, программист</div>
+        <div class="voice-item">vibe coding, вайбкодер</div>
+        <div class="voice-item">Claude Code, n8n, ChatGPT</div>
+        <div class="voice-item">MVP, SaaS-подписка</div>
+        <div class="voice-item">обучение, курс</div>
+        <div class="voice-item">лечение, терапия</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:32px 0;"></div>
+
+    <!-- Примеры до/после -->
+    <div class="section-label" style="margin-bottom:20px;">Примеры · До и После</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div class="example-box example-before">
+        <div class="example-tag">✕ Запрещено</div>
+        <div class="example-text">«Я создаю AI-ботов и автоматизирую ваш бизнес с помощью Claude Code и n8n. MVP за 2 недели.»</div>
+      </div>
+      <div class="example-box example-after">
+        <div class="example-tag">✓ Правильно</div>
+        <div class="example-text">«Провожу аудит бизнес-процессов и сопровождаю внедрение систем автоматизации. Методология С.С.С.Р. — от структуры к результату.»</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="example-box example-before">
+        <div class="example-tag">✕ Запрещено</div>
+        <div class="example-text">«Вы устали работать на износ? Вот курс который изменит вашу жизнь!!!»</div>
+      </div>
+      <div class="example-box example-after">
+        <div class="example-tag">✓ Правильно</div>
+        <div class="example-text">«Для тех, кто тянет бизнес на себе 24/7 — есть другой путь. Сначала разбираемся со структурой.»</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     СТРАНИЦА 8: ЧЕК-ЛИСТ + ПРАВИЛО 3 СЕКУНД
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-inner">
+    <div class="neon-line"></div>
+    <div class="section-label">Раздел 07</div>
+    <div class="page-heading">Чек-лист выдачи</div>
+    <div class="page-subheading">Проверь перед отправкой · Хоть один пункт не выполнен — переделать</div>
+
+    <div class="checklist-grid">
+      <div>
+        <div class="checklist-section">
+          <div class="checklist-section-title">Цвет и фон</div>
+          <div class="check-item"><div class="check-box"></div>Фон только <code style="font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(212,175,55,0.12);color:var(--gold);padding:1px 5px;border-radius:3px;">#103206</code> или <code style="font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(212,175,55,0.12);color:var(--gold);padding:1px 5px;border-radius:3px;">#FFF2E9</code></div>
+          <div class="check-item"><div class="check-box"></div>Нет чёрного, белого #FFFFFF, фиолетового, красного, серого</div>
+          <div class="check-item"><div class="check-box"></div>Не больше 2 акцентных цветов рядом</div>
+          <div class="check-item"><div class="check-box"></div>#13F740 и #FF2EC4 НЕ вплотную</div>
+          <div class="check-item"><div class="check-box"></div>#D4AF37 и #FF2EC4 НЕ вплотную</div>
+        </div>
+
+        <div class="checklist-section" style="margin-top:28px;">
+          <div class="checklist-section-title">Текст</div>
+          <div class="check-item"><div class="check-box"></div>НЕТ: vibe coding, Claude Code, MVP, разработка, создаю</div>
+          <div class="check-item"><div class="check-box"></div>ЕСТЬ: аудит, сопровождение, экспертиза (где нужно)</div>
+          <div class="check-item"><div class="check-box"></div>Нет эмодзи в брендовых композициях</div>
+          <div class="check-item"><div class="check-box"></div>Простой язык, конкретные цифры, без канцелярита</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="checklist-section">
+          <div class="checklist-section-title">Композиция</div>
+          <div class="check-item"><div class="check-box"></div>Есть один главный якорь (главная мысль выделена)</div>
+          <div class="check-item"><div class="check-box"></div>Есть один живой акцент (#13F740) — маленький, точечный</div>
+          <div class="check-item"><div class="check-box"></div>Пропорции 60/30/10 соблюдены</div>
+          <div class="check-item"><div class="check-box"></div>Минимум 32px padding — воздух есть</div>
+        </div>
+
+        <div class="checklist-section" style="margin-top:28px;">
+          <div class="checklist-section-title">Брендинг</div>
+          <div class="check-item"><div class="check-box"></div>Печать С.С.С.Р. или монограмма «ИА» присутствует</div>
+          <div class="check-item"><div class="check-box"></div>С.С.С.Р. дугой снаружи круга — НЕ внутри</div>
+          <div class="check-item"><div class="check-box"></div>Фон печати — зелёный градиент, НЕ фиолетовый</div>
+          <div class="check-item"><div class="check-box"></div>Шрифты: Unbounded / Manrope / JetBrains Mono</div>
+          <div class="check-item"><div class="check-box"></div>Оранжевый #e86c3a не использован (только старые страницы)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Правило 3 секунд -->
+    <div class="rule-3sec">
+      <div class="rule-3sec-label">Главное правило</div>
+      <div class="rule-3sec-title">Правило 3 секунд</div>
+      <div class="rule-3sec-cols">
+        <div class="rule-3sec-item">
+          <div class="rule-3sec-icon" style="color:var(--gold);">⬡</div>
+          <div class="rule-3sec-heading">Зрелый эксперт</div>
+          <div class="rule-3sec-sub">Опыт · Премиум</div>
+        </div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:24px;color:var(--sage);padding:0 16px;">×</div>
+        <div class="rule-3sec-item">
+          <div class="rule-3sec-icon" style="color:var(--neon);">◈</div>
+          <div class="rule-3sec-heading">Новое мышление</div>
+          <div class="rule-3sec-sub">Свежесть · Современность</div>
+        </div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:24px;color:var(--sage);padding:0 16px;">×</div>
+        <div class="rule-3sec-item">
+          <div class="rule-3sec-icon" style="color:var(--magenta);">◎</div>
+          <div class="rule-3sec-heading">Фокус внимания</div>
+          <div class="rule-3sec-sub">Важные действия</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;font-family:'Manrope',sans-serif;font-size:14px;color:var(--sage);">
+        Если не считывается — переделать. Если слово про технологии в публичном тексте — убрать.
+      </div>
+    </div>
+
+    <!-- Футер -->
+    <div style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(212,175,55,0.15);display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sage);letter-spacing:0.06em;">
+        Брендбук Инны Андрейченко · Версия 4.0 · Апрель 2026
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <svg width="40" height="40" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sgf" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#4B7850"/>
+              <stop offset="100%" stop-color="#103206"/>
+            </radialGradient>
+          </defs>
+          <circle cx="80" cy="80" r="70" fill="url(#sgf)"/>
+          <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="2"/>
+          <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+          <circle cx="150" cy="80" r="5" fill="#FF2EC4"/>
+          <circle cx="10" cy="80" r="5" fill="#FF2EC4"/>
+        </svg>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);letter-spacing:0.08em;line-height:1.8;">
+          С · С · С · Р<br>
+          СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
