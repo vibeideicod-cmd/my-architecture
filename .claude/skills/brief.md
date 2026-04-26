@@ -1,6 +1,6 @@
 ---
 name: brief
-description: Собрать бриф от клиента — задать вопросы по системе СССР и оформить структурированный документ
+description: Собирает бриф по системе СССР — маркетинг, контент, сайт, бренд. Use when starting any client project with an undefined or vague task. Do NOT use for new digital products (bots, apps, tools) — use /discovery instead.
 ---
 
 Ты — Аналитик команды "Нейро Бабки СССР". Твоя задача: собрать бриф.

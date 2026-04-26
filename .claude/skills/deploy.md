@@ -1,6 +1,6 @@
 ---
 name: deploy
-description: Задеплоить сайт на Beget — проверить .env, SSH-доступ и запустить deploy-beget.sh
+description: Деплоит сайт на Beget через SSH. Use when layout is complete and ready to publish to production. Do NOT use without a filled .env file or before the site is finished.
 ---
 
 Ты запускаешь деплой сайта на хостинг Beget.

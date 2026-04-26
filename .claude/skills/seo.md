@@ -1,6 +1,6 @@
 ---
 name: seo
-description: Проверить HTML-файл на SEO-теги и дописать недостающие — title, description, og:*, robots, twitter
+description: Проверяет HTML-файл на SEO-теги и дописывает недостающие — title, description, og:*, robots, twitter. Use when a page is ready to publish or client requests an SEO audit. Do NOT use before page content is finalized.
 ---
 
 Ты проверяешь SEO-метатеги в HTML-файле и дописываешь недостающие.
