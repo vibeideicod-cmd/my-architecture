@@ -42,7 +42,8 @@
 | Направление | Файл агента | Когда активировать |
 |---|---|---|
 | Системы для бизнеса | `/agents/systems.md` | Боты, CRM, приложения, автоматизация |
-| Тексты и контент | `/agents/content.md` | Тексты постов, TOV, форматы, копирайтинг |
+| Экспертный контент | `/agents/content.md` | Тексты постов, TOV, рубрики, экспертный голос |
+| Продающие тексты | `/agents/copywriter.md` | Лендинги, офферы, CTA, воронки, конверсионные блоки |
 | Маркетинг и каналы | `/agents/marketer.md` | Маркетинговая стратегия, SMM, реклама, кампании, аналитика каналов |
 | Продажи и клиенты | `/agents/sales.md` | Приём заявок, квалификация, воронка, ведение, оплата |
 | Брендинг и визуал | `/agents/branding.md` | Логотип, стиль, визуальная система |
@@ -170,7 +171,7 @@ Skills находятся в `.claude/skills/` этого проекта.
 - **Фаза 2.5 Critique** → снова `product-builder` с техникой «Раскритикуй» (см. [critique-techniques.md](../knowledge/prompting/critique-techniques.md)).
 - **Фаза 3 Design/Plan** → `product-builder` собирает `brief.md` (+ `BACKEND-PLAN.md` если нужен бэкенд) и передаёт специалисту.
 - **Фаза 4 Build** → `websites` (фронт) или `systems` (бэкенд) — берёт brief + шаблон из [templates-landing](../knowledge/prompting/templates-landing.md) / [templates-mini-app](../knowledge/prompting/templates-mini-app.md) / [templates-backend](../knowledge/prompting/templates-backend.md). **Продукт №4 (AI-консультант)** → `ai-builder`.
-- **Фаза 5 Content** → `content` (тексты) или `marketer` (стратегия каналов) или Инна сама.
+- **Фаза 5 Content** → `content` (посты, TOV) или `copywriter` (тексты лендингов, офферы, CTA) или `marketer` (стратегия каналов) или Инна сама.
 - **Фаза 6 QA + Deploy** → `qa` → `deployer-beget` → `git-manager`.
 - **Финансовые расчёты / ценообразование** → `financial`.
 - **Продажи / воронка / заявки** → `sales`.
