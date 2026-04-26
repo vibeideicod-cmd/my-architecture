@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архитектура бизнеса · Инна Андрейченко v4.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-ink: #103206;
+  --sage:      #4B7850;
+  --gold:      #D4AF37;
+  --cream:     #FFF2E9;
+  --neon:      #13F740;
+  --acid:      #4DAA02;
+  --magenta:   #FF2EC4;
+  --yellow:    #FFDD4C;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--cream);
+  color: var(--green-ink);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ─── PRINT ─── */
+@media print {
+  body { background: var(--cream); }
+  .page-break { page-break-before: always; break-before: page; }
+  .no-break { page-break-inside: avoid; break-inside: avoid; }
+  .cover { min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+}
+
+/* ─── WRAPPER ─── */
+.doc {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 0 80px;
+}
+
+/* ═══════════════════════════════════════
+   ОБЛОЖКА
+═══════════════════════════════════════ */
+.cover {
+  background: var(--green-ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(19,247,64,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage);
+  border: 1px solid rgba(75,120,80,0.4);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.cover-ver {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--sage);
+  letter-spacing: 0.08em;
+}
+
+.cover-center {
+  text-align: center;
+  padding: 48px 0;
+}
+
+.cover-seal {
+  margin: 0 auto 40px;
+  display: block;
+}
+
+.cover-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.cover-role {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  color: var(--cream);
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.cover-doc-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--sage);
+  margin-top: 20px;
+  letter-spacing: 0.04em;
+}
+
+.cover-method {
+  margin-top: 28px;
+  display: inline-flex;
+  gap: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+
+.cover-method span { opacity: 0.4; }
+
+.cover-toc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 48px;
+  text-align: left;
+}
+
+.cover-toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(75,120,80,0.12);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 10px;
+}
+
+.cover-toc-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cover-toc-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: var(--cream);
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cover-meta {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: var(--sage);
+  line-height: 1.8;
+}
+
+.neon-line-sm {
+  width: 48px;
+  height: 2px;
+  background: var(--neon);
+  border-radius: 1px;
+  margin-bottom: 10px;
+}
+
+/* ═══════════════════════════════════════
+   ОБЩАЯ РАЗМЕТКА
+═══════════════════════════════════════ */
+.section {
+  padding: 64px;
+}
+
+.section-dark {
+  background: var(--green-ink);
+  color: var(--cream);
+}
+
+.section-light {
+  background: var(--cream);
+  color: var(--green-ink);
+}
+
+.section-sage {
+  background: rgba(75,120,80,0.06);
+  border-top: 1px solid rgba(75,120,80,0.15);
+  border-bottom: 1px solid rgba(75,120,80,0.15);
+}
+
+/* ─── LAYER HEADER ─── */
+.layer-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+}
+
+.layer-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.3;
+}
+
+.layer-label-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 8px;
+}
+
+.section-dark .layer-label-tag { color: var(--sage); }
+.section-light .layer-label-tag { color: var(--sage); }
+
+.layer-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.section-light .layer-title { color: var(--green-ink); }
+
+.layer-subtitle {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  color: var(--sage);
+}
+
+/* ─── SECTION HEADING ─── */
+.h2 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 20px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-light .h2 { color: var(--green-ink); }
+
+.h2::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 20px;
+  background: var(--neon);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 12px;
+  margin-top: 28px;
+}
+
+.section-light .h3 { color: var(--green-ink); }
+
+/* ─── BODY TEXT ─── */
+p {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.section-dark p { color: rgba(255,242,233,0.85); }
+.section-light p { color: var(--green-ink); }
+
+/* ─── TABLES ─── */
+.tbl-wrap { overflow-x: auto; margin-bottom: 24px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+}
+
+.section-dark table th {
+  background: rgba(75,120,80,0.3);
+  color: var(--gold);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+}
+
+.section-light table th {
+  background: rgba(16,50,6,0.08);
+  color: var(--green-ink);
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid rgba(16,50,6,0.15);
+}
+
+.section-dark table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,242,233,0.06);
+  color: rgba(255,242,233,0.8);
+  vertical-align: top;
+}
+
+.section-light table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(16,50,6,0.08);
+  color: var(--green-ink);
+  vertical-align: top;
+}
+
+.section-dark table tr:last-child td { border-bottom: none; }
+.section-light table tr:last-child td { border-bottom: none; }
+
+.section-dark table tr:hover td { background: rgba(75,120,80,0.08); }
+.section-light table tr:hover td { background: rgba(16,50,6,0.03); }
+
+.td-gold { color: var(--gold) !important; font-weight: 600; }
+.td-neon { color: var(--neon) !important; font-weight: 600; }
+.td-sage { color: var(--sage) !important; }
+.td-magenta { color: var(--magenta) !important; font-weight: 600; }
+.td-bold { font-weight: 700 !important; }
+
+/* ─── CALLOUTS ─── */
+.callout {
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.callout-gold {
+  background: rgba(212,175,55,0.08);
+  border-left: 3px solid var(--gold);
+}
+
+.callout-neon {
+  background: rgba(19,247,64,0.06);
+  border-left: 3px solid var(--neon);
+}
+
+.callout-magenta {
+  background: rgba(255,46,196,0.06);
+  border-left: 3px solid var(--magenta);
+}
+
+.callout-sage {
+  background: rgba(75,120,80,0.1);
+  border-left: 3px solid var(--sage);
+}
+
+.callout-warning {
+  background: rgba(255,221,76,0.08);
+  border-left: 3px solid var(--yellow);
+}
+
+.callout-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.callout-gold .callout-title { color: var(--gold); }
+.callout-neon .callout-title { color: var(--neon); }
+.callout-magenta .callout-title { color: var(--magenta); }
+.callout-sage .callout-title { color: var(--sage); }
+.callout-warning .callout-title { color: #B08800; }
+
+.callout p { margin-bottom: 0; }
+
+/* ─── CODE BLOCK ─── */
+.code-block {
+  background: rgba(16,50,6,0.06);
+  border: 1px solid rgba(75,120,80,0.2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--green-ink);
+  margin: 16px 0;
+  white-space: pre;
+}
+
+.section-dark .code-block {
+  background: rgba(0,0,0,0.3);
+  border-color: rgba(75,120,80,0.2);
+  color: var(--cream);
+}
+
+/* ─── LISTS ─── */
+ul.styled, ol.styled {
+  padding-left: 0;
+  margin: 12px 0 20px;
+  list-style: none;
+}
+
+ul.styled li {
+  padding: 6px 0 6px 24px;
+  position: relative;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.section-light ul.styled li {
+  border-bottom-color: rgba(16,50,6,0.06);
+}
+
+ul.styled li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon);
+}
+
+ul.styled li:last-child { border-bottom: none; }
+
+.section-dark ul.styled li { color: rgba(255,242,233,0.8); }
+.section-light ul.styled li { color: var(--green-ink); }
+
+/* ─── FUNNEL STEPS ─── */
+.funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 20px 0;
+}
+
+.funnel-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 20px;
+  background: rgba(75,120,80,0.1);
+  border: 1px solid rgba(212,175,55,0.12);
+  border-bottom: none;
+  position: relative;
+}
+
+.funnel-step:first-child { border-radius: 10px 10px 0 0; }
+.funnel-step:last-child { border-radius: 0 0 10px 10px; border-bottom: 1px solid rgba(212,175,55,0.12); }
+
+.funnel-step::after {
+  content: '↓';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: var(--neon);
+  z-index: 2;
+  background: var(--green-ink);
+  width: 20px;
+  text-align: center;
+}
+
+.funnel-step:last-child::after { display: none; }
+
+.funnel-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--neon);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.funnel-text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: rgba(255,242,233,0.85);
+  line-height: 1.5;
+}
+
+.funnel-sub {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: var(--sage);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ─── PRODUCT CARDS ─── */
+.product-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.product-card {
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(212,175,55,0.2);
+  background: rgba(75,120,80,0.1);
+}
+
+.product-card.flagship {
+  border-color: rgba(255,46,196,0.3);
+  background: rgba(255,46,196,0.04);
+}
+
+.product-card.new-product {
+  border-color: rgba(19,247,64,0.3);
+  background: rgba(19,247,64,0.04);
+}
+
+.pc-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--sage);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.pc-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.product-card.flagship .pc-title { color: var(--magenta); }
+.product-card.new-product .pc-title { color: var(--neon); }
+
+.pc-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--cream);
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.pc-desc {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: rgba(255,242,233,0.65);
+  line-height: 1.5;
+}
+
+/* ─── AGENT TABLE ─── */
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.agent-card {
+  background: rgba(75,120,80,0.12);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.agent-name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.agent-role {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  color: rgba(255,242,233,0.6);
+  line-height: 1.4;
+}
+
+/* ─── CHANNEL CARDS ─── */
+.channel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.channel-card {
+  background: rgba(75,120,80,0.08);
+  border: 1px solid rgba(75,120,80,0.2);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.channel-name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.channel-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.status-dead { color: var(--magenta); }
+.status-plan { color: var(--yellow); }
+.status-active { color: var(--neon); }
+
+.channel-role {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: rgba(255,242,233,0.65);
+  line-height: 1.5;
+}
+
+/* ─── LAYER OVERVIEW BOXES ─── */
+.overview-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 32px 0;
+}
+
+.overview-row {
+  display: grid;
+  grid-template-columns: 48px 160px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.12);
+}
+
+.overview-row:last-child { border-bottom: none; }
+
+.overview-n {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gold);
+  opacity: 0.5;
+  text-align: center;
+}
+
+.overview-name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.3;
+}
+
+.overview-desc {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: rgba(255,242,233,0.75);
+  line-height: 1.5;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(212,175,55,0.15);
+  margin: 40px 0;
+}
+
+.divider-neon {
+  width: 64px;
+  height: 2px;
+  background: var(--neon);
+  border-radius: 1px;
+  margin: 0 0 12px;
+}
+
+/* ─── TAGS ─── */
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.tag-gold {
+  background: rgba(212,175,55,0.15);
+  color: var(--gold);
+  border: 1px solid rgba(212,175,55,0.3);
+}
+
+.tag-neon {
+  background: rgba(19,247,64,0.12);
+  color: var(--neon);
+  border: 1px solid rgba(19,247,64,0.3);
+}
+
+.tag-magenta {
+  background: rgba(255,46,196,0.12);
+  color: var(--magenta);
+  border: 1px solid rgba(255,46,196,0.3);
+}
+
+.tag-yellow {
+  background: rgba(255,221,76,0.12);
+  color: #A07800;
+  border: 1px solid rgba(255,221,76,0.4);
+}
+
+/* ─── FLOW DIAGRAM ─── */
+.flow-box {
+  border: 1px solid rgba(212,175,55,0.25);
+  background: rgba(75,120,80,0.1);
+  border-radius: 8px;
+  padding: 10px 16px;
+  text-align: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: rgba(255,242,233,0.85);
+}
+
+.flow-arrow {
+  text-align: center;
+  font-size: 18px;
+  color: var(--neon);
+  padding: 4px 0;
+  line-height: 1;
+}
+
+.flow-row {
+  display: grid;
+  gap: 12px;
+}
+
+.flow-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.flow-row-2 { grid-template-columns: 1fr 1fr; }
+
+/* ─── FINAL SUMMARY ─── */
+.summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  align-items: start;
+  background: rgba(75,120,80,0.1);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.summary-n {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.summary-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.summary-text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: rgba(255,242,233,0.75);
+  line-height: 1.5;
+}
+
+/* ─── UTILITY ─── */
+.mt-0 { margin-top: 0 !important; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+strong { font-weight: 700; }
+.section-dark strong { color: var(--cream); }
+.section-light strong { color: var(--green-ink); }
+em { font-style: italic; opacity: 0.85; }
+
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══════════════ ОБЛОЖКА ═══════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-badge">Рабочий документ · Конфиденциально</span>
+    <span class="cover-ver">Версия 4.0 · Апрель 2026</span>
+  </div>
+
+  <div class="cover-center">
+    <svg class="cover-seal" width="140" height="140" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#4B7850"/>
+          <stop offset="100%" stop-color="#103206"/>
+        </radialGradient>
+      </defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="#13F740" stroke-width="1" opacity="0.2"/>
+      <circle cx="80" cy="80" r="70" fill="url(#g1)"/>
+      <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+      <circle cx="80" cy="80" r="65" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+      <path id="ta" d="M 20,80 A 60,60 0 0,1 140,80" fill="none"/>
+      <text font-family="Unbounded" font-size="9" font-weight="700" fill="#D4AF37" letter-spacing="10">
+        <textPath href="#ta" startOffset="8%">С · С · С · Р</textPath>
+      </text>
+      <path id="tb" d="M 18,84 A 62,62 0 0,0 142,84" fill="none"/>
+      <text font-family="Manrope" font-size="6" fill="#D4AF37" letter-spacing="2">
+        <textPath href="#tb" startOffset="3%">СТРУКТУРА · СТРАТЕГИЯ · СВОБОДА · РЕЗУЛЬТАТ</textPath>
+      </text>
+      <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#D4AF37" letter-spacing="3">АРХИТЕКТОР</text>
+      <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+      <circle cx="150" cy="80" r="4" fill="#FF2EC4"/>
+      <circle cx="10" cy="80" r="4" fill="#FF2EC4"/>
+    </svg>
+
+    <div class="cover-title">Инна Андрейченко</div>
+    <div class="cover-role">Архитектор автосистем и коммуникаций · ИП · ОКВЭД 70.22</div>
+    <div class="cover-doc-title">Архитектура бизнеса · Пять слоёв системы</div>
+
+    <div class="cover-method">
+      <span>СТРУКТУРА</span><span>·</span>
+      <span>СТРАТЕГИЯ</span><span>·</span>
+      <span>СВОБОДА</span><span>·</span>
+      <span>РЕЗУЛЬТАТ</span>
+    </div>
+
+    <div class="cover-toc">
+      <div class="cover-toc-item">
+        <div class="cover-toc-num">1</div>
+        <div class="cover-toc-label">Ядро бренда<br><span style="opacity:0.5;font-size:11px;">Кто я, методология, ЦА</span></div>
+      </div>
+      <div class="cover-toc-item">
+        <div class="cover-toc-num">2</div>
+        <div class="cover-toc-label">Продуктовая линейка<br><span style="opacity:0.5;font-size:11px;">5 уровней, цены, путь клиента</span></div>
+      </div>
+      <div class="cover-toc-item">
+        <div class="cover-toc-num">3</div>
+        <div class="cover-toc-label">Внутренняя кухня<br><span style="opacity:0.5;font-size:11px;">14 агентов, база знаний, стек</span></div>
+      </div>
+      <div class="cover-toc-item">
+        <div class="cover-toc-num">4</div>
+        <div class="cover-toc-label">Внешний мир<br><span style="opacity:0.5;font-size:11px;">Соцсети, Ирина, клиенты</span></div>
+      </div>
+      <div class="cover-toc-item" style="grid-column: span 2;">
+        <div class="cover-toc-num">5</div>
+        <div class="cover-toc-label">Сайт-экосистема<br><span style="opacity:0.5;font-size:11px;">Brand HUB, AI-консультант, лендинги, кабинет</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <div class="neon-line-sm"></div>
+      Инна Андрейченко + Ирина Цепаева<br>
+      Методология С.С.С.Р. · Апрель 2026
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="width:8px;height:8px;border-radius:50%;background:#103206;border:1px solid #D4AF37;display:block;"></span>
+      <span style="width:8px;height:8px;border-radius:50%;background:#4B7850;display:block;"></span>
+      <span style="width:8px;height:8px;border-radius:50%;background:#D4AF37;display:block;"></span>
+      <span style="width:8px;height:8px;border-radius:50%;background:#13F740;display:block;"></span>
+      <span style="width:8px;height:8px;border-radius:50%;background:#FF2EC4;display:block;"></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ ОБЗОР АРХИТЕКТУРЫ ═══════════════ -->
+<div class="section section-dark page-break">
+  <div class="divider-neon"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;">Часть 1 — Обзор</div>
+  <div style="font-family:'Unbounded',sans-serif;font-size:32px;font-weight:700;color:var(--gold);margin-bottom:8px;">Архитектура системы</div>
+  <div style="font-family:'Manrope',sans-serif;font-size:14px;color:var(--sage);margin-bottom:48px;">Пять слоёв, каждый опирается на предыдущий. Два потока: ценности и данных.</div>
+
+  <div class="overview-grid">
+    <div class="overview-row">
+      <div class="overview-n">1</div>
+      <div class="overview-name">Ядро бренда</div>
+      <div class="overview-desc">Кто я и что собой представляю. Позиционирование, методология С.С.С.Р., ЦА, ОКВЭД 70.22.</div>
+    </div>
+    <div class="overview-row">
+      <div class="overview-n">2</div>
+      <div class="overview-name">Продуктовая линейка</div>
+      <div class="overview-desc">Пять уровней от бесплатного входа до флагмана. AI-диагностика → Платформа → Услуги → AI-консультант → Нейро-архитектура.</div>
+    </div>
+    <div class="overview-row">
+      <div class="overview-n">3</div>
+      <div class="overview-name">Внутренняя кухня</div>
+      <div class="overview-desc">14 AI-агентов, база знаний, методология, скиллы, git-воркфлоу. Юридически — внутренние инструменты.</div>
+    </div>
+    <div class="overview-row">
+      <div class="overview-n">4</div>
+      <div class="overview-name">Внешний мир</div>
+      <div class="overview-desc">Соцсети Инны и Ирины, партнёрская программа, коммерческие клиенты, кураторские проекты, подбренд Нейро Бабки.</div>
+    </div>
+    <div class="overview-row">
+      <div class="overview-n">5</div>
+      <div class="overview-name">Сайт-экосистема</div>
+      <div class="overview-desc">Brand HUB + 5 нишевых лендингов + AI-консультант (живая витрина Продукта 4) + личный кабинет.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="h2 mt-0">Логика связей</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div class="callout callout-neon">
+      <div class="callout-title">Сверху вниз → поток ценности</div>
+      <p style="color:rgba(255,242,233,0.8);">Бренд формирует продукты → продукты опираются на нейро-команду → всё выходит во внешний мир → упаковано на сайт.</p>
+    </div>
+    <div class="callout callout-gold">
+      <div class="callout-title">Снизу вверх → поток данных</div>
+      <p style="color:rgba(255,242,233,0.8);">Клиент приходит с сайта → AI его квалифицирует → попадает в кухню → формирует продукт → усиливает бренд.</p>
+    </div>
+  </div>
+
+  <div class="h2">Три контура работы</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Контур</th><th>Что это</th><th>Сейчас</th></tr></thead>
+      <tbody>
+        <tr><td class="td-gold td-bold">Контур 1 — Мой бизнес</td><td>Инна + Ирина, их личные бренды, соцсети, общая контент-стратегия</td><td class="td-sage">Строим инфраструктуру</td></tr>
+        <tr><td class="td-gold td-bold">Контур 2 — Кураторский</td><td>Бесплатные проекты для тестирования продуктов и генерации кейсов</td><td class="td-neon">Mastergroup</td></tr>
+        <tr><td class="td-gold td-bold">Контур 3 — Коммерческий</td><td>Платные клиенты. Свой бренд, своя папка, своя палитра у каждого</td><td class="td-neon">Beauty · Южнобережный</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ═══════════════ СЛОЙ 1 ═══════════════ -->
+<div class="section section-dark page-break">
+  <div class="layer-header">
+    <div class="layer-num">1</div>
+    <div>
+      <div class="layer-label-tag">Слой первый</div>
+      <div class="layer-title">Ядро бренда</div>
+      <div class="layer-subtitle">Кто я · что я собой представляю · какой методологией работаю</div>
+    </div>
+  </div>
+
+  <div class="h2 mt-0">1.1. Кто мы</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Параметр</th><th>Инна</th><th>Ирина</th></tr></thead>
+      <tbody>
+        <tr><td>Роль</td><td class="td-gold">Архитектор автосистем и коммуникаций</td><td class="td-gold">Дизайнер · равноправный партнёр</td></tr>
+        <tr><td>Юр.форма</td><td>ИП, ОКВЭД 70.22</td><td>Самозанятая, ОКВЭДы на дизайн и вёрстку</td></tr>
+        <tr><td>Методология</td><td colspan="2">С.С.С.Р. — Структура · Стратегия · Свобода · Результат</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">1.2. УТП — в чём сила</div>
+  <p>Не «ещё один человек с AI». Бренд на стыке трёх миров:</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Мир</th><th>Что даёт</th></tr></thead>
+      <tbody>
+        <tr><td class="td-gold td-bold">30 лет background</td><td>Банк (15 лет, заведующая хранилищем ценностей) + бухгалтерия (15 лет главбухом) + коуч-психолог + маркетолог. Видит бизнес клиента с финансовой, процессной и человеческой стороны одновременно.</td></tr>
+        <tr><td class="td-neon td-bold">Современные технологии</td><td>Нейросети, vibe coding, AI-агенты, автосистемы. Делает за дни то, на что рынок берёт недели.</td></tr>
+        <tr><td class="td-sage td-bold">ОКВЭД 70.22</td><td>Юридическая обёртка через «консультации, аудит, сопровождение» — легально и прозрачно для клиента.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-gold mt-16">
+    <div class="callout-title">Главный тезис</div>
+    <p style="color:rgba(255,242,233,0.85);">Рынок делает SMM <em>или</em> сайт <em>или</em> бот. Мы даём <strong>экосистему в одних руках</strong> — от аудита до AI-ассистента — быстро и юридически чисто.</p>
+  </div>
+
+  <div class="callout callout-warning mt-16">
+    <div class="callout-title">⚠ Главное правило бренда</div>
+    <p style="color:rgba(16,50,6,0.85);">Технологии и современность показываем <strong>цветом и визуалом</strong>, а не словами. В публичных текстах — только «аудит, сопровождение, экспертиза».</p>
+  </div>
+
+  <div class="h2">1.3. Целевая аудитория</div>
+  <div class="callout callout-sage" style="text-align:center;margin-bottom:20px;">
+    <p style="font-family:'Unbounded',sans-serif;font-size:16px;font-weight:600;color:var(--gold);margin:0;">«Для тех, кто живёт в бизнесе 24/7 и тянет его на себе»</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div>
+      <div class="h3">Ниши на старте</div>
+      <ul class="styled">
+        <li>Эксперты и инфобизнес</li>
+        <li>Локальный офлайн-бизнес (санатории, фитнес, барбершопы)</li>
+        <li>Онлайн-торговля</li>
+        <li>Тренеры и коучи</li>
+      </ul>
+    </div>
+    <div>
+      <div class="h3">Фильтр по клиенту</div>
+      <ul class="styled">
+        <li>Платёжеспособный, не ищет «самое дешёвое»</li>
+        <li>Готов вкладываться в развитие</li>
+        <li>Возраст 30–60 лет</li>
+        <li>Ценит включённость и долгосрочные отношения</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="h2">1.4. Методология С.С.С.Р.</div>
+  <p>Не просто аббревиатура — рабочий цикл с каждым клиентом. Каждая буква отвечает на боль.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Буква</th><th>Значение</th><th>Боль клиента</th><th>Что решает</th></tr></thead>
+      <tbody>
+        <tr><td class="td-gold td-bold" style="font-size:18px;">С</td><td class="td-bold">Структура</td><td>Живёт в бизнесе 24/7 — нет структуры</td><td>Выстраиваем процессы так, чтобы не всё держалось на нём</td></tr>
+        <tr><td class="td-gold td-bold" style="font-size:18px;">С</td><td class="td-bold">Стратегия</td><td>Тянет всё на себе — не видит картины целиком</td><td>Показываем, что можно отдать, а что оставить за собой</td></tr>
+        <tr><td class="td-gold td-bold" style="font-size:18px;">С</td><td class="td-bold">Свобода</td><td>Нет жизни вне бизнеса</td><td>Освобождаем время через AI и автоматизацию</td></tr>
+        <tr><td class="td-gold td-bold" style="font-size:18px;">Р</td><td class="td-bold">Результат</td><td>Работает на износ, но ничего не работает само</td><td>Система работает сама — собственник живёт, а не тянет</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">1.5. Архитектура подачи — три уровня</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Уровень</th><th>Где</th><th>Формулировка</th><th>Время</th></tr></thead>
+      <tbody>
+        <tr><td class="td-bold">Короткий</td><td>Ник, обложка, визитка</td><td class="td-gold">«Архитектор автосистем · С.С.С.Р. · Для тех, кто тянет бизнес на себе»</td><td class="td-sage">2–3 сек</td></tr>
+        <tr><td class="td-bold">Средний</td><td>Био VK, TG, email</td><td>Полное био с С.С.С.Р., опытом, линейкой, ЦА</td><td class="td-sage">5–10 сек</td></tr>
+        <tr><td class="td-bold">Развёрнутый</td><td>Сайт, лендинг, КП</td><td>Полная история + методология + кейсы + линейка + CTA</td><td class="td-sage">15–30 сек+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">1.6. Что НЕ говорим публично</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="callout callout-neon">
+      <div class="callout-title">✓ Говорим</div>
+      <ul class="styled mt-8">
+        <li>Провожу аудит, сопровождаю</li>
+        <li>Архитектор / Эксперт / Консультант</li>
+        <li>Экспертное сопровождение</li>
+        <li>Инна провела аудит и сопроводила</li>
+      </ul>
+    </div>
+    <div class="callout callout-magenta">
+      <div class="callout-title">✕ Не говорим</div>
+      <ul class="styled mt-8">
+        <li>Делаю, создаю, разрабатываю</li>
+        <li>Разработчик / Программист / Вайбкодер</li>
+        <li>Изготовление сайта / разработка бота</li>
+        <li>Инна сделала мне бот / сайт</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ СЛОЙ 2 ═══════════════ -->
+<div class="section section-light page-break">
+  <div class="layer-header" style="border-color:rgba(16,50,6,0.12);">
+    <div class="layer-num" style="color:var(--green-ink);opacity:0.15;">2</div>
+    <div>
+      <div class="layer-label-tag">Слой второй</div>
+      <div class="layer-title">Продуктовая линейка</div>
+      <div class="layer-subtitle">Пять уровней · от бесплатного входа до флагмана</div>
+    </div>
+  </div>
+
+  <div class="h2 mt-0">2.1. Продуктовая лестница</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Уровень</th><th>Что это</th><th>Цена</th><th>Юр. формулировка</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-sage">1</td>
+          <td class="td-bold">Вход</td>
+          <td>AI-диагностика, экспресс-аудит, контент</td>
+          <td class="td-sage">Бесплатно / 3–5к</td>
+          <td class="td-sage mono">Консультация / экспресс-аудит</td>
+        </tr>
+        <tr>
+          <td class="td-sage">2</td>
+          <td class="td-bold">Платформа С.С.С.Р.</td>
+          <td>Подписка на абонентское сопровождение по 4 модулям</td>
+          <td style="color:var(--green-ink);font-weight:600;">1–15к/мес</td>
+          <td class="td-sage mono">Абонентское конс. обслуживание</td>
+        </tr>
+        <tr>
+          <td class="td-sage">3</td>
+          <td class="td-bold">Услуги</td>
+          <td>Сайты, мини-аппы, упаковка соцсетей, автосистемы</td>
+          <td style="color:var(--green-ink);font-weight:600;">10–200к разово</td>
+          <td class="td-sage mono">Экспертный аудит и сопровождение</td>
+        </tr>
+        <tr style="background:rgba(19,247,64,0.04);">
+          <td style="color:var(--acid);font-weight:700;">4 🆕</td>
+          <td style="color:var(--acid);font-weight:700;">AI-консультант под клиента</td>
+          <td>Свой AI-помощник для сайта клиента + ежемесячное сопровождение</td>
+          <td style="color:var(--acid);font-weight:700;">30–100к + 5–15к/мес</td>
+          <td class="td-sage mono">Экспертное сопровождение AI</td>
+        </tr>
+        <tr>
+          <td class="td-sage">5</td>
+          <td class="td-bold">Флагман</td>
+          <td>Нейро-архитектура бизнеса клиента под ключ</td>
+          <td style="color:var(--magenta);font-weight:600;">300к – 3М</td>
+          <td class="td-sage mono">Комплексное экспертное сопров.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">2.2. Продукт 1 — Вход</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div>
+      <p><strong>Формат:</strong> Анкета + автоматический разбор → PDF-отчёт. Работает без участия Инны.</p>
+      <p><strong>Задача:</strong> Снизить порог входа. Клиент тратит 10 минут → получает ценность → хочет продолжить.</p>
+    </div>
+    <div class="callout callout-warning">
+      <div class="callout-title">Уязвимость</div>
+      <p style="color:rgba(16,50,6,0.8);">Бесплатные диагностики дают лидов низкого качества без фильтра. Нужен минимальный квалификатор: ниша, оборот, задача.</p>
+    </div>
+  </div>
+
+  <div class="h2">2.3. Продукт 2 — Платформа С.С.С.Р.</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Тариф</th><th>Цена</th><th>Что включено</th></tr></thead>
+      <tbody>
+        <tr><td>Базовый</td><td>1–2к/мес</td><td>1 модуль</td></tr>
+        <tr><td>Продвинутый</td><td>3–5к/мес</td><td>Все 4 модуля раз в месяц</td></tr>
+        <tr><td class="td-bold">Премиум</td><td class="td-bold">10–15к/мес</td><td>Все модули + еженедельные мини-аудиты</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tbl-wrap mt-16">
+    <table>
+      <thead><tr><th>Буква</th><th>Модуль</th><th>Что аудируем</th><th>Итог для клиента</th></tr></thead>
+      <tbody>
+        <tr><td class="td-bold" style="color:var(--green-ink);">С</td><td>Структура</td><td>Процессы: заявки, команда, продажа</td><td>«Вижу, где утекают клиенты и деньги»</td></tr>
+        <tr><td class="td-bold" style="color:var(--green-ink);">С</td><td>Стратегия</td><td>Продукты, цены, воронки</td><td>«Понимаю, куда двигаться»</td></tr>
+        <tr><td class="td-bold" style="color:var(--green-ink);">С</td><td>Свобода</td><td>Автоматизация: соцсети, сайты, AI</td><td>«Вижу, что передать AI»</td></tr>
+        <tr><td class="td-bold" style="color:var(--green-ink);">Р</td><td>Результат</td><td>AI-мониторинг изменений</td><td>«Вижу, что всё работает»</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">2.4. Продукт 4 — AI-консультант под клиента (ключевой новый продукт)</div>
+  <div class="callout callout-magenta mb-16" style="background:rgba(255,46,196,0.05);border-color:var(--magenta);">
+    <div class="callout-title">Блокер</div>
+    <p style="color:rgba(16,50,6,0.8);">Самопродаётся через демо на сайте Инны. <strong>Пока сайта нет — запуск невозможен.</strong> Приоритет — сначала сайт.</p>
+  </div>
+
+  <p><strong>Что:</strong> Индивидуальный AI-помощник для сайта клиента + ежемесячное сопровождение.</p>
+  <p><strong>Цена:</strong> 30–100к за создание + 5–15к/мес за ведение.</p>
+
+  <div class="h3">Воронка клиента</div>
+  <div class="funnel" style="background:transparent;">
+    <div class="funnel-step" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.12);">
+      <div class="funnel-num" style="color:var(--acid);">01</div>
+      <div class="funnel-text" style="color:var(--green-ink);">Клиент общается с AI Инны на её сайте
+        <div class="funnel-sub" style="color:var(--sage);">«Вау, удобно. Я тоже такого хочу»</div>
+      </div>
+    </div>
+    <div class="funnel-step" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.12);">
+      <div class="funnel-num" style="color:var(--acid);">02</div>
+      <div class="funnel-text" style="color:var(--green-ink);">Запись на встречу через AI
+        <div class="funnel-sub" style="color:var(--sage);">Выясняем нишу, продукты, аудиторию</div>
+      </div>
+    </div>
+    <div class="funnel-step" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.12);">
+      <div class="funnel-num" style="color:var(--acid);">03</div>
+      <div class="funnel-text" style="color:var(--green-ink);">За 1–2 недели создаём ЕГО AI-консультанта
+        <div class="funnel-sub" style="color:var(--sage);">С его кейсами, языком, сценариями</div>
+      </div>
+    </div>
+    <div class="funnel-step" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.12);">
+      <div class="funnel-num" style="color:var(--acid);">04</div>
+      <div class="funnel-text" style="color:var(--green-ink);">Клиент ставит свой AI на свой сайт
+        <div class="funnel-sub" style="color:var(--sage);">Получает поток квалифицированных лидов</div>
+      </div>
+    </div>
+    <div class="funnel-step" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.12);">
+      <div class="funnel-num" style="color:var(--acid);">05</div>
+      <div class="funnel-text" style="color:var(--green-ink);">Подписка на ведение AI
+        <div class="funnel-sub" style="color:var(--sage);">Обновляем базу, сценарии, отчитываемся</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h3 mt-24">Почему этот продукт сильный</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Фактор</th><th>Суть</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--acid);font-weight:700;">Самопродажа</td><td>Клиент видит AI в работе и хочет такой же</td></tr>
+        <tr><td style="color:var(--acid);font-weight:700;">Тиражируемость</td><td>Один движок — под клиента адаптируются сценарии и база знаний</td></tr>
+        <tr><td style="color:var(--acid);font-weight:700;">Подписка</td><td>Клиент платит ежемесячно за ведение AI = рекуррентная выручка</td></tr>
+        <tr><td style="color:var(--acid);font-weight:700;">Юр.рамка</td><td>«Экспертное сопровождение работы AI» — вписывается в ОКВЭД 70.22</td></tr>
+        <tr><td style="color:var(--acid);font-weight:700;">Рынок</td><td>На российском рынке массово этого ещё нет. Аналог западного «AI-as-a-Service с куратором»</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">2.5. Путь клиента (апсейл-маршрут)</div>
+  <div class="flow-row flow-row-3" style="gap:8px;margin:16px 0;align-items:center;">
+    <div class="flow-box" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.15);color:var(--green-ink);">Диагностика<br><span style="font-size:11px;opacity:0.6;">Бесплатно · увидел проблему</span></div>
+    <div style="text-align:center;font-size:20px;color:var(--acid);">→</div>
+    <div class="flow-box" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.15);color:var(--green-ink);">Услуга<br><span style="font-size:11px;opacity:0.6;">10–200к · решил задачу</span></div>
+  </div>
+  <div style="text-align:center;font-size:20px;color:var(--acid);padding:4px 0;">↓</div>
+  <div class="flow-box" style="background:rgba(16,50,6,0.06);border-color:rgba(16,50,6,0.15);color:var(--green-ink);text-align:center;padding:14px;">Платформа С.С.С.Р. <span style="opacity:0.6;font-size:12px;">(1–15к/мес · видит как растёт)</span></div>
+  <div style="text-align:center;font-size:20px;color:var(--acid);padding:4px 0;">↓</div>
+  <div class="flow-box" style="background:rgba(77,170,2,0.06);border-color:rgba(77,170,2,0.3);color:var(--green-ink);text-align:center;padding:14px;font-weight:600;">AI-консультант под клиента <span style="color:var(--acid);font-size:12px;">(30–100к + подписка)</span></div>
+  <div style="text-align:center;font-size:20px;color:var(--magenta);padding:4px 0;">↓</div>
+  <div class="flow-box" style="background:rgba(255,46,196,0.04);border-color:rgba(255,46,196,0.25);color:var(--green-ink);text-align:center;padding:14px;opacity:0.7;">Флагман — Нейро-архитектура <span style="color:var(--magenta);font-size:12px;">(300к–3М · будущее)</span></div>
+
+  <div class="h2">2.6. Структура выручки</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Тип</th><th>Продукты</th><th>Комментарий</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--acid);font-weight:700;">MRR / Рекуррент</td><td>Платформа С.С.С.Р. + ведение AI</td><td>Стабильная база, растёт с числом клиентов</td></tr>
+        <tr><td style="color:var(--green-ink);font-weight:700;">Разовые</td><td>Услуги + создание AI-консультанта</td><td>Зависят от потока новых клиентов</td></tr>
+        <tr><td style="color:var(--sage);">Бесплатный вход</td><td>Диагностика</td><td>Генерация лидов, не выручка</td></tr>
+        <tr><td style="color:var(--magenta);">Флагман</td><td>Нейро-команда под ключ</td><td>Редко, крупно, на будущее</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-neon mt-16" style="background:rgba(77,170,2,0.06);border-color:var(--acid);">
+    <div class="callout-title" style="color:var(--acid);">Цель</div>
+    <p style="color:var(--green-ink);">Наращивать долю рекуррента → снижать зависимость от нового потока клиентов.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════ СЛОЙ 3 ═══════════════ -->
+<div class="section section-dark page-break">
+  <div class="layer-header">
+    <div class="layer-num">3</div>
+    <div>
+      <div class="layer-label-tag">Слой третий</div>
+      <div class="layer-title">Внутренняя кухня</div>
+      <div class="layer-subtitle">AI-команда · база знаний · технический стек · инструменты</div>
+    </div>
+  </div>
+
+  <p>Рабочая инфраструктура в VS Code. Юридически — внутренние инструменты для оказания консультационных услуг.</p>
+
+  <div class="h2">3.1. Нейро-команда — 14 агентов</div>
+  <div class="agent-grid">
+    <div class="agent-card" style="border-color:rgba(255,46,196,0.3);background:rgba(255,46,196,0.06);">
+      <div class="agent-name" style="color:var(--magenta);">Director</div>
+      <div class="agent-role">Маршрутизатор задач, контроль QA. Читается перед любым ответом.</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Analyst</div>
+      <div class="agent-role">Research, данные, исследование рынка</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Product Builder</div>
+      <div class="agent-role">Discovery, Critique, дизайн продукта</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Branding</div>
+      <div class="agent-role">Бренд, визуальная система</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Content</div>
+      <div class="agent-role">Тексты, форматы, TOV</div>
+    </div>
+    <div class="agent-card" style="border-color:rgba(19,247,64,0.3);background:rgba(19,247,64,0.04);">
+      <div class="agent-name" style="color:var(--neon);">Marketer</div>
+      <div class="agent-role">Маркетинговая стратегия, каналы, SMM, кампании</div>
+    </div>
+    <div class="agent-card" style="border-color:rgba(19,247,64,0.3);background:rgba(19,247,64,0.04);">
+      <div class="agent-name" style="color:var(--neon);">Sales</div>
+      <div class="agent-role">Заявки, воронка, ведение клиентов, оплата</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Websites</div>
+      <div class="agent-role">Сайты, лендинги, вёрстка</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Systems</div>
+      <div class="agent-role">Боты, CRM, автоматизация, бэкенд</div>
+    </div>
+    <div class="agent-card" style="border-color:rgba(212,175,55,0.3);">
+      <div class="agent-name">AI Builder</div>
+      <div class="agent-role">Строит AI-консультантов под клиентов (Продукт 4)</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Financial</div>
+      <div class="agent-role">Юнит-экономика, ценообразование, P&amp;L</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">QA</div>
+      <div class="agent-role">Контроль качества, чек-листы, тесты</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Deployer-Beget</div>
+      <div class="agent-role">Публикация на Beget (production)</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name">Git Manager</div>
+      <div class="agent-role">Версионирование, коммиты, пуши</div>
+    </div>
+  </div>
+
+  <div class="callout callout-sage mt-16">
+    <div class="callout-title">Как работает команда</div>
+    <p>Директор + один специалист закрывают 80% задач. Для сложных — несколько агентов параллельно. Агенты не знают о существовании друг друга — Директор координирует.</p>
+  </div>
+
+  <div class="h2">3.2. База знаний</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Папка</th><th>Что внутри</th></tr></thead>
+      <tbody>
+        <tr><td class="td-gold mono">methodology/</td><td>7 этапов методологии С.С.С.Р. (stage-0.md … stage-6.md)</td></tr>
+        <tr><td class="td-gold mono">playbooks/</td><td>Плейбуки контент-маркетинга и создания продуктов</td></tr>
+        <tr><td class="td-gold mono">prompting/</td><td>Техники промптинга, шаблоны, CRAFT-формула, примеры</td></tr>
+        <tr><td class="td-gold mono">standards/</td><td>Стандарты дизайна, контента, вёрстки, дизайн-система</td></tr>
+        <tr><td class="td-gold mono">brand/</td><td>Брендбук v4.0, палитра, дизайн-система (апрель 2026)</td></tr>
+        <tr><td class="td-gold mono">tools/</td><td>AI-инструменты, тех.стек, GitHub-доступы, скиллы-каталог</td></tr>
+        <tr><td class="td-gold mono">clients/</td><td>Типы клиентов, типичные проблемы, AI-решения, intake-вопросы</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">3.3. Системы памяти и воркфлоу</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="callout callout-gold">
+      <div class="callout-title">Память сессий</div>
+      <p><span class="mono">memory/sessions/YYYY-MM-DD.md</span> — дневник по дням. Через <span class="mono">MEMORY.md</span> — быстрый доступ ко всем постоянным знаниям.</p>
+    </div>
+    <div class="callout callout-sage">
+      <div class="callout-title">Inbox-система</div>
+      <p><span class="mono">inbox-inna/</span> — сырые материалы Инны.<br>
+      <span class="mono">inbox-cl20/</span> — от Claude 20 через git (не удалять).</p>
+    </div>
+    <div class="callout callout-neon">
+      <div class="callout-title">Git-воркфлоу</div>
+      <p>Ветка <span class="mono">main</span>, коммиты автоматические, сообщения по-русски в стиле <span class="mono">feat(scope): ...</span> Авторизован Инной.</p>
+    </div>
+    <div class="callout callout-sage">
+      <div class="callout-title">Скиллы</div>
+      <p>Специализированные промпты для типовых задач. 6 режимов в зависимости от масштаба клиента. Каталог в <span class="mono">knowledge/tools/</span></p>
+    </div>
+  </div>
+
+  <div class="h2">3.4. Технический стек</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Категория</th><th>Инструменты</th></tr></thead>
+      <tbody>
+        <tr><td class="td-gold">Разработка</td><td>Claude Code · VS Code · GitHub</td></tr>
+        <tr><td class="td-gold">Автоматизация</td><td>n8n на собственном VPS (Лондон)</td></tr>
+        <tr><td class="td-gold">Хостинг</td><td>Beget (production) · Vercel (демо)</td></tr>
+        <tr><td class="td-gold">AI</td><td>Claude API · GPT API · GigaChat · Yandex AI Studio</td></tr>
+        <tr><td class="td-gold">Дизайн</td><td>Canva · Pencil (MCP)</td></tr>
+        <tr><td class="td-gold">Задачи</td><td>VS Code + Claude Code TodoWrite</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ═══════════════ СЛОЙ 4 ═══════════════ -->
+<div class="section section-light page-break">
+  <div class="layer-header" style="border-color:rgba(16,50,6,0.12);">
+    <div class="layer-num" style="color:var(--green-ink);opacity:0.15;">4</div>
+    <div>
+      <div class="layer-label-tag">Слой четвёртый</div>
+      <div class="layer-title">Внешний мир</div>
+      <div class="layer-subtitle">Соцсети · партнёр Ирина · клиенты · партнёрка · Нейро Бабки</div>
+    </div>
+  </div>
+
+  <div class="callout callout-sage mb-24" style="background:rgba(75,120,80,0.08);border-color:var(--sage);">
+    <div class="callout-title">Принцип</div>
+    <p>Один смысл — два голоса. Инна и Ирина публикуют одни смыслы с адаптацией под свой голос. <strong>Роль соцсетей:</strong> трафик → сайт → AI-консультант → продукт.</p>
+  </div>
+
+  <div class="h2 mt-0">4.1. Дорожная карта по каналам</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Горизонт</th><th>Что делаем</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(255,46,196,0.04);">
+          <td><span class="tag tag-magenta">🔴 Срочно</span></td>
+          <td>VK личная страница Инны · VK группа Инны · Telegram Инны · VK Ирины · Telegram Ирины</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-yellow">🟡 Средне</span></td>
+          <td>MAX (дубль TG) · Яндекс.Карты · Авито</td>
+        </tr>
+        <tr>
+          <td><span class="tag" style="background:rgba(75,120,80,0.1);color:var(--sage);border:1px solid rgba(75,120,80,0.3);">⏳ Долго</span></td>
+          <td>YouTube · TenChat</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">4.2. Соцсети Инны</div>
+  <div class="channel-grid" style="background:transparent;">
+    <div class="channel-card" style="background:rgba(255,46,196,0.04);border-color:rgba(255,46,196,0.2);">
+      <div class="channel-name">VK — личная страница</div>
+      <div class="channel-status status-dead">● Мёртвая · требует реактивации</div>
+      <div class="channel-role" style="color:var(--green-ink);opacity:0.7;">vk.com/neuro_strateg_inna · Главный публичный профиль. Точка доверия. Трафик на сайт + прямые заявки.<br><br>
+      <strong style="color:var(--green-ink);">Задачи:</strong> Аудит → Обновление под v4.0 → Закреп «кто я» → Контент-план</div>
+    </div>
+    <div class="channel-card" style="background:rgba(255,46,196,0.04);border-color:rgba(255,46,196,0.2);">
+      <div class="channel-name">VK — группа</div>
+      <div class="channel-status status-dead">● Мёртвая · ~100+ участников</div>
+      <div class="channel-role" style="color:var(--green-ink);opacity:0.7;">Нужна реанимация и определение роли. Варианты: сообщество клиентов / тематический канал С.С.С.Р. / воронка под продукт.<br><br>
+      <strong style="color:var(--green-ink);">Задачи:</strong> Аудит → Определить роль → Обновить оформление</div>
+    </div>
+    <div class="channel-card" style="background:rgba(255,46,196,0.04);border-color:rgba(255,46,196,0.2);">
+      <div class="channel-name">Telegram</div>
+      <div class="channel-status status-dead">● Мёртвый · @neuro_strateg_inna</div>
+      <div class="channel-role" style="color:var(--green-ink);opacity:0.7;">Ник не меняется. Экспертный контент + прямая связь. Перспектива — мини-апп внутри TG.<br><br>
+      <strong style="color:var(--green-ink);">Задачи:</strong> Аудит → Обновить описание → Закреп-навигация → Контент-план</div>
+    </div>
+    <div class="channel-card" style="background:rgba(75,120,80,0.06);border-color:rgba(75,120,80,0.2);">
+      <div class="channel-name">В плане</div>
+      <div class="channel-status status-plan">● Среднесрочно / Долгосрочно</div>
+      <div class="channel-role" style="color:var(--green-ink);opacity:0.7;"><strong style="color:var(--green-ink);">MAX</strong> — дубль TG, минимум усилий<br>
+      <strong style="color:var(--green-ink);">Яндекс.Карты</strong> — локальный трафик, отзывы<br>
+      <strong style="color:var(--green-ink);">YouTube</strong> — длинный контент, SEO<br>
+      <strong style="color:var(--green-ink);">TenChat</strong> — B2B-аудитория</div>
+    </div>
+  </div>
+
+  <div class="h2">4.3. Протокол аудита любого канала</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div>
+      <div class="h3">Профиль</div>
+      <ul class="styled">
+        <li>Обложка/аватар — соответствие бренду</li>
+        <li>Имя/ник — узнаваемость, SEO</li>
+        <li>Описание — позиционирование, ключевые слова, ссылки</li>
+        <li>Закреп — есть ли, актуален ли</li>
+      </ul>
+    </div>
+    <div>
+      <div class="h3">Метрики</div>
+      <ul class="styled">
+        <li>Охват / просмотры</li>
+        <li>Вовлечённость (лайки, комменты, репосты)</li>
+        <li>Переходы по ссылкам</li>
+        <li>Конверсия в заявки</li>
+      </ul>
+    </div>
+    <div>
+      <div class="h3">Контент</div>
+      <ul class="styled">
+        <li>Дата последней публикации</li>
+        <li>Частота и регулярность</li>
+        <li>Типы: экспертный / вовлекающий / продающий</li>
+        <li>Наличие CTA</li>
+      </ul>
+    </div>
+    <div>
+      <div class="h3">Техническое</div>
+      <ul class="styled">
+        <li>Ссылки — куда ведут, живые ли</li>
+        <li>Контакты и способы связи</li>
+        <li>Кнопки/виджеты (для VK-группы)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="h2">4.4. Партнёр: Ирина Цепаева</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Инна</th><th>Ирина</th></tr></thead>
+      <tbody>
+        <tr><td>Стратегия, методология, аудит, AI</td><td>Дизайн, вёрстка, визуальный креатив</td></tr>
+        <tr><td>Встреча с клиентом (стратегическая часть)</td><td>Встреча с клиентом (дизайн-часть)</td></tr>
+        <tr><td>Архитектура проекта</td><td>Реализация визуального слоя</td></tr>
+        <tr><td colspan="2" style="text-align:center;opacity:0.6;font-style:italic;">Одни клиенты · один созвон · счёт выставляет каждая самостоятельно под свою часть</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">4.5. Партнёрская программа</div>
+  <div class="callout callout-gold" style="background:rgba(212,175,55,0.06);">
+    <div class="callout-title">Текущая схема</div>
+    <p style="color:var(--green-ink);">10% от суммы сделки × 6 месяцев + % с последующих покупок клиента. Работает вручную.</p>
+  </div>
+  <div class="h3 mt-16">Кто может стать партнёром</div>
+  <ul class="styled">
+    <li>Бывшие клиенты (лучшие амбассадоры — видели результат)</li>
+    <li>Коллеги из смежных ниш</li>
+    <li>Участники Mastergroup</li>
+    <li>Подрядчики и фрилансеры из сети</li>
+  </ul>
+  <div class="h3">Горизонт развития</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Этап</th><th>Как работает</th></tr></thead>
+      <tbody>
+        <tr><td>Сейчас</td><td>Вручную, таблица учёта</td></tr>
+        <tr><td>Среднесрочно</td><td>Реферальные UTM + таблица</td></tr>
+        <tr><td>Долгосрочно</td><td>SaaS-продукт MINI-6 (партнёрская платформа)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">4.6. Активные клиенты</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Клиент</th><th>Что делаем</th><th>Контур</th></tr></thead>
+      <tbody>
+        <tr><td class="td-bold">Beauty Визитка</td><td>TMA для бьюти-мастеров</td><td><span class="tag tag-gold">Коммерческий</span></td></tr>
+        <tr><td class="td-bold">Южнобережный</td><td>Детский санаторий · мини-аппы и сайт</td><td><span class="tag tag-gold">Коммерческий</span></td></tr>
+        <tr><td class="td-bold">Mastergroup</td><td>Кураторская платформа для мастеров · тест-среда продуктов</td><td><span class="tag tag-neon" style="color:var(--acid);">Кураторский</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-sage mt-16">
+    <div class="callout-title">Принцип по клиентам</div>
+    <p style="color:var(--green-ink);">У каждого клиента <strong>свой бренд, своя палитра, свой голос</strong>. Не навязываем наш стиль. В папке клиента: CLAUDE.md, brief.md, project-log.md, своя дизайн-система.</p>
+  </div>
+
+  <div class="h2">4.7. Подбренд Нейро Бабки</div>
+  <div class="callout callout-warning">
+    <div class="callout-title">Фаза 2 — после запуска основной инфраструктуры</div>
+    <p style="color:rgba(16,50,6,0.8);">Мультяшные персонажи Инны и Ирины. Запускаем только после того, как работает сайт, AI-консультант и реактивированы VK + TG.</p>
+  </div>
+  <ul class="styled mt-16">
+    <li>«Инес» — мультяшный двойник Инны · говорит о технологиях доступным языком</li>
+    <li>Двойной смысл: «бабки» = возраст как сила + деньги как результат</li>
+    <li>Живёт: <span class="mono">ideas/neuro-babki/</span> · это не клиент, это идея подбренда</li>
+  </ul>
+</div>
+
+
+<!-- ═══════════════ СЛОЙ 5 ═══════════════ -->
+<div class="section section-dark page-break">
+  <div class="layer-header">
+    <div class="layer-num">5</div>
+    <div>
+      <div class="layer-label-tag">Слой пятый</div>
+      <div class="layer-title">Сайт-экосистема</div>
+      <div class="layer-subtitle">Brand HUB · нишевые лендинги · AI-консультант · личный кабинет</div>
+    </div>
+  </div>
+
+  <p>Главная точка входа в систему. <strong>ideidlyabiznesa1913.ru</strong> — одновременно витрина (что я делаю) и хаб (запускает взаимодействие).</p>
+
+  <div class="h2">5.1. Структура сайта</div>
+  <div class="code-block">Сайт-экосистема (ideidlyabiznesa1913.ru)
+├── Главная (универсальный заход)
+├── Нишевые лендинги (5 штук)
+│   ├── Для экспертов и инфобизнеса
+│   ├── Для локального офлайн-бизнеса
+│   ├── Для онлайн-торговли
+│   ├── Для тренеров и коучей
+│   └── Для крупного бизнеса (флагман)
+├── Каталог продуктов
+├── Кейсы (по нишам)
+├── Блог (контент-магнит)
+├── AI-консультант (единая точка квалификации)
+└── Личный кабинет (для подписчиков Платформы С.С.С.Р.)</div>
+
+  <div class="h2">5.2. Воронка входа</div>
+  <div class="flow-row flow-row-3" style="gap:8px;margin:16px 0;">
+    <div class="flow-box">VK<br><span style="font-size:11px;opacity:0.6;">личка + сообщество</span></div>
+    <div class="flow-box">Telegram<br><span style="font-size:11px;opacity:0.6;">канал + мини-апп</span></div>
+    <div class="flow-box">MAX<br><span style="font-size:11px;opacity:0.6;">дубль канала</span></div>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-box" style="border-color:rgba(212,175,55,0.4);padding:16px;text-align:center;">
+    <span style="font-family:'Unbounded',sans-serif;font-size:14px;color:var(--gold);">Сайт-экосистема (Brand HUB)</span><br>
+    <span style="font-size:12px;opacity:0.7;">Лендинги по нишам · Кейсы · Продукты · Блог</span>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-box" style="border-color:rgba(19,247,64,0.4);padding:16px;text-align:center;">
+    <span style="font-family:'Unbounded',sans-serif;font-size:14px;color:var(--neon);">AI-консультант</span><br>
+    <span style="font-size:12px;opacity:0.7;">Единая точка квалификации · Задаёт 4–6 вопросов · Определяет сегмент</span>
+  </div>
+  <div class="flow-arrow">↓</div>
+  <div class="flow-row flow-row-3" style="gap:8px;margin-top:0;">
+    <div class="flow-box" style="border-color:rgba(212,175,55,0.3);">Запись на встречу</div>
+    <div class="flow-box" style="border-color:rgba(212,175,55,0.3);">Получение материала</div>
+    <div class="flow-box" style="border-color:rgba(255,46,196,0.3);color:var(--magenta);font-weight:600;">Покупка продукта</div>
+  </div>
+
+  <div class="h2">5.3. AI-консультант — детально</div>
+  <p>Один универсальный AI на входе с маршрутизацией внутри. Не несколько отдельных ботов.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0;">
+    <div class="callout callout-neon" style="text-align:center;">
+      <div class="callout-title">Квалифицирует</div>
+      <p style="font-size:13px;">Кто ты, какой бизнес, ниша, боль</p>
+    </div>
+    <div class="callout callout-gold" style="text-align:center;">
+      <div class="callout-title">Маршрутизирует</div>
+      <p style="font-size:13px;">Переключается на нужный сценарий по сегменту</p>
+    </div>
+    <div class="callout callout-magenta" style="text-align:center;">
+      <div class="callout-title">Конвертирует</div>
+      <p style="font-size:13px;">Запись на встречу / чек-лист / продукт</p>
+    </div>
+  </div>
+
+  <div class="h3">Сценарий работы</div>
+  <div class="funnel">
+    <div class="funnel-step">
+      <div class="funnel-num">→</div>
+      <div class="funnel-text">AI задаёт 4–6 квалификационных вопросов
+        <div class="funnel-sub">Ниша / продукт / боль / бюджет</div>
+      </div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-num">→</div>
+      <div class="funnel-text">Внутри определяет сегмент клиента</div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-num">→</div>
+      <div class="funnel-text">Запускает нужный сценарий:
+        <div class="funnel-sub">Эксперт → Платформа С.С.С.Р. · Офлайн → AI-аудит · Крупный → Нейро-архитектура</div>
+      </div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-num">✓</div>
+      <div class="funnel-text">Финал: запись на встречу / материал / покупка</div>
+    </div>
+  </div>
+
+  <div class="callout callout-gold mt-24" style="border-color:var(--neon);background:rgba(19,247,64,0.06);">
+    <div class="callout-title" style="color:var(--neon);">Главная сила AI-консультанта</div>
+    <p>Он не просто помощник на сайте. Он — <strong>живая витрина Продукта 4</strong> (AI-консультант под клиента). Клиент общается, видит как работает, думает «мне такого же надо».</p>
+  </div>
+
+  <div class="h2">5.4. Нишевые лендинги — принцип</div>
+  <div class="callout callout-sage mt-8">
+    <div class="callout-title">Принцип</div>
+    <p><em>«Одна аудитория = одна страница = одно обещание»</em></p>
+    <p>Один HUB + 5 нишевых лендингов. Не 20 (адская поддержка) и не один универсальный (низкая конверсия).</p>
+  </div>
+
+  <div class="tbl-wrap mt-16">
+    <table>
+      <thead><tr><th>Лендинг</th><th>Сегмент</th><th>Главная боль</th></tr></thead>
+      <tbody>
+        <tr><td class="td-gold">1</td><td>Эксперты и инфобизнес</td><td>Нет системы — всё держится на ручном труде</td></tr>
+        <tr><td class="td-gold">2</td><td>Локальный офлайн-бизнес</td><td>Нет цифрового присутствия, клиенты уходят к конкурентам</td></tr>
+        <tr><td class="td-gold">3</td><td>Онлайн-торговля</td><td>Хаос в коммуникациях и заявках</td></tr>
+        <tr><td class="td-gold">4</td><td>Тренеры и коучи</td><td>Нет воронки, автоматизации, системы</td></tr>
+        <tr><td class="td-gold">5</td><td>Крупный бизнес (Флагман)</td><td>Нужна нейро-команда под ключ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="h2">5.5. Личный кабинет</div>
+  <p>Для подписчиков Платформы С.С.С.Р. Доступ к 4 модулям, материалам, истории работы, отчётам AI о прогрессе клиента. Вход через сайт — не зависит от мессенджеров.</p>
+
+  <div class="callout callout-gold mt-16">
+    <div class="callout-title">Почему SaaS через сайт, а не мессенджеры</div>
+    <p>Telegram блокируют, WhatsApp блокируют — могут заблокировать ещё что-то. SaaS через сайт работает всегда, с любого устройства.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════ ИТОГ ═══════════════ -->
+<div class="section section-dark page-break">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;">Часть 3 — Итог</div>
+  <div style="font-family:'Unbounded',sans-serif;font-size:32px;font-weight:700;color:var(--gold);margin-bottom:8px;">Главное в одном экране</div>
+  <div style="font-family:'Manrope',sans-serif;font-size:14px;color:var(--sage);margin-bottom:40px;">5 слоёв · 1 философия</div>
+
+  <div class="summary-grid">
+    <div class="summary-item">
+      <div class="summary-n">1</div>
+      <div>
+        <div class="summary-title">Ядро бренда</div>
+        <div class="summary-text">Инна Андрейченко, Архитектор автосистем. ИП, ОКВЭД 70.22. Методология С.С.С.Р. Три мира: 30-летний опыт + современные технологии + юридическая обёртка. ЦА — «для тех, кто тянет бизнес на себе 24/7».</div>
+      </div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-n">2</div>
+      <div>
+        <div class="summary-title">Продуктовая линейка</div>
+        <div class="summary-text">Вход (бесплатно) → Платформа С.С.С.Р. (подписка 1–15к/мес) → Услуги (10–200к) → AI-консультант под клиента (30–100к + подписка) → Флагман нейро-архитектура (300к–3М). Цель — наращивать рекуррент.</div>
+      </div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-n">3</div>
+      <div>
+        <div class="summary-title">Внутренняя кухня</div>
+        <div class="summary-text">14 AI-агентов во главе с Директором. База знаний: методология, плейбуки, стандарты, брендбук. Git-воркфлоу, память сессий, inbox-система. Стек: Claude Code + n8n + Beget + GitHub.</div>
+      </div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-n">4</div>
+      <div>
+        <div class="summary-title">Внешний мир</div>
+        <div class="summary-text">Соцсети Инны (VK, TG) + Соцсети Ирины — все требуют реактивации. Партнёрская программа 10%×6 мес. Клиенты: Beauty, Южнобережный. Кураторский: Mastergroup. Нейро Бабки — Фаза 2.</div>
+      </div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-n">5</div>
+      <div>
+        <div class="summary-title">Сайт-экосистема</div>
+        <div class="summary-text">ideidlyabiznesa1913.ru — Brand HUB + 5 нишевых лендингов + AI-консультант (живая витрина Продукта 4) + личный кабинет. Воронка: соцсети → сайт → AI → покупка.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="callout callout-gold" style="text-align:center;padding:32px 40px;">
+    <div class="callout-title" style="text-align:center;font-size:11px;letter-spacing:0.15em;">Главная философия</div>
+    <p style="font-family:'Unbounded',sans-serif;font-size:18px;color:var(--gold);line-height:1.5;margin-bottom:12px;">Технологии показываем <em style="color:var(--neon);font-style:normal;">цветом</em>, а не словами.</p>
+    <p style="color:rgba(255,242,233,0.75);font-size:14px;">Делаем через vibe coding, упаковываем как «аудит и сопровождение».<br>Используем у себя то, что продаём клиентам — это живая витрина.</p>
+  </div>
+
+  <!-- Футер -->
+  <div style="margin-top:64px;padding-top:24px;border-top:1px solid rgba(212,175,55,0.15);display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sage);letter-spacing:0.06em;line-height:1.8;">
+      Архитектура бизнеса · Инна Андрейченко · Версия 4.0 · Апрель 2026<br>
+      Обновлять при любых значимых изменениях в стратегии.
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <svg width="40" height="40" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="gf" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4B7850"/><stop offset="100%" stop-color="#103206"/></radialGradient></defs>
+        <circle cx="80" cy="80" r="70" fill="url(#gf)"/>
+        <circle cx="80" cy="80" r="70" fill="none" stroke="#D4AF37" stroke-width="2"/>
+        <text x="80" y="98" text-anchor="middle" font-family="Unbounded" font-size="30" font-weight="800" fill="#D4AF37">ИА</text>
+        <circle cx="150" cy="80" r="5" fill="#FF2EC4"/>
+        <circle cx="10" cy="80" r="5" fill="#FF2EC4"/>
+      </svg>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sage);letter-spacing:0.08em;line-height:1.8;">
+        С · С · С · Р<br>
+        СТРУКТУРА · СТРАТЕГИЯ<br>
+        СВОБОДА · РЕЗУЛЬТАТ
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
