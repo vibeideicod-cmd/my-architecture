@@ -100,6 +100,7 @@
 | Аналитика | `agents/analytics-head.md` | Конкуренты, аудитория, рынок, соцсети |
 | DevOps/Infra | `agents/devops-infra.md` | Деплои, мониторинг, среда, контроль коммитов |
 | Brandbook Creator | `agents/brandbook-creator.md` | Брендбук, бренд-код, TOV-стандарт |
+| Скилл-аудитор | `agents/skill-auditor.md` | Независимый аудит скиллов и агент-файлов после skill-conductor-inna |
 
 ## Сессионная память
 
