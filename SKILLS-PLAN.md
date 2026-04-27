@@ -5,11 +5,44 @@
 
 ---
 
-## Фаза 0 — Установка skill-conductor
+## Фаза 0 — Установка skill-conductor ✅ ВЫПОЛНЕНО
 
-- [ ] Скопировать `inbox-cl20/skill-conductor/` → `.claude/skills/skill-conductor/`
-- [ ] Проверить: `ls .claude/skills/` — skill-conductor есть в списке
-- [ ] Коммит: `feat(skills): установлен skill-conductor`
+- [x] skill-conductor установлен глобально в `~/.claude/skills/skill-conductor/` (был установлен ранее)
+
+---
+
+## Шаг 0.5 — Создать skill-conductor-inna ✅ ВЫПОЛНЕНО 2026-04-27
+
+Специализированный инструмент команды. Живёт в `~/.claude/skills/skill-conductor-inna/`.
+
+- [x] SKILL.md — 8 режимов на русском (CREATE-SKILL, CREATE-AGENT, IMPROVE-SKILL, AUDIT-AGENT, VALIDATE, REVIEW, OPTIMIZE, PACKAGE-CLIENT)
+- [x] references/agents-registry.md — реестр 20 агентов с ролью, моделью, департаментом
+- [x] references/agent-template.md — шаблон файла нового агента
+- [x] references/skill-template.md — шаблон скилла с 4 обязательными полями
+- [x] Self-VALIDATE: 11/11 пунктов ✅, KPI ✅, Рекомендуемая модель ✅
+
+**Обязательный стандарт каждого скилла (зафиксирован в skill-conductor-inna):**
+- Триггеры — в description frontmatter
+- Анти-триггеры — в description frontmatter
+- KPI — секция в body
+- Рекомендуемая модель — секция в body
+
+---
+
+## Шаг 1 — Переструктурировать 7 существующих скиллов
+
+Сейчас в `my-architecture/.claude/skills/` лежат плоские `.md` файлы.
+Нужно: `brief.md` → `brief/SKILL.md` и т.д.
+
+- [ ] brief
+- [ ] deploy
+- [ ] discovery
+- [ ] seo
+- [ ] social-research
+- [ ] vk-pack
+- [ ] tg-pack
+
+Коммит: `refactor(skills): переструктурировать 7 скиллов в папки`
 
 ---
 
