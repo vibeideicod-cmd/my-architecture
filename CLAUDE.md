@@ -76,31 +76,39 @@
 
 До любого ответа на задачу прочитай `/agents/director.md` и работай в роли Директора.
 
-**21 агент команды:**
+**29 агентов команды:**
 
 | Агент | Файл | Когда |
 |---|---|---|
 | Director | `agents/director.md` | Всегда — маршрутизатор |
-| Analyst | `agents/analyst.md` | Research, данные, рынок |
+| Analyst | `agents/analyst.md` | Research Фаза 2, исследование рынка |
 | Product Builder | `agents/product-builder.md` | Discovery, Critique, план продукта |
 | Branding | `agents/branding.md` | Бренд, визуальная система |
-| Content | `agents/content.md` | Тексты, форматы, TOV |
-| Marketer | `agents/marketer.md` | Маркетинговая стратегия, каналы, кампании, SMM |
+| Content | `agents/content.md` | Тексты постов, TOV, контент-план |
+| Marketer | `agents/marketer.md` | Маркетинговая стратегия, каналы, кампании |
+| Marketing-Strategist | `agents/marketing-strategist.md` | Глубокая маркетинговая стратегия под продукт/клиента |
+| SMM-Manager | `agents/smm-manager.md` | Регулярное ведение соцсетей клиентов |
 | Sales | `agents/sales.md` | Заявки, воронка, ведение клиентов, оплата |
 | Websites | `agents/websites.md` | Сайты, лендинги, вёрстка |
 | Systems | `agents/systems.md` | Боты, CRM, автоматизация, бэкенд |
 | AI Builder | `agents/ai-builder.md` | Продукт №4: строит AI-консультантов под клиентов |
-| Financial | `agents/financial.md` | Юнит-экономика, ценообразование, доходы/расходы |
-| QA | `agents/qa.md` | Контроль качества, чек-листы |
+| Financial | `agents/financial.md` | Юнит-экономика, P&L по проектам |
+| Pricing-Specialist | `agents/pricing-specialist.md` | Стратегия ценообразования, пакеты, конкурентные цены |
+| QA | `agents/qa.md` | Контроль качества, чек-листы, reviewer |
 | Deployer-Beget | `agents/deployer-beget.md` | Публикация на хостинг |
 | Git Manager | `agents/git-manager.md` | Версионирование, коммиты |
 | Copywriter | `agents/copywriter.md` | Лендинги, офферы, CTA, конверсионные тексты |
-| Юридика | `agents/yuridika.md` | Оферты, договоры, ФЗ-152, маркировка рекламы |
-| Плановик | `agents/planner.md` | Планирование дня/недели, контроль план/факт |
-| Аналитика | `agents/analytics-head.md` | Конкуренты, аудитория, рынок, соцсети |
+| Yuridika | `agents/yuridika.md` | Руководитель юридического, координация |
+| Contract-Lawyer | `agents/contract-lawyer.md` | Договоры с клиентами, акты, NDA |
+| PD-Lawyer | `agents/pd-lawyer.md` | ФЗ-152, маркировка рекламы, политики конфиденциальности |
+| Planner | `agents/planner.md` | Планирование дня/недели, приоритеты |
+| Project-Manager | `agents/project-manager.md` | Трекинг параллельных проектов, дедлайны, блокеры |
+| Analytics-Head | `agents/analytics-head.md` | Стратегическая аналитика, конкуренты, рынок |
+| Product-Analyst | `agents/product-analyst.md` | Аудит и анализ существующих продуктов |
+| Audience-Researcher | `agents/audience-researcher.md` | Исследование ЦА, БМПХС, портреты |
 | DevOps/Infra | `agents/devops-infra.md` | Деплои, мониторинг, среда, контроль коммитов |
 | Brandbook Creator | `agents/brandbook-creator.md` | Брендбук, бренд-код, TOV-стандарт |
-| Скилл-аудитор | `agents/skill-auditor.md` | Независимый аудит скиллов и агент-файлов после skill-conductor-inna |
+| Скилл-аудитор | `agents/skill-auditor.md` | Независимый аудит скиллов и агент-файлов |
 
 ## Сессионная память
 

@@ -51,13 +51,13 @@
 | Департамент | Руководитель | Специалисты в подчинении |
 |---|---|---|
 | Брендинг | `branding.md` | `brandbook-creator.md` |
-| Маркетинг | `marketer.md` | `content.md`, `copywriter.md` |
+| Маркетинг | `marketer.md` | `marketing-strategist.md`, `smm-manager.md`, `content.md`, `copywriter.md` |
 | Продажи | `sales.md` | Client Success *(в разработке)* |
 | Продукт | `product-builder.md` | `websites.md`, `systems.md`, `ai-builder.md` |
-| Аналитика | `analytics-head.md` | `analyst.md` |
-| Планирование | `planner.md` | — |
-| Финансы | `financial.md` | Accountant *(в разработке)* |
-| Юридический | `yuridika.md` | — |
+| Аналитика | `analytics-head.md` | `analyst.md`, `product-analyst.md`, `audience-researcher.md` |
+| Планирование | `planner.md` | `project-manager.md` |
+| Финансы | `financial.md` | `pricing-specialist.md`, Accountant *(в разработке)* |
+| Юридический | `yuridika.md` | `contract-lawyer.md`, `pd-lawyer.md` |
 | Инфраструктура | `devops-infra.md` | `git-manager.md`, `deployer-beget.md` |
 | Качество | `qa.md` | — |
 
