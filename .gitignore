@@ -5,3 +5,11 @@ node_modules/
 .claude/settings.local.json
 inbox-inna/archive/*
 !inbox-inna/archive/.gitkeep
+
+# Рабочая папка агентов — промежуточные данные не коммитим
+agent-runtime/shared/*
+agent-runtime/outputs/*
+agent-runtime/logs/*
+!agent-runtime/shared/README.md
+!agent-runtime/outputs/README.md
+!agent-runtime/logs/README.md
