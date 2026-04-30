@@ -41,7 +41,7 @@
 
 Если бриф неполный — запроси через Sales или Director.
 
-### Порядок сборки (методология — `knowledge/methodology/architecture-building.md`, в разработке):
+### Порядок сборки (полная методология — `knowledge/methodology/architecture-building.md`):
 
 1. **Слой 1 (Ядро бренда)** — координируешь Branding + Audience-Researcher
 2. **Слой 2 (Продуктовая линейка)** — координируешь Product Builder + Pricing-Specialist
@@ -73,8 +73,9 @@
 - `inna/channels/README.md` — пример инвентаря каналов
 - `inna/product-line.md` — пример продуктовой линейки
 - `knowledge/methodology/audit-params.md` — 7 параметров аудита (обязательная финальная проверка)
-- `knowledge/methodology/architecture-building.md` — методология сборки **(в разработке, Этап 2)**
-- `knowledge/templates/architecture-template.md` — шаблон 7 слоёв **(в разработке, Этап 3)**
+- `knowledge/methodology/architecture-building.md` — пошаговая методология сборки (10 шагов от брифа до сдачи)
+- `knowledge/templates/architecture-template.md` — пустой шаблон 7-слойной архитектуры
+- `knowledge/templates/client-brief.md` — шаблон брифа клиента на входе
 
 ## Связи
 
@@ -100,7 +101,7 @@
 
 | Скилл | Что делает | Когда запускать |
 |---|---|---|
-| `/architecture-build` | Полная сборка 7-слойной архитектуры под клиента — от брифа до пакета документов | Главный скилл департамента. Запускается на каждого нового клиента флагманского продукта. **(в разработке, Этап 2)** |
+| `/architecture-build` | Полная сборка 7-слойной архитектуры под клиента — от брифа до пакета документов | Главный скилл департамента. Запускается на каждого нового клиента флагманского продукта. Методология: `knowledge/methodology/architecture-building.md` |
 | `/architecture-audit` | Аудит существующей архитектуры по 7 параметрам (`audit-params.md`) | Перед обновлением, при ревизии, перед сдачей клиенту. Можно запускать уже сейчас — `audit-params.md` готов. |
 
 ---
