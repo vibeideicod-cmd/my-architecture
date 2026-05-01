@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Брендбук Ирины Цепаевой · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 18mm 16mm; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #306654;
+  background: #FCFAE1;
+}
+
+body { max-width: 178mm; margin: 0 auto; }
+
+.page {
+  page-break-after: always;
+  min-height: 261mm;
+  padding: 8mm 0;
+  position: relative;
+}
+.page:last-child { page-break-after: auto; }
+
+h1 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 36pt; line-height: 1.1; color: #306654; margin-bottom: 6mm; page-break-after: avoid; }
+h2 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24pt; line-height: 1.15; color: #306654; margin: 8mm 0 4mm 0; page-break-after: avoid; }
+h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14pt; color: #306654; margin: 6mm 0 3mm 0; page-break-after: avoid; }
+h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11pt; color: #306654; margin: 4mm 0 2mm 0; page-break-after: avoid; }
+
+p { margin: 0 0 3mm 0; font-size: 10.5pt; line-height: 1.55; }
+ul, ol { margin: 0 0 3mm 6mm; }
+li { margin-bottom: 1.5mm; }
+
+strong { color: #306654; font-weight: 700; }
+em { font-style: italic; }
+a { color: #FF935E; text-decoration: none; }
+
+.signature {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18pt;
+  color: #FF935E;
+  line-height: 1.3;
+  margin: 6mm 0;
+}
+
+.signature-large {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 32pt;
+  color: #FF935E;
+  line-height: 1.2;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 261mm;
+  padding: 20mm 0;
+}
+
+.cover-top { text-align: left; }
+.cover-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 56pt; line-height: 1; color: #306654; margin-bottom: 8mm; letter-spacing: -0.02em; }
+.cover-subtitle { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14pt; color: #306654; letter-spacing: 0.05em; text-transform: uppercase; }
+.cover-portrait-placeholder { width: 60mm; height: 80mm; background: rgba(48, 102, 84, 0.1); border-radius: 4mm; margin: 12mm 0; display: flex; align-items: center; justify-content: center; color: #306654; font-size: 9pt; font-family: 'Montserrat', sans-serif; }
+.cover-bottom { display: flex; flex-direction: column; gap: 6mm; }
+.cover-meta { font-size: 9pt; color: #306654; opacity: 0.7; font-family: 'Montserrat', sans-serif; }
+
+.color-bar { height: 8mm; display: flex; margin: 6mm 0; border-radius: 2mm; overflow: hidden; }
+.color-bar-segment { flex: 1; }
+
+.section-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 261mm;
+}
+.section-number { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 96pt; color: #FF935E; line-height: 1; margin-bottom: 6mm; opacity: 0.4; }
+.section-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 40pt; line-height: 1.1; color: #306654; }
+.section-subtitle { font-family: 'Montserrat', sans-serif; font-size: 12pt; color: #306654; margin-top: 4mm; opacity: 0.7; }
+
+.page-header { font-size: 8pt; color: #306654; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8mm; font-family: 'Montserrat', sans-serif; }
+
+.color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin: 4mm 0; }
+.color-card { border-radius: 3mm; overflow: hidden; page-break-inside: avoid; }
+.color-swatch { height: 32mm; display: flex; align-items: flex-end; padding: 3mm; }
+.color-info { padding: 3mm; background: rgba(48, 102, 84, 0.05); }
+.color-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 11pt; color: #306654; line-height: 1.2; }
+.color-hex { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 9pt; color: #306654; opacity: 0.7; margin-top: 1mm; text-transform: uppercase; }
+
+.color-detail { display: grid; grid-template-columns: 50mm 1fr; gap: 6mm; margin-bottom: 8mm; page-break-inside: avoid; align-items: start; }
+.color-detail-swatch { height: 50mm; border-radius: 3mm; }
+.color-detail-info h3 { margin-top: 0; }
+.color-detail-codes { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; font-size: 9pt; margin: 2mm 0; }
+.color-detail-codes div { padding: 1mm 0; }
+.color-detail-codes strong { display: inline-block; min-width: 14mm; opacity: 0.7; font-weight: 500; }
+
+table { width: 100%; border-collapse: collapse; margin: 3mm 0 4mm 0; font-size: 9pt; page-break-inside: avoid; }
+table th, table td { border-bottom: 0.5pt solid rgba(48, 102, 84, 0.2); padding: 2mm 3mm; text-align: left; vertical-align: top; }
+table th { background: rgba(48, 102, 84, 0.05); font-weight: 700; color: #306654; font-family: 'Montserrat', sans-serif; }
+
+blockquote {
+  margin: 4mm 0;
+  padding: 3mm 5mm;
+  background: rgba(255, 147, 94, 0.08);
+  border-left: 3pt solid #FF935E;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13pt;
+  line-height: 1.4;
+  color: #306654;
+}
+
+.callout {
+  background: rgba(48, 102, 84, 0.05);
+  border-radius: 2mm;
+  padding: 4mm;
+  margin: 4mm 0;
+  page-break-inside: avoid;
+}
+.callout strong { color: #FF935E; }
+
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 4mm 0; }
+.do, .dont { padding: 4mm; border-radius: 2mm; page-break-inside: avoid; }
+.do { background: rgba(77, 170, 2, 0.1); }
+.dont { background: rgba(255, 147, 94, 0.1); }
+.do h4, .dont h4 { margin-top: 0; }
+.do h4 { color: #4DAA02; }
+.dont h4 { color: #FF935E; }
+.do ul, .dont ul { font-size: 9.5pt; }
+
+.triad { display: flex; gap: 0; height: 30mm; border-radius: 3mm; overflow: hidden; margin: 6mm 0; }
+.triad div { flex: 1; display: flex; align-items: flex-end; padding: 3mm; font-size: 8pt; font-family: 'Montserrat', sans-serif; font-weight: 500; }
+
+.font-sample { padding: 6mm; background: rgba(48, 102, 84, 0.04); border-radius: 3mm; margin: 4mm 0; page-break-inside: avoid; }
+.font-sample-name { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 9pt; color: #306654; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3mm; }
+.font-sample-display { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 28pt; color: #306654; line-height: 1.1; }
+.font-sample-display-italic { font-style: italic; color: #FF935E; }
+.font-sample-text { font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 11pt; line-height: 1.6; color: #306654; }
+
+.method-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6mm; margin: 6mm 0; }
+.method-cell { padding: 5mm; background: rgba(48, 102, 84, 0.05); border-radius: 3mm; page-break-inside: avoid; }
+.method-letter { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 36pt; color: #FF935E; line-height: 1; margin-bottom: 3mm; }
+.method-letter-name { font-size: 14pt; font-weight: 700; color: #306654; margin-bottom: 2mm; }
+.method-letter-desc { font-size: 9.5pt; line-height: 1.5; }
+
+.toc-item { display: flex; justify-content: space-between; align-items: baseline; padding: 2mm 0; border-bottom: 0.3pt dotted rgba(48, 102, 84, 0.3); font-size: 11pt; }
+.toc-item-name { font-family: 'Montserrat', sans-serif; font-weight: 500; }
+.toc-item-page { font-family: 'Montserrat', sans-serif; opacity: 0.5; }
+
+.principle-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 4mm 0; }
+.principle-card { padding: 4mm; background: rgba(48, 102, 84, 0.05); border-radius: 3mm; page-break-inside: avoid; }
+.principle-num { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24pt; color: #FF935E; line-height: 1; margin-bottom: 2mm; }
+.principle-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11pt; margin-bottom: 2mm; }
+.principle-desc { font-size: 9.5pt; line-height: 1.5; }
+
+.placeholder-illustration {
+  height: 60mm;
+  background: rgba(48, 102, 84, 0.08);
+  border: 1px dashed rgba(48, 102, 84, 0.3);
+  border-radius: 4mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(48, 102, 84, 0.5);
+  font-size: 9pt;
+  margin: 4mm 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.page-footer { position: absolute; bottom: 0mm; left: 0; right: 0; font-size: 8pt; color: rgba(48, 102, 84, 0.5); display: flex; justify-content: space-between; padding: 0 0 0 0; font-family: 'Montserrat', sans-serif; }
+
+.cite-author { font-family: 'Montserrat', sans-serif; font-style: normal; font-size: 9pt; opacity: 0.7; margin-top: 2mm; }
+
+.contacts-block { padding: 6mm; background: rgba(255, 147, 94, 0.08); border-radius: 3mm; margin: 6mm 0; }
+.contacts-block h3 { color: #FF935E; margin-top: 0; }
+
+.muted { opacity: 0.7; font-size: 9pt; }
+</style>
+</head>
+<body>
+
+<!-- ========== ОБЛОЖКА ========== -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="cover-meta">2026 · Версия 1.0</div>
+    <div class="cover-portrait-placeholder">[фото Ирины — 60×80mm]</div>
+    <div class="cover-title">Брендбук<br>Ирины Цепаевой</div>
+    <div class="cover-subtitle">Дизайнер · Самозанятая</div>
+  </div>
+  <div class="cover-bottom">
+    <div class="signature-large">«Слышу,<br>какого человек цвета»</div>
+    <div class="triad">
+      <div style="background: #306654; color: #FCFAE1;">#306654 · Хвоя</div>
+      <div style="background: #FCFAE1; color: #306654;">#FCFAE1 · Ваниль</div>
+      <div style="background: #FF935E; color: #FCFAE1;">#FF935E · Коралл</div>
+    </div>
+    <div class="cover-meta">Внутренний рабочий документ команды · Не для распространения</div>
+  </div>
+</section>
+
+<!-- ========== СОДЕРЖАНИЕ ========== -->
+<section class="page">
+  <div class="page-header">Брендбук Ирины Цепаевой</div>
+  <h1>Содержание</h1>
+  <div style="margin-top: 6mm;">
+    <div class="toc-item"><span class="toc-item-name">01 · Манифест и философия</span><span class="toc-item-page">3</span></div>
+    <div class="toc-item"><span class="toc-item-name">02 · С.С.С.Р. в визуале</span><span class="toc-item-page">5</span></div>
+    <div class="toc-item"><span class="toc-item-name">03 · Логотип и знак</span><span class="toc-item-page">7</span></div>
+    <div class="toc-item"><span class="toc-item-name">04 · Цветовая система</span><span class="toc-item-page">10</span></div>
+    <div class="toc-item"><span class="toc-item-name">05 · Типографика</span><span class="toc-item-page">17</span></div>
+    <div class="toc-item"><span class="toc-item-name">06 · Визуальный язык</span><span class="toc-item-page">19</span></div>
+    <div class="toc-item"><span class="toc-item-name">07 · Применение в соцсетях</span><span class="toc-item-page">22</span></div>
+    <div class="toc-item"><span class="toc-item-name">08 · Применение в UI и документах</span><span class="toc-item-page">25</span></div>
+    <div class="toc-item"><span class="toc-item-name">09 · Голос бренда</span><span class="toc-item-page">28</span></div>
+    <div class="toc-item"><span class="toc-item-name">10 · Антипримеры — что НЕ Ирина</span><span class="toc-item-page">31</span></div>
+  </div>
+  <div style="margin-top: auto; padding-top: 12mm;">
+    <p class="muted"><em>Структура брендбука зеркальна брендбуку Инны Андрейченко (`knowledge/brand/brandbook.md`) — общая команда, общая структура документов. Содержание собственное.</em></p>
+  </div>
+</section>
+
+<!-- ========== РАЗДЕЛ 01 — МАНИФЕСТ ========== -->
+<section class="page section-cover">
+  <div class="section-number">01</div>
+  <div class="section-title">Манифест<br>и философия</div>
+  <div class="section-subtitle">Кто я, что делаю, для кого</div>
+</section>
+
+<section class="page">
+  <div class="page-header">01 · Манифест</div>
+  <h2>Что я делаю</h2>
+  <blockquote>Слышу, какого человек цвета. Перевожу хаос в чёткие, красивые, ясные картинки.</blockquote>
+  <p>Я <strong>дизайнер</strong>. Работаю с самозанятыми экспертами, малым и средним бизнесом, который дорос до того, чтобы упаковать себя «по-человечески» — и не знает, с кем это делать.</p>
+  <p>Не делаю «как у всех». Сначала встречаюсь, слушаю — и через свои навыки перевожу то, что услышала, в чёткие, красивые, ясные картинки.</p>
+  <h3>Процесс</h3>
+  <p><strong>Слышу клиента → создаю под него → передаю готовый продукт.</strong></p>
+  <p>Каждая идея — новый визуал. По-разному, всегда по-разному. Идеальный клиент — это партнёр на равных, у которого нет навыков в дизайне.</p>
+
+  <h3>Что я НЕ делаю</h3>
+  <ul>
+    <li>Не консультирую и не провожу аудиты — это юридическая зона Инны Андрейченко (ИП, ОКВЭД 70.22)</li>
+    <li>Не разрабатываю стратегии — изготавливаю дизайн и реализую техническую часть</li>
+    <li>Не работаю с теми, кто «хочет посоветоваться, может потом закажу» — только с готовыми к работе</li>
+    <li>Не делаю «по референсу скопируй» — каждый клиент звучит для меня по-своему</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">01 · Кому я нужна</div>
+  <h2>Мой клиент — самодостаточный человек</h2>
+  <p>Главный фильтр — <strong>не ниша, а человек</strong>. Самодостаточный, готовый к работе, понимающий ценность дизайна. Можно из любой из 8 ниш:</p>
+  <ul style="columns: 2; column-gap: 6mm;">
+    <li>🎓 Инфобизнес и онлайн-образование</li>
+    <li>💰 Финансовые консультанты и брокеры</li>
+    <li>💅 Бьюти (салоны, барбершопы, СПА)</li>
+    <li>🧠 Коучи, психологи, наставники</li>
+    <li>💪 Фитнес-клубы и тренеры</li>
+    <li>🛒 Торговля — офлайн и онлайн</li>
+    <li>🏠 Риэлторы и агентства недвижимости</li>
+    <li>🏨 Санатории и отели</li>
+  </ul>
+
+  <h3>Стратегия трёх слоёв (80 / 19 / 1)</h3>
+  <table>
+    <thead><tr><th>Слой</th><th>Кто</th><th>Что покупает</th></tr></thead>
+    <tbody>
+      <tr><td><strong>🟢 80%</strong></td><td>Самодостаточный бизнес</td><td>Крупные продукты от 30к до 150к+</td></tr>
+      <tr><td><strong>🟡 19%</strong></td><td>Сомневающиеся, осторожные</td><td>Средние от 5к до 50к + подписка на Платформу</td></tr>
+      <tr><td><strong>🟠 1%</strong></td><td>Массовая B2C-аудитория</td><td>Микро-продукты от 100₽ до 5к</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5 болей, которые я закрываю</h3>
+  <ul>
+    <li><strong>«Меня не видят»</strong> — брендбук + упаковка соцсетей + визитка</li>
+    <li><strong>«Нет клиентов»</strong> — лендинг + квиз + бот для записи</li>
+    <li><strong>«Нет времени»</strong> — AI-помощник + бот-прогрев + воронка</li>
+    <li><strong>«Нет структуры»</strong> — дизайн-система + гайдлайны + регламенты с инфографикой</li>
+    <li><strong>«Хочу всё»</strong> (флагман) — полная визуальная экосистема под ключ</li>
+  </ul>
+</section>
+
+<!-- ========== РАЗДЕЛ 02 — С.С.С.Р. В ВИЗУАЛЕ ========== -->
+<section class="page section-cover">
+  <div class="section-number">02</div>
+  <div class="section-title">С.С.С.Р.<br>в визуале</div>
+  <div class="section-subtitle">Авторская методология работы с клиентом</div>
+</section>
+
+<section class="page">
+  <div class="page-header">02 · Методология</div>
+  <h2>Структура · Стиль · Свобода · Результат</h2>
+  <p>«С.С.С.Р. в визуале» — авторская методология Ирины. Зеркальна методологии Инны (Структура · Стратегия · Свобода · Результат), но в слое визуального дизайна. Описывает, как клиент проходит работу от первого «хочу красиво» до результата.</p>
+
+  <div class="method-grid">
+    <div class="method-cell">
+      <div class="method-letter">С</div>
+      <div class="method-letter-name">Структура</div>
+      <div class="method-letter-desc">С чего начинаем. Слушаю клиента, выстраиваю каркас бренда: какой образ, какие цвета, какая иерархия смыслов. Без структуры дизайн рассыпается на «красивые картинки без связи».</div>
+    </div>
+    <div class="method-cell">
+      <div class="method-letter">С</div>
+      <div class="method-letter-name">Стиль</div>
+      <div class="method-letter-desc">Что делает работу узнаваемой. Подбираю палитру, типографику, визуальный язык. Стиль рождается из того, что я услышала на встрече — не из шаблона.</div>
+    </div>
+    <div class="method-cell">
+      <div class="method-letter">С</div>
+      <div class="method-letter-name">Свобода</div>
+      <div class="method-letter-desc">Где клиент может вмешиваться. Свобода — это не «делайте всё что хотите», а понятные правила, по которым клиент сам может развивать визуал дальше. Например, добавлять новые посты в соцсетях по моим шаблонам.</div>
+    </div>
+    <div class="method-cell">
+      <div class="method-letter">Р</div>
+      <div class="method-letter-name">Результат</div>
+      <div class="method-letter-desc">Передаю готовый продукт. Бренд-материалы, лендинги, мини-приложения, AI-помощник — всё, что было в задаче. Не «концепция в воздухе», а файлы, ссылки, рабочая система.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">02 · Уровни подачи</div>
+  <h2>Три уровня глубины — один смысл</h2>
+  <p>Каждое сообщение бренда подаётся на трёх уровнях, в зависимости от носителя:</p>
+
+  <h3>🔹 Уровень 1 — короткая фраза (1 предложение)</h3>
+  <p>Для шапок, аватаров, постов. Главное — чтобы за 2 секунды было понятно.</p>
+  <blockquote>«Слышу, какого человек цвета»</blockquote>
+
+  <h3>🔹 Уровень 2 — средняя глубина (1 абзац)</h3>
+  <p>Для лендингов, презентаций, описаний услуг. Раскрывает фразу с уровня 1.</p>
+  <p style="font-style: italic; padding-left: 6mm; border-left: 2pt solid rgba(48,102,84,0.2);">Я не делаю «как у всех». Сначала встречаюсь, слушаю — и через свои навыки перевожу то, что услышала, в чёткие, красивые, ясные картинки. Каждая идея — новый визуал.</p>
+
+  <h3>🔹 Уровень 3 — полная глубина (статья / манифест)</h3>
+  <p>Для брендбуков, программных текстов сайта, длинных постов. Раскрывает всю философию работы.</p>
+
+  <div class="callout"><strong>Принцип:</strong> один и тот же смысл должен звучать на всех трёх уровнях. Если уровень 1 не передаёт сути уровня 3 — мы не услышали клиента.</div>
+</section>
+
+<!-- ========== РАЗДЕЛ 03 — ЛОГОТИП ========== -->
+<section class="page section-cover">
+  <div class="section-number">03</div>
+  <div class="section-title">Логотип<br>и знак</div>
+  <div class="section-subtitle">Главный визуальный идентификатор</div>
+</section>
+
+<section class="page">
+  <div class="page-header">03 · Концепция</div>
+  <h2>Монограмма «И» + фото Ирины</h2>
+  <p>Концепция логотипа Ирины <strong>зеркальна</strong> концепции Инны — общая структура (знак + фото человека), но визуально каждая узнаваема:</p>
+  <ul>
+    <li>У Инны — <strong>печать с сакральной геометрией</strong> + параллельно фото Инны на обложках</li>
+    <li>У Ирины — <strong>монограмма «И»</strong> в Хвоевом цвете + параллельно <strong>фото Ирины</strong> на обложках</li>
+  </ul>
+  <p>Это сразу читается как «семейство брендов» — общая команда, общая структура документов, но каждая остаётся со своим лицом.</p>
+
+  <div class="placeholder-illustration">[Эскиз монограммы «И» — Playfair Display Bold в Хвое + росчерк в Коралле]</div>
+
+  <h3>Главный знак — монограмма «И»</h3>
+  <ul>
+    <li>Стилизованная буква «И» в стиле <strong>Playfair Display Bold</strong>, цвет <strong>Хвоя `#306654`</strong></li>
+    <li>Возможно с авторским росчерком (мазок) в <strong>Коралле `#FF935E`</strong></li>
+    <li>Используется в favicon, аватаре, watermark, подписи в email</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">03 · Применение знака и фото</div>
+  <h2>Как комбинируем монограмму и фото</h2>
+
+  <table>
+    <thead><tr><th>Носитель</th><th>Что показываем</th></tr></thead>
+    <tbody>
+      <tr><td>Аватар VK / Telegram</td><td>Только монограмма «И» на ванильном фоне (либо фото Ирины — на личной странице)</td></tr>
+      <tr><td>Обложка группы VK</td><td>Фото Ирины + монограмма мелко в углу + сигнатура</td></tr>
+      <tr><td>Лендинг (hero-секция)</td><td>Фото Ирины + монограмма в шапке + заголовок</td></tr>
+      <tr><td>PDF-документы</td><td>Монограмма в шапке/подвале, фото — на обложке если уместно</td></tr>
+      <tr><td>Подпись в email</td><td>Монограмма + имя + контакты (без фото — тяжело для письма)</td></tr>
+      <tr><td>Презентация</td><td>Фото на титульном слайде, монограмма в правом нижнем углу</td></tr>
+      <tr><td>Сертификат / открытка</td><td>Только монограмма в подвале, без фото</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Композиция «Логотип + портрет»</h3>
+  <ul>
+    <li>Логотип всегда меньше портрета</li>
+    <li>Минимальное расстояние между ними — высота монограммы</li>
+    <li>Логотип не накладывается на лицо</li>
+    <li>Фото Ирины — с цветовой обработкой в палитре (тёплые тона, мягкие переходы)</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">03 · Недопустимое использование</div>
+  <h2>Что нельзя делать с логотипом</h2>
+
+  <div class="do-dont">
+    <div class="do">
+      <h4>✓ Правильно</h4>
+      <ul>
+        <li>Логотип в Хвое на ванильном фоне (главный сценарий)</li>
+        <li>Логотип в Ванили на тёмной хвоевой секции</li>
+        <li>Монохромная версия на сложном фото — с полупрозрачной плашкой</li>
+        <li>Минимальный размер 32px (для favicon — 24px)</li>
+        <li>Охранное поле — не менее половины высоты знака</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <h4>✗ Запрещено</h4>
+      <ul>
+        <li>Растягивать или сжимать непропорционально</li>
+        <li>Менять цвета на не-палитру</li>
+        <li>Поворачивать (наклонять, ставить на бок)</li>
+        <li>Добавлять обводки, тени, эффекты</li>
+        <li>Размещать на ярких неоновых фонах (Лимон, Маджента)</li>
+        <li>Использовать чёрный `#000` как «монохромную версию» — берём Хвою</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Файлы и форматы (после утверждения финального лого)</h3>
+  <ul>
+    <li><code>.svg</code> — основной векторный формат</li>
+    <li><code>.png</code> (300 dpi) — для соцсетей</li>
+    <li><code>.eps</code> — для типографии</li>
+    <li><code>.pdf</code> — для документов</li>
+  </ul>
+</section>
+
+<!-- ========== РАЗДЕЛ 04 — ЦВЕТОВАЯ СИСТЕМА ========== -->
+<section class="page section-cover">
+  <div class="section-number">04</div>
+  <div class="section-title">Цветовая<br>система</div>
+  <div class="section-subtitle">8 цветов · 5 собственных + 3 общих с Инной</div>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Палитра в одной картинке</div>
+  <h2>8 цветов бренда</h2>
+  <p>Палитра состоит из <strong>5 собственных цветов</strong> Ирины + <strong>3 неоновых, общих с палитрой Инны</strong>. Общие неоновые — маркер технологичности (AI, нейросети, vibe coding); основные 5 — её индивидуальность.</p>
+
+  <div class="color-grid">
+    <div class="color-card"><div class="color-swatch" style="background: #306654;"></div><div class="color-info"><div class="color-name">Сосновая хвоя</div><div class="color-hex">#306654</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #A1BF5B;"></div><div class="color-info"><div class="color-name">Молодая зелень</div><div class="color-hex">#A1BF5B</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #FF935E;"></div><div class="color-info"><div class="color-name">Тёплый коралл</div><div class="color-hex">#FF935E</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #F8EB00;"></div><div class="color-info"><div class="color-name">Лимонная цедра</div><div class="color-hex">#F8EB00</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #FCFAE1; border: 0.5pt solid rgba(48,102,84,0.2);"></div><div class="color-info"><div class="color-name">Ваниль</div><div class="color-hex">#FCFAE1</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #13F740;"></div><div class="color-info"><div class="color-name">Неоновый зелёный</div><div class="color-hex">#13F740 · общий</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #4DAA02;"></div><div class="color-info"><div class="color-name">Кислотно-зелёный</div><div class="color-hex">#4DAA02 · общий</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #FF2EC4;"></div><div class="color-info"><div class="color-name">Жгучая мадженти</div><div class="color-hex">#FF2EC4 · общий</div></div></div>
+  </div>
+
+  <h3>Триада бренда — фирменное сочетание</h3>
+  <p><strong>Хвоя + Ваниль + Коралл</strong>. Все три цвета на одном макете = безошибочно «это Ирина».</p>
+  <div class="triad">
+    <div style="background: #306654; color: #FCFAE1;">#306654 · Хвоя</div>
+    <div style="background: #FCFAE1; color: #306654;">#FCFAE1 · Ваниль</div>
+    <div style="background: #FF935E; color: #FCFAE1;">#FF935E · Коралл</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Иерархия и пропорции</div>
+  <h2>Правило 60 / 30 / 10</h2>
+
+  <table>
+    <thead><tr><th>Зона</th><th>%</th><th>Цвет</th><th>Где</th></tr></thead>
+    <tbody>
+      <tr><td>Фон (60-70%)</td><td>60</td><td>Ваниль `#FCFAE1`</td><td>Бэкграунд лендингов, бумаги, презентаций</td></tr>
+      <tr><td>Основной (25-30%)</td><td>30</td><td>Хвоя `#306654`</td><td>Текст, заголовки, навигация, акценты</td></tr>
+      <tr><td>Акцент (10-15%)</td><td>10</td><td>Коралл `#FF935E`</td><td>CTA, цитаты, шильдики «новинка»</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Когда подключаем остальные цвета</h3>
+  <ul>
+    <li><strong>Молодая зелень</strong> — триггер действия, лендинги фитнеса/онлайн-курсов</li>
+    <li><strong>Лимонная цедра</strong> — шильдики на микро-продуктах, акции, баннеры распродаж</li>
+    <li><strong>Неоновый зелёный</strong> — отметки «работает на AI» в технологичных продуктах</li>
+    <li><strong>Кислотно-зелёный</strong> — главные CTA-кнопки «Купить», «Начать»</li>
+    <li><strong>Жгучая мадженти</strong> — манифест личного бренда, обложки кейсов, шапки сторис</li>
+  </ul>
+
+  <div class="callout"><strong>Правило:</strong> максимум 3 цвета на одном носителе. Остальная палитра — для разных контекстов, не для одного экрана.</div>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Сосновая хвоя · #306654</div>
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #306654;"></div>
+    <div class="color-detail-info">
+      <h3>Сосновая хвоя</h3>
+      <p class="muted"><em>Pine Needle · число 6 (Опекун)</em></p>
+      <div class="color-detail-codes">
+        <div><strong>HEX</strong> #306654</div>
+        <div><strong>RGB</strong> 48, 102, 84</div>
+        <div><strong>CMYK</strong> C53 M0 Y18 K60</div>
+        <div><strong>На цвете</strong> #FCFAE1</div>
+      </div>
+    </div>
+  </div>
+  <h4>Архетипы (по Юнгу)</h4>
+  <p>Целитель · Творец · Опекун · Мудрец</p>
+  <h4>Психология</h4>
+  <p>Мягкий, приглушённый тёмно-зелёный без чёрного подтона. Замедляет дыхание, заземляет внимание. В отличие от «Глубокого леса» Инны (`#103206`) — здесь больше воздуха, цвет дышит вместе с клиентом.</p>
+  <h4>Подсознательный триггер</h4>
+  <p>«Здесь меня услышат и не торопят». Активирует разрешение раскрыться, тормозит защитные реакции — клиент чаще делится «настоящими» цветами своего проекта.</p>
+  <h4>Применение</h4>
+  <p>Эксперты-наставники, премиум-консультации, лендинги болей «Меня не видят» и «Нет структуры». Главный носитель — фон лендингов уровня «крупные продукты от 30к».</p>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Тёплый коралл · #FF935E</div>
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #FF935E;"></div>
+    <div class="color-detail-info">
+      <h3>Тёплый коралл</h3>
+      <p class="muted"><em>Warm Coral · число 8 (Поток)</em></p>
+      <div class="color-detail-codes">
+        <div><strong>HEX</strong> #FF935E</div>
+        <div><strong>RGB</strong> 255, 147, 94</div>
+        <div><strong>CMYK</strong> C0 M42 Y63 K0</div>
+        <div><strong>На цвете</strong> #306654</div>
+      </div>
+    </div>
+  </div>
+  <blockquote>Главное отличие от палитры Инны: у Инны — Золото (статус, роскошь). У Ирины — Коралл (человеческое тепло, контакт).</blockquote>
+  <h4>Архетипы (по Юнгу)</h4>
+  <p>Любящий · Творец · Шут · Опекун</p>
+  <h4>Психология</h4>
+  <p>Тёплый персиково-оранжевый. Активирует ассоциацию с человеческой кожей — снижает барьеры доверия. Глаз ловит коралл как «живой» цвет, не «синтетический».</p>
+  <h4>Применение</h4>
+  <p>Личные бренды экспертов, лендинги «обо мне», главные акценты на сайтах коучей и психологов, упаковка beauty, кнопки «связаться с экспертом», шапки сторис, обложки PDF-визиток.</p>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Ваниль · #FCFAE1</div>
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #FCFAE1; border: 0.5pt solid rgba(48,102,84,0.15);"></div>
+    <div class="color-detail-info">
+      <h3>Ваниль</h3>
+      <p class="muted"><em>Vanilla Cream · число 1 (Лидер)</em></p>
+      <div class="color-detail-codes">
+        <div><strong>HEX</strong> #FCFAE1</div>
+        <div><strong>RGB</strong> 252, 250, 225</div>
+        <div><strong>CMYK</strong> C0 M1 Y11 K1</div>
+        <div><strong>На цвете</strong> #306654</div>
+      </div>
+    </div>
+  </div>
+  <h4>Архетипы (по Юнгу)</h4>
+  <p>Невинный · Опекун · Любящий · Мудрец</p>
+  <h4>Психология</h4>
+  <p>Тёплый off-white с ванильным подтоном. Снимает агрессию белого холодного. Текст читается на 20% быстрее, чем на чистом `#FFFFFF`. Глаз отдыхает, кортизол снижается.</p>
+  <h4>Применение</h4>
+  <p><strong>Primary background во всём бренд-флоу — 60-70% площади всех носителей.</strong> Бэкграунд app/web, печать, упаковка крафт-косметики, бутиковые лендинги, печатные брошюры, фон визиток, презентаций.</p>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Остальные пять цветов</div>
+  <h2>Молодая зелень · Лимонная цедра · Неоновые</h2>
+
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #A1BF5B; height: 22mm;"></div>
+    <div class="color-detail-info">
+      <h4>Молодая зелень · #A1BF5B</h4>
+      <p class="muted">Свежий, оливково-салатовый. Триггер действия. Не «выдохни» (как Шалфей Инны), а «вставай и двигайся».</p>
+      <p><strong>Применение:</strong> CTA на лендингах, баннеры старта, упаковка био-продуктов, фитнес-приложения.</p>
+    </div>
+  </div>
+
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #F8EB00; height: 22mm;"></div>
+    <div class="color-detail-info">
+      <h4>Лимонная цедра · #F8EB00</h4>
+      <p class="muted">Чище, кислее и ярче «Яркого жёлтого» Инны. Самый видимый цвет в спектре — глаз ловит на 25% быстрее.</p>
+      <p><strong>Применение:</strong> только акцент. Шильдики «Новинка», «Хит», микро-продукты, акции. НЕ как фон длинного текста.</p>
+    </div>
+  </div>
+
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #13F740; height: 22mm;"></div>
+    <div class="color-detail-info">
+      <h4>Неоновый зелёный · #13F740 <span class="muted">(общий с Инной)</span></h4>
+      <p class="muted">Маркер технологичности — «работает на AI», «нейросеть», «vibe coding». Только акцент, никогда не фон.</p>
+      <p><strong>Применение:</strong> лендинги платформ геймификации, шильдики на карточках микро-продуктов с AI.</p>
+    </div>
+  </div>
+
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #4DAA02; height: 22mm;"></div>
+    <div class="color-detail-info">
+      <h4>Кислотно-зелёный · #4DAA02 <span class="muted">(общий с Инной)</span></h4>
+      <p class="muted">Главный CTA-цвет. Триггер действия — «купить», «начать», «записаться». Зрелый брат неона.</p>
+      <p><strong>Применение:</strong> primary-кнопки на лендингах фитнеса и маркетплейсов.</p>
+    </div>
+  </div>
+
+  <div class="color-detail">
+    <div class="color-detail-swatch" style="background: #FF2EC4; height: 22mm;"></div>
+    <div class="color-detail-info">
+      <h4>Жгучая мадженти · #FF2EC4 <span class="muted">(общий с Инной)</span></h4>
+      <p class="muted">Главный «вау» палитры — цвет манифеста. «Слышу твою нестандартность».</p>
+      <p><strong>Применение:</strong> манифест личного бренда, обложки кейсов, шапки сторис, art-direction для бьюти.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">04 · Применение по нишам</div>
+  <h2>Главные пары палитры по 8 нишам</h2>
+
+  <table>
+    <thead><tr><th>Ниша</th><th>Главная пара</th><th>Доп. акценты</th></tr></thead>
+    <tbody>
+      <tr><td>🎓 Инфобизнес</td><td>Хвоя + Молодая зелень</td><td>Лимон, Неоновый</td></tr>
+      <tr><td>💰 Финансы</td><td>Хвоя + Ваниль</td><td>Коралл</td></tr>
+      <tr><td>💅 Бьюти</td><td>Коралл + Ваниль</td><td>Маджента, Лимон</td></tr>
+      <tr><td>🧠 Коучи / психологи</td><td>Хвоя + Ваниль</td><td>Коралл, Маджента</td></tr>
+      <tr><td>💪 Фитнес</td><td>Молодая зелень + Хвоя</td><td>Кислотный, Лимон</td></tr>
+      <tr><td>🛒 Торговля</td><td>Ваниль + Хвоя</td><td>Лимон, Кислотный</td></tr>
+      <tr><td>🏠 Риэлторы</td><td>Хвоя + Ваниль</td><td>Коралл</td></tr>
+      <tr><td>🏨 Санатории / отели</td><td>Хвоя + Ваниль</td><td>Молодая зелень, Коралл</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Можно / Нельзя</h3>
+  <div class="do-dont">
+    <div class="do">
+      <h4>✓ Можно</h4>
+      <ul>
+        <li>Максимум 3 цвета на одном носителе</li>
+        <li>Хвоя + Ваниль + Коралл — фирменная триада, всегда безопасна</li>
+        <li>Коралл — точечно, как акцент-линия и кнопки</li>
+        <li>Ваниль — основной фон 60-70% всех макетов</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <h4>✗ Нельзя</h4>
+      <ul>
+        <li>Смешивать неоновый зелёный и кислотный — спорят</li>
+        <li>Лимон или мадженту как фон длинного текста</li>
+        <li>Кислотный без поддержки тёмной базы (Хвоя)</li>
+        <li>Использовать золото `#D4AF37` — это палитра Инны</li>
+        <li>Чёрный `#000` — берём Хвою вместо чёрного</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== РАЗДЕЛ 05 — ТИПОГРАФИКА ========== -->
+<section class="page section-cover">
+  <div class="section-number">05</div>
+  <div class="section-title">Типографика</div>
+  <div class="section-subtitle">Playfair Display + Montserrat (как у Инны)</div>
+</section>
+
+<section class="page">
+  <div class="page-header">05 · Шрифтовая пара</div>
+  <h2>Playfair Display + Montserrat</h2>
+
+  <div class="font-sample">
+    <div class="font-sample-name">Заголовки · Playfair Display Bold</div>
+    <div class="font-sample-display">Слышу, какого человек цвета</div>
+    <div class="font-sample-display font-sample-display-italic" style="font-size: 16pt; margin-top: 4mm;">«Каждая идея — новый визуал»</div>
+  </div>
+
+  <div class="font-sample">
+    <div class="font-sample-name">Основной текст · Montserrat Regular</div>
+    <div class="font-sample-text">Я слышу клиента → создаю под него → передаю готовый продукт. Не делаю «как у всех». Сначала встречаюсь, слушаю — и через свои навыки перевожу то, что услышала, в чёткие, красивые, ясные картинки.</div>
+  </div>
+
+  <h3>Логика выбора</h3>
+  <p>Шрифтовая пара <strong>такая же, как у Инны</strong> (см. её брендбук, стр. 37). Логика — общая команда, общие документы, согласованная подача. Семейство брендов узнаётся в том числе через шрифт.</p>
+
+  <table>
+    <thead><tr><th>Когда</th><th>Что используем</th></tr></thead>
+    <tbody>
+      <tr><td>Bold</td><td>Заголовки, ключевые слова, кнопки</td></tr>
+      <tr><td>Medium</td><td>Подзаголовки, навигация, выделения</td></tr>
+      <tr><td>Regular</td><td>Основной текст</td></tr>
+      <tr><td>Light</td><td>Подписи, метаданные</td></tr>
+      <tr><td>Italic</td><td>Только в Playfair Display — для цитат-сигнатур и смысловых акцентов</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><strong>Правило:</strong> курсив используем <strong>только в Playfair Display</strong>. В Montserrat курсив не применяем (правило Инны, наследуется).</div>
+</section>
+
+<section class="page">
+  <div class="page-header">05 · Иерархия и применение</div>
+  <h2>Размеры и приёмы</h2>
+
+  <h3>Иерархия для печати (PDF, A4)</h3>
+  <table>
+    <thead><tr><th>Уровень</th><th>Шрифт</th><th>Размер</th><th>Применение</th></tr></thead>
+    <tbody>
+      <tr><td>H1 / Манифест</td><td>Playfair Display Bold</td><td>36-44pt</td><td>Обложки, главные страницы</td></tr>
+      <tr><td>H2 / Раздел</td><td>Playfair Display Bold</td><td>22-26pt</td><td>Заголовки разделов</td></tr>
+      <tr><td>H3 / Подраздел</td><td>Montserrat Bold</td><td>14-16pt</td><td>Внутри разделов</td></tr>
+      <tr><td>H4 / Мини-заголовок</td><td>Montserrat Bold</td><td>11-13pt</td><td>Карточки, мини-блоки</td></tr>
+      <tr><td>Body</td><td>Montserrat Regular</td><td>10.5pt</td><td>Основной текст</td></tr>
+      <tr><td>Caption</td><td>Montserrat Light</td><td>8-9pt</td><td>Подписи, метаданные</td></tr>
+      <tr><td>Цитата-сигнатура</td><td>Playfair Display Italic</td><td>16-22pt</td><td>Эпиграфы, выделения</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Иерархия для веба (px)</h3>
+  <table>
+    <thead><tr><th>Уровень</th><th>Размер десктоп</th><th>Размер мобильный</th></tr></thead>
+    <tbody>
+      <tr><td>H1</td><td>56-72px</td><td>36-44px</td></tr>
+      <tr><td>H2</td><td>40-48px</td><td>28-32px</td></tr>
+      <tr><td>H3</td><td>28-32px</td><td>22-24px</td></tr>
+      <tr><td>Body</td><td>16-18px</td><td>16px (минимум, чтобы iOS не зумировал)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Антипримеры</h3>
+  <ul>
+    <li>❌ Использовать 3+ шрифта на странице</li>
+    <li>❌ Заголовки прописными в больших текстах (CAPS LOCK длинными фразами)</li>
+    <li>❌ Курсив в Montserrat — не используем</li>
+    <li>❌ Жирный курсив везде — перебор</li>
+    <li>❌ Подчёркивание для выделения (это для ссылок)</li>
+    <li>❌ Растягивать или сжимать буквы</li>
+    <li>❌ Comic Sans, Papyrus, Times New Roman — табу</li>
+  </ul>
+</section>
+
+<!-- ========== РАЗДЕЛ 06 — ВИЗУАЛЬНЫЙ ЯЗЫК ========== -->
+<section class="page section-cover">
+  <div class="section-number">06</div>
+  <div class="section-title">Визуальный<br>язык</div>
+  <div class="section-subtitle">Формы, паттерны, иконки, иллюстрации</div>
+</section>
+
+<section class="page">
+  <div class="page-header">06 · Формы и паттерны</div>
+  <h2>Базовые формы</h2>
+  <blockquote>Формы Ирины слушают и обнимают, а не атакуют. Никаких острых углов, никакой агрессивной симметрии.</blockquote>
+
+  <table>
+    <thead><tr><th>Форма</th><th>Где использовать</th><th>Радиус</th></tr></thead>
+    <tbody>
+      <tr><td>Капля (асимметричный овал)</td><td>Рамки фото, формы для иллюстраций</td><td>органика</td></tr>
+      <tr><td>Овал (правильный)</td><td>Карточки продуктов, бэкграунды секций</td><td>radius = высота / 2</td></tr>
+      <tr><td>Прямоугольник со скруглением</td><td>Кнопки, плашки, карточки</td><td>12-24px</td></tr>
+      <tr><td>Лист / лепесток</td><td>Иконки, иллюстрации, декор</td><td>органика</td></tr>
+      <tr><td>Круг</td><td>Аватары, иконки соцсетей</td><td>50%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><strong>Не используем:</strong> острые треугольники, прямоугольники с прямыми углами на главных носителях, резкие зигзаги.</div>
+
+  <h3>Фирменный паттерн</h3>
+  <p>Мелкие овалы и капли в палитре, расположенные в свободной композиции (не сетке). Прозрачность 5-15% — паттерн фоновый, не главный герой. Цвета: Хвоя + Молодая зелень + Коралл.</p>
+  <p><strong>Используется на:</strong> фоны секций «обо мне», обложки PDF-продуктов, шапки сторис.</p>
+  <p><strong>НЕ используется:</strong> на основном тексте (нечитаемо), на карточках продуктов (отвлекает), на лендингах болей.</p>
+</section>
+
+<section class="page">
+  <div class="page-header">06 · Иконография</div>
+  <h2>Стиль иконок</h2>
+  <ul>
+    <li><strong>Линейные</strong> (outline) — толщина линии 2px</li>
+    <li><strong>Скруглённые углы</strong> (radius 2-3px на пересечениях)</li>
+    <li><strong>Без заливки</strong> — кроме случаев сильного акцента</li>
+    <li><strong>Цвет:</strong> Хвоя `#306654` или Коралл `#FF935E` (для CTA)</li>
+  </ul>
+
+  <h3>Размеры по контексту</h3>
+  <table>
+    <thead><tr><th>Контекст</th><th>Размер</th></tr></thead>
+    <tbody>
+      <tr><td>В кнопке</td><td>20-24px</td></tr>
+      <tr><td>В навигации</td><td>24-28px</td></tr>
+      <tr><td>В карточке продукта</td><td>32-40px</td></tr>
+      <tr><td>Иконка-фича на лендинге</td><td>56-72px</td></tr>
+      <tr><td>Для сторис</td><td>80-120px (на холсте 1080×1920)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><strong>Иконки соцсетей и мессенджеров</strong> — только официальные логотипы в фирменных цветах брендов. Не заменяем на «конвертик», не перекрашиваем в палитру Ирины.</div>
+</section>
+
+<section class="page">
+  <div class="page-header">06 · Иллюстрации</div>
+  <h2>Что любит Ирина</h2>
+
+  <div class="do-dont">
+    <div class="do">
+      <h4>✓ Использовать</h4>
+      <ul>
+        <li>Двойные экспозиции (силуэт + пейзаж)</li>
+        <li>Объёмные формы с мягкими тенями</li>
+        <li>Цветовые мазки в палитре</li>
+        <li>Авторский характер (видно — рисовал человек)</li>
+        <li>Тёплые человеческие образы</li>
+        <li>Серии «love is» (добрые, милые)</li>
+        <li>Картины с мазками сочетающихся цветов</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <h4>✗ НЕ использовать</h4>
+      <ul>
+        <li>Картинки с болью, ужасом</li>
+        <li>Запредельная абстракция</li>
+        <li>Сток-картинки (одна картинка на разных клиентов)</li>
+        <li>Хаос всех цветов и стилей в одном изображении</li>
+        <li>Резкие, агрессивные образы</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>AI-сгенерированные иллюстрации</h3>
+  <ul>
+    <li>Каждая генерация дорабатывается вручную — не публикуется «как есть»</li>
+    <li>Палитра приводится к бренду через ручную цветокоррекцию</li>
+    <li>Однотипные генерации запрещены — это шаблонность</li>
+    <li>Шильдик «работает на нейросети» (Неоновый зелёный) — для случаев, когда нейросеть уместно показать как фишку</li>
+  </ul>
+
+  <h3>Композиционные принципы</h3>
+  <ul>
+    <li><strong>Пропорции 60/30/10</strong> — фон / основной / акцент</li>
+    <li><strong>Воздух 40-50%</strong> площади — чистый фон</li>
+    <li><strong>Один главный якорь</strong> на композицию — не два равных</li>
+    <li><strong>Сетка:</strong> 12-колоночная (веб), 6-колоночная (PDF), 3-колоночная (соцсети)</li>
+  </ul>
+</section>
+
+<!-- ========== РАЗДЕЛ 07 — СОЦСЕТИ ========== -->
+<section class="page section-cover">
+  <div class="section-number">07</div>
+  <div class="section-title">Применение<br>в соцсетях</div>
+  <div class="section-subtitle">VK + Telegram</div>
+</section>
+
+<section class="page">
+  <div class="page-header">07 · Каналы</div>
+  <h2>Где живёт бренд</h2>
+
+  <table>
+    <thead><tr><th>Канал</th><th>Назначение</th><th>Аудитория</th></tr></thead>
+    <tbody>
+      <tr><td>VK личная</td><td>Личный голос, авторские наблюдения</td><td>Знакомые + рекомендации</td></tr>
+      <tr><td>VK группа (Студия)</td><td>Кейсы, продукты, услуги</td><td>Слой 19% и 80% — потенциальные клиенты</td></tr>
+      <tr><td>Telegram канал</td><td>Регулярный контент, кейсы, лайфхаки</td><td>Подписчики на её визуал-практику</td></tr>
+      <tr><td>Telegram-чат (опционально)</td><td>Клиентский клуб (Платформа С.С.С.Р.)</td><td>Подписчики платформы</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Размеры аватаров и обложек</h3>
+  <table>
+    <thead><tr><th>Носитель</th><th>Размер</th><th>Содержание</th></tr></thead>
+    <tbody>
+      <tr><td>Аватар VK личная</td><td>200×200px</td><td>Фото Ирины, тёплое, в обработке палитры</td></tr>
+      <tr><td>Аватар VK группа</td><td>200×200px</td><td>Монограмма «И» на ванильном фоне</td></tr>
+      <tr><td>Аватар Telegram</td><td>512×512px</td><td>Монограмма на Хвое</td></tr>
+      <tr><td>Обложка VK группа</td><td>1920×768px</td><td>Заголовок + сигнатура + триада цветов</td></tr>
+      <tr><td>Обложка VK личная</td><td>1920×768px</td><td>Личное фото или авторская иллюстрация</td></tr>
+      <tr><td>Обложка Telegram канал</td><td>1280×720px</td><td>Заголовок + сигнатура</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="page">
+  <div class="page-header">07 · Шаблоны постов</div>
+  <h2>6 типов постов</h2>
+
+  <h3>1. Кейс (главный — самый частый)</h3>
+  <p class="muted">Один смысл = одна история работы.</p>
+  <blockquote>Ходила к [нише] на встречу. Услышала [её ощущение]. Сделала [что именно]. Каждая идея — новый визуал.</blockquote>
+
+  <h3>2. Личное наблюдение</h3>
+  <p class="muted">Короткий пост-мысль, чаще без картинки.</p>
+  <blockquote>Сегодня поймала себя — на третьей минуте знакомства с клиентом я уже «вижу его в каком-то цвете».</blockquote>
+
+  <h3>3. Полезное</h3>
+  <p class="muted">Один сильный совет, не «10 советов».</p>
+  <blockquote>Один маркер «непрофессионального» сайта эксперта — фото в плохом разрешении в шапке.</blockquote>
+
+  <h3>4. Анонс продукта</h3>
+  <p class="muted">Что это / для кого / цена / где купить.</p>
+
+  <h3>5. За кулисами / процесс</h3>
+  <p class="muted">Скриншот рабочего экрана, набросок, эскиз.</p>
+
+  <h3>6. Кросспостинг / репост клиента</h3>
+  <p class="muted">Когда клиент опубликовал у себя результат работы.</p>
+
+  <h3>Регулярность</h3>
+  <ul>
+    <li><strong>VK группа</strong> — 2-3 поста в неделю</li>
+    <li><strong>VK личная</strong> — 1-2 поста в неделю</li>
+    <li><strong>Telegram канал</strong> — 2-3 поста в неделю</li>
+    <li><strong>Сторис</strong> — ежедневно или через день, 1-2 в день</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">07 · Сторис и закреп</div>
+  <h2>Сторис и закреплённый пост</h2>
+
+  <h3>Шаблоны сторис (1080×1920px)</h3>
+  <table>
+    <thead><tr><th>Тип</th><th>Содержание</th></tr></thead>
+    <tbody>
+      <tr><td>Цитата</td><td>Caveat-шрифт на ванильном фоне с цитатой-сигнатурой</td></tr>
+      <tr><td>Процесс</td><td>Фото / скрин процесса + полупрозрачная плашка снизу с подписью</td></tr>
+      <tr><td>Опрос</td><td>Цветовой фон + встроенный UI-опросник</td></tr>
+      <tr><td>Анонс поста</td><td>«Новый кейс в ленте — листай!»</td></tr>
+      <tr><td>Анонс продукта</td><td>Цветовая плашка под нишу + заголовок крупно</td></tr>
+      <tr><td>Тёплое настроение</td><td>Утренний кадр, цветок, текстура — настроенческий контент</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Структура закрепа (один пост)</h3>
+  <div class="callout">
+    <p>👋 Я Ирина — дизайнер.</p>
+    <p>Слышу, какого человек цвета. Перевожу хаос в чёткие, красивые, ясные картинки.</p>
+    <p><strong>Что я делаю:</strong></p>
+    <p>🎨 Брендбуки и упаковка соцсетей — от 30к<br>
+    🌐 Лендинги и сайты — от 10к<br>
+    🤖 Боты и AI-помощники для экспертов — от 25к<br>
+    📱 Мини-приложения в Telegram и VK — от 15к<br>
+    ✨ Платформы геймификации для тренеров и коучей — от 15к</p>
+    <p>Микро-продукты на сайте — от 199₽</p>
+    <p>Связаться: [Telegram + email]</p>
+  </div>
+
+  <p class="muted"><em>В закрепе НЕ используем агрессивные CTA («Звоните!», «Только сегодня!»). Тёплый перечень — этого достаточно.</em></p>
+</section>
+
+<!-- ========== РАЗДЕЛ 08 — UI И ДОКУМЕНТЫ ========== -->
+<section class="page section-cover">
+  <div class="section-number">08</div>
+  <div class="section-title">UI<br>и документы</div>
+  <div class="section-subtitle">Лендинги, мини-аппы, PDF-продукты</div>
+</section>
+
+<section class="page">
+  <div class="page-header">08 · UI-компоненты</div>
+  <h2>Кнопки и формы</h2>
+
+  <h3>4 типа кнопок</h3>
+  <table>
+    <thead><tr><th>Тип</th><th>Цвет фона</th><th>Текст</th><th>Где</th></tr></thead>
+    <tbody>
+      <tr><td>Primary (главная CTA)</td><td>Кислотно-зелёный `#4DAA02`</td><td>Ваниль</td><td>«Купить», «Записаться»</td></tr>
+      <tr><td>Secondary</td><td>Хвоя `#306654`</td><td>Ваниль</td><td>«Узнать больше», «Подробнее»</td></tr>
+      <tr><td>Ghost (контурная)</td><td>Прозрачный + 2px Хвоя</td><td>Хвоя</td><td>«Скачать», «Назад»</td></tr>
+      <tr><td>Text-only (ссылка)</td><td>—</td><td>Коралл</td><td>«Все продукты →»</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Параметры по умолчанию</h3>
+  <ul>
+    <li><strong>Радиус скругления</strong>: 12px (кнопки), 16px (карточки), 24px (большие плашки)</li>
+    <li><strong>Высота кнопки</strong>: 48px (десктоп), 44px (мобильный)</li>
+    <li><strong>Высота input</strong>: 48px, padding 16px</li>
+    <li><strong>Шрифт в кнопке</strong>: Montserrat Medium/Bold, 16-18px</li>
+    <li><strong>Контраст</strong>: минимум 4.5:1 для текста (accessibility)</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">08 · Типовые секции лендингов</div>
+  <h2>8 секций лендинга Ирины</h2>
+
+  <ol>
+    <li><strong>Hero</strong> — заголовок + подзаголовок + Primary CTA + иллюстрация</li>
+    <li><strong>Боли</strong> — 5 болей клиента в сетке 2×3</li>
+    <li><strong>Решение</strong> — что Ирина делает (Слышу → Создаю → Передаю)</li>
+    <li><strong>Кейсы</strong> — 3-6 карточек кейсов</li>
+    <li><strong>Тарифы / Цены</strong> — сетка 3 тарифа в ряд</li>
+    <li><strong>Обо мне</strong> — фото + 2-3 абзаца голосом + сигнатура</li>
+    <li><strong>FAQ</strong> — аккордеон 5-8 вопросов</li>
+    <li><strong>Финальный CTA</strong> — «Готова обсудить твой проект» + кнопка</li>
+  </ol>
+
+  <h3>Состояния (states)</h3>
+  <table>
+    <thead><tr><th>Состояние</th><th>Что показываем</th></tr></thead>
+    <tbody>
+      <tr><td>Loading</td><td>Skeleton-блоки с плавной пульсацией</td></tr>
+      <tr><td>Empty</td><td>Иллюстрация + «Здесь пока пусто» + CTA</td></tr>
+      <tr><td>Error</td><td>Спокойная иконка + «Что-то пошло не так» (без красных воскл. знаков)</td></tr>
+      <tr><td>Success</td><td>Иконка ✓ в Кислотно-зелёном + «Готово»</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><strong>Сетка отступов:</strong> 4 → 8 → 16 → 24 → 32 → 48 → 64 → 80 → 120px. Не используем промежуточные числа («22», «38») — теряется ритм.</div>
+</section>
+
+<section class="page">
+  <div class="page-header">08 · PDF-продукты</div>
+  <h2>9 типов PDF-продуктов Ирины</h2>
+
+  <table>
+    <thead><tr><th>Тип</th><th>Размер</th><th>Цена</th></tr></thead>
+    <tbody>
+      <tr><td>PDF-визитка эксперта</td><td>1-2 страницы A4</td><td>от 300₽</td></tr>
+      <tr><td>Чек-лист (C1-C8)</td><td>1-3 страницы A4</td><td>от 199₽</td></tr>
+      <tr><td>Гайд / помогалка (H1-H10)</td><td>3-8 страниц A4</td><td>от 199₽</td></tr>
+      <tr><td>Открытка-конструктор</td><td>1 страница</td><td>от 200₽</td></tr>
+      <tr><td>Сертификат-конструктор</td><td>1 страница A4 горизонт.</td><td>от 200₽</td></tr>
+      <tr><td>Конструктор презентации эксперта</td><td>10-20 слайдов</td><td>от 1000₽</td></tr>
+      <tr><td>Конструктор КП</td><td>3-5 страниц A4</td><td>от 1000₽</td></tr>
+      <tr><td>Брендбук клиента</td><td>15-30 страниц A4</td><td>от 20к</td></tr>
+      <tr><td>Презентация для эксперта</td><td>16:9 / 4:3 / 9:16</td><td>от 10к</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Параметры PDF-шаблона</h3>
+  <ul>
+    <li><strong>Формат:</strong> A4 (210×297mm)</li>
+    <li><strong>Поля:</strong> 18mm верх/низ, 16mm лево/право</li>
+    <li><strong>Шрифты:</strong> Playfair Display (заголовки) + Montserrat (основа)</li>
+    <li><strong>Body:</strong> 10.5pt, межстрочный 1.55</li>
+    <li><strong>Цвет текста:</strong> Хвоя `#306654`, фон Ваниль `#FCFAE1`</li>
+    <li><strong>Шапка:</strong> логотип + название + номер страницы</li>
+    <li><strong>Подвал:</strong> контакты + блок «Не хочешь сам — закажи у нас»</li>
+  </ul>
+
+  <div class="callout"><strong>Все PDF-продукты обязательно содержат</strong> контакты Ирины и ссылку на её сайт + блок «Не хочешь сам — закажи у нас, недорого» с переходом на услугу.</div>
+</section>
+
+<!-- ========== РАЗДЕЛ 09 — ГОЛОС БРЕНДА ========== -->
+<section class="page section-cover">
+  <div class="section-number">09</div>
+  <div class="section-title">Голос<br>бренда</div>
+  <div class="section-subtitle">Что говорит Ирина и как звучит</div>
+</section>
+
+<section class="page">
+  <div class="page-header">09 · Главное</div>
+  <h2>Голос за 30 секунд</h2>
+  <blockquote>Голос Ирины — личностный, не корпоративный. Тёплый. Через цвет и образ. «Мне нравится», «я люблю», «то есть», «всегда по-разному».</blockquote>
+
+  <h3>6 характеристик голоса</h3>
+  <ol>
+    <li><strong>Личностный, не корпоративный</strong> — «мне нравится», не «мы предлагаем»</li>
+    <li><strong>Визуальный</strong> — постоянная отсылка к цветам и образам</li>
+    <li><strong>Метафоричный</strong> — «перевожу хаос в чёткие, красивые, ясные картинки»</li>
+    <li><strong>Тёплый</strong> — без агрессии и срочности</li>
+    <li><strong>Повторы для подчёркивания</strong> — «то есть», «именно», «всегда по-разному»</li>
+    <li><strong>Профессиональный, но не заумный</strong> — «картинка», «дизайн», не «UI/UX-композиция»</li>
+  </ol>
+
+  <h3>Любимые слова и обороты</h3>
+  <ul style="columns: 2;">
+    <li>«Мне нравится...» / «Я люблю...»</li>
+    <li>«То есть...»</li>
+    <li>«Какого человек цвета»</li>
+    <li>«Перевести хаос в чёткие картинки»</li>
+    <li>«Видеть мир глазами клиента»</li>
+    <li>«На равных в диалоге»</li>
+    <li>«Слушать и улавливать»</li>
+    <li>«По-разному, всегда по-разному»</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">09 · Цитаты-сигнатуры</div>
+  <h2>Цитаты, которые звучат как Ирина</h2>
+
+  <blockquote>Я слышу, какого человек цвета.</blockquote>
+  <blockquote>Мне нравится переводить хаос в чёткие, красивые, ясные картинки.</blockquote>
+  <blockquote>Каждая идея — новый визуал.</blockquote>
+  <blockquote>Идеальный клиент — это партнёр на равных. Просто у него нет навыков в дизайне.</blockquote>
+  <blockquote>Я должна увидеть мир глазами клиента — и через свои навыки передать это другим.</blockquote>
+  <blockquote>Дизайн — это не просто логотип побольше. Это решение, чтобы пользователь быстрее купил.</blockquote>
+
+  <p class="muted"><em>Эти цитаты используем как эпиграфы на лендингах, в сторис, в шапках кейсов, как акцент в брендбуках клиентов.</em></p>
+</section>
+
+<section class="page">
+  <div class="page-header">09 · Юр. мантра</div>
+  <h2>Юридическая мантра самозанятой</h2>
+  <p>Ирина — самозанятая. Виды деятельности: дизайн графический (74.10), иллюстрация (90.03), разработка ПО (62.01).</p>
+
+  <div class="do-dont">
+    <div class="do">
+      <h4>✓ Можно говорить</h4>
+      <ul>
+        <li>«Изготавливаю дизайн»</li>
+        <li>«Разрабатываю веб-приложение»</li>
+        <li>«Разрабатываю чат-бот»</li>
+        <li>«Верстаю веб-страницу»</li>
+        <li>«Иллюстрирую» / «делаю художественное оформление»</li>
+        <li>«Делаю разбор» / «разбор визуала»</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <h4>✗ Запрещено (штраф ФНС)</h4>
+      <ul>
+        <li>«Провожу аудит»</li>
+        <li>«Консультирую» / «даю рекомендации»</li>
+        <li>«Разрабатываю стратегию»</li>
+        <li>«Сопровождаю внедрение» / «веду проект»</li>
+        <li>«Управляю проектом»</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout"><strong>Принцип:</strong> в публичных текстах можем говорить мягче, но в чеках, оферте и договорах — только разрешённые формулировки видов деятельности самозанятой.</div>
+</section>
+
+<section class="page">
+  <div class="page-header">09 · Голос по каналам</div>
+  <h2>Один голос, разный темп</h2>
+
+  <table>
+    <thead><tr><th>Канал</th><th>Характер</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Лендинг сайта</strong></td><td>Медленный, глубокий. Длинные тексты, цитаты-сигнатуры как заголовки секций. Метафоры через цвет.</td></tr>
+      <tr><td><strong>Соцсети (посты)</strong></td><td>Живой, разговорный. Личные пометки, эмоции. «Сегодня делала», «знаете что».</td></tr>
+      <tr><td><strong>Сторис</strong></td><td>Краткий, эмоциональный. Одна мысль на сторис. Caveat-шрифтом подписи.</td></tr>
+      <tr><td><strong>Бот / AI-помощник</strong></td><td>Тёплый, но компактный. 1-3 предложения. «AI-помощник Ирины» — не выдаёт себя за человека.</td></tr>
+      <tr><td><strong>Чек / оферта</strong></td><td>Юридический, точный. Только разрешённые формулировки.</td></tr>
+      <tr><td><strong>Email клиенту</strong></td><td>Тёплый, профессиональный. Обращение по имени. Без «Уважаемые партнёры».</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Чек-лист перед публикацией</h3>
+  <ul>
+    <li>☐ Нет «мы» (где должно быть «я»)</li>
+    <li>☐ Нет запрещённых юр. слов (аудит, консультация, стратегия, сопровождение)</li>
+    <li>☐ Нет агрессивных CTA («купите сейчас», «срочно», «только сегодня»)</li>
+    <li>☐ Есть личный оборот хотя бы один раз («мне нравится», «я люблю», «то есть»)</li>
+    <li>☐ Нет канцелярита («осуществляется», «реализуется», «обеспечивается»)</li>
+    <li>☐ Длина предложений преимущественно короткие (8-15 слов)</li>
+  </ul>
+</section>
+
+<!-- ========== РАЗДЕЛ 10 — АНТИПРИМЕРЫ ========== -->
+<section class="page section-cover">
+  <div class="section-number">10</div>
+  <div class="section-title">Антипримеры</div>
+  <div class="section-subtitle">Что НЕ Ирина — главные «нельзя»</div>
+</section>
+
+<section class="page">
+  <div class="page-header">10 · Голос — что не говорим</div>
+  <h2>Голос — что НЕ Ирина</h2>
+
+  <h3>Корпоративный жаргон ❌</h3>
+  <ul>
+    <li>«Мы предлагаем», «компания осуществляет», «реализуем»</li>
+    <li>«Эффективное решение», «комплексный подход»</li>
+    <li>«Высококачественный сервис», «индивидуальный подход»</li>
+    <li>«Будем рады видеть вас», «дамы и господа»</li>
+  </ul>
+
+  <h3>Агрессивный продажный ❌</h3>
+  <ul>
+    <li>«Купите сейчас!», «только сегодня!», «не упустите шанс!»</li>
+    <li>«Звоните прямо сейчас!», «оставьте заявку!»</li>
+    <li>«Скидка только до конца дня»</li>
+    <li>«Должны купить», «обязательно», «надо срочно»</li>
+  </ul>
+
+  <h3>Технический жаргон ❌</h3>
+  <ul>
+    <li>«UI/UX-композиция», «модульная сетка», «гриды»</li>
+    <li>«Фреймворк», «стэк», «user flow»</li>
+    <li>«Конверсия», «click-through rate» (в публичных текстах)</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">10 · Визуал — что не делаем</div>
+  <h2>Визуал — что НЕ Ирина</h2>
+
+  <h3>Цвета вне палитры ❌</h3>
+  <ul>
+    <li>Синий (любой) — если нужен холодный, берём Хвою</li>
+    <li>Красный — для error берём Коралл</li>
+    <li>Чёрный `#000000` — берём Хвою</li>
+    <li>Чисто-белый `#FFFFFF` — берём Ваниль</li>
+    <li>Золото `#D4AF37` — это палитра Инны</li>
+    <li>Серые тона — теряется тёплый характер</li>
+  </ul>
+
+  <h3>Графика и иллюстрации ❌</h3>
+  <ul>
+    <li>Сток-картинки «дизайнер за компьютером»</li>
+    <li>Перекрашенный для другого клиента дизайн</li>
+    <li>Резкие острые треугольники, агрессивные зигзаги</li>
+    <li>3D-иконки с тяжёлыми тенями</li>
+    <li>Радужные эффекты, голографика, неоновые свечения</li>
+    <li>Картины с болью, ужасом, мрачным настроем</li>
+    <li>Запредельная абстракция без читаемого смысла</li>
+  </ul>
+
+  <h3>Шрифты — табу ❌</h3>
+  <ul>
+    <li>Comic Sans, Papyrus — мгновенный сигнал «непрофессионально»</li>
+    <li>Times New Roman — шрифт «по умолчанию»</li>
+    <li>Verdana, Tahoma — системные канцелярские</li>
+    <li>Готические шрифты — не наша эстетика</li>
+    <li>Шрифты без поддержки кириллицы</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">10 · Продукты и юридика</div>
+  <h2>Продукты и юридические запреты</h2>
+
+  <h3>Запрещённые типы продуктов ❌</h3>
+  <table>
+    <thead><tr><th>Тип</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td>Мини-курсы / обучающие программы</td><td>Нет лицензии на образовательную деятельность</td></tr>
+      <tr><td>«Запуск продаж за 1 день»</td><td>Продажный душок, риск штрафов</td></tr>
+      <tr><td>Гарантированные результаты («заработаешь 500к»)</td><td>Юридический риск</td></tr>
+      <tr><td>Продукты с использованием персональных данных без согласия</td><td>ФЗ-152, штрафы</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Шаблонные «генераторы» ❌</h3>
+  <ul>
+    <li>Генератор имени бренда — игрушка без результата</li>
+    <li>Генератор слогана — то же</li>
+    <li>Генератор архетипа / Tone of Voice — абстракция, не работает</li>
+    <li>Бот «спросил-ответил» без эмоции</li>
+  </ul>
+
+  <h3>Юридика ❌</h3>
+  <ul>
+    <li>Слова «аудит», «консультация», «стратегия», «сопровождение» в чеке — штраф ФНС</li>
+    <li>Реклама без маркировки «реклама» — штраф (с 2022 в РФ)</li>
+    <li>Сбор email/телефонов без согласия на ПД (ФЗ-152) — штрафы Роскомнадзора</li>
+  </ul>
+</section>
+
+<section class="page">
+  <div class="page-header">10 · Финальный чек-лист</div>
+  <h2>Чек-лист «не выпускать если...»</h2>
+
+  <p>Перед публикацией любой работы — пробежаться по 10 пунктам:</p>
+
+  <div class="callout">
+    <ul>
+      <li>☐ Нет корпоративного «мы» там, где должно быть «я»</li>
+      <li>☐ Нет агрессивных CTA («купите сейчас», «только сегодня»)</li>
+      <li>☐ Нет запрещённых юридических слов («аудит», «консультация», «стратегия»)</li>
+      <li>☐ Цвета только из палитры (8 цветов)</li>
+      <li>☐ Шрифты — Playfair Display + Montserrat (никаких Times, Comic Sans)</li>
+      <li>☐ Логотип не растянут, не повёрнут, в палитре</li>
+      <li>☐ Иллюстрации — авторские (не сток без обработки)</li>
+      <li>☐ PDF-документ имеет шапку, подвал, контакты, блок «закажи у нас»</li>
+      <li>☐ Лендинг имеет один primary-CTA, не 3-4 равных</li>
+      <li>☐ Голос — Иринин (личностный, не корпоративный)</li>
+    </ul>
+  </div>
+
+  <p><strong>Если хотя бы 2 пункта не сходятся — переделываем.</strong></p>
+
+  <h3>Документ растёт по ходу работы</h3>
+  <p>Каждый раз, когда что-то пошло «не так» и Ирина это поймала — добавляется новый «нельзя» в `clients/irina/brandbook/dont.md`. Это накопительный документ команды.</p>
+</section>
+
+<!-- ========== ФИНАЛ ========== -->
+<section class="page">
+  <div class="page-header">Брендбук Ирины Цепаевой</div>
+  <h1 style="margin-top: 30mm;">Спасибо</h1>
+  <div class="signature-large" style="margin: 12mm 0;">«Слышу,<br>какого человек<br>цвета»</div>
+
+  <div class="contacts-block">
+    <h3>Контакты Ирины</h3>
+    <p><strong>VK личная:</strong> <a href="https://vk.com/irina_1369">vk.com/irina_1369</a></p>
+    <p><strong>VK группа:</strong> <a href="https://vk.ru/stydiya">vk.ru/stydiya</a></p>
+    <p><strong>Telegram:</strong> [уточнить]</p>
+    <p><strong>Email:</strong> [уточнить]</p>
+  </div>
+
+  <div class="triad" style="margin-top: 20mm;">
+    <div style="background: #306654; color: #FCFAE1;">#306654 · Хвоя</div>
+    <div style="background: #FCFAE1; color: #306654;">#FCFAE1 · Ваниль</div>
+    <div style="background: #FF935E; color: #FCFAE1;">#FF935E · Коралл</div>
+  </div>
+
+  <div style="margin-top: 12mm; font-size: 8pt; color: rgba(48, 102, 84, 0.6);">
+    <p>© 2026 · Ирина Цепаева · Дизайнер · Самозанятая</p>
+    <p>Брендбук v1.0 · Структура зеркальна брендбуку Инны Андрейченко</p>
+    <p class="muted"><em>Внутренний рабочий документ команды. Не для распространения.</em></p>
+  </div>
+</section>
+
+</body>
+</html>
