@@ -54,9 +54,9 @@ claude mcp add skill https://skillsmp.com/skills/shubhamsaboo-awesome-llm-apps-a
 ```
 
 ### Discovery Interview (оригинал)
-**Источник:** parcadei
-**Что делает:** Аналог нашего `/discovery` — интервью для технического задания.
-**Статус:** У нас есть своя версия, адаптированная под СССР-методологию. Внешний вариант не нужен.
+**Источник:** [parcadei/Continuous-Claude-v3](https://github.com/parcadei/Continuous-Claude-v3) — `.claude/skills/discovery-interview/`
+**Что делает:** Внешний AI-скилл — глубокое продуктовое интервью (8 категорий, минимум 10-15 вопросов, research loops, completeness check).
+**Статус:** ❌ **Не требуется** (решение 2026-05-03). Наш `/discovery` v2 покрывает те же сценарии глубины + адаптирован под наши ниши, наш стек (Beget/Vercel/Supabase/Telegram), наш язык (русский без жаргона) и связку с командой 31 агента. Сравнение и решение зафиксированы в `memory/sessions/2026-05-02.md` (сессия 6) и `memory/sessions/2026-05-03.md`.
 
 ---
 
