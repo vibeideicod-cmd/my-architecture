@@ -1,0 +1,1891 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FCFAE1">
+
+<title>Ирина Цепаева — дизайнер. Слышу, какого человек цвета</title>
+<meta name="description" content="Создаю фирменный стиль и интерфейсы из разговора с человеком. Слышу палитру, превращаю «сделайте красиво» в визуальную систему. Беру 1 проект в мае.">
+
+<meta property="og:title" content="Ирина Цепаева — дизайнер">
+<meta property="og:description" content="Слышу, какого человек цвета. Создаю фирменный стиль и интерфейсы из разговора.">
+<meta property="og:image" content="https://stydiyatsi.ru/og-image.jpg">
+<meta property="og:url" content="https://stydiyatsi.ru/">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="ru_RU">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ирина Цепаева — дизайнер">
+<meta name="twitter:description" content="Слышу, какого человек цвета.">
+
+<link rel="canonical" href="https://stydiyatsi.ru/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;rect width='64' height='64' rx='14' fill='%23FCFAE1'/&gt;&lt;text x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='42' font-weight='700' fill='%23306654'&gt;И&lt;/text&gt;&lt;/svg&gt;">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800&family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+
+<style>
+/* ===========================================================
+   1. Tokens — палитра, шрифты, шкала
+   =========================================================== */
+:root {
+  color-scheme: light only;
+
+  /* Палитра Ирины */
+  --pine:       #306654;
+  --pine-deep:  #244C3F;
+  --sprout:     #A1BF5B;
+  --coral:      #FF935E;
+  --coral-deep: #E66B33;
+  --lemon:      #F8EB00;
+  --vanilla:    #FCFAE1;
+  --vanilla-2:  #FFF6D4;
+  --vanilla-3:  #FFEAC9;
+  --neon:       #13F740;
+  --acid:       #4DAA02;
+  --acid-deep:  #3A8202;
+  --acid-light: #5BC003;
+  --magenta:    #FF2EC4;
+  --magenta-deep: #C40092;
+
+  --tg-blue:    #229ED9;
+  --vk-blue:    #0077FF;
+
+  /* Прозрачные слои */
+  --pine-10:    rgba(48, 102, 84, 0.10);
+  --pine-15:    rgba(48, 102, 84, 0.15);
+  --pine-20:    rgba(48, 102, 84, 0.20);
+  --pine-40:    rgba(48, 102, 84, 0.40);
+  --pine-60:    rgba(48, 102, 84, 0.60);
+  --pine-80:    rgba(48, 102, 84, 0.80);
+  --coral-30:   rgba(255, 147, 94, 0.30);
+  --coral-50:   rgba(255, 147, 94, 0.50);
+  --coral-90:   rgba(255, 147, 94, 0.90);
+  --magenta-25: rgba(255, 46, 196, 0.25);
+  --magenta-45: rgba(255, 46, 196, 0.45);
+  --lemon-40:   rgba(248, 235, 0, 0.40);
+  --lemon-65:   rgba(248, 235, 0, 0.65);
+  --acid-55:    rgba(77, 170, 2, 0.55);
+  --acid-30:    rgba(77, 170, 2, 0.30);
+  --acid-70:    rgba(77, 170, 2, 0.70);
+
+  --bg:           var(--vanilla);
+  --text:         var(--pine);
+  --text-on-dark: var(--vanilla);
+
+  /* Шрифты */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Montserrat', system-ui, -apple-system, sans-serif;
+
+  /* Шкала — драматично крупная */
+  --fs-h1:      clamp(3rem, 1rem + 9vw, 9rem);          /* 48 → 144px */
+  --fs-h2:      clamp(2rem, 1rem + 4vw, 4.5rem);        /* 32 → 72px */
+  --fs-h3:      clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem);  /* 24 → 38px */
+  --fs-h4:      clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); /* 19 → 24px */
+  --fs-body:    clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fs-small:   0.875rem;
+  --fs-caption: 0.8125rem;
+
+  --lh-tight:   1.0;
+  --lh-snug:    1.15;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.6;
+
+  --ease-soft: cubic-bezier(.22, .61, .36, 1);
+  --ease-pop:  cubic-bezier(.34, 1.4, .64, 1);
+  --ease-out:  cubic-bezier(.25, .8, .25, 1);
+  --dur-fast:  150ms;
+  --dur-base:  280ms;
+  --dur-slow:  600ms;
+
+  --container: 1240px;
+  --gutter:    clamp(20px, 4vw, 56px);
+}
+
+/* ===========================================================
+   2. База
+   =========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--vanilla);
+  color: var(--text);
+  font: 400 var(--fs-body)/var(--lh-relaxed) var(--font-body);
+  overflow-x: clip;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Глобальный noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.section-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.10;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main { display: block; position: relative; z-index: 2; }
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: var(--coral);
+  text-decoration: none;
+  position: relative;
+}
+a.text-link {
+  background-image: linear-gradient(90deg, var(--coral), var(--coral));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 280ms var(--ease-soft);
+  padding-bottom: 4px;
+}
+a.text-link:hover { background-size: 100% 2px; }
+
+button { font-family: inherit; cursor: pointer; }
+
+::selection { background: var(--coral); color: var(--vanilla); }
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--pine);
+  color: var(--vanilla);
+  padding: 8px 16px;
+  z-index: 1000;
+}
+.skip:focus { left: 16px; top: 16px; }
+
+/* Типографика */
+h1 {
+  font: 800 var(--fs-h1)/var(--lh-tight) var(--font-display);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+h2 {
+  font: 700 var(--fs-h2)/1.05 var(--font-display);
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+h3 { font: 700 var(--fs-h3)/var(--lh-snug) var(--font-body); margin: 0; letter-spacing: -0.01em; }
+h4 { font: 700 var(--fs-h4)/1.25 var(--font-body); margin: 0; }
+p  { margin: 0 0 1em; }
+small  { font-size: var(--fs-small); }
+
+.caption { font: 400 var(--fs-caption)/1.4 var(--font-body); color: var(--pine-60); }
+
+.sign { font: italic 400 var(--fs-h4)/1.3 var(--font-display); color: var(--pine); }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* ===========================================================
+   3. Reveal — text-split по словам, clip-path stagger
+   =========================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  filter: blur(6px);
+  transition:
+    opacity 600ms var(--ease-soft),
+    transform 600ms var(--ease-soft),
+    filter 600ms var(--ease-soft);
+  will-change: opacity, transform, filter;
+}
+.reveal.in-view { opacity: 1; transform: none; filter: none; }
+
+/* Text-split: каждое слово появляется через clip-path stagger */
+.split-words .word {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transform: translateY(0.15em);
+  transition:
+    clip-path 700ms var(--ease-soft),
+    transform 700ms var(--ease-soft);
+  will-change: clip-path, transform;
+}
+.split-words.in-view .word {
+  clip-path: inset(0 0 0 0);
+  transform: none;
+}
+/* stagger через nth-child задержки */
+.split-words.in-view .word:nth-child(1) { transition-delay: 0ms; }
+.split-words.in-view .word:nth-child(2) { transition-delay: 90ms; }
+.split-words.in-view .word:nth-child(3) { transition-delay: 180ms; }
+.split-words.in-view .word:nth-child(4) { transition-delay: 270ms; }
+.split-words.in-view .word:nth-child(5) { transition-delay: 360ms; }
+.split-words.in-view .word:nth-child(6) { transition-delay: 450ms; }
+.split-words.in-view .word:nth-child(7) { transition-delay: 540ms; }
+.split-words.in-view .word:nth-child(8) { transition-delay: 630ms; }
+.split-words.in-view .word:nth-child(9) { transition-delay: 720ms; }
+.split-words.in-view .word:nth-child(10){ transition-delay: 810ms; }
+.split-words.in-view .word:nth-child(11){ transition-delay: 900ms; }
+.split-words.in-view .word:nth-child(12){ transition-delay: 990ms; }
+
+/* ===========================================================
+   4. HERO (#hero) — сильный mesh, доминанта триады
+   =========================================================== */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(80px, 11vh, 140px) 0 clamp(80px, 11vh, 140px);
+  overflow: hidden;
+  isolation: isolate;
+  /* Mesh-сильный (Approach B) — коралл 0.95 как доминанта,
+     маджента и лимон по 0.40-0.45 — триада видна за 1 секунду. */
+  background:
+    radial-gradient(at 20% 25%, rgba(255, 147, 94, 0.95) 0px, transparent 60%),
+    radial-gradient(at 78% 18%, rgba(255, 46, 196, 0.45) 0px, transparent 50%),
+    radial-gradient(at 55% 88%, rgba(248, 235, 0, 0.40) 0px, transparent 48%),
+    radial-gradient(at 92% 78%, rgba(48, 102, 84, 0.55) 0px, transparent 55%),
+    radial-gradient(at 5% 75%, rgba(255, 46, 196, 0.30) 0px, transparent 45%),
+    var(--vanilla);
+}
+
+@media (pointer: fine) and (hover: hover) {
+  #hero {
+    cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23FF935E'/%3E%3C/svg%3E") 12 12, pointer;
+  }
+}
+
+.hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+
+@media (min-width: 880px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+.hero-text { position: relative; z-index: 3; }
+.hero-portrait-wrap {
+  position: relative;
+  z-index: 3;
+  order: -1;
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 880px) {
+  .hero-portrait-wrap { order: 0; justify-content: flex-end; }
+}
+
+.hero h1 {
+  filter: drop-shadow(0 20px 60px rgba(255, 147, 94, 0.55))
+          drop-shadow(0 4px 16px rgba(255, 46, 196, 0.30));
+  margin-bottom: clamp(20px, 3vh, 32px);
+  max-width: 14ch;
+  color: var(--pine-deep);
+}
+.hero h1 .accent-word {
+  background: linear-gradient(120deg, var(--magenta) 0%, var(--coral-deep) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-style: italic;
+}
+
+.hero h2 {
+  font: 500 clamp(1.25rem, 0.95rem + 1.1vw, 1.75rem)/1.35 var(--font-body);
+  color: var(--pine-deep);
+  max-width: 26ch;
+  margin-bottom: clamp(24px, 3.5vh, 36px);
+  letter-spacing: 0;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 500 var(--fs-small)/1.4 var(--font-body);
+  color: var(--pine-deep);
+  margin-bottom: clamp(28px, 4vh, 40px);
+  background: rgba(252, 250, 225, 0.70);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow:
+    0 4px 14px -6px rgba(48, 102, 84, 0.30),
+    inset 0 0 0 1px rgba(255, 147, 94, 0.40);
+}
+.status::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow:
+    0 0 0 4px rgba(19, 247, 64, 0.25),
+    0 0 12px var(--neon);
+  flex: none;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(19, 247, 64, 0.25), 0 0 12px var(--neon); }
+  50%      { box-shadow: 0 0 0 7px rgba(19, 247, 64, 0.10), 0 0 18px var(--neon); }
+}
+
+/* Page-load orchestration */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-text > *,
+.hero-portrait-wrap {
+  opacity: 0;
+  animation: rise 600ms var(--ease-soft) forwards;
+}
+.hero h1                { animation-delay:  60ms; animation-duration: 700ms; }
+.hero h2                { animation-delay: 200ms; }
+.hero .status           { animation-delay: 320ms; }
+.hero .cta-row          { animation-delay: 440ms; }
+.hero-portrait-wrap     { animation-delay: 560ms; animation-duration: 800ms; }
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.cta-secondary-link {
+  font: 500 15px/1 var(--font-body);
+  color: var(--pine-deep);
+  letter-spacing: 0.02em;
+  background-image: linear-gradient(90deg, var(--pine-deep), var(--pine-deep));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 4px;
+  transition: background-size 280ms var(--ease-soft);
+}
+.cta-secondary-link:hover { background-size: 100% 2px; }
+
+/* Портрет — крупнее, с rim-glow в палитре */
+.portrait {
+  position: relative;
+  width: clamp(280px, 46vw, 480px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--vanilla);
+  box-shadow:
+    inset 0 0 0 8px var(--vanilla),
+    inset 0 0 0 10px rgba(255, 147, 94, 0.55),
+    0 30px 80px -24px rgba(255, 46, 196, 0.45),
+    0 14px 40px -14px rgba(48, 102, 84, 0.50),
+    0 6px 20px -8px rgba(248, 235, 0, 0.50);
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: inset 0 0 90px 14px rgba(255, 147, 94, 0.30);
+}
+
+/* ===========================================================
+   5. Кнопки
+   =========================================================== */
+.btn {
+  --btn-bg: var(--acid);
+  --btn-fg: var(--vanilla);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 30px;
+  border-radius: 16px;
+  border: 0;
+  font: 700 16px/1 var(--font-body);
+  letter-spacing: 0.01em;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-base) var(--ease-pop),
+    box-shadow var(--dur-base) var(--ease-soft),
+    background var(--dur-base) var(--ease-soft);
+  white-space: nowrap;
+  user-select: none;
+  will-change: transform;
+}
+.btn svg { flex: none; }
+.btn:hover { text-decoration: none; }
+.btn:active { transform: scale(0.98); }
+.btn:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--acid-light) 0%, var(--acid) 60%, var(--acid-deep) 100%);
+  color: var(--vanilla);
+  box-shadow:
+    0 12px 30px -10px var(--acid-55),
+    0 4px 10px var(--acid-30);
+}
+.btn--primary:hover {
+  background: linear-gradient(135deg, var(--acid) 0%, var(--acid-deep) 100%);
+  box-shadow:
+    0 18px 40px -12px var(--acid-70),
+    0 6px 14px rgba(77, 170, 2, 0.45);
+}
+
+.btn--tg {
+  background: linear-gradient(135deg, #34B5E8 0%, var(--tg-blue) 60%, #1B83B5 100%);
+  color: #fff;
+  box-shadow:
+    0 12px 30px -10px rgba(34, 158, 217, 0.60),
+    0 4px 10px rgba(34, 158, 217, 0.35);
+}
+.btn--tg:hover {
+  background: linear-gradient(135deg, var(--tg-blue) 0%, #1B83B5 100%);
+  box-shadow:
+    0 18px 40px -12px rgba(34, 158, 217, 0.75),
+    0 6px 14px rgba(34, 158, 217, 0.45);
+}
+
+.btn--vk {
+  background: var(--vanilla);
+  color: var(--vk-blue);
+  border: 2px solid var(--vk-blue);
+  box-shadow:
+    0 8px 20px -10px rgba(0, 119, 255, 0.35),
+    0 1px 3px rgba(0, 119, 255, 0.12);
+}
+.btn--vk:hover {
+  background: var(--vk-blue);
+  color: #fff;
+  box-shadow:
+    0 14px 32px -12px rgba(0, 119, 255, 0.60),
+    0 3px 8px rgba(0, 119, 255, 0.30);
+}
+
+.btn--vk-fill {
+  background: linear-gradient(135deg, #338EFF 0%, var(--vk-blue) 60%, #0058CC 100%);
+  color: #fff;
+  box-shadow:
+    0 12px 30px -10px rgba(0, 119, 255, 0.60),
+    0 4px 10px rgba(0, 119, 255, 0.35);
+}
+.btn--vk-fill:hover {
+  background: linear-gradient(135deg, var(--vk-blue) 0%, #0058CC 100%);
+  box-shadow:
+    0 18px 40px -12px rgba(0, 119, 255, 0.70),
+    0 6px 14px rgba(0, 119, 255, 0.45);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--pine);
+  border: 2px solid var(--pine-20);
+  box-shadow: none;
+}
+.btn--ghost:hover {
+  background: var(--pine);
+  color: var(--vanilla);
+  border-color: var(--pine);
+}
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  pointer-events: none;
+  filter: grayscale(0.3);
+}
+
+/* ===========================================================
+   6. Sections common
+   =========================================================== */
+section {
+  position: relative;
+  padding: clamp(80px, 12vh, 150px) 0;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 600 var(--fs-caption)/1 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pine);
+  margin-bottom: 24px;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 36px;
+  height: 2px;
+  background: var(--coral);
+  border-radius: 2px;
+}
+
+.section-title {
+  margin-bottom: clamp(28px, 4vh, 48px);
+  max-width: 22ch;
+  color: var(--pine-deep);
+}
+
+/* ===========================================================
+   7. ABOUT (#about) — drop cap «И» драматичный
+   =========================================================== */
+#about {
+  background:
+    radial-gradient(circle at 8% 18%, rgba(255, 147, 94, 0.45) 0 14px, transparent 15px),
+    radial-gradient(circle at 78% 28%, rgba(161, 191, 91, 0.40) 0 22px, transparent 23px),
+    radial-gradient(circle at 22% 82%, rgba(48, 102, 84, 0.30) 0 18px, transparent 19px),
+    radial-gradient(circle at 92% 76%, rgba(255, 46, 196, 0.32) 0 12px, transparent 13px),
+    radial-gradient(circle at 50% 50%, rgba(248, 235, 0, 0.20) 0 8px, transparent 9px),
+    var(--vanilla);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+@media (min-width: 960px) {
+  .about-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr); }
+}
+
+.about-essay { max-width: 60ch; }
+.about-essay p {
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: var(--lh-relaxed);
+  color: var(--pine-deep);
+}
+
+.dropcap {
+  float: left;
+  font: 800 8em/0.8 var(--font-display);
+  color: var(--coral);
+  margin: 0.02em 22px 0 0;
+  text-shadow:
+    0 8px 32px rgba(255, 147, 94, 0.45),
+    0 2px 6px rgba(255, 46, 196, 0.25);
+  letter-spacing: -0.04em;
+}
+
+.about-aside {
+  background: var(--vanilla);
+  border-radius: 24px;
+  padding: clamp(28px, 3vw, 40px);
+  box-shadow:
+    0 30px 70px -22px rgba(48, 102, 84, 0.35),
+    0 12px 30px -10px rgba(255, 147, 94, 0.30),
+    0 4px 12px -6px rgba(255, 46, 196, 0.18),
+    inset 0 0 0 1px var(--pine-10);
+}
+.about-aside .label {
+  font: 600 var(--fs-caption)/1 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--coral-deep);
+  margin-bottom: 16px;
+}
+.about-aside .proof {
+  font: 600 clamp(1.3rem, 1rem + 1.1vw, 1.6rem)/1.35 var(--font-body);
+  color: var(--pine-deep);
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+.about-aside .signature {
+  font: italic 700 var(--fs-h4)/1.3 var(--font-display);
+  color: var(--coral);
+  margin: 0;
+}
+
+/* ===========================================================
+   8. BREAK-OUT (#breakout) — 100vw маджента → коралл
+   =========================================================== */
+#breakout {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: 60vh;
+  padding: clamp(60px, 10vh, 120px) var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(at 18% 22%, rgba(248, 235, 0, 0.30) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(255, 147, 94, 0.55) 0px, transparent 55%),
+    linear-gradient(135deg, var(--magenta) 0%, var(--coral) 100%);
+  isolation: isolate;
+  overflow: hidden;
+}
+#breakout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (max-width: 768px) {
+  #breakout { min-height: 40vh; }
+}
+
+.breakout-quote {
+  position: relative;
+  z-index: 1;
+  font: italic 800 clamp(2rem, 1rem + 6vw, 7rem)/1.05 var(--font-display);
+  color: var(--vanilla);
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+  margin: 0;
+  text-align: left;
+  text-shadow:
+    0 6px 24px rgba(48, 102, 84, 0.35),
+    0 1px 4px rgba(196, 0, 146, 0.40);
+}
+.breakout-quote .punch {
+  display: inline-block;
+  background: linear-gradient(120deg, var(--lemon) 0%, var(--vanilla) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+/* ===========================================================
+   9. SERVICES (#services) — 3 карточки, 3 разные иконки
+   =========================================================== */
+#services {
+  background: linear-gradient(180deg, var(--vanilla) 0%, var(--vanilla-2) 100%);
+}
+
+.services-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: clamp(40px, 6vh, 72px);
+}
+@media (min-width: 880px) {
+  .services-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+.services-head .lead {
+  color: var(--pine-80);
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
+  max-width: 44ch;
+  margin: 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 2.5vw, 32px);
+}
+@media (min-width: 720px)  { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+
+.card {
+  --card-tone: var(--coral);
+  --card-tone-deep: var(--coral-deep);
+  position: relative;
+  background: var(--vanilla);
+  border-radius: 24px;
+  padding: clamp(26px, 2.8vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 360px;
+  box-shadow:
+    0 10px 28px -12px rgba(48, 102, 84, 0.22),
+    0 2px 6px rgba(48, 102, 84, 0.08),
+    inset 0 0 0 1px var(--pine-10);
+  transition:
+    transform 350ms var(--ease-soft),
+    box-shadow 350ms var(--ease-soft),
+    background 350ms var(--ease-soft),
+    color 350ms var(--ease-soft);
+  overflow: hidden;
+  isolation: isolate;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: auto -50px -70px auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--card-tone);
+  opacity: 0.14;
+  filter: blur(14px);
+  pointer-events: none;
+  transition: opacity 350ms var(--ease-soft), transform 350ms var(--ease-soft);
+  z-index: 0;
+}
+.card > * { position: relative; z-index: 1; }
+
+.card:hover {
+  transform: translateY(-6px);
+  background: var(--card-tone);
+  color: var(--vanilla);
+  box-shadow:
+    0 28px 60px -18px var(--card-tone),
+    0 10px 24px -10px rgba(48, 102, 84, 0.30),
+    inset 0 0 0 1px rgba(255,255,255,0.10);
+}
+.card:hover::before { opacity: 0.30; transform: scale(1.2); }
+.card:hover h3,
+.card:hover p,
+.card:hover .term,
+.card:hover .term strong { color: var(--vanilla); }
+.card:hover .term { border-top-color: rgba(252, 250, 225, 0.40); }
+.card:hover .card-icon {
+  background: var(--vanilla);
+  color: var(--card-tone);
+}
+
+.card[data-tone="coral"]   { --card-tone: var(--coral);   --card-tone-deep: var(--coral-deep); }
+.card[data-tone="pine"]    { --card-tone: var(--pine);    --card-tone-deep: var(--pine-deep); }
+.card[data-tone="magenta"] { --card-tone: var(--magenta); --card-tone-deep: var(--magenta-deep); }
+
+.card-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: var(--card-tone);
+  color: var(--vanilla);
+  box-shadow:
+    0 12px 24px -10px var(--card-tone),
+    inset 0 0 0 1px rgba(48, 102, 84, 0.12);
+  flex: none;
+  transition: background 350ms var(--ease-soft), color 350ms var(--ease-soft);
+}
+
+.card h3 {
+  font: 700 clamp(1.3rem, 1.1rem + 0.6vw, 1.6rem)/1.2 var(--font-body);
+  color: var(--pine-deep);
+  letter-spacing: -0.01em;
+  transition: color 350ms var(--ease-soft);
+}
+.card p {
+  color: var(--pine-80);
+  margin: 0;
+  flex: 1;
+  font-size: 1rem;
+  line-height: var(--lh-relaxed);
+  transition: color 350ms var(--ease-soft);
+}
+.card .term {
+  font: 500 var(--fs-small)/1.4 var(--font-body);
+  color: var(--pine);
+  opacity: 0.85;
+  border-top: 1px dashed var(--pine-20);
+  padding-top: 16px;
+  margin-top: 4px;
+  transition: color 350ms var(--ease-soft), border-color 350ms var(--ease-soft);
+}
+.card .term strong { font-weight: 700; color: var(--pine); }
+
+/* Лесенка задержек reveal в services */
+#services .card.reveal:nth-child(1) { transition-delay: 0ms; }
+#services .card.reveal:nth-child(2) { transition-delay: 140ms; }
+#services .card.reveal:nth-child(3) { transition-delay: 280ms; }
+
+/* ===========================================================
+   10. COLOR-LISTEN (#color-listen) — чипы с цветным glow
+   =========================================================== */
+#color-listen {
+  background:
+    radial-gradient(at 80% 0%, rgba(255, 46, 196, 0.10) 0px, transparent 55%),
+    radial-gradient(at 0% 100%, rgba(255, 147, 94, 0.16) 0px, transparent 55%),
+    radial-gradient(at 90% 90%, rgba(248, 235, 0, 0.12) 0px, transparent 50%),
+    var(--vanilla);
+}
+
+.color-listen-wrap { max-width: 920px; margin: 0 auto; }
+
+.color-listen-wrap .hint {
+  color: var(--pine-80);
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
+  margin-bottom: clamp(32px, 5vh, 48px);
+  max-width: 50ch;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 16px;
+  margin-bottom: clamp(28px, 4vh, 40px);
+}
+
+/* Чипы — каждый со своим цветом-glow */
+.chip {
+  --chip-tone: var(--pine);
+  appearance: none;
+  border: 2px solid var(--chip-tone);
+  background: var(--vanilla);
+  color: var(--pine-deep);
+  font: 600 16px/1 var(--font-body);
+  padding: 16px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 200ms var(--ease-soft),
+    color 200ms var(--ease-soft),
+    transform 200ms var(--ease-pop),
+    box-shadow 200ms var(--ease-soft);
+  letter-spacing: 0.005em;
+  box-shadow:
+    0 4px 14px -4px var(--chip-tone),
+    0 1px 3px var(--chip-tone);
+}
+.chip:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px -4px var(--chip-tone),
+    0 2px 6px var(--chip-tone);
+}
+.chip[aria-pressed="true"] {
+  background: var(--chip-tone);
+  color: var(--vanilla);
+  box-shadow:
+    0 12px 28px -6px var(--chip-tone),
+    0 4px 10px var(--chip-tone);
+  transform: translateY(-1px);
+}
+.chip:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 4px;
+}
+
+/* Свой цвет каждой эмоции */
+.chip[data-id="warm"]    { --chip-tone: rgba(255, 147, 94, 0.55); }
+.chip[data-id="warm"][aria-pressed="true"]    { --chip-tone: var(--coral); }
+
+.chip[data-id="calm"]    { --chip-tone: rgba(48, 102, 84, 0.45); }
+.chip[data-id="calm"][aria-pressed="true"]    { --chip-tone: var(--pine); }
+
+.chip[data-id="bold"]    { --chip-tone: rgba(255, 46, 196, 0.55); }
+.chip[data-id="bold"][aria-pressed="true"]    { --chip-tone: var(--magenta); }
+
+.chip[data-id="precise"] { --chip-tone: rgba(36, 76, 63, 0.55); }
+.chip[data-id="precise"][aria-pressed="true"] { --chip-tone: var(--pine-deep); }
+
+.chip[data-id="playful"] { --chip-tone: rgba(248, 235, 0, 0.85); }
+.chip[data-id="playful"][aria-pressed="true"] { --chip-tone: var(--lemon); color: var(--pine-deep); }
+
+.chip[data-id="deep"]    { --chip-tone: rgba(36, 76, 63, 0.65); }
+.chip[data-id="deep"][aria-pressed="true"]    { --chip-tone: var(--pine-deep); }
+
+.chip[data-id="soft"]    { --chip-tone: rgba(255, 234, 201, 0.95); }
+.chip[data-id="soft"][aria-pressed="true"]    { --chip-tone: var(--vanilla-3); color: var(--pine-deep); }
+
+.chip[data-id="sharp"]   { --chip-tone: rgba(196, 0, 146, 0.55); }
+.chip[data-id="sharp"][aria-pressed="true"]   { --chip-tone: var(--magenta-deep); }
+
+.chip[data-id="light"]   { --chip-tone: rgba(248, 235, 0, 0.55); }
+.chip[data-id="light"][aria-pressed="true"]   { --chip-tone: var(--lemon); color: var(--pine-deep); }
+
+.chip[data-id="earthy"]  { --chip-tone: rgba(230, 107, 51, 0.55); }
+.chip[data-id="earthy"][aria-pressed="true"]  { --chip-tone: var(--coral-deep); }
+
+.chip[data-id="spicy"]   { --chip-tone: rgba(255, 46, 196, 0.45); }
+.chip[data-id="spicy"][aria-pressed="true"]   { --chip-tone: var(--magenta); }
+
+.chip[data-id="fresh"]   { --chip-tone: rgba(19, 247, 64, 0.55); }
+.chip[data-id="fresh"][aria-pressed="true"]   { --chip-tone: var(--neon); color: var(--pine-deep); }
+
+.color-listen-controls {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+.selected-counter {
+  font: 500 var(--fs-small)/1.4 var(--font-body);
+  color: var(--pine-60);
+}
+
+#palette-result {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 320ms var(--ease-soft), transform 320ms var(--ease-soft);
+}
+#palette-result.show {
+  display: block;
+  opacity: 1;
+  transform: none;
+}
+
+.palette-card {
+  background: var(--vanilla);
+  border-radius: 24px;
+  padding: clamp(24px, 2.8vw, 40px);
+  box-shadow:
+    0 28px 70px -22px rgba(48, 102, 84, 0.35),
+    0 12px 30px -10px var(--coral-30),
+    0 4px 14px -6px rgba(255, 46, 196, 0.20),
+    inset 0 0 0 1px var(--pine-10);
+}
+.palette-name {
+  font: italic 700 clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem)/1.2 var(--font-display);
+  color: var(--pine-deep);
+  margin: 0 0 22px;
+  letter-spacing: -0.01em;
+}
+.palette-mesh {
+  height: clamp(180px, 28vw, 260px);
+  width: 100%;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  box-shadow:
+    inset 0 0 0 1px var(--pine-10),
+    0 10px 30px -14px rgba(48, 102, 84, 0.30);
+}
+.palette-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 26px;
+  margin-bottom: 24px;
+}
+.palette-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.palette-dot .swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 1px var(--pine-15),
+    0 6px 14px -6px rgba(48,102,84,0.25);
+}
+.palette-dot .hex {
+  font: 500 11px/1 var(--font-body);
+  color: var(--pine);
+  opacity: 0.75;
+  letter-spacing: 0.04em;
+}
+.palette-explain {
+  font: 400 clamp(1rem, 0.95rem + 0.3vw, 1.1rem)/1.55 var(--font-body);
+  color: var(--pine-deep);
+  max-width: 50ch;
+  margin: 0 0 28px;
+}
+.palette-cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.color-listen-foot {
+  margin-top: clamp(28px, 4vh, 40px);
+  font: 400 var(--fs-caption)/1.5 var(--font-body);
+  color: var(--pine-60);
+  max-width: 60ch;
+}
+
+/* ===========================================================
+   11. MANIFEST (#manifest) — драматичная off-grid цитата
+   =========================================================== */
+#manifest {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(at 18% 8%, rgba(255, 147, 94, 0.30) 0px, transparent 55%),
+    radial-gradient(at 92% 92%, rgba(161, 191, 91, 0.22) 0px, transparent 55%),
+    radial-gradient(at 65% 30%, rgba(255, 46, 196, 0.18) 0px, transparent 50%),
+    linear-gradient(180deg, var(--pine) 0%, var(--pine-deep) 100%);
+  color: var(--text-on-dark);
+  isolation: isolate;
+}
+#manifest .container { width: 100%; }
+
+.manifest-quote {
+  position: relative;
+  font: italic 700 clamp(2.5rem, 1rem + 6vw, 6.25rem)/1.05 var(--font-display);
+  color: var(--vanilla);
+  max-width: 16ch;
+  margin: 0;
+  text-align: left;
+  letter-spacing: -0.03em;
+}
+
+.manifest-quote .dropcap-Y {
+  font: 800 8em/0.78 var(--font-display);
+  color: transparent;
+  -webkit-text-stroke: 2px var(--magenta);
+  float: left;
+  margin: 0.04em 22px 0 0;
+  font-style: normal;
+  text-shadow: 0 8px 32px rgba(255, 46, 196, 0.40);
+  letter-spacing: -0.04em;
+}
+
+/* Текст-перелив на «слушаю» — реальный градиент */
+.gradient-word {
+  background: linear-gradient(90deg, var(--coral) 0%, var(--magenta) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.manifest-author {
+  display: block;
+  margin-top: clamp(28px, 4vh, 40px);
+  font: italic 700 clamp(1.2rem, 1rem + 0.8vw, 1.8rem)/1.3 var(--font-display);
+  color: var(--coral);
+  text-align: left;
+  letter-spacing: -0.005em;
+  font-style: italic;
+}
+
+/* ===========================================================
+   12. STUDIO-VK (#studio-vk)
+   =========================================================== */
+#studio-vk {
+  background: linear-gradient(180deg, var(--vanilla) 0%, var(--vanilla-2) 100%);
+  text-align: left;
+}
+.studio-vk-wrap { max-width: 760px; }
+.studio-vk-wrap p {
+  color: var(--pine-80);
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
+  max-width: 55ch;
+  margin-bottom: clamp(28px, 4vh, 36px);
+}
+.studio-vk-link {
+  margin-top: 12px;
+  font: 500 var(--fs-caption)/1 var(--font-body);
+  color: var(--pine-60);
+  letter-spacing: 0.06em;
+}
+
+/* ===========================================================
+   13. CONTACT (#contact) — premium-карточка
+   =========================================================== */
+#contact {
+  background:
+    radial-gradient(at 95% 5%, rgba(255, 147, 94, 0.22) 0px, transparent 55%),
+    radial-gradient(at 5% 95%, rgba(48, 102, 84, 0.14) 0px, transparent 55%),
+    radial-gradient(at 50% 50%, rgba(248, 235, 0, 0.10) 0px, transparent 50%),
+    var(--vanilla);
+}
+.contact-wrap { max-width: 760px; }
+.contact-wrap p {
+  color: var(--pine-80);
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
+  max-width: 55ch;
+  margin-bottom: clamp(32px, 4.5vh, 40px);
+}
+
+/* Премиум-карточка вокруг кнопок (brief §2.7 опция 3.3) */
+.contact-card {
+  background: var(--vanilla);
+  border-radius: 28px;
+  padding: clamp(28px, 3vw, 44px);
+  box-shadow:
+    0 32px 80px -24px rgba(48, 102, 84, 0.40),
+    0 14px 36px -12px rgba(255, 147, 94, 0.30),
+    0 6px 18px -8px rgba(255, 46, 196, 0.18),
+    inset 0 0 0 1px rgba(48, 102, 84, 0.12);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 147, 94, 0.30) 0%, transparent 70%);
+  z-index: -1;
+}
+.contact-card::after {
+  content: '';
+  position: absolute;
+  bottom: -120px;
+  left: -120px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(248, 235, 0, 0.22) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.contact-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.contact-buttons .btn { flex: 1 1 240px; }
+.contact-foot {
+  font: 500 var(--fs-caption)/1.4 var(--font-body);
+  color: var(--pine-60);
+  margin-bottom: 22px;
+  letter-spacing: 0.02em;
+}
+.contact-sign {
+  font: italic 700 clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem)/1.3 var(--font-display);
+  color: var(--pine-deep);
+  margin: 0;
+}
+
+/* ===========================================================
+   14. STICKY-BAR (только мобильный)
+   =========================================================== */
+.sticky-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: var(--vanilla);
+  box-shadow: 0 -6px 22px rgba(48, 102, 84, 0.18);
+  padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 260ms var(--ease-soft), transform 260ms var(--ease-soft);
+  pointer-events: none;
+}
+.sticky-bar.visible { opacity: 1; transform: none; pointer-events: auto; }
+
+.sticky-bar .label {
+  font: 600 var(--fs-caption)/1 var(--font-body);
+  color: var(--pine);
+  letter-spacing: 0.04em;
+}
+
+.sticky-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  flex: none;
+  box-shadow: 0 8px 20px -6px rgba(48, 102, 84, 0.35);
+  transition: transform var(--dur-fast) var(--ease-pop);
+}
+.sticky-icon:hover { transform: translateY(-3px); }
+.sticky-icon[data-brand="tg"] { background: var(--tg-blue); }
+.sticky-icon[data-brand="vk"] { background: var(--vk-blue); }
+
+@media (max-width: 768px) {
+  .sticky-bar { display: flex; }
+  body { padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ===========================================================
+   15. Scroll-snap (десктоп only, proximity)
+   =========================================================== */
+@media (min-width: 1024px) and (hover: hover) {
+  html { scroll-snap-type: y proximity; }
+  section { scroll-snap-align: start; }
+  #manifest, #breakout { scroll-snap-align: none; }
+}
+
+/* ===========================================================
+   16. Reduced motion
+   =========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .split-words .word { clip-path: none !important; transform: none !important; }
+  .hero-text > *,
+  .hero-portrait-wrap { opacity: 1 !important; }
+  #hero { cursor: auto !important; }
+  #palette-result { opacity: 1 !important; transform: none !important; }
+  .status::before { animation: none !important; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  #hero { cursor: auto !important; }
+}
+
+/* ===========================================================
+   17. Custom cursor trail (24×24px + след)
+   =========================================================== */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 147, 94, 0.85);
+  pointer-events: none;
+  z-index: 100;
+  transform: translate3d(-100px, -100px, 0);
+  transition: transform 80ms cubic-bezier(.22, .61, .36, 1), opacity 200ms;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  display: none;
+  box-shadow:
+    0 0 14px rgba(255, 147, 94, 0.60),
+    0 0 28px rgba(255, 46, 196, 0.30);
+}
+.cursor-trail {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 147, 94, 0.55);
+  pointer-events: none;
+  z-index: 99;
+  transform: translate3d(-100px, -100px, 0);
+  transition: transform 240ms cubic-bezier(.22, .61, .36, 1), opacity 220ms;
+  opacity: 0;
+  display: none;
+}
+@media (pointer: fine) and (hover: hover) {
+  .cursor-dot, .cursor-trail { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot, .cursor-trail { display: none !important; }
+}
+
+@keyframes cursor-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 147, 94, 0.45), 0 0 14px rgba(255, 147, 94, 0.60); }
+  70%  { box-shadow: 0 0 0 18px rgba(255, 147, 94, 0), 0 0 18px rgba(255, 147, 94, 0.40); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 147, 94, 0), 0 0 14px rgba(255, 147, 94, 0.60); }
+}
+.cursor-dot.active { animation: cursor-pulse 1.4s ease-out infinite; opacity: 1; }
+.cursor-trail.active { opacity: 1; }
+
+</style>
+</head>
+<body>
+
+<a class="skip" href="#hero">Перейти к содержимому</a>
+
+<div class="cursor-trail" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<main>
+
+  <!-- 1. HERO -->
+  <section id="hero" aria-label="Главный экран">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1>Слышу,&nbsp;какого человек <span class="accent-word">цвета.</span></h1>
+        <h2>Создаю фирменный стиль и&nbsp;интерфейсы из&nbsp;разговора с&nbsp;человеком.</h2>
+        <span class="status">Открыт 1&nbsp;слот на&nbsp;май. Старт следующего&nbsp;— июнь.</span>
+        <div class="cta-row">
+          <a class="btn btn--tg btn--magnetic" href="https://t.me/irina_onlane_gesing" target="_blank" rel="noopener" data-tg-deep>
+            <svg class="tg-icon-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#fff" opacity="0.15"/>
+              <path fill="#fff" d="M9.7 14.6l-.2 3c.3 0 .4-.1.6-.3l1.4-1.4 3 2.2c.5.3.9.1 1-.5l1.9-9c.1-.6-.2-.8-.7-.6L5 11c-.6.2-.6.5-.1.7l3 .9 7-4.4c.3-.2.6-.1.4.1z"/>
+            </svg>
+            Написать в&nbsp;Telegram
+          </a>
+          <a class="cta-secondary-link" href="#studio-vk">Студия в&nbsp;VK&nbsp;↓</a>
+        </div>
+      </div>
+      <div class="hero-portrait-wrap">
+        <div class="portrait" role="img" aria-label="Портрет Ирины Цепаевой">
+          <img src="assets/irina-portrait.jpg" alt="Ирина Цепаева, дизайнер" width="640" height="640" loading="eager">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ABOUT -->
+  <section id="about" aria-labelledby="about-h">
+    <div class="container">
+      <span class="section-eyebrow">Кто я</span>
+      <h2 id="about-h" class="section-title reveal split-words">Дизайнер, который слышит, прежде чем рисовать</h2>
+      <div class="about-grid">
+        <div class="about-essay reveal">
+          <p>
+            <span class="dropcap" aria-hidden="true">И</span>ногда дизайн рождается из&nbsp;одного разговора. Я&nbsp;слышу человека&nbsp;— его интонацию, темп, паузы&nbsp;— и за&nbsp;этим уже видна палитра. Где-то там лиловый, где-то&nbsp;— глубокий зелёный с&nbsp;тёплым закатом.
+          </p>
+          <p>
+            Превращаю «сделайте красиво» в&nbsp;чёткую визуальную систему, которая работает на&nbsp;бизнес-задачи: бренд узнаётся, продукт продаётся, профиль выглядит собранно.
+          </p>
+        </div>
+        <aside class="about-aside reveal">
+          <div class="label">5+ лет в&nbsp;дизайне</div>
+          <p class="proof">Работаю с&nbsp;экспертами в&nbsp;8&nbsp;нишах: инфобизнес, бьюти, коучи, финансы, фитнес, торговля, риэлторы, санатории.</p>
+          <p class="signature">— Ирина Цепаева, дизайнер</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. BREAK-OUT — 100vw маджента → коралл -->
+  <section id="breakout" aria-hidden="false" aria-label="Манифест бренда">
+    <blockquote class="breakout-quote reveal">
+      Палитра&nbsp;— это <span class="punch">голос</span> бренда.
+    </blockquote>
+  </section>
+
+  <!-- 4. SERVICES -->
+  <section id="services" aria-labelledby="services-h">
+    <div class="container">
+      <div class="services-head">
+        <div>
+          <span class="section-eyebrow">Что я делаю</span>
+          <h2 id="services-h" class="section-title reveal split-words">Делаю три вещи</h2>
+        </div>
+        <p class="lead">От&nbsp;бренда «с&nbsp;нуля» до&nbsp;запуска цифрового продукта в&nbsp;эфир. Без долгих ТЗ&nbsp;— разговор, бриф и&nbsp;быстрый старт.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal" data-tone="coral">
+          <div class="card-icon" aria-hidden="true">
+            <!-- Брендбук: палитра-сетка (3 swatch'a + перо) -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="8" height="9" rx="1.6"/>
+              <rect x="14" y="6" width="8" height="9" rx="1.6" fill="currentColor" fill-opacity="0.18"/>
+              <rect x="4" y="17" width="8" height="9" rx="1.6" fill="currentColor" fill-opacity="0.32"/>
+              <path d="M16 19.5l3.5-3.5 5 5-3.5 3.5z"/>
+              <path d="M19 22.5l1.5 1.5"/>
+            </svg>
+          </div>
+          <h3>Брендбуки и&nbsp;фирменный стиль</h3>
+          <p>Палитра, типографика, логотип, гайдлайны. Чтобы все ваши соцсети, сайт и&nbsp;презентации выглядели одним брендом.</p>
+          <div class="term"><strong>Срок:</strong> 1–3&nbsp;дня</div>
+        </article>
+
+        <article class="card reveal" data-tone="pine">
+          <div class="card-icon" aria-hidden="true">
+            <!-- Цифровые продукты: окно браузера + курсор -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="22" height="16" rx="2"/>
+              <path d="M3 10h22"/>
+              <circle cx="6.5" cy="7.5" r="0.6" fill="currentColor"/>
+              <circle cx="9" cy="7.5" r="0.6" fill="currentColor"/>
+              <circle cx="11.5" cy="7.5" r="0.6" fill="currentColor"/>
+              <path d="M16 16l5 5-1.5 1.5L20 25l-2 .8-1.2-3.5-2.6 1.7z" fill="currentColor" fill-opacity="0.30"/>
+            </svg>
+          </div>
+          <h3>Цифровые продукты</h3>
+          <p>Лендинги, мини-сайты, Telegram&nbsp;Mini App, VK&nbsp;Mini App, боты для записи, AI-помощники. Делаю под&nbsp;ключ&nbsp;— от&nbsp;макета до&nbsp;публикации.</p>
+          <div class="term"><strong>Срок:</strong> 1–2&nbsp;дня для лендинга или&nbsp;мини-сайта · 2–5&nbsp;дней для&nbsp;мини-аппа или&nbsp;AI-помощника</div>
+        </article>
+
+        <article class="card reveal" data-tone="magenta">
+          <div class="card-icon" aria-hidden="true">
+            <!-- Упаковка соцсетей: облако-сообщение + звезда + сердце -->
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-7l-4 4v-4H8a3 3 0 0 1-3-3z"/>
+              <path d="M11 11.2l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2L8 13.5l2.2-.3z" fill="currentColor" fill-opacity="0.30"/>
+              <path d="M21.5 22.5c0-1.4-1.1-2.5-2.5-2.5-1.1 0-1.7.7-2 1.2-.3-.5-.9-1.2-2-1.2-1.4 0-2.5 1.1-2.5 2.5 0 2.3 4.5 4.5 4.5 4.5s4.5-2.2 4.5-4.5z"/>
+            </svg>
+          </div>
+          <h3>Упаковка соцсетей</h3>
+          <p>Аватары, баннеры, обложки, шаблоны постов. Чтобы экспертный профиль выглядел собранно и&nbsp;узнавался с&nbsp;первого касания.</p>
+          <div class="term"><strong>Срок:</strong> 1–2&nbsp;дня</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. COLOR-LISTEN -->
+  <section id="color-listen" aria-labelledby="color-listen-h">
+    <div class="container">
+      <div class="color-listen-wrap">
+        <span class="section-eyebrow">Слышу цвет</span>
+        <h2 id="color-listen-h" class="section-title reveal split-words">Какого вы цвета?</h2>
+        <p class="hint reveal">Выберите 3&nbsp;слова о&nbsp;себе или&nbsp;о&nbsp;вашем деле&nbsp;— покажу палитру, в&nbsp;которой вижу ваш бренд.</p>
+
+        <div class="chips reveal" role="group" aria-label="Выбор ощущений">
+          <button type="button" class="chip" data-id="warm"    aria-pressed="false">Тёплый</button>
+          <button type="button" class="chip" data-id="calm"    aria-pressed="false">Спокойный</button>
+          <button type="button" class="chip" data-id="bold"    aria-pressed="false">Дерзкий</button>
+          <button type="button" class="chip" data-id="precise" aria-pressed="false">Точный</button>
+          <button type="button" class="chip" data-id="playful" aria-pressed="false">Игривый</button>
+          <button type="button" class="chip" data-id="deep"    aria-pressed="false">Глубокий</button>
+          <button type="button" class="chip" data-id="soft"    aria-pressed="false">Мягкий</button>
+          <button type="button" class="chip" data-id="sharp"   aria-pressed="false">Резкий</button>
+          <button type="button" class="chip" data-id="light"   aria-pressed="false">Светлый</button>
+          <button type="button" class="chip" data-id="earthy"  aria-pressed="false">Земной</button>
+          <button type="button" class="chip" data-id="spicy"   aria-pressed="false">Пряный</button>
+          <button type="button" class="chip" data-id="fresh"   aria-pressed="false">Свежий</button>
+        </div>
+
+        <div class="color-listen-controls">
+          <button type="button" class="btn btn--primary" id="show-palette" aria-disabled="true" disabled>
+            Показать палитру
+          </button>
+          <span class="selected-counter" id="counter">Выбрано 0&nbsp;из&nbsp;3</span>
+        </div>
+
+        <div id="palette-result" role="region" aria-live="polite" aria-label="Результат">
+          <div class="palette-card">
+            <h3 class="palette-name" id="p-name">—</h3>
+            <div class="palette-mesh" id="p-mesh" aria-hidden="true"></div>
+            <div class="palette-dots" id="p-dots" aria-hidden="true"></div>
+            <p class="palette-explain" id="p-explain">—</p>
+            <div class="palette-cta-row">
+              <a class="btn btn--tg" id="p-cta" href="https://t.me/irina_onlane_gesing" target="_blank" rel="noopener">
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="12" fill="#fff" opacity="0.15"/>
+                  <path fill="#fff" d="M9.7 14.6l-.2 3c.3 0 .4-.1.6-.3l1.4-1.4 3 2.2c.5.3.9.1 1-.5l1.9-9c.1-.6-.2-.8-.7-.6L5 11c-.6.2-.6.5-.1.7l3 .9 7-4.4c.3-.2.6-.1.4.1z"/>
+                </svg>
+                Хочу свой бренд в&nbsp;этой палитре&nbsp;— написать
+              </a>
+              <button type="button" class="btn btn--ghost" id="p-reset">Перебрать</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="color-listen-foot reveal">Это моя авторская логика&nbsp;— как я&nbsp;слышу цвет в&nbsp;человеке. На&nbsp;реальном брифе разбираемся подробнее.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. MANIFEST -->
+  <section id="manifest" class="section-dark" aria-labelledby="manifest-h">
+    <div class="container">
+      <blockquote class="manifest-quote" id="manifest-h">
+        <span class="dropcap-Y" aria-hidden="true">Я</span> не&nbsp;работаю по&nbsp;референсам вслепую. Я <span class="gradient-word">слушаю</span>&nbsp;— и&nbsp;за&nbsp;разговором уже видна палитра.
+        <cite class="manifest-author">— Ирина</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 7. STUDIO-VK -->
+  <section id="studio-vk" aria-labelledby="studio-vk-h">
+    <div class="container studio-vk-wrap">
+      <span class="section-eyebrow">Студия</span>
+      <h2 id="studio-vk-h" class="section-title reveal split-words">Посмотреть, как я думаю</h2>
+      <p class="reveal">В&nbsp;студии&nbsp;— посты, идеи, готовые работы. Заходите&nbsp;— там видно, как я&nbsp;разбираю задачи и&nbsp;собираю визуалы.</p>
+      <a class="btn btn--vk-fill reveal" href="https://vk.ru/stydiya" target="_blank" rel="noopener">
+        <svg class="vk-icon-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#fff" d="M2.5 6.5C3 4 4 3 6.5 2.5h11C20 3 21 4 21.5 6.5v11C21 20 20 21 17.5 21.5h-11C4 21 3 20 2.5 17.5v-11zm5.6 1.7c.1 1.7.8 4.6 3.5 6.4V8.2h1.7v2.5c2.5-.4 3.7-2.2 4.2-2.5h1.7c-.4 1.5-1.6 2.9-2.9 3.7 1.4.7 2.6 2 3.2 3.7h-1.9c-.5-1.3-1.6-2.5-3-2.9v2.9h-.4c-3.4 0-5.3-2.4-5.5-6.4h1.4z"/>
+        </svg>
+        Студия в&nbsp;VK&nbsp;→
+      </a>
+      <div class="studio-vk-link">vk.ru/stydiya</div>
+    </div>
+  </section>
+
+  <!-- 8. CONTACT -->
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="container contact-wrap">
+      <span class="section-eyebrow">Связаться</span>
+      <h2 id="contact-h" class="section-title reveal split-words">Напишите. Куда удобнее.</h2>
+      <p class="reveal">Расскажите, что строите&nbsp;— отвечу с&nbsp;предложением, как могу помочь визуалом или&nbsp;цифровыми продуктами.</p>
+      <div class="contact-card reveal">
+        <div class="contact-buttons">
+          <a class="btn btn--tg" href="https://t.me/irina_onlane_gesing" target="_blank" rel="noopener" data-tg-deep>
+            <svg class="tg-icon-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#fff" opacity="0.15"/>
+              <path fill="#fff" d="M9.7 14.6l-.2 3c.3 0 .4-.1.6-.3l1.4-1.4 3 2.2c.5.3.9.1 1-.5l1.9-9c.1-.6-.2-.8-.7-.6L5 11c-.6.2-.6.5-.1.7l3 .9 7-4.4c.3-.2.6-.1.4.1z"/>
+            </svg>
+            Написать в&nbsp;Telegram
+          </a>
+          <a class="btn btn--vk" href="https://vk.com/irina_1369" target="_blank" rel="noopener">
+            <svg class="vk-icon-svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M2.5 6.5C3 4 4 3 6.5 2.5h11C20 3 21 4 21.5 6.5v11C21 20 20 21 17.5 21.5h-11C4 21 3 20 2.5 17.5v-11zm5.6 1.7c.1 1.7.8 4.6 3.5 6.4V8.2h1.7v2.5c2.5-.4 3.7-2.2 4.2-2.5h1.7c-.4 1.5-1.6 2.9-2.9 3.7 1.4.7 2.6 2 3.2 3.7h-1.9c-.5-1.3-1.6-2.5-3-2.9v2.9h-.4c-3.4 0-5.3-2.4-5.5-6.4h1.4z"/>
+            </svg>
+            VK личная
+          </a>
+        </div>
+        <div class="contact-foot">Обычно отвечаю в&nbsp;течение дня. Будни 9:00–22:00&nbsp;МСК.</div>
+        <p class="contact-sign">— Ирина Цепаева, дизайнер</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- STICKY-BAR (только мобильный) -->
+<nav class="sticky-bar" id="sticky-bar" role="navigation" aria-label="Связаться">
+  <a class="sticky-icon" data-brand="tg" href="https://t.me/irina_onlane_gesing" target="_blank" rel="noopener" aria-label="Написать в Telegram" data-tg-deep>
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#fff" d="M9.7 14.6l-.2 3c.3 0 .4-.1.6-.3l1.4-1.4 3 2.2c.5.3.9.1 1-.5l1.9-9c.1-.6-.2-.8-.7-.6L5 11c-.6.2-.6.5-.1.7l3 .9 7-4.4c.3-.2.6-.1.4.1z"/>
+    </svg>
+  </a>
+  <span class="label">Написать</span>
+  <a class="sticky-icon" data-brand="vk" href="https://vk.com/irina_1369" target="_blank" rel="noopener" aria-label="Открыть VK">
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#fff" d="M8.1 8.2c.1 1.7.8 4.6 3.5 6.4V8.2h1.7v2.5c2.5-.4 3.7-2.2 4.2-2.5h1.7c-.4 1.5-1.6 2.9-2.9 3.7 1.4.7 2.6 2 3.2 3.7h-1.9c-.5-1.3-1.6-2.5-3-2.9v2.9h-.4c-3.4 0-5.3-2.4-5.5-6.4h1.4z"/>
+    </svg>
+  </a>
+</nav>
+
+<script>
+(function () {
+  'use strict';
+
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasFinePointer       = window.matchMedia && window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+
+  /* ---------- 0. Text-split: разбиваем заголовки .split-words на слова ---------- */
+  document.querySelectorAll('.split-words').forEach(function (el) {
+    var text = el.textContent.trim();
+    var words = text.split(/\s+/);
+    el.innerHTML = words.map(function (w) {
+      return '<span class="word">' + w + '</span>';
+    }).join(' ');
+  });
+
+  /* ---------- 1. IntersectionObserver: .reveal -> .in-view ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }
+
+  /* ---------- 2. Sticky-bar — на мобильном после hero ---------- */
+  var hero = document.getElementById('hero');
+  var bar  = document.getElementById('sticky-bar');
+  if (hero && bar) {
+    var heroIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && e.intersectionRatio > 0.20) {
+          bar.classList.remove('visible');
+        } else {
+          bar.classList.add('visible');
+        }
+      });
+    }, { threshold: [0, 0.20, 0.5, 1] });
+    heroIO.observe(hero);
+  }
+
+  /* ---------- 3. Magnetic CTA — десктоп only, hover only ---------- */
+  if (hasFinePointer && !prefersReducedMotion) {
+    var magnets = document.querySelectorAll('.btn--magnetic');
+    magnets.forEach(function (btn) {
+      var raf = null;
+      function onMove(e) {
+        var rect = btn.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = e.clientX - cx;
+        var dy = e.clientY - cy;
+        var dist = Math.hypot(dx, dy);
+        if (dist > 140) { btn.style.transform = ''; return; }
+        var tx = Math.max(-12, Math.min(12, dx * 0.18));
+        var ty = Math.max(-12, Math.min(12, dy * 0.18));
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function () {
+          btn.style.transform = 'translate(' + tx + 'px,' + ty + 'px)';
+        });
+      }
+      function onLeave() { btn.style.transform = ''; }
+      var zone = btn.closest('section') || document;
+      zone.addEventListener('mousemove', onMove);
+      zone.addEventListener('mouseleave', onLeave);
+    });
+  }
+
+  /* ---------- 4. Custom cursor + trail (только в hero) ---------- */
+  if (hasFinePointer && !prefersReducedMotion) {
+    var dot   = document.querySelector('.cursor-dot');
+    var trail = document.querySelector('.cursor-trail');
+    if (dot && trail && hero) {
+      var mouseX = -100, mouseY = -100;
+      var trailX = -100, trailY = -100;
+      var rafTrail = null;
+
+      function loop() {
+        // Плавное «догоняние» курсора кольцом
+        trailX += (mouseX - trailX) * 0.18;
+        trailY += (mouseY - trailY) * 0.18;
+        trail.style.transform = 'translate3d(' + (trailX - 18) + 'px,' + (trailY - 18) + 'px,0)';
+        rafTrail = requestAnimationFrame(loop);
+      }
+
+      hero.addEventListener('mouseenter', function () {
+        dot.classList.add('active');
+        trail.classList.add('active');
+        if (!rafTrail) loop();
+      });
+      hero.addEventListener('mouseleave', function () {
+        dot.classList.remove('active');
+        trail.classList.remove('active');
+        if (rafTrail) { cancelAnimationFrame(rafTrail); rafTrail = null; }
+        dot.style.transform   = 'translate3d(-100px,-100px,0)';
+        trail.style.transform = 'translate3d(-100px,-100px,0)';
+      });
+      hero.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX; mouseY = e.clientY;
+        dot.style.transform = 'translate3d(' + (mouseX - 12) + 'px,' + (mouseY - 12) + 'px,0)';
+      });
+    }
+  }
+
+  /* ---------- 5. Telegram deep-link для мобильных ---------- */
+  document.querySelectorAll('a[data-tg-deep]').forEach(function (link) {
+    link.addEventListener('click', function (ev) {
+      var isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+      if (!isTouch) return;
+      var href = link.getAttribute('href') || '';
+      var m = href.match(/t\.me\/([^?#\/]+)/);
+      if (!m) return;
+      var domain = m[1];
+      ev.preventDefault();
+      var fallback = href;
+      var deep = 'tg://resolve?domain=' + domain;
+      var t = setTimeout(function () { window.location.href = fallback; }, 600);
+      window.location.href = deep;
+      window.addEventListener('pagehide', function () { clearTimeout(t); }, { once: true });
+    });
+  });
+
+  /* ---------- 6. Демка «Слышу цвет» ---------- */
+  var EMOTIONS = [
+    { id: 'warm',    label: 'Тёплый' },
+    { id: 'calm',    label: 'Спокойный' },
+    { id: 'bold',    label: 'Дерзкий' },
+    { id: 'precise', label: 'Точный' },
+    { id: 'playful', label: 'Игривый' },
+    { id: 'deep',    label: 'Глубокий' },
+    { id: 'soft',    label: 'Мягкий' },
+    { id: 'sharp',   label: 'Резкий' },
+    { id: 'light',   label: 'Светлый' },
+    { id: 'earthy',  label: 'Земной' },
+    { id: 'spicy',   label: 'Пряный' },
+    { id: 'fresh',   label: 'Свежий' }
+  ];
+
+  var PALETTES = [
+    {
+      id: 'forest-coral',
+      name: 'Лесной закат',
+      matches: ['warm', 'calm', 'deep', 'earthy', 'soft'],
+      minMatches: 2,
+      colors: ['#FCFAE1', '#306654', '#FF935E', '#A1BF5B', '#244C3F'],
+      explanation: 'Тёплое премиум — для тех, у кого спокойная глубина и забота. Хвоя как опора, коралл как тёплое касание.'
+    },
+    {
+      id: 'magenta-neon',
+      name: 'Жгучий неон',
+      matches: ['bold', 'sharp', 'playful', 'spicy', 'fresh'],
+      minMatches: 2,
+      colors: ['#FCFAE1', '#306654', '#FF2EC4', '#13F740', '#F8EB00'],
+      explanation: 'Бренд, который не извиняется. Маджента и неон — для тех, кто хочет, чтобы их видели сразу.'
+    },
+    {
+      id: 'vanilla-cream',
+      name: 'Ванильный шёлк',
+      matches: ['light', 'soft', 'calm', 'fresh', 'precise'],
+      minMatches: 2,
+      colors: ['#FCFAE1', '#FFF6D4', '#FFEAC9', '#A1BF5B', '#306654'],
+      explanation: 'Для тех, кто продаёт спокойствием. Ваниль и едва заметные переливы — глаз отдыхает, доверие растёт.'
+    },
+    {
+      id: 'pine-acid',
+      name: 'Зелёный архитектор',
+      matches: ['precise', 'deep', 'earthy', 'calm', 'sharp'],
+      minMatches: 2,
+      colors: ['#FCFAE1', '#306654', '#4DAA02', '#A1BF5B', '#244C3F'],
+      explanation: 'Системный, точный, природный. Для тех, кто строит структуру — продукт, методологию, бизнес.'
+    },
+    {
+      id: 'coral-spice',
+      name: 'Пряный коралл',
+      matches: ['warm', 'spicy', 'bold', 'playful', 'earthy'],
+      minMatches: 2,
+      colors: ['#FCFAE1', '#FF935E', '#FF2EC4', '#306654', '#F8EB00'],
+      explanation: 'Тёплый, но с характером. Коралл и маджента — когда хочется тепла и одновременно остроты.'
+    }
+  ];
+
+  function pickPalette(selectedIds) {
+    if (!selectedIds.length) return PALETTES[0];
+    var scored = PALETTES.map(function (p) {
+      return {
+        palette: p,
+        score: selectedIds.filter(function (id) { return p.matches.indexOf(id) !== -1; }).length
+      };
+    });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    if (scored[0].score === 0) return PALETTES[0];
+    return scored[0].palette;
+  }
+
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var selected = [];
+  var btnShow = document.getElementById('show-palette');
+  var counter = document.getElementById('counter');
+  var resultBox = document.getElementById('palette-result');
+  var pName = document.getElementById('p-name');
+  var pMesh = document.getElementById('p-mesh');
+  var pDots = document.getElementById('p-dots');
+  var pExplain = document.getElementById('p-explain');
+  var pCta = document.getElementById('p-cta');
+  var pReset = document.getElementById('p-reset');
+
+  function syncCounter() {
+    if (counter) counter.innerHTML = 'Выбрано ' + selected.length + '&nbsp;из&nbsp;3';
+  }
+  function syncShowBtn() {
+    if (!btnShow) return;
+    var allow = selected.length === 3;
+    if (allow) {
+      btnShow.removeAttribute('disabled');
+      btnShow.setAttribute('aria-disabled', 'false');
+    } else {
+      btnShow.setAttribute('disabled', '');
+      btnShow.setAttribute('aria-disabled', 'true');
+    }
+  }
+  function deactivateChip(id) {
+    var idx = selected.indexOf(id);
+    if (idx >= 0) selected.splice(idx, 1);
+    var chip = document.querySelector('.chip[data-id="' + id + '"]');
+    if (chip) chip.setAttribute('aria-pressed', 'false');
+  }
+  function activateChip(id) {
+    if (selected.indexOf(id) === -1) selected.push(id);
+    var chip = document.querySelector('.chip[data-id="' + id + '"]');
+    if (chip) chip.setAttribute('aria-pressed', 'true');
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var id = chip.dataset.id;
+      var pressed = chip.getAttribute('aria-pressed') === 'true';
+      if (pressed) {
+        deactivateChip(id);
+      } else {
+        if (selected.length >= 3) {
+          deactivateChip(selected[0]);
+        }
+        activateChip(id);
+      }
+      syncCounter();
+      syncShowBtn();
+    });
+  });
+
+  function buildMesh(colors) {
+    var spots = [
+      { x: 15, y: 30, r: 55 },
+      { x: 80, y: 20, r: 50 },
+      { x: 50, y: 80, r: 55 },
+      { x: 90, y: 90, r: 45 }
+    ];
+    var bg = spots.map(function (s, i) {
+      return 'radial-gradient(at ' + s.x + '% ' + s.y + '%, ' + colors[i] + ' 0px, transparent ' + s.r + '%)';
+    }).join(', ');
+    bg += ', ' + colors[4];
+    pMesh.style.background = bg;
+  }
+
+  function renderResult(palette) {
+    pName.textContent = palette.name;
+    buildMesh(palette.colors);
+    pDots.innerHTML = palette.colors.map(function (c) {
+      return '<div class="palette-dot"><span class="swatch" style="background:' + c + '"></span><span class="hex">' + c + '</span></div>';
+    }).join('');
+    pExplain.textContent = palette.explanation;
+    var msg = 'Здравствуйте, Ирина! Ваш сайт показал палитру «' + palette.name + '». Хочу обсудить бренд в этом настроении.';
+    pCta.setAttribute('href', 'https://t.me/irina_onlane_gesing?text=' + encodeURIComponent(msg));
+    resultBox.classList.add('show');
+    setTimeout(function () {
+      try { resultBox.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' }); } catch (e) {}
+    }, 80);
+  }
+
+  function clearResult() {
+    resultBox.classList.remove('show');
+  }
+
+  if (btnShow) {
+    btnShow.addEventListener('click', function () {
+      if (selected.length < 1) return;
+      var palette = pickPalette(selected.slice());
+      renderResult(palette);
+    });
+  }
+  if (pReset) {
+    pReset.addEventListener('click', function () {
+      selected.slice().forEach(deactivateChip);
+      selected.length = 0;
+      syncCounter();
+      syncShowBtn();
+      clearResult();
+      var top = document.getElementById('color-listen');
+      if (top) {
+        try { top.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' }); } catch (e) {}
+      }
+    });
+  }
+
+  syncCounter();
+  syncShowBtn();
+})();
+</script>
+
+</body>
+</html>
