@@ -47,7 +47,7 @@
 
 ### Pending (не начато, ждёт триггера)
 
-- **Усиление `/discovery` v2** ✅ план согласован — после сравнения нашего скилла с внешним Discovery Interview (parcadei). Берём 5 «зелёных» элементов (тип продукта / Knowledge Gap Detection / Conflict Resolution / Completeness Check / Iteration Rules) + Progressive Disclosure (4 справочных файла). Открытый вопрос Инны: берём ли 2 «жёлтых» (Research Loops через делегирование + P0/P1/P2 приоритизация). Детали в [memory/sessions/2026-05-02.md](memory/sessions/2026-05-02.md), сессия 6. **Готово к работе через `skill-conductor` + `skill-auditor` после подтверждения по жёлтым.**
+- **Усиление `/discovery` v2** ✅ финальный набор закреплён — 5 «зелёных» (тип продукта / Knowledge Gap Detection / Conflict Resolution / Completeness Check / Iteration Rules) + 2 «жёлтых» в редуцированной форме (Research Loops через делегирование + P0/P1/P2 приоритизация) + Progressive Disclosure (4 справочных файла). Детали в [memory/sessions/2026-05-02.md](memory/sessions/2026-05-02.md), сессия 6. **Готово к работе через `skill-conductor` + `skill-auditor` без блокеров.**
 - **Frontend Design (Anthropic Agent Skill)** — отдельное сравнение по той же модели после Discovery v2. В [skills-catalog.md](knowledge/tools/skills-catalog.md) уже помечен ⭐ «рекомендован». Конфликта с нашей методологией почти нет, кандидаты на усиление: `websites.md` / `ai-builder.md` / `brandbook-creator.md`.
 - **Full-Stack Developer (Anthropic Agent Skill)** — пропускаем (прямой конфликт с правилом «только чистый HTML»). Решение зафиксировано.
 - **Продуктовая линейка Ирины** — ждём её разметку ✅/❌/✏️ в [clients/irina/product-line.md](clients/irina/product-line.md).
