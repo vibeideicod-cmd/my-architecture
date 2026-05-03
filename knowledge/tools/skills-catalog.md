@@ -34,14 +34,11 @@
 
 ## Внешние скиллы (устанавливаются отдельно)
 
-### Frontend Design ⭐ Рекомендован к установке
-**Источник:** Официальный от Anthropic
-**Что делает:** Создаёт уникальные, нешаблонные интерфейсы — не "AI-дизайн", а настоящий визуал с продуманной типографикой, анимациями и нестандартными решениями. Работает с HTML/CSS/JS.
-**Когда использовать:** Когда нужен WOW-эффект — HUB, лендинг для запуска, инструмент для клиента.
-**Установка:**
-```
-claude mcp add skill https://skillsmp.com/skills/anthropics-claude-code-plugins-frontend-design-skills-frontend-design-sk...
-```
+### Frontend Design (Anthropic, оригинал)
+**Источник:** [anthropics/skills](https://github.com/anthropics/skills) — `skills/frontend-design/SKILL.md` (42 строки)
+**Что делает:** Манифест эстетики — Design Thinking (Purpose / Tone / Differentiation), 5 направлений (Typography / Color / Motion / Spatial / Backgrounds), список «крайностей» вместо AI slop, принцип «match complexity to vision».
+**Статус:** ❌ **Не требуется** (решение 2026-05-03). Наш стек [websites.md](../../agents/websites.md) (12 архетипов с привязкой к нишам) + [visual-techniques.md](../standards/visual-techniques.md) (10 готовых CSS-сниппетов + чек-лист «не AI slop?») + [design-system.md](../standards/design-system.md) (палитра + чёрный список) покрывает те же сценарии и расширяет их под наш бренд (палитра НБ СССР, правило «бренд клиента > творчество», запрет фреймворков). 3 элемента из Frontend Design забраны точечно: Design Thinking чек-лист в начале вёрстки, обязательное поле «Что запомнится» в `brief.md`, расширение чек-листа AI slop (purple gradients on white + предсказуемые раскладки). Сравнение и решение — в `memory/sessions/2026-05-03.md`.
+**Прямой конфликт автоактивации:** широкое description «build web components, pages, applications» сработает поверх нашего флоу `discovery → brief → websites → /seo` и принесёт советы про React/Vue (запрещено) + «vary across generations» (у нас бренд должен быть стабильным).
 
 ### Fullstack Developer
 **Источник:** shubhamsaboo / awesome-llm-apps
@@ -120,7 +117,7 @@ claude skills add [ссылка]
 Что-то не работает в онлайне клиента           → /digital-audit
 Стоит ли вообще заходить в эту нишу           → /market-research
 Перед запуском — проверить инфраструктуру      → /monitoring-check
-Нужен уникальный дизайн с WOW-эффектом        → Frontend Design skill
+Нужен уникальный дизайн с WOW-эффектом        → websites.md (12 архетипов) + visual-techniques.md
 Клиент просит полноценное веб-приложение       → Fullstack Developer skill
 ```
 
