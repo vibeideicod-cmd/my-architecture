@@ -13,3 +13,6 @@ agent-runtime/logs/*
 !agent-runtime/shared/README.md
 !agent-runtime/outputs/README.md
 !agent-runtime/logs/README.md
+
+# Тяжёлые фото-архивы Ирины — локально на Mac, не в git (по 8-14 МБ каждое, ~100 МБ всего)
+clients/irina/assets/photos/
