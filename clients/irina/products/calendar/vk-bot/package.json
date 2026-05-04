@@ -1,0 +1,18 @@
+{
+  "name": "irina-calendar-vk-bot",
+  "version": "1.0.0",
+  "description": "VK-бот календаря Ирины: ловит сообщения в группу, отдаёт ссылку на VK Mini App, шлёт уведомления Ирине в личку от имени группы.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "vk-io": "^4.9.0",
+    "express": "^4.21.0",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

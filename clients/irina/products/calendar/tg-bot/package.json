@@ -1,0 +1,20 @@
+{
+  "name": "irina-calendar-tg-bot",
+  "version": "1.0.0",
+  "description": "TG-бот календаря записи Ирины Цепаевой. /start открывает Mini App, опрашивает Baserow (РФ) на новые заявки и шлёт уведомления в TG/VK/email. 152-ФЗ.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "express": "^4.21.0",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

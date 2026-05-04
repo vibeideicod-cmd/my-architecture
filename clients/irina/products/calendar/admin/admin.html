@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FCFAE1">
+<meta name="robots" content="noindex,nofollow">
+<title>Календарь · админка · Ирина Цепаева</title>
+
+<!-- Google Fonts: те же, что в визитке Ирины -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+/* ===========================================================
+   Палитра — точно из визитки Ирины
+   =========================================================== */
+:root {
+  --pine:        #306654;
+  --pine-deep:   #1d4030;
+  --lime:        #A1BF5B;
+  --coral:       #FF935E;
+  --lemon:       #F8EB00;
+  --vanilla:     #FCFAE1;
+  --vanilla-deep:#F5F0CC;
+  --vanilla-bright: #FFF6D4;
+  --vanilla-warm:   #FFEAC9;
+  --neon:        #13F740;
+  --acid:        #4DAA02;
+  --magenta:     #FF2EC4;
+
+  --tg:          #229ED9;
+  --vk:          #0077FF;
+
+  --ink:         #1F3A2F;
+  --ink-2:       #2E4F40;
+  --rule:        rgba(48, 102, 84, 0.15);
+  --rule-soft:   rgba(48, 102, 84, 0.08);
+
+  --pine-10:    rgba(48, 102, 84, 0.10);
+  --pine-20:    rgba(48, 102, 84, 0.20);
+  --pine-40:    rgba(48, 102, 84, 0.40);
+  --pine-60:    rgba(48, 102, 84, 0.60);
+  --coral-30:   rgba(255, 147, 94, 0.30);
+  --coral-50:   rgba(255, 147, 94, 0.50);
+
+  --bg:          var(--vanilla);
+  --text:        var(--ink);
+  --text-soft:   rgba(48, 102, 84, 0.72);
+  --text-muted:  rgba(48, 102, 84, 0.50);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+
+  --ease-soft: cubic-bezier(.22, .61, .36, 1);
+  --ease-pop:  cubic-bezier(.34, 1.4, .64, 1);
+  --dur-fast:  150ms;
+  --dur-base:  250ms;
+}
+
+* , *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1rem/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Лёгкий шум */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--coral); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+
+main {
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 36px) clamp(16px, 4vw, 28px) 80px;
+}
+
+.serif { font-family: var(--font-display); }
+.mono  { font-family: var(--font-mono); }
+
+[hidden] { display: none !important; }
+
+/* ===========================================================
+   Topbar
+   =========================================================== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-bottom: 18px;
+  margin-bottom: clamp(20px, 4vw, 32px);
+  border-bottom: 1px solid var(--rule);
+}
+.topbar h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  color: var(--pine-deep);
+  letter-spacing: -0.01em;
+}
+.topbar h1 small {
+  display: block;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--vanilla);
+  border: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pine);
+}
+.counter b {
+  color: var(--coral);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 0;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  transition: transform var(--dur-fast) var(--ease-pop),
+              background var(--dur-fast) var(--ease-soft),
+              box-shadow var(--dur-fast) var(--ease-soft),
+              border-color var(--dur-fast) var(--ease-soft),
+              color var(--dur-fast) var(--ease-soft);
+  text-decoration: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #FFB48A 0%, var(--coral) 60%, #E07344 100%);
+  color: var(--vanilla);
+  box-shadow: 0 12px 32px -8px var(--coral-50), 0 2px 6px var(--coral-30);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px var(--coral-50); }
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--rule);
+  color: var(--pine);
+}
+.btn-ghost:hover { border-color: var(--coral); color: var(--coral); }
+.btn-pine {
+  background: var(--pine);
+  color: var(--vanilla);
+}
+.btn-pine:hover { background: var(--pine-deep); transform: translateY(-1px); }
+.btn-danger {
+  background: transparent;
+  border: 1.5px solid var(--magenta);
+  color: var(--magenta);
+}
+.btn-danger:hover { background: var(--magenta); color: var(--vanilla); }
+
+.btn-sm { padding: 8px 12px; font-size: 13px; }
+
+/* ===========================================================
+   Filters
+   =========================================================== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 6px;
+  background: var(--vanilla);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.filter-tab {
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pine);
+  padding: 9px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-soft),
+              color var(--dur-fast) var(--ease-soft);
+}
+.filter-tab:hover { background: var(--vanilla-deep); }
+.filter-tab[aria-pressed="true"] {
+  background: var(--pine);
+  color: var(--vanilla);
+}
+.filter-tab .badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: var(--vanilla);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.date-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.date-filter input[type="date"] {
+  padding: 8px 12px;
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r-sm);
+  background: var(--vanilla);
+  color: var(--pine-deep);
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.date-filter input[type="date"]:focus {
+  outline: 0;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(255, 147, 94, 0.18);
+}
+
+/* ===========================================================
+   Booking cards
+   =========================================================== */
+.bookings { display: grid; gap: 14px; }
+
+.card {
+  background: var(--vanilla);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  padding: clamp(16px, 3vw, 22px);
+  box-shadow:
+    0 4px 16px -6px rgba(48, 102, 84, 0.18),
+    0 1px 3px rgba(48, 102, 84, 0.06);
+  transition: transform var(--dur-fast) var(--ease-soft),
+              box-shadow var(--dur-fast) var(--ease-soft);
+}
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 12px 32px -10px rgba(48, 102, 84, 0.28),
+    0 2px 6px rgba(48, 102, 84, 0.08);
+}
+.card.is-blocked { background: var(--vanilla-deep); border-style: dashed; }
+
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.slot-line {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+  color: var(--pine-deep);
+  letter-spacing: -0.005em;
+}
+.slot-line .time {
+  color: var(--coral);
+  font-weight: 700;
+}
+.slot-line .duration {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-left: 8px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.status-new       { background: var(--coral);   color: var(--vanilla); }
+.status-confirmed { background: var(--pine);    color: var(--vanilla); }
+.status-done      { background: var(--rule);    color: var(--text-soft); }
+.status-cancelled { background: rgba(255, 46, 196, 0.12); color: var(--magenta); border: 1px solid rgba(255, 46, 196, 0.4); }
+.status-blocked   { background: var(--vanilla-warm); color: var(--pine-deep); border: 1px solid var(--rule); }
+
+.card-body { display: grid; gap: 6px; margin-bottom: 12px; }
+.card-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 14px;
+}
+.card-row .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.card-row .value {
+  color: var(--pine-deep);
+  word-break: break-word;
+}
+.card-row .value.message {
+  cursor: pointer;
+  color: var(--ink-2);
+}
+.card-row .value.message:not(.expanded) {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.history-line {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--vanilla-bright);
+  border-left: 3px solid var(--coral);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--pine-deep);
+}
+.history-line.is-loading { color: var(--text-muted); }
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+}
+
+/* ===========================================================
+   Empty / loading / error states
+   =========================================================== */
+.empty {
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--vanilla) 0%, var(--vanilla-bright) 60%, var(--vanilla-warm) 100%);
+  color: var(--text-soft);
+  border: 1px solid var(--rule-soft);
+}
+.empty .ico { font-size: 36px; margin-bottom: 12px; opacity: 0.5; }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 30px;
+  color: var(--text-soft);
+}
+.spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--pine-20);
+  border-top-color: var(--coral);
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.banner {
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+}
+.banner-error {
+  background: rgba(255, 46, 196, 0.08);
+  border: 1px solid rgba(255, 46, 196, 0.4);
+  color: var(--magenta);
+}
+.banner-info {
+  background: var(--vanilla-bright);
+  border: 1px solid var(--rule);
+  color: var(--pine-deep);
+}
+
+/* ===========================================================
+   Auth modal (token entry)
+   =========================================================== */
+.auth-screen {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(36px, 7vw, 60px) clamp(20px, 4vw, 32px);
+}
+.auth-card {
+  background:
+    radial-gradient(at 25% 20%, rgba(255, 147, 94, 0.45) 0px, transparent 55%),
+    radial-gradient(at 80% 90%, rgba(48, 102, 84, 0.25) 0px, transparent 55%),
+    var(--vanilla);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 6vw, 44px);
+  box-shadow:
+    0 24px 60px -22px rgba(48, 102, 84, 0.32),
+    0 4px 14px -6px var(--coral-30),
+    0 0 0 1px rgba(48, 102, 84, 0.08) inset;
+}
+.auth-card h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem);
+  color: var(--pine-deep);
+  letter-spacing: -0.01em;
+}
+.auth-card p {
+  margin: 0 0 24px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.auth-form { display: grid; gap: 14px; }
+.auth-form label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pine);
+  font-weight: 500;
+}
+.auth-form input {
+  padding: 13px 14px;
+  background: var(--vanilla);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r-sm);
+  color: var(--pine-deep);
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+.auth-form input:focus {
+  outline: 0;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(255, 147, 94, 0.18);
+}
+.auth-form .row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 480px) { .auth-form .row-2 { grid-template-columns: 1fr; } }
+.auth-form button {
+  margin-top: 6px;
+  padding: 14px 22px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, #FFB48A 0%, var(--coral) 60%, #E07344 100%);
+  color: var(--vanilla);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  box-shadow: 0 12px 32px -8px var(--coral-50);
+  transition: transform var(--dur-fast) var(--ease-pop), box-shadow var(--dur-fast) var(--ease-soft);
+}
+.auth-form button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px var(--coral-50); }
+.auth-help {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+/* ===========================================================
+   Modal — закрыть слот вручную
+   =========================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(29, 64, 48, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 100;
+  animation: fade-in 0.2s ease;
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  width: 100%;
+  max-width: 460px;
+  background: var(--vanilla);
+  border-radius: var(--r-lg);
+  padding: clamp(22px, 4vw, 32px);
+  box-shadow: 0 30px 80px -20px rgba(48, 102, 84, 0.45);
+  animation: rise-in 0.25s var(--ease-soft) both;
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.modal h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--pine-deep);
+}
+.modal-form { display: grid; gap: 12px; }
+.modal-form label {
+  display: grid;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pine);
+}
+.modal-form input,
+.modal-form textarea {
+  padding: 11px 13px;
+  background: var(--vanilla);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r-sm);
+  color: var(--pine-deep);
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.modal-form input:focus,
+.modal-form textarea:focus {
+  outline: 0;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(255, 147, 94, 0.18);
+}
+.modal-form .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--pine-deep);
+  color: var(--vanilla);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 18px 40px -10px rgba(48, 102, 84, 0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s var(--ease-soft);
+}
+.toast.is-on {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast.is-error { background: var(--magenta); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  body::before { display: none; }
+}
+
+@media (max-width: 600px) {
+  .card-row { grid-template-columns: 1fr; gap: 2px; }
+  .card-row .label { font-size: 10px; }
+  .topbar { flex-direction: column; align-items: stretch; }
+  .topbar-right { justify-content: space-between; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     Auth screen — показывается, если нет токена в localStorage
+     ============================================================ -->
+<div class="auth-screen" id="auth-screen" hidden>
+  <div class="auth-card">
+    <h2>Календарь · админка</h2>
+    <p>Введите параметры подключения к Baserow. Они сохранятся в этом браузере и больше не понадобятся, пока не выйдете.</p>
+
+    <form class="auth-form" id="auth-form">
+      <div>
+        <label for="a-url">URL Baserow</label>
+        <input type="url" id="a-url" required placeholder="https://baserow.example.com" autocomplete="off">
+      </div>
+      <div>
+        <label for="a-token">API-токен</label>
+        <input type="password" id="a-token" required placeholder="Token: ..." autocomplete="off">
+      </div>
+      <div class="row-2">
+        <div>
+          <label for="a-table-bookings">ID таблицы bookings</label>
+          <input type="number" id="a-table-bookings" required placeholder="123" autocomplete="off">
+        </div>
+        <div>
+          <label for="a-table-clients">ID таблицы clients (опц.)</label>
+          <input type="number" id="a-table-clients" placeholder="124" autocomplete="off">
+        </div>
+      </div>
+      <button type="submit">Войти</button>
+      <p class="auth-help">
+        Токен берётся в Baserow → Settings → API tokens.<br>
+        ID таблиц — в URL вашей таблицы (число после <span class="mono">/table/</span>).
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     App — основной интерфейс
+     ============================================================ -->
+<main id="app" hidden>
+
+  <header class="topbar">
+    <h1>
+      Календарь
+      <small>Админка · Ирина Цепаева</small>
+    </h1>
+    <div class="topbar-right">
+      <span class="counter" id="counter-new" hidden>Новых: <b id="counter-new-num">0</b></span>
+      <button class="btn btn-pine btn-sm" id="btn-block">Закрыть слот</button>
+      <button class="btn btn-ghost btn-sm" id="btn-refresh" title="Обновить">Обновить</button>
+      <button class="btn btn-ghost btn-sm" id="btn-logout">Выйти</button>
+    </div>
+  </header>
+
+  <div class="banner banner-error" id="error-banner" hidden></div>
+  <div class="banner banner-info" id="info-banner" hidden></div>
+
+  <div class="filters" role="tablist" aria-label="Фильтр по статусу">
+    <button class="filter-tab" role="tab" data-status="all">Все <span class="badge" id="cnt-all">0</span></button>
+    <button class="filter-tab" role="tab" data-status="new" aria-pressed="true">Новые <span class="badge" id="cnt-new">0</span></button>
+    <button class="filter-tab" role="tab" data-status="confirmed">Подтверждённые <span class="badge" id="cnt-confirmed">0</span></button>
+    <button class="filter-tab" role="tab" data-status="done">Завершённые <span class="badge" id="cnt-done">0</span></button>
+    <button class="filter-tab" role="tab" data-status="cancelled">Отменённые <span class="badge" id="cnt-cancelled">0</span></button>
+    <button class="filter-tab" role="tab" data-status="blocked">Закрытые <span class="badge" id="cnt-blocked">0</span></button>
+  </div>
+
+  <div class="filters-row">
+    <label class="date-filter">
+      Фильтр по дате:
+      <input type="date" id="date-filter">
+    </label>
+    <button class="btn btn-ghost btn-sm" id="date-filter-clear" hidden>Сбросить дату</button>
+  </div>
+
+  <div class="loading" id="loading" hidden>
+    <span class="spinner"></span>
+    Загружаем заявки…
+  </div>
+
+  <div class="bookings" id="bookings"></div>
+
+  <div class="empty" id="empty" hidden>
+    <div class="ico">·</div>
+    <p>Заявок по этому фильтру нет.</p>
+  </div>
+</main>
+
+<!-- ============================================================
+     Modal — закрыть слот вручную
+     ============================================================ -->
+<div class="modal-backdrop" id="block-modal" hidden role="dialog" aria-labelledby="block-title" aria-modal="true">
+  <div class="modal">
+    <h3 id="block-title">Закрыть слот вручную</h3>
+    <form class="modal-form" id="block-form">
+      <div class="row-2">
+        <label>
+          Дата
+          <input type="date" id="b-date" required>
+        </label>
+        <label>
+          Время (HH:MM)
+          <input type="text" id="b-time" required placeholder="14:00" pattern="[0-2][0-9]:[0-5][0-9]">
+        </label>
+      </div>
+      <label>
+        Длительность (минут)
+        <input type="number" id="b-dur" value="30" min="15" max="240" step="15">
+      </label>
+      <label>
+        Причина (опционально)
+        <textarea id="b-reason" rows="2" placeholder="Личный нерабочий час"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="block-cancel">Отмена</button>
+        <button type="submit" class="btn btn-primary btn-sm">Закрыть слот</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===========================================================
+   1. Storage helpers
+   =========================================================== */
+const STORE_KEY = 'irina_calendar_admin';
+const CONSENT_VERSION_BLOCKED = '1.0';
+
+function loadConfig() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return null;
+    const cfg = JSON.parse(raw);
+    if (!cfg.url || !cfg.token || !cfg.tableBookings) return null;
+    return cfg;
+  } catch (e) { return null; }
+}
+function saveConfig(cfg) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(cfg));
+}
+function clearConfig() {
+  localStorage.removeItem(STORE_KEY);
+}
+
+/* ===========================================================
+   2. State
+   =========================================================== */
+let cfg = loadConfig();
+const state = {
+  filter:      'new',
+  dateFilter:  null,
+  bookings:    [],
+  loading:     false
+};
+
+/* ===========================================================
+   3. Auth flow
+   =========================================================== */
+function showAuth() {
+  document.getElementById('auth-screen').hidden = false;
+  document.getElementById('app').hidden = true;
+}
+function showApp() {
+  document.getElementById('auth-screen').hidden = true;
+  document.getElementById('app').hidden = false;
+}
+
+document.getElementById('auth-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const url = document.getElementById('a-url').value.trim().replace(/\/$/, '');
+  const token = document.getElementById('a-token').value.trim();
+  const tableBookings = document.getElementById('a-table-bookings').value.trim();
+  const tableClients  = document.getElementById('a-table-clients').value.trim();
+  if (!url || !token || !tableBookings) return;
+  cfg = { url, token, tableBookings, tableClients: tableClients || null };
+  saveConfig(cfg);
+  showApp();
+  loadBookings();
+});
+
+document.getElementById('btn-logout').addEventListener('click', () => {
+  if (!confirm('Выйти и очистить токен из этого браузера?')) return;
+  clearConfig();
+  cfg = null;
+  state.bookings = [];
+  showAuth();
+});
+
+/* ===========================================================
+   4. Baserow API
+   =========================================================== */
+function apiHeaders() {
+  return {
+    'Authorization': 'Token ' + cfg.token,
+    'Content-Type':  'application/json'
+  };
+}
+function apiUrl(path) {
+  return cfg.url + path;
+}
+
+async function apiFetch(path, opts) {
+  const res = await fetch(apiUrl(path), Object.assign({ headers: apiHeaders() }, opts || {}));
+  if (res.status === 401 || res.status === 403) {
+    showError('Токен не подходит. Войдите заново.');
+    clearConfig();
+    setTimeout(() => location.reload(), 1200);
+    throw new Error('auth');
+  }
+  if (res.status === 429) {
+    showError('Слишком частые запросы. Жду 30 сек…');
+    await new Promise(r => setTimeout(r, 30000));
+    return apiFetch(path, opts);
+  }
+  if (!res.ok) {
+    let body = '';
+    try { body = await res.text(); } catch (_) {}
+    throw new Error('HTTP ' + res.status + ': ' + body.slice(0, 200));
+  }
+  if (res.status === 204) return null;
+  const ct = res.headers.get('content-type') || '';
+  if (ct.indexOf('application/json') !== -1) return res.json();
+  return res.text();
+}
+
+async function loadBookings() {
+  if (!cfg) return;
+  state.loading = true;
+  document.getElementById('loading').hidden = false;
+  document.getElementById('empty').hidden = true;
+  document.getElementById('bookings').innerHTML = '';
+  hideError();
+
+  // Fetch all (size=200 — практический лимит, у Ирины не будет 200 заявок одновременно)
+  let all = [];
+  try {
+    const data = await apiFetch(
+      '/api/database/rows/table/' + cfg.tableBookings +
+      '/?user_field_names=true&size=200&order_by=-created_at'
+    );
+    all = data.results || [];
+  } catch (err) {
+    console.error(err);
+    showError('Не удалось загрузить заявки. ' + (err.message || ''));
+    state.loading = false;
+    document.getElementById('loading').hidden = true;
+    return;
+  }
+
+  state.bookings = all;
+  state.loading = false;
+  document.getElementById('loading').hidden = true;
+
+  updateCounters();
+  render();
+}
+
+async function patchBookingStatus(id, newStatus) {
+  return apiFetch(
+    '/api/database/rows/table/' + cfg.tableBookings + '/' + id + '/?user_field_names=true',
+    {
+      method: 'PATCH',
+      body:   JSON.stringify({ status: newStatus })
+    }
+  );
+}
+
+async function deleteBooking(id) {
+  return apiFetch(
+    '/api/database/rows/table/' + cfg.tableBookings + '/' + id + '/',
+    { method: 'DELETE' }
+  );
+}
+
+async function createBlockedSlot(payload) {
+  return apiFetch(
+    '/api/database/rows/table/' + cfg.tableBookings + '/?user_field_names=true',
+    {
+      method: 'POST',
+      body:   JSON.stringify(payload)
+    }
+  );
+}
+
+async function fetchClientHistory(contactValue) {
+  // Не считаем сами заявки (включая текущую) — фронт сам поймёт «N-я»
+  const enc = encodeURIComponent(contactValue);
+  const data = await apiFetch(
+    '/api/database/rows/table/' + cfg.tableBookings +
+    '/?user_field_names=true&size=100&filter__contact_value__equal=' + enc +
+    '&filter__status__not_equal=blocked'
+  );
+  return data.results || [];
+}
+
+/* ===========================================================
+   5. Render
+   =========================================================== */
+const RU_MONTHS_FULL = [
+  'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+];
+const RU_DAYS_SHORT = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+
+function statusLabel(s) {
+  return ({
+    new:       'Новая',
+    confirmed: 'Подтверждена',
+    done:      'Завершена',
+    cancelled: 'Отменена',
+    blocked:   'Слот закрыт'
+  })[s] || s;
+}
+function statusOf(b) {
+  // Single select Baserow возвращает {id, value, color} либо строку
+  const s = b.status;
+  if (s && typeof s === 'object') return s.value;
+  return s || 'new';
+}
+function valueOf(field) {
+  if (field == null) return '';
+  if (typeof field === 'object') return field.value || '';
+  return String(field);
+}
+
+function humanDate(iso) {
+  if (!iso) return '';
+  // Baserow Date может приходить как 'YYYY-MM-DD'
+  const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return iso;
+  const dt = new Date(+m[1], +m[2] - 1, +m[3]);
+  return m[3].replace(/^0/, '') + ' ' + RU_MONTHS_FULL[+m[2] - 1] + ' (' + RU_DAYS_SHORT[dt.getDay()] + ')';
+}
+
+function sourceLabel(s) {
+  return ({
+    tg_miniapp: 'из Telegram',
+    vk_miniapp: 'из VK',
+    website:    'с сайта'
+  })[s] || s || '—';
+}
+
+function methodLabel(m) {
+  return ({
+    telegram: 'Telegram',
+    vk:       'VK',
+    email:    'Email',
+    phone:    'Телефон'
+  })[m] || m;
+}
+
+function filtered() {
+  let arr = state.bookings.slice();
+  if (state.filter !== 'all') {
+    arr = arr.filter(b => statusOf(b) === state.filter);
+  }
+  if (state.dateFilter) {
+    arr = arr.filter(b => String(b.slot_date || '').slice(0, 10) === state.dateFilter);
+  }
+  return arr;
+}
+
+function updateCounters() {
+  const counts = { all: state.bookings.length, new: 0, confirmed: 0, done: 0, cancelled: 0, blocked: 0 };
+  state.bookings.forEach(b => {
+    const s = statusOf(b);
+    if (counts[s] != null) counts[s]++;
+  });
+  document.getElementById('cnt-all').textContent       = counts.all;
+  document.getElementById('cnt-new').textContent       = counts.new;
+  document.getElementById('cnt-confirmed').textContent = counts.confirmed;
+  document.getElementById('cnt-done').textContent      = counts.done;
+  document.getElementById('cnt-cancelled').textContent = counts.cancelled;
+  document.getElementById('cnt-blocked').textContent   = counts.blocked;
+
+  const counterNew = document.getElementById('counter-new');
+  if (counts.new > 0) {
+    counterNew.hidden = false;
+    document.getElementById('counter-new-num').textContent = counts.new;
+  } else {
+    counterNew.hidden = true;
+  }
+}
+
+function render() {
+  const list = filtered();
+  const root = document.getElementById('bookings');
+  root.innerHTML = '';
+
+  if (list.length === 0) {
+    document.getElementById('empty').hidden = false;
+    return;
+  }
+  document.getElementById('empty').hidden = true;
+
+  list.forEach(b => {
+    const card = document.createElement('article');
+    const status = statusOf(b);
+    card.className = 'card' + (status === 'blocked' ? ' is-blocked' : '');
+    card.dataset.id = b.id;
+
+    const time = (b.slot_time || '').slice(0, 5);
+    const dur = b.duration_min || 30;
+    const name = valueOf(b.name) || '—';
+    const method = valueOf(b.contact_method);
+    const contact = valueOf(b.contact_value);
+    const message = valueOf(b.message);
+    const source = valueOf(b.source);
+    const consentTs = valueOf(b.consent_timestamp);
+
+    let html = '';
+    html += '<div class="card-head">';
+    html += '<div class="slot-line">' + humanDate(b.slot_date) +
+            ' · <span class="time">' + (time || '—') + '</span>' +
+            '<span class="duration">' + dur + ' мин</span></div>';
+    html += '<span class="status status-' + status + '">' + statusLabel(status) + '</span>';
+    html += '</div>';
+
+    html += '<div class="card-body">';
+    html += '<div class="card-row"><span class="label">Имя</span><span class="value">' + escapeHtml(name) + '</span></div>';
+    if (method && contact) {
+      html += '<div class="card-row"><span class="label">Контакт</span><span class="value">' +
+              escapeHtml(methodLabel(method)) + ': ' + escapeHtml(contact) + '</span></div>';
+    }
+    if (message) {
+      html += '<div class="card-row"><span class="label">Сообщение</span><span class="value message" data-toggle="msg">' +
+              escapeHtml(message) + '</span></div>';
+    }
+    html += '<div class="card-row"><span class="label">Источник</span><span class="value">' +
+            escapeHtml(sourceLabel(source)) + '</span></div>';
+    if (consentTs) {
+      html += '<div class="card-row"><span class="label">Согласие</span><span class="value">' +
+              escapeHtml(formatTs(consentTs)) + '</span></div>';
+    }
+    html += '</div>';
+
+    if (status !== 'blocked' && contact) {
+      html += '<div class="history-line is-loading" data-history="' + escapeHtml(contact) + '">История клиента: загружается…</div>';
+    }
+
+    html += '<div class="card-actions">';
+    if (status === 'new') {
+      html += '<button class="btn btn-primary btn-sm" data-act="confirm">Подтвердить</button>';
+      html += '<button class="btn btn-danger btn-sm" data-act="cancel">Отменить</button>';
+    } else if (status === 'confirmed') {
+      html += '<button class="btn btn-pine btn-sm" data-act="done">Завершить</button>';
+      html += '<button class="btn btn-danger btn-sm" data-act="cancel">Отменить</button>';
+    } else if (status === 'done' || status === 'cancelled' || status === 'blocked') {
+      html += '<button class="btn btn-ghost btn-sm" data-act="delete">Удалить</button>';
+      if (status === 'cancelled') {
+        html += '<button class="btn btn-pine btn-sm" data-act="restore">Вернуть в новые</button>';
+      }
+    }
+    html += '</div>';
+
+    card.innerHTML = html;
+    root.appendChild(card);
+
+    // Подгрузим историю клиента (если есть контакт)
+    if (status !== 'blocked' && contact) {
+      const histEl = card.querySelector('[data-history]');
+      fetchClientHistory(contact).then(history => {
+        const others = history.filter(h => h.id !== b.id);
+        if (others.length === 0) {
+          histEl.classList.remove('is-loading');
+          histEl.textContent = 'История клиента: первый раз';
+        } else {
+          // последняя по slot_date
+          const sorted = others.slice().sort((a, c) =>
+            String(c.slot_date || '').localeCompare(String(a.slot_date || ''))
+          );
+          const lastDate = sorted[0].slot_date || '';
+          histEl.classList.remove('is-loading');
+          histEl.textContent = 'История клиента: всего ' + history.length +
+            ' заявок · последняя ' + humanDate(lastDate);
+        }
+      }).catch(() => {
+        histEl.classList.remove('is-loading');
+        histEl.textContent = 'История клиента: не удалось загрузить';
+      });
+    }
+  });
+}
+
+function formatTs(ts) {
+  // 'YYYY-MM-DDTHH:MM:SSZ' → '04.05.2026, 14:23'
+  const m = String(ts).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!m) return ts;
+  return m[3] + '.' + m[2] + '.' + m[1] + ', ' + m[4] + ':' + m[5];
+}
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/* ===========================================================
+   6. Event delegation — actions, message toggle
+   =========================================================== */
+document.getElementById('bookings').addEventListener('click', async e => {
+  const msg = e.target.closest('[data-toggle="msg"]');
+  if (msg) {
+    msg.classList.toggle('expanded');
+    return;
+  }
+
+  const btn = e.target.closest('button[data-act]');
+  if (!btn) return;
+  const card = btn.closest('.card');
+  if (!card) return;
+  const id = card.dataset.id;
+  const act = btn.dataset.act;
+
+  const actions = card.querySelectorAll('button');
+  actions.forEach(b => b.disabled = true);
+
+  try {
+    if (act === 'confirm')        await patchBookingStatus(id, 'confirmed');
+    else if (act === 'done')      await patchBookingStatus(id, 'done');
+    else if (act === 'cancel')    await patchBookingStatus(id, 'cancelled');
+    else if (act === 'restore')   await patchBookingStatus(id, 'new');
+    else if (act === 'delete') {
+      if (!confirm('Удалить заявку безвозвратно? Это удаляет ВСЕ поля, включая запись согласия.\nДля 152-ФЗ предпочтительнее статус «отменена».')) {
+        actions.forEach(b => b.disabled = false);
+        return;
+      }
+      await deleteBooking(id);
+    }
+    showToast('Готово');
+    await loadBookings();
+  } catch (err) {
+    console.error(err);
+    showToast('Ошибка: ' + (err.message || ''), true);
+    actions.forEach(b => b.disabled = false);
+  }
+});
+
+/* ===========================================================
+   7. Filters
+   =========================================================== */
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.setAttribute('aria-pressed', 'false'));
+    tab.setAttribute('aria-pressed', 'true');
+    state.filter = tab.dataset.status;
+    render();
+  });
+});
+
+const dateFilterEl = document.getElementById('date-filter');
+const dateClearBtn = document.getElementById('date-filter-clear');
+dateFilterEl.addEventListener('change', () => {
+  state.dateFilter = dateFilterEl.value || null;
+  dateClearBtn.hidden = !state.dateFilter;
+  render();
+});
+dateClearBtn.addEventListener('click', () => {
+  dateFilterEl.value = '';
+  state.dateFilter = null;
+  dateClearBtn.hidden = true;
+  render();
+});
+
+/* ===========================================================
+   8. Refresh + auto-refresh каждые 60 сек
+   =========================================================== */
+document.getElementById('btn-refresh').addEventListener('click', () => loadBookings());
+
+setInterval(() => {
+  if (cfg && !state.loading && !document.hidden) {
+    loadBookings();
+  }
+}, 60000);
+
+/* ===========================================================
+   9. Modal — закрыть слот вручную
+   =========================================================== */
+const blockModal  = document.getElementById('block-modal');
+const blockForm   = document.getElementById('block-form');
+const blockCancel = document.getElementById('block-cancel');
+
+document.getElementById('btn-block').addEventListener('click', () => {
+  blockForm.reset();
+  // Дефолт — сегодня
+  const t = new Date();
+  document.getElementById('b-date').value =
+    t.getFullYear() + '-' + pad(t.getMonth() + 1) + '-' + pad(t.getDate());
+  document.getElementById('b-dur').value = 30;
+  blockModal.hidden = false;
+});
+blockCancel.addEventListener('click', () => { blockModal.hidden = true; });
+blockModal.addEventListener('click', e => {
+  if (e.target === blockModal) blockModal.hidden = true;
+});
+
+blockForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const date = document.getElementById('b-date').value;
+  const time = document.getElementById('b-time').value;
+  const dur  = Number(document.getElementById('b-dur').value) || 30;
+  const reason = document.getElementById('b-reason').value.trim();
+
+  if (!date || !/^[0-2]\d:[0-5]\d$/.test(time)) {
+    showToast('Проверьте дату и время (HH:MM)', true);
+    return;
+  }
+
+  const payload = {
+    slot_date:            date,
+    slot_time:            time,
+    duration_min:         dur,
+    name:                 'ЗАБЛОКИРОВАНО',
+    contact_method:       'phone',
+    contact_value:        '—',
+    message:              reason || 'Закрыто вручную из админки',
+    source:               'website',
+    status:               'blocked',
+    consent_given:        true,
+    consent_text_version: CONSENT_VERSION_BLOCKED,
+    consent_timestamp:    new Date().toISOString()
+  };
+
+  const submitBtn = blockForm.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  try {
+    await createBlockedSlot(payload);
+    blockModal.hidden = true;
+    showToast('Слот закрыт');
+    await loadBookings();
+  } catch (err) {
+    console.error(err);
+    showToast('Не получилось: ' + (err.message || ''), true);
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+/* ===========================================================
+   10. Toast / errors
+   =========================================================== */
+const toastEl = document.getElementById('toast');
+let toastT = null;
+function showToast(text, isError) {
+  toastEl.textContent = text;
+  toastEl.classList.toggle('is-error', !!isError);
+  toastEl.classList.add('is-on');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => toastEl.classList.remove('is-on'), 2400);
+}
+
+function showError(text) {
+  const el = document.getElementById('error-banner');
+  el.textContent = text;
+  el.hidden = false;
+}
+function hideError() {
+  document.getElementById('error-banner').hidden = true;
+}
+
+/* ===========================================================
+   11. Init
+   =========================================================== */
+if (cfg) {
+  showApp();
+  loadBookings();
+} else {
+  showAuth();
+}
+</script>
+
+</body>
+</html>

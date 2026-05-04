@@ -1,0 +1,18 @@
+{
+  "name": "irina-calendar-email",
+  "version": "2.0.0",
+  "description": "Email-уведомления о новых записях календаря Ирины через РФ-провайдер (UniSender Go или SendPulse). 152-ФЗ.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

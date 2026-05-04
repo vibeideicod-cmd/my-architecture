@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FCFAE1">
+<meta name="description" content="Запись на бесплатное знакомство с Ириной Цепаевой — 30 минут, чтобы обсудить вашу задачу.">
+
+<!-- ============================================================
+     Baserow ENV — Инна заполнит после создания таблиц по BASEROW-SETUP.md
+     Если placeholder'ы YOUR_* остаются — страница работает в demo-режиме.
+     ============================================================ -->
+<meta name="baserow-url"                content="YOUR_BASEROW_URL">
+<meta name="baserow-token"              content="YOUR_BASEROW_TOKEN">
+<meta name="baserow-table-bookings"     content="YOUR_TABLE_BOOKINGS_ID">
+<meta name="baserow-table-slot-settings" content="YOUR_TABLE_SLOT_SETTINGS_ID">
+
+<!-- Версия согласия — менять при изменении состава полей формы или CONSENT-TEXT.md -->
+<meta name="consent-version" content="1.0">
+
+<!-- Контактный handle Ирины для success-screen — Инна подставит реальный username -->
+<meta name="irina-tg" content="irina_onlane_gesing">
+
+<title>Запись · Ирина Цепаева</title>
+
+<!-- Google Fonts: те же, что в визитке Ирины (visitka-v3) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<!-- Telegram WebApp SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<!-- VK Bridge SDK -->
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+<style>
+/* ===========================================================
+   Палитра и токены — точно из визитки Ирины (visitka-v3)
+   =========================================================== */
+:root {
+  /* Основные цвета визитки */
+  --pine:        #306654;
+  --pine-deep:   #1d4030;
+  --lime:        #A1BF5B;
+  --coral:       #FF935E;
+  --lemon:       #F8EB00;
+  --vanilla:     #FCFAE1;
+  --vanilla-deep:#F5F0CC;
+  --neon:        #13F740;
+  --acid:        #4DAA02;
+  --magenta:     #FF2EC4;
+
+  /* Цвета мессенджеров (правило корня — оригиналы) */
+  --tg:          #229ED9;
+  --vk:          #0077FF;
+
+  /* Чернила и линии — как в визитке */
+  --ink:         #1F3A2F;
+  --ink-2:       #2E4F40;
+  --rule:        rgba(48, 102, 84, 0.15);
+  --rule-soft:   rgba(48, 102, 84, 0.08);
+
+  /* Прозрачные слои (помощники) */
+  --pine-10:     rgba(48, 102, 84, 0.10);
+  --pine-20:     rgba(48, 102, 84, 0.20);
+  --pine-40:     rgba(48, 102, 84, 0.40);
+  --pine-60:     rgba(48, 102, 84, 0.60);
+  --coral-30:    rgba(255, 147, 94, 0.30);
+  --coral-50:    rgba(255, 147, 94, 0.50);
+  --coral-55:    rgba(255, 147, 94, 0.55);
+  --magenta-18:  rgba(255, 46, 196, 0.18);
+  --vanilla-bright: #FFF6D4;
+  --vanilla-warm:   #FFEAC9;
+
+  /* Семантические */
+  --bg:          var(--vanilla);
+  --text:        var(--ink);
+  --text-soft:   rgba(48, 102, 84, 0.72);
+  --text-muted:  rgba(48, 102, 84, 0.50);
+  --accent:      var(--coral);
+  --on-dark:     var(--vanilla);
+
+  /* Шрифты — как в визитке */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Шкала */
+  --fs-h1:    clamp(2rem, 1rem + 5vw, 4rem);
+  --fs-h2:    clamp(1.5rem, 1.15rem + 1.6vw, 2.25rem);
+  --fs-h3:    clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+  --fs-body:  clamp(0.95rem, 0.92rem + 0.18vw, 1.05rem);
+  --fs-small: 0.875rem;
+  --fs-tiny:  0.78rem;
+
+  /* Тайминги */
+  --ease-soft: cubic-bezier(.22, .61, .36, 1);
+  --ease-pop:  cubic-bezier(.34, 1.4, .64, 1);
+  --dur-fast:  150ms;
+  --dur-base:  250ms;
+  --dur-slow:  300ms;
+
+  /* Радиусы */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+}
+
+/* ===========================================================
+   Reset / база
+   =========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 var(--fs-body)/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Тонкий шум — как в визитке (тёплое премиум, не плоско) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+input, textarea, select { font: inherit; color: inherit; }
+a { color: var(--coral); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+
+main {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 28px) 120px;
+}
+
+.serif { font-family: var(--font-display); }
+.mono  { font-family: var(--font-mono); }
+
+/* ===========================================================
+   Hero — продолжение визитки: mesh-design «Закат-коралл»
+   =========================================================== */
+.hero {
+  position: relative;
+  padding: clamp(34px, 6vw, 60px) clamp(22px, 4vw, 36px);
+  margin-bottom: clamp(28px, 5vw, 44px);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(at 25% 20%, var(--coral-55) 0px, transparent 55%),
+    radial-gradient(at 80% 10%, var(--magenta-18) 0px, transparent 50%),
+    radial-gradient(at 60% 95%, rgba(48, 102, 84, 0.30) 0px, transparent 55%),
+    var(--vanilla);
+  box-shadow:
+    0 24px 60px -22px rgba(48, 102, 84, 0.32),
+    0 4px 14px -6px var(--coral-30),
+    0 0 0 1px rgba(48, 102, 84, 0.08) inset;
+}
+
+/* Капельный паттерн поверх hero — как в visual-language §4.2 */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(255, 147, 94, 0.30) 0 6px, transparent 7px),
+    radial-gradient(circle at 88% 75%, rgba(255, 46, 196, 0.18) 0 5px, transparent 6px),
+    radial-gradient(circle at 75% 28%, rgba(161, 191, 91, 0.22) 0 9px, transparent 10px);
+  opacity: 0.85;
+}
+
+.hero-meta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(252, 250, 225, 0.78);
+  border: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pine);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 32px -16px rgba(48, 102, 84, 0.35);
+}
+.hero-meta .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 0 4px rgba(19, 247, 64, 0.18), 0 0 12px var(--neon);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(19, 247, 64, 0.15), 0 0 8px var(--neon); }
+  50%      { box-shadow: 0 0 0 7px rgba(19, 247, 64, 0.05), 0 0 16px var(--neon); }
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--pine-deep);
+  text-wrap: pretty;
+  filter: drop-shadow(0 6px 20px rgba(255, 147, 94, 0.30));
+}
+
+.hero h1 .accent {
+  background: linear-gradient(120deg, var(--coral) 0%, var(--magenta) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.hero p.lede {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 38ch;
+  color: var(--ink-2);
+  font-size: clamp(0.95rem, 0.9rem + 0.4vw, 1.125rem);
+  line-height: 1.55;
+}
+
+/* ===========================================================
+   Stagger fade-in
+   =========================================================== */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.stagger > * {
+  opacity: 0;
+  animation: rise-in var(--dur-base) var(--ease-soft) forwards;
+}
+.appear { animation: rise-in var(--dur-slow) var(--ease-soft) both; }
+
+.hero > * {
+  opacity: 0;
+  animation: rise-in var(--dur-slow) var(--ease-soft) forwards;
+}
+.hero > *:nth-child(1) { animation-delay: 60ms; }
+.hero > *:nth-child(2) { animation-delay: 140ms; }
+.hero > *:nth-child(3) { animation-delay: 220ms; }
+
+/* ===========================================================
+   Заголовки секций
+   =========================================================== */
+.section { margin-bottom: clamp(22px, 4vw, 36px); }
+
+.section-title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: 1.15;
+  color: var(--pine-deep);
+  letter-spacing: -0.01em;
+}
+
+.section-hint,
+.month-label {
+  margin: 0 0 16px;
+  font-size: var(--fs-small);
+  color: var(--text-soft);
+}
+.month-label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  color: var(--text-soft);
+}
+
+.step-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pine);
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+.step-counter .num {
+  display: grid;
+  place-items: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--vanilla);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  opacity: 0.95;
+}
+
+/* ===========================================================
+   Date picker — горизонтальный скролл
+   =========================================================== */
+.dates {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 76px;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 2px 14px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pine-20) transparent;
+}
+.dates::-webkit-scrollbar { height: 6px; }
+.dates::-webkit-scrollbar-track { background: transparent; }
+.dates::-webkit-scrollbar-thumb { background: var(--pine-20); border-radius: 3px; }
+
+.date-cell {
+  scroll-snap-align: start;
+  min-height: 88px;
+  border: 1.5px solid rgba(48, 102, 84, 0.18);
+  border-radius: var(--r-md);
+  background: var(--vanilla);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform var(--dur-fast) var(--ease-pop),
+              background var(--dur-fast) var(--ease-soft),
+              border-color var(--dur-fast) var(--ease-soft),
+              box-shadow var(--dur-fast) var(--ease-soft),
+              color var(--dur-fast) var(--ease-soft);
+}
+.date-cell:hover:not([disabled]):not([aria-pressed="true"]) {
+  transform: translateY(-2px);
+  border-color: var(--coral);
+  box-shadow: 0 8px 18px -10px var(--coral-50);
+}
+.date-cell .day-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.625rem;
+  line-height: 1;
+  color: var(--pine-deep);
+}
+.date-cell .day-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.date-cell[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+.date-cell[aria-pressed="true"] {
+  background: var(--coral);
+  border-color: var(--coral);
+  box-shadow:
+    0 12px 26px -10px var(--coral-50),
+    0 2px 6px var(--coral-30);
+  transform: translateY(-2px);
+}
+.date-cell[aria-pressed="true"] .day-num,
+.date-cell[aria-pressed="true"] .day-name {
+  color: var(--vanilla);
+}
+
+/* ===========================================================
+   Time picker
+   =========================================================== */
+.slots-wrap { margin-top: 4px; }
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (min-width: 480px) {
+  .slots { grid-template-columns: repeat(4, 1fr); }
+}
+
+.slot {
+  appearance: none;
+  border: 1.5px solid var(--pine);
+  background: var(--vanilla);
+  color: var(--pine-deep);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  padding: 14px 6px;
+  border-radius: var(--r-sm);
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: transform var(--dur-fast) var(--ease-pop),
+              border var(--dur-fast) var(--ease-soft),
+              box-shadow var(--dur-fast) var(--ease-soft),
+              background var(--dur-fast) var(--ease-soft);
+}
+.slot[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: var(--pine-20);
+  border-style: dashed;
+  text-decoration: line-through;
+  text-decoration-color: var(--pine-40);
+}
+.slot:not([disabled]):hover {
+  transform: translateY(-2px);
+  border-color: var(--coral);
+  box-shadow: 0 8px 18px -10px var(--coral-50);
+}
+.slot[aria-pressed="true"] {
+  border: 2px solid var(--coral);
+  box-shadow:
+    0 8px 22px -8px var(--coral-50),
+    0 0 0 4px rgba(255, 147, 94, 0.12);
+  background: linear-gradient(180deg, var(--vanilla) 0%, var(--vanilla-bright) 100%);
+}
+
+.slots-empty {
+  padding: 22px 16px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--vanilla) 0%, var(--vanilla-bright) 60%, var(--vanilla-warm) 100%);
+  color: var(--text-soft);
+  text-align: center;
+  font-size: var(--fs-small);
+  border: 1px solid var(--rule-soft);
+}
+
+.slots-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 22px;
+  color: var(--text-soft);
+  font-size: var(--fs-small);
+}
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--pine-20);
+  border-top-color: var(--coral);
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===========================================================
+   Form
+   =========================================================== */
+.form {
+  display: grid;
+  gap: 16px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.form-row { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; }
+
+.form-row label,
+.form-row legend {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--pine-deep);
+  letter-spacing: 0.005em;
+}
+.form-row legend { padding: 0; margin-bottom: 8px; }
+
+.field {
+  width: 100%;
+  background: var(--vanilla);
+  border: 1.5px solid rgba(48, 102, 84, 0.20);
+  border-radius: var(--r-sm);
+  padding: 13px 14px;
+  font-size: var(--fs-body);
+  color: var(--pine-deep);
+  transition: border var(--dur-fast) var(--ease-soft),
+              box-shadow var(--dur-fast) var(--ease-soft);
+}
+.field::placeholder { color: var(--text-muted); }
+.field:focus {
+  outline: 0;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(255, 147, 94, 0.18);
+}
+.field.is-error {
+  border-color: var(--magenta);
+  box-shadow: 0 0 0 3px rgba(255, 46, 196, 0.12);
+}
+
+textarea.field {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.5;
+}
+
+.char-count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: -4px;
+}
+
+/* Радио-сегмент для контакт-метода */
+.radio-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  border: 1.5px solid rgba(48, 102, 84, 0.18);
+  border-radius: var(--r-sm);
+  padding: 4px;
+  background: var(--vanilla);
+}
+.radio-group input { position: absolute; opacity: 0; pointer-events: none; }
+.radio-group label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 4px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-soft),
+              color var(--dur-fast) var(--ease-soft);
+  text-align: center;
+}
+.radio-group input:checked + label {
+  background: var(--pine);
+  color: var(--vanilla);
+}
+.radio-group input:focus-visible + label {
+  box-shadow: 0 0 0 3px rgba(255, 147, 94, 0.35);
+}
+
+.dot-mini {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.dot-tg    { background: var(--tg); }
+.dot-vk    { background: var(--vk); }
+.dot-email { background: var(--coral); }
+.dot-phone { background: var(--lime); }
+
+/* Inline error */
+.error-msg {
+  margin: 0;
+  font-size: var(--fs-tiny);
+  color: var(--magenta);
+  font-weight: 600;
+}
+
+/* ===========================================================
+   Чекбокс согласия — визуально яркий
+   =========================================================== */
+.consent-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 16px;
+  background: var(--vanilla);
+  border: 1.5px solid rgba(48, 102, 84, 0.18);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-soft),
+              background var(--dur-fast) var(--ease-soft),
+              box-shadow var(--dur-fast) var(--ease-soft);
+}
+.consent-row:hover {
+  border-color: var(--coral);
+  background: linear-gradient(180deg, var(--vanilla) 0%, var(--vanilla-bright) 100%);
+}
+.consent-row.is-checked {
+  border-color: var(--coral);
+  background: linear-gradient(135deg, var(--vanilla) 0%, var(--vanilla-bright) 60%, var(--vanilla-warm) 100%);
+  box-shadow: 0 4px 14px -6px var(--coral-30);
+}
+
+/* Кастомный чекбокс */
+.consent-row input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.consent-box {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border: 2px solid var(--pine);
+  border-radius: 6px;
+  background: var(--vanilla);
+  transition: background var(--dur-fast) var(--ease-pop),
+              border-color var(--dur-fast) var(--ease-soft);
+  flex-shrink: 0;
+}
+.consent-box::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 6px;
+  width: 6px;
+  height: 11px;
+  border: solid var(--vanilla);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  transition: transform var(--dur-fast) var(--ease-pop);
+}
+.consent-row input:checked ~ .consent-box {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+.consent-row input:checked ~ .consent-box::after {
+  transform: rotate(45deg) scale(1);
+}
+.consent-row input:focus-visible ~ .consent-box {
+  box-shadow: 0 0 0 4px rgba(255, 147, 94, 0.30);
+}
+
+.consent-text {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.consent-text a {
+  color: var(--coral);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ===========================================================
+   CTA (browser fallback) — TG/VK используют MainButton
+   =========================================================== */
+.cta-browser {
+  display: none;
+  width: 100%;
+  margin-top: 4px;
+  padding: 17px 22px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, #FFB48A 0%, var(--coral) 60%, #E07344 100%);
+  color: var(--vanilla);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  box-shadow:
+    0 12px 32px -8px var(--coral-55),
+    0 3px 8px rgba(255, 147, 94, 0.30);
+  transition: transform var(--dur-fast) var(--ease-pop),
+              box-shadow var(--dur-fast) var(--ease-soft),
+              opacity var(--dur-fast) var(--ease-soft);
+}
+.cta-browser:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -10px var(--coral-55),
+    0 4px 10px rgba(255, 147, 94, 0.40);
+}
+.cta-browser:active:not([disabled]) { transform: translateY(0); }
+.cta-browser[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: 0 4px 12px -4px var(--coral-30);
+}
+
+body.is-website .cta-browser { display: block; }
+
+[hidden] { display: none !important; }
+
+/* ===========================================================
+   Demo-плашка (видна только в demo-режиме)
+   =========================================================== */
+.demo-banner {
+  display: none;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--vanilla-bright) 0%, var(--vanilla-warm) 100%);
+  border: 1px solid var(--coral);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pine-deep);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+body.is-demo .demo-banner { display: block; }
+
+/* ===========================================================
+   Success — фон «Лесная тень» (visual-language §2.2)
+   =========================================================== */
+.success {
+  position: relative;
+  padding: clamp(30px, 6vw, 48px) clamp(22px, 5vw, 36px);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(at 20% 0%, rgba(255, 147, 94, 0.25) 0px, transparent 55%),
+    radial-gradient(at 100% 100%, rgba(161, 191, 91, 0.18) 0px, transparent 55%),
+    linear-gradient(135deg, var(--pine) 0%, var(--pine-deep) 100%);
+  color: var(--on-dark);
+  box-shadow:
+    0 24px 60px -20px rgba(48, 102, 84, 0.45),
+    0 8px 20px -8px var(--coral-30);
+  text-align: center;
+}
+.success h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  color: var(--vanilla);
+}
+.success p {
+  margin: 0 0 12px;
+  color: rgba(252, 250, 225, 0.9);
+}
+.success p.dim {
+  font-size: var(--fs-small);
+  color: rgba(252, 250, 225, 0.72);
+  margin-top: 18px;
+}
+.success a { color: var(--coral); font-weight: 600; }
+
+.success .check {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--coral);
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0 12px 32px -6px var(--coral-55),
+    0 0 0 6px rgba(255, 147, 94, 0.18);
+  animation: check-pop 0.5s var(--ease-pop) both;
+}
+@keyframes check-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.success .check svg { width: 30px; height: 30px; }
+
+.success-actions {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.btn-ghost-light {
+  background: transparent;
+  border: 1.5px solid rgba(252, 250, 225, 0.4);
+  color: var(--vanilla);
+  padding: 12px 22px;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  transition: background var(--dur-fast) var(--ease-soft),
+              border-color var(--dur-fast) var(--ease-soft);
+}
+.btn-ghost-light:hover {
+  background: rgba(252, 250, 225, 0.08);
+  border-color: var(--coral);
+}
+
+/* ===========================================================
+   Footer — подпись Ирины + юр.метка оператора ПД
+   =========================================================== */
+.footer {
+  margin-top: 28px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.footer .name {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.15rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-soft);
+}
+.footer .legal-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.footer .legal-links a {
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+}
+.footer .legal-links a:hover {
+  color: var(--coral);
+  border-bottom-color: var(--coral);
+}
+
+/* ===========================================================
+   Reduced motion
+   =========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::before { display: none; }
+  .hero-meta .dot { animation: none; }
+}
+
+/* ===========================================================
+   Mobile
+   =========================================================== */
+@media (max-width: 480px) {
+  main { padding-top: 18px; padding-bottom: 110px; }
+  .hero { padding: 30px 22px; }
+  .radio-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .radio-group label { padding: 12px 6px; }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+  <!-- ============================ Hero ============================ -->
+  <section class="hero" aria-labelledby="page-title">
+    <span class="hero-meta"><span class="dot" aria-hidden="true"></span>30 минут · Zoom · бесплатно</span>
+    <h1 id="page-title">
+      Когда вам <span class="accent">удобно</span>?
+    </h1>
+    <p class="lede">
+      Бесплатное знакомство с Ириной. Обсудим вашу задачу и подберу, что подойдёт.
+    </p>
+  </section>
+
+  <!-- =========== Demo-баннер: видно только когда meta = YOUR_* =========== -->
+  <div class="demo-banner" id="demo-banner" role="status">
+    Демо-режим · подключение к Baserow ещё не настроено · показаны примеры слотов
+  </div>
+
+  <!-- =========================== Booking ============================ -->
+  <section id="booking-card" aria-labelledby="booking-title">
+
+    <!-- Шаг 1: дата -->
+    <div class="section" id="step-date">
+      <div class="step-counter"><span class="num">1</span><span>Дата</span></div>
+      <h2 class="section-title" id="booking-title">Выберите день</h2>
+      <p class="month-label" id="month-label"></p>
+      <div class="dates stagger" id="date-list" role="radiogroup" aria-label="Выбор даты записи"></div>
+    </div>
+
+    <!-- Шаг 2: слот времени -->
+    <div class="section" id="step-time" hidden>
+      <div class="step-counter"><span class="num">2</span><span>Время</span></div>
+      <h2 class="section-title">
+        Выберите время
+        <small id="selected-date-label" style="font:600 var(--fs-small)/1 var(--font-body); color: var(--text-soft); margin-left:8px; letter-spacing:0;"></small>
+      </h2>
+      <div class="slots-wrap" id="slots-wrap">
+        <div class="slots-loader" id="slots-loader" hidden>
+          <span class="spinner"></span> Смотрим, что свободно…
+        </div>
+        <div class="slots stagger" id="slot-list" role="radiogroup" aria-label="Свободные слоты времени"></div>
+        <div class="slots-empty" id="slots-empty" hidden>
+          В этот день свободных слотов нет. Выберите другую дату.
+        </div>
+      </div>
+    </div>
+
+    <!-- Шаг 3: форма + согласие -->
+    <div class="section" id="step-form" hidden>
+      <div class="step-counter"><span class="num">3</span><span>О вас</span></div>
+      <h2 class="section-title">Расскажите о себе</h2>
+
+      <form class="form" id="booking-form" novalidate>
+        <fieldset class="form-row">
+          <label for="f-name">Ваше имя</label>
+          <input type="text" id="f-name" name="name" class="field" required minlength="2" maxlength="120" autocomplete="name" placeholder="Как к вам обращаться">
+          <p class="error-msg" id="err-name" hidden>Напишите, пожалуйста, имя.</p>
+        </fieldset>
+
+        <fieldset class="form-row">
+          <legend>Где вам удобнее, чтобы я написала?</legend>
+          <div class="radio-group" role="radiogroup" aria-label="Способ связи">
+            <input type="radio" name="contact_method" id="cm-tg"    value="telegram" checked>
+            <label for="cm-tg"><span class="dot-mini dot-tg"></span>Telegram</label>
+
+            <input type="radio" name="contact_method" id="cm-vk"    value="vk">
+            <label for="cm-vk"><span class="dot-mini dot-vk"></span>VK</label>
+
+            <input type="radio" name="contact_method" id="cm-email" value="email">
+            <label for="cm-email"><span class="dot-mini dot-email"></span>Email</label>
+
+            <input type="radio" name="contact_method" id="cm-phone" value="phone">
+            <label for="cm-phone"><span class="dot-mini dot-phone"></span>Телефон</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-row">
+          <label for="f-contact" id="f-contact-label">Ваш Telegram</label>
+          <input type="text" id="f-contact" name="contact_value" class="field" required minlength="2" maxlength="200" placeholder="@username">
+          <p class="error-msg" id="err-contact" hidden>Заполните контакт.</p>
+        </fieldset>
+
+        <fieldset class="form-row">
+          <label for="f-message">Расскажите коротко о задаче <span style="color: var(--text-muted); font-weight:500;">(необязательно)</span></label>
+          <textarea id="f-message" name="message" class="field" maxlength="200" placeholder="Над чем хотите подумать вместе"></textarea>
+          <div class="char-count"><span id="msg-count">0</span>/200</div>
+        </fieldset>
+
+        <!-- ===== Чекбокс согласия по 152-ФЗ ===== -->
+        <label class="consent-row" id="consent-row">
+          <input type="checkbox" id="f-consent" name="consent" required>
+          <span class="consent-box" aria-hidden="true"></span>
+          <span class="consent-text">
+            Я даю
+            <a href="legal/consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a>
+            и принимаю
+            <a href="legal/privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a>
+          </span>
+        </label>
+
+        <button type="submit" class="cta-browser" id="cta-browser" disabled>
+          <span id="cta-text">Записаться</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- =========================== Success ============================ -->
+  <section id="success" class="success" hidden aria-live="polite">
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FCFAE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12.5l4.5 4.5L19 7"/>
+      </svg>
+    </div>
+    <h2>Готово</h2>
+    <p id="success-line-1">Я записала вас на встречу.</p>
+    <p id="success-line-2"></p>
+    <p class="dim" id="success-line-3"></p>
+    <div class="success-actions" id="success-actions"></div>
+  </section>
+
+  <footer class="footer">
+    <span class="name">Ирина Цепаева</span>
+    дизайн и реализация
+    <div class="legal-links">
+      <a href="legal/consent.html" target="_blank" rel="noopener">Согласие на обработку ПД</a>
+      <a href="legal/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+/* ===========================================================
+   1. Среда (Mini App detector) — TG / VK / website
+   =========================================================== */
+const env = (function detectEnv() {
+  if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined) {
+    try {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    } catch (e) { /* noop */ }
+    return 'tg_miniapp';
+  }
+  if (window.vkBridge && typeof window.vkBridge.send === 'function') {
+    try { window.vkBridge.send('VKWebAppInit'); } catch (e) { /* noop */ }
+    return 'vk_miniapp';
+  }
+  return 'website';
+})();
+
+document.body.classList.add(
+  env === 'tg_miniapp' ? 'is-tg' :
+  env === 'vk_miniapp' ? 'is-vk' :
+                          'is-website'
+);
+
+/* ===========================================================
+   2. Конфиг Baserow из <meta>
+   =========================================================== */
+function metaContent(name) {
+  const el = document.querySelector('meta[name="' + name + '"]');
+  return el ? (el.content || '').trim() : '';
+}
+
+const BASEROW_URL          = metaContent('baserow-url');
+const BASEROW_TOKEN        = metaContent('baserow-token');
+const TABLE_BOOKINGS       = metaContent('baserow-table-bookings');
+const TABLE_SLOT_SETTINGS  = metaContent('baserow-table-slot-settings');
+const CONSENT_VERSION      = metaContent('consent-version') || '1.0';
+const IRINA_TG             = metaContent('irina-tg') || 'irina_onlane_gesing';
+
+const isPlaceholder =
+  BASEROW_URL.indexOf('YOUR_') === 0 ||
+  BASEROW_TOKEN.indexOf('YOUR_') === 0 ||
+  TABLE_BOOKINGS.indexOf('YOUR_') === 0 ||
+  TABLE_SLOT_SETTINGS.indexOf('YOUR_') === 0 ||
+  !BASEROW_URL || !BASEROW_TOKEN;
+
+if (isPlaceholder) {
+  document.body.classList.add('is-demo');
+  console.info('[demo mode] Baserow placeholders not replaced — using mock slots.');
+}
+
+const baserowHeaders = {
+  'Authorization': 'Token ' + BASEROW_TOKEN,
+  'Content-Type':  'application/json'
+};
+
+/* ===========================================================
+   3. State
+   =========================================================== */
+const state = {
+  selectedDate:   null,   // 'YYYY-MM-DD'
+  selectedTime:   null,   // 'HH:MM'
+  contactMethod:  'telegram',
+  consentGiven:   false,
+  formValid:      false,
+  submitting:     false,
+  slotSettingsByWeekday: null  // cache
+};
+
+/* ===========================================================
+   4. Helpers
+   =========================================================== */
+const RU_DAYS_SHORT = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+const RU_MONTHS_FULL = [
+  'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+];
+
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+function humanDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return d + ' ' + RU_MONTHS_FULL[m - 1];
+}
+
+/* Time helpers (HH:MM ↔ minutes) */
+function timeToMin(t) {
+  if (!t) return 0;
+  const parts = String(t).split(':');
+  return (+parts[0]) * 60 + (+(parts[1] || 0));
+}
+function minToTime(m) {
+  return pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+}
+
+/* ===========================================================
+   5. Baserow API
+   =========================================================== */
+async function fetchSlotSettings() {
+  if (state.slotSettingsByWeekday) return state.slotSettingsByWeekday;
+
+  if (isPlaceholder) {
+    // Дефолты Ирины — пн-пт 10:00-19:00 / 30 мин / 5 слотов
+    const def = {};
+    for (let w = 1; w <= 5; w++) {
+      def[w] = { start_time: '10:00', end_time: '19:00', slot_duration_min: 30, max_slots_per_day: 5, is_active: true };
+    }
+    def[0] = { is_active: false };
+    def[6] = { is_active: false };
+    state.slotSettingsByWeekday = def;
+    return def;
+  }
+
+  const url = BASEROW_URL.replace(/\/$/, '') +
+    '/api/database/rows/table/' + TABLE_SLOT_SETTINGS +
+    '/?user_field_names=true&size=20';
+
+  const res = await fetch(url, { headers: baserowHeaders });
+  if (!res.ok) throw new Error('slot_settings HTTP ' + res.status);
+  const data = await res.json();
+  const map = {};
+  (data.results || []).forEach(row => {
+    const wd = Number(row.weekday);
+    if (Number.isFinite(wd)) map[wd] = row;
+  });
+  state.slotSettingsByWeekday = map;
+  return map;
+}
+
+async function fetchBookingsForDate(date) {
+  if (isPlaceholder) {
+    // detection of busy slots — детерминированный mock
+    const seed = date.split('-').reduce((a, b) => a + parseInt(b, 10), 0);
+    const busy = [];
+    if (seed % 4 === 0) busy.push('10:00');
+    if (seed % 3 === 0) busy.push('14:00');
+    if (seed % 5 === 0) busy.push('16:30');
+    return busy;
+  }
+
+  const url = BASEROW_URL.replace(/\/$/, '') +
+    '/api/database/rows/table/' + TABLE_BOOKINGS +
+    '/?user_field_names=true&size=200' +
+    '&filter__slot_date__date_equal=' + encodeURIComponent(date) +
+    '&filter__status__not_equal=cancelled';
+
+  const res = await fetch(url, { headers: baserowHeaders });
+  if (!res.ok) throw new Error('bookings HTTP ' + res.status);
+  const data = await res.json();
+  return (data.results || [])
+    .map(r => (r.slot_time || '').slice(0, 5))
+    .filter(Boolean);
+}
+
+/* Generate slots from settings + busy[] */
+function generateSlots(settings, busyTimes) {
+  if (!settings || settings.is_active === false) return [];
+  const start = timeToMin(settings.start_time || '10:00');
+  const end   = timeToMin(settings.end_time   || '19:00');
+  const dur   = Number(settings.slot_duration_min) || 30;
+  const max   = Number(settings.max_slots_per_day) || 5;
+
+  const all = [];
+  for (let m = start; m + dur <= end && all.length < max; m += dur) {
+    const t = minToTime(m);
+    all.push({ slot_time: t, available: busyTimes.indexOf(t) === -1 });
+  }
+  return all;
+}
+
+/* ===========================================================
+   6. Date list — 14 дней вперёд
+   =========================================================== */
+async function buildDates() {
+  let settings;
+  try { settings = await fetchSlotSettings(); }
+  catch (err) {
+    console.warn('slot_settings failed, fallback to defaults', err);
+    settings = state.slotSettingsByWeekday || {};
+  }
+
+  const list = document.getElementById('date-list');
+  const monthLabel = document.getElementById('month-label');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const months = new Set();
+
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+
+    const wd = d.getDay(); // 0=вс ... 6=сб
+    const conf = settings[wd];
+    const inactive = !conf || conf.is_active === false;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'date-cell';
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('aria-pressed', 'false');
+    btn.dataset.date = ymd(d);
+    btn.dataset.weekday = String(wd);
+    btn.style.animationDelay = (40 + i * 30) + 'ms';
+
+    if (inactive) {
+      btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
+      btn.title = 'В этот день записи нет';
+    } else {
+      btn.addEventListener('click', () => onDateClick(btn));
+    }
+
+    btn.innerHTML =
+      '<span class="day-num">' + d.getDate() + '</span>' +
+      '<span class="day-name">' + RU_DAYS_SHORT[wd] + '</span>';
+
+    list.appendChild(btn);
+    months.add(d.getMonth());
+  }
+
+  const monthsArr = Array.from(months);
+  if (monthsArr.length === 1) {
+    monthLabel.textContent = RU_MONTHS_FULL[monthsArr[0]] + ' ' + today.getFullYear();
+  } else {
+    monthLabel.textContent =
+      RU_MONTHS_FULL[monthsArr[0]] + ' — ' +
+      RU_MONTHS_FULL[monthsArr[monthsArr.length - 1]] + ' ' + today.getFullYear();
+  }
+}
+
+function onDateClick(btn) {
+  document.querySelectorAll('.date-cell[aria-pressed="true"]').forEach(el => el.setAttribute('aria-pressed', 'false'));
+  btn.setAttribute('aria-pressed', 'true');
+
+  state.selectedDate = btn.dataset.date;
+  state.selectedTime = null;
+
+  const stepTime = document.getElementById('step-time');
+  stepTime.hidden = false;
+  stepTime.classList.remove('appear');
+  void stepTime.offsetWidth;
+  stepTime.classList.add('appear');
+
+  document.getElementById('selected-date-label').textContent = humanDate(state.selectedDate);
+  document.getElementById('step-form').hidden = true;
+
+  loadSlots(state.selectedDate, Number(btn.dataset.weekday));
+
+  refreshCta();
+
+  setTimeout(() => stepTime.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+}
+
+/* ===========================================================
+   7. Slots
+   =========================================================== */
+function showSlotsLoader(on) {
+  document.getElementById('slots-loader').hidden = !on;
+  document.getElementById('slot-list').hidden = on;
+  document.getElementById('slots-empty').hidden = true;
+}
+
+async function loadSlots(date, weekday) {
+  const list = document.getElementById('slot-list');
+  list.innerHTML = '';
+  document.getElementById('slots-empty').hidden = true;
+  showSlotsLoader(true);
+
+  let slots = [];
+  try {
+    const settings = await fetchSlotSettings();
+    const busy = await fetchBookingsForDate(date);
+    slots = generateSlots(settings[weekday], busy);
+  } catch (err) {
+    console.warn('loadSlots failed, falling back to defaults', err);
+    const fallback = { start_time: '10:00', end_time: '19:00', slot_duration_min: 30, max_slots_per_day: 5, is_active: true };
+    slots = generateSlots(fallback, []);
+  }
+
+  showSlotsLoader(false);
+
+  if (!slots || slots.length === 0) {
+    document.getElementById('slots-empty').hidden = false;
+    return;
+  }
+
+  slots.forEach((s, i) => {
+    const t = (s.slot_time || '').slice(0, 5);
+    if (!t) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot';
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('aria-pressed', 'false');
+    btn.dataset.time = t;
+    btn.textContent = t;
+    btn.style.animationDelay = (i * 30) + 'ms';
+    if (s.available === false) {
+      btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
+    } else {
+      btn.addEventListener('click', () => onSlotClick(btn));
+    }
+    list.appendChild(btn);
+  });
+}
+
+function onSlotClick(btn) {
+  document.querySelectorAll('.slot[aria-pressed="true"]').forEach(el => el.setAttribute('aria-pressed', 'false'));
+  btn.setAttribute('aria-pressed', 'true');
+  state.selectedTime = btn.dataset.time;
+
+  const stepForm = document.getElementById('step-form');
+  stepForm.hidden = false;
+  stepForm.classList.remove('appear');
+  void stepForm.offsetWidth;
+  stepForm.classList.add('appear');
+
+  refreshCta();
+
+  setTimeout(() => stepForm.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+}
+
+/* ===========================================================
+   8. Form — поля + чекбокс согласия
+   =========================================================== */
+const elName    = document.getElementById('f-name');
+const elContact = document.getElementById('f-contact');
+const elMsg     = document.getElementById('f-message');
+const elMsgCnt  = document.getElementById('msg-count');
+const elContactLabel = document.getElementById('f-contact-label');
+const elConsent      = document.getElementById('f-consent');
+const elConsentRow   = document.getElementById('consent-row');
+const errName    = document.getElementById('err-name');
+const errContact = document.getElementById('err-contact');
+
+const contactMethodConfig = {
+  telegram: { label: 'Ваш Telegram', placeholder: '@username' },
+  vk:       { label: 'Ваш VK',       placeholder: 'https://vk.com/...' },
+  email:    { label: 'Ваш email',    placeholder: 'you@example.com' },
+  phone:    { label: 'Ваш телефон',  placeholder: '+7 ___ ___-__-__' }
+};
+
+document.querySelectorAll('input[name="contact_method"]').forEach(input => {
+  input.addEventListener('change', e => {
+    state.contactMethod = e.target.value;
+    const cfg = contactMethodConfig[state.contactMethod];
+    elContactLabel.textContent = cfg.label;
+    elContact.placeholder = cfg.placeholder;
+    if (state.contactMethod === 'email') {
+      elContact.type = 'email';
+      elContact.autocomplete = 'email';
+    } else if (state.contactMethod === 'phone') {
+      elContact.type = 'tel';
+      elContact.autocomplete = 'tel';
+    } else {
+      elContact.type = 'text';
+      elContact.autocomplete = 'off';
+    }
+    validateForm();
+  });
+});
+
+[elName, elContact].forEach(el => {
+  el.addEventListener('input', () => {
+    el.classList.remove('is-error');
+    validateForm();
+  });
+});
+
+elMsg.addEventListener('input', () => {
+  elMsgCnt.textContent = elMsg.value.length;
+});
+
+elConsent.addEventListener('change', () => {
+  state.consentGiven = elConsent.checked;
+  elConsentRow.classList.toggle('is-checked', elConsent.checked);
+  validateForm();
+});
+
+function validateForm() {
+  const okName    = elName.value.trim().length >= 2;
+  const okContact = validateContact(state.contactMethod, elContact.value.trim());
+  const okSlot    = !!(state.selectedDate && state.selectedTime);
+  const okConsent = state.consentGiven === true;
+  state.formValid = okName && okContact && okSlot && okConsent;
+  refreshCta();
+  return state.formValid;
+}
+
+function validateContact(method, value) {
+  if (!value || value.length < 2) return false;
+  if (method === 'email') {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+  if (method === 'phone') {
+    const digits = value.replace(/\D+/g, '');
+    return digits.length >= 10;
+  }
+  return true;
+}
+
+/* ===========================================================
+   9. CTA — браузерная кнопка + TG/VK MainButton
+   =========================================================== */
+const ctaBtn  = document.getElementById('cta-browser');
+const ctaText = document.getElementById('cta-text');
+
+function ctaLabel() {
+  if (state.selectedDate && state.selectedTime) {
+    return 'Записаться · ' + humanDate(state.selectedDate) + ', ' + state.selectedTime;
+  }
+  return 'Записаться';
+}
+
+function refreshCta() {
+  const text = ctaLabel();
+  ctaText.textContent = state.submitting ? 'Записываем…' : text;
+  ctaBtn.disabled = !state.formValid || state.submitting;
+
+  // Telegram MainButton
+  if (env === 'tg_miniapp' && window.Telegram && window.Telegram.WebApp) {
+    const mb = window.Telegram.WebApp.MainButton;
+    try {
+      mb.setText(state.submitting ? 'Записываем…' : text);
+      if (state.formValid && !state.submitting) {
+        mb.show(); mb.enable();
+        if (mb.hideProgress) mb.hideProgress();
+      } else if (state.submitting) {
+        mb.show(); mb.disable();
+        if (mb.showProgress) mb.showProgress();
+      } else {
+        if (mb.hideProgress) mb.hideProgress();
+        mb.hide();
+      }
+    } catch (e) { /* noop */ }
+  }
+}
+
+ctaBtn.addEventListener('click', e => {
+  e.preventDefault();
+  submitBooking();
+});
+
+document.getElementById('booking-form').addEventListener('submit', e => {
+  e.preventDefault();
+  submitBooking();
+});
+
+/* ===========================================================
+   10. Submit — POST в Baserow
+   =========================================================== */
+function showFormErrors() {
+  const okName    = elName.value.trim().length >= 2;
+  const okContact = validateContact(state.contactMethod, elContact.value.trim());
+  errName.hidden    = okName;
+  errContact.hidden = okContact;
+  if (!okName)    elName.classList.add('is-error');
+  if (!okContact) elContact.classList.add('is-error');
+  if (!okName) elName.focus();
+  else if (!okContact) elContact.focus();
+  else if (!state.consentGiven) {
+    // Подсветим строку согласия
+    elConsentRow.style.boxShadow = '0 0 0 3px rgba(255, 46, 196, 0.18)';
+    setTimeout(() => { elConsentRow.style.boxShadow = ''; }, 1400);
+  }
+}
+
+async function submitBooking() {
+  if (state.submitting) return;
+  if (!validateForm()) {
+    showFormErrors();
+    return;
+  }
+
+  state.submitting = true;
+  refreshCta();
+
+  const payload = {
+    slot_date:            state.selectedDate,
+    slot_time:            state.selectedTime,
+    duration_min:         30,
+    name:                 elName.value.trim(),
+    contact_method:       state.contactMethod,
+    contact_value:        elContact.value.trim(),
+    message:              elMsg.value.trim() || '',
+    source:               env,
+    status:               'new',
+    consent_given:        true,
+    consent_text_version: CONSENT_VERSION,
+    consent_timestamp:    new Date().toISOString()
+    // consent_ip — заполняет бэкенд (nginx X-Real-IP), фронт не пишет
+  };
+
+  let ok = false;
+  let errorText = '';
+
+  if (isPlaceholder) {
+    // demo-режим — эмулируем 800мс «отправки»
+    await new Promise(r => setTimeout(r, 800));
+    ok = true;
+    console.info('[demo mode] Baserow не настроен. Эмулируем успешную запись:', payload);
+  } else {
+    try {
+      const url = BASEROW_URL.replace(/\/$/, '') +
+        '/api/database/rows/table/' + TABLE_BOOKINGS + '/?user_field_names=true';
+      const res = await fetch(url, {
+        method:  'POST',
+        headers: baserowHeaders,
+        body:    JSON.stringify(payload)
+      });
+      if (res.ok) {
+        ok = true;
+      } else if (res.status === 409) {
+        errorText = 'Этот слот только что заняли. Выберите другое время.';
+      } else {
+        let body = '';
+        try { body = await res.text(); } catch (_) {}
+        errorText = 'Не удалось сохранить запись (' + res.status + '). ' + body.slice(0, 200);
+      }
+    } catch (err) {
+      errorText = 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.';
+    }
+  }
+
+  state.submitting = false;
+
+  if (ok) {
+    onSuccess(payload);
+  } else {
+    refreshCta();
+    showError(errorText || 'Что-то пошло не так. Попробуйте ещё раз.');
+    if (errorText.indexOf('только что заняли') !== -1) {
+      // обновим список слотов
+      const wd = new Date(state.selectedDate + 'T00:00:00').getDay();
+      loadSlots(state.selectedDate, wd);
+    }
+  }
+}
+
+function showError(text) {
+  if (env === 'tg_miniapp' && window.Telegram?.WebApp?.showAlert) {
+    try { window.Telegram.WebApp.showAlert(text); return; } catch (e) { /* fallthrough */ }
+  }
+  if (env === 'vk_miniapp' && window.vkBridge) {
+    try { window.vkBridge.send('VKWebAppShowAlert', { message: text }); return; }
+    catch (e) { /* fallthrough */ }
+  }
+  alert(text);
+}
+
+/* ===========================================================
+   11. Success
+   =========================================================== */
+function onSuccess(payload) {
+  // Тактильный отклик
+  if (env === 'tg_miniapp' && window.Telegram?.WebApp?.HapticFeedback) {
+    try { window.Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch (e) {}
+  }
+  if (env === 'vk_miniapp' && window.vkBridge) {
+    try { window.vkBridge.send('VKWebAppTapticNotificationOccurred', { type: 'success' }); } catch (e) {}
+  }
+
+  // Прячем форму, скрываем MainButton
+  document.getElementById('booking-card').hidden = true;
+  if (env === 'tg_miniapp' && window.Telegram?.WebApp?.MainButton) {
+    try {
+      const mb = window.Telegram.WebApp.MainButton;
+      if (mb.hideProgress) mb.hideProgress();
+      mb.hide();
+    } catch (e) {}
+  }
+
+  // Заполняем success
+  const sec = document.getElementById('success');
+  document.getElementById('success-line-1').textContent =
+    'Я записала вас на ' + humanDate(payload.slot_date) + ', ' + payload.slot_time + ' МСК.';
+
+  const channel = {
+    telegram: 'в Telegram',
+    vk:       'в VK',
+    email:    'на email',
+    phone:    'по телефону'
+  }[payload.contact_method] || '';
+  document.getElementById('success-line-2').textContent =
+    'Я свяжусь с вами ' + channel + ' (' + payload.contact_value + ') накануне встречи.';
+
+  const dim = document.getElementById('success-line-3');
+  dim.innerHTML = 'Если что-то изменится — напишите <a href="https://t.me/' + IRINA_TG + '" target="_blank" rel="noopener">@' + IRINA_TG + '</a>.';
+
+  // Действия — зависят от среды
+  const actions = document.getElementById('success-actions');
+  actions.innerHTML = '';
+  if (env === 'tg_miniapp') {
+    const note = document.createElement('p');
+    note.className = 'dim';
+    note.style.margin = '0';
+    note.textContent = 'Это окно закроется через несколько секунд.';
+    actions.appendChild(note);
+    setTimeout(() => {
+      try { window.Telegram.WebApp.close(); } catch (e) {}
+    }, 2600);
+  } else if (env === 'vk_miniapp') {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-ghost-light';
+    btn.textContent = 'Закрыть';
+    btn.addEventListener('click', () => {
+      try { window.vkBridge.send('VKWebAppClose', { status: 'success' }); } catch (e) {}
+    });
+    actions.appendChild(btn);
+  } else {
+    const a = document.createElement('button');
+    a.type = 'button';
+    a.className = 'btn-ghost-light';
+    a.textContent = '← Записаться ещё раз';
+    a.addEventListener('click', resetForm);
+    actions.appendChild(a);
+  }
+
+  sec.hidden = false;
+  sec.classList.add('appear');
+  setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+}
+
+function resetForm() {
+  state.selectedDate = null;
+  state.selectedTime = null;
+  state.consentGiven = false;
+  document.getElementById('booking-form').reset();
+  elMsgCnt.textContent = '0';
+  state.contactMethod = 'telegram';
+  document.getElementById('cm-tg').checked = true;
+  elContactLabel.textContent = contactMethodConfig.telegram.label;
+  elContact.placeholder = contactMethodConfig.telegram.placeholder;
+  elConsentRow.classList.remove('is-checked');
+
+  document.querySelectorAll('.date-cell[aria-pressed="true"]').forEach(el => el.setAttribute('aria-pressed', 'false'));
+  document.getElementById('step-time').hidden = true;
+  document.getElementById('step-form').hidden = true;
+  document.getElementById('booking-card').hidden = false;
+  document.getElementById('success').hidden = true;
+  validateForm();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ===========================================================
+   12. Предзаполнение из TG / VK
+   =========================================================== */
+function prefillFromTg() {
+  try {
+    const u = window.Telegram?.WebApp?.initDataUnsafe?.user;
+    if (!u) return;
+    const fullName = [u.first_name, u.last_name].filter(Boolean).join(' ').trim();
+    if (fullName) elName.value = fullName;
+    if (u.username) {
+      document.getElementById('cm-tg').checked = true;
+      state.contactMethod = 'telegram';
+      elContactLabel.textContent = contactMethodConfig.telegram.label;
+      elContact.placeholder = contactMethodConfig.telegram.placeholder;
+      elContact.value = '@' + u.username;
+    }
+    validateForm();
+  } catch (e) { /* noop */ }
+}
+
+function prefillFromVk() {
+  if (!window.vkBridge) return;
+  try {
+    window.vkBridge.send('VKWebAppGetUserInfo')
+      .then(data => {
+        const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ').trim();
+        if (fullName) elName.value = fullName;
+        if (data.id) {
+          document.getElementById('cm-vk').checked = true;
+          state.contactMethod = 'vk';
+          elContactLabel.textContent = contactMethodConfig.vk.label;
+          elContact.placeholder = contactMethodConfig.vk.placeholder;
+          elContact.value = 'https://vk.com/id' + data.id;
+        }
+        validateForm();
+      })
+      .catch(() => { /* пользователь отказал — ок */ });
+  } catch (e) { /* noop */ }
+}
+
+/* ===========================================================
+   13. Тема Telegram — синхронизируем meta-цвета и MainButton
+   =========================================================== */
+function syncTgTheme() {
+  if (env !== 'tg_miniapp') return;
+  try {
+    const tg = window.Telegram.WebApp;
+    if (tg.setHeaderColor)     tg.setHeaderColor('#FCFAE1');
+    if (tg.setBackgroundColor) tg.setBackgroundColor('#FCFAE1');
+    if (tg.MainButton) {
+      tg.MainButton.setParams({
+        color: '#FF935E',
+        text_color: '#FCFAE1',
+        text: 'Записаться',
+        is_active: false,
+        is_visible: false
+      });
+      tg.MainButton.onClick(() => submitBooking());
+    }
+  } catch (e) { /* noop */ }
+}
+
+function initVkBridgeSubs() {
+  if (env !== 'vk_miniapp' || !window.vkBridge) return;
+  try {
+    window.vkBridge.subscribe(() => { /* конфиг темы игнорируем — палитра Ирины приоритетнее */ });
+    // Установим цвет статус-бара на ваниль
+    window.vkBridge.send('VKWebAppSetViewSettings', {
+      status_bar_style: 'dark',
+      action_bar_color: '#FCFAE1'
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+/* ===========================================================
+   14. Init
+   =========================================================== */
+buildDates();
+syncTgTheme();
+initVkBridgeSubs();
+if (env === 'tg_miniapp') prefillFromTg();
+if (env === 'vk_miniapp') prefillFromVk();
+validateForm();
+</script>
+
+</body>
+</html>
