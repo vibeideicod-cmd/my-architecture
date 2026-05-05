@@ -1,6 +1,9 @@
 # Роль: Deployer Beget
 > **Модель:** claude-haiku-4-5 — специалист — быстрые операции деплоя
 > **Департамент:** Инфраструктура | **Руководитель: DevOps/Infra**
+>
+> ⚙️ **Реализован как subagent** в [.claude/agents/deployer-beget.md](../.claude/agents/deployer-beget.md).
+> Director вызывает его через `Agent` tool с `subagent_type=deployer-beget`, **не** читает этот файл как контекст для исполнения. Текст ниже — справочник для людей.
 
 
 ## Кто ты

@@ -69,7 +69,7 @@
 
 | Агент | Модель | Причина |
 |---|---|---|
-| **Planner** | Haiku | День/неделя, контроль план/факт — повторяющиеся структурированные задачи |
+| **Planner** | Sonnet | Видит всю систему целиком, разбирает «завалы» и приоритезирует — нужны суждения о важности задач, не просто чеклист |
 | **Project-Manager** | Sonnet | Трекинг параллельных проектов, дедлайны, блокеры — нужны суждения о приоритетах и эскалациях |
 
 ### Департамент Финансов
@@ -111,7 +111,7 @@
 
 | Агент | Модель | Причина |
 |---|---|---|
-| **QA** | Haiku | Чеклисты и проверка — рутинная верификация по критериям |
+| **QA** | Sonnet | Чеклисты + критика «глазами пользователя ЦА» и «глазами UX-дизайнера» — моделирование персонажа выходит за рамки Haiku |
 | **Скилл-аудитор** | Sonnet | Независимый аудит скиллов — нужно задавать «неудобные» вопросы, понимать контекст |
 
 ---
@@ -121,8 +121,8 @@
 | Модель | Агентов | Список |
 |---|---|---|
 | **Opus** | 6 | product-builder, marketer, marketing-strategist, systems, ai-builder, business-architect |
-| **Sonnet** | 21 | director, branding, brandbook-creator, content, copywriter, smm-manager, sales, websites, analytics-head, analyst, product-analyst, audience-researcher, project-manager, financial, pricing-specialist, yuridika, contract-lawyer, pd-lawyer, devops-infra, skill-auditor, librarian |
-| **Haiku** | 4 | planner, git-manager, deployer-beget, qa |
+| **Sonnet** | 23 | director, branding, brandbook-creator, content, copywriter, smm-manager, sales, websites, analytics-head, analyst, product-analyst, audience-researcher, planner, project-manager, financial, pricing-specialist, yuridika, contract-lawyer, pd-lawyer, devops-infra, qa, skill-auditor, librarian |
+| **Haiku** | 2 | git-manager, deployer-beget |
 
 ---
 

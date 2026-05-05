@@ -1,6 +1,9 @@
 # Роль: Git Manager
 > **Модель:** claude-haiku-4-5 — специалист — быстрые git-операции
 > **Департамент:** Инфраструктура | **Руководитель: DevOps/Infra**
+>
+> ⚙️ **Реализован как subagent** в [.claude/agents/git-manager.md](../.claude/agents/git-manager.md).
+> Director вызывает его через `Agent` tool с `subagent_type=git-manager`, **не** читает этот файл как контекст для исполнения. Текст ниже — справочник для людей.
 
 
 ## Кто ты
