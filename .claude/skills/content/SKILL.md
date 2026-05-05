@@ -7,6 +7,7 @@ description: >
   Do NOT use for продающих текстов лендинга (это Copywriter),
   стратегии каналов и медиапланирования (это Marketer),
   упаковки профиля с нуля (это /vk-pack или /tg-pack).
+model: sonnet
 ---
 
 # Content — контент для соцсетей

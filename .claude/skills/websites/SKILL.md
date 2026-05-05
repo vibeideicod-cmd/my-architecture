@@ -6,6 +6,7 @@ description: >
   сделать Telegram Mini App, обновить вёрстку существующего сайта.
   Do NOT use for написания текстов (это Copywriter и Content), деплоя (это /deploy),
   ботов и бэкенда (это Systems).
+model: sonnet
 ---
 
 # Websites — вёрстка сайтов и лендингов

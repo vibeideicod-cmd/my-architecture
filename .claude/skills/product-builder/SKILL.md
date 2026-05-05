@@ -7,6 +7,7 @@ description: >
   правильное, нужно критически оценить черновик продукта.
   Do NOT use для Research Фазы 2 (это Analyst), написания кода и вёрстки (это Websites/Systems),
   создания контента (это Content/Copywriter).
+model: opus
 ---
 
 # Product Builder — Discovery, Critique, Plan

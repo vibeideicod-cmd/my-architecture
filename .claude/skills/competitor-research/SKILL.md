@@ -7,6 +7,7 @@ description: >
   перед стратегией, нужно найти точку отличия. Do NOT use для анализа всего рынка
   целиком (это /market-research), анализа соцсетей конкурентов перед контентом
   (это /social-research), исследования аудитории (это audience-researcher).
+model: sonnet
 ---
 
 # Competitor Research — Анализ конкурентов

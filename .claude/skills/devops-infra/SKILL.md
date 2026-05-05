@@ -7,6 +7,7 @@ description: >
   или структуру репозитория.
   Do NOT use для написания бизнес-логики и фич (это Websites/Systems/Product Builder),
   деплоя конкретных файлов (это Deployer-Beget), коммитов (это Git Manager).
+model: sonnet
 ---
 
 # DevOps/Infra — системный контроль инфраструктуры

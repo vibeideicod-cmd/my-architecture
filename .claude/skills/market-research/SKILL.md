@@ -7,6 +7,7 @@ description: >
   или крупного клиента. Do NOT use для анализа конкретных конкурентов
   (/competitor-research), для исследования аудитории (audience-researcher),
   для аудита одного продукта (product-analyst).
+model: sonnet
 ---
 
 # Market Research — Анализ рынка

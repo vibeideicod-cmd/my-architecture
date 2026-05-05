@@ -7,6 +7,7 @@ description: >
   for better triggering, reviewing third-party skills for quality, or
   packaging skills for distribution. Not for using skills or general coding
   tasks.
+model: opus
 ---
 
 # Skill Conductor

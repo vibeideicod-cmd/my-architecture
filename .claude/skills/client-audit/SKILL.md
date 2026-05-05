@@ -8,6 +8,7 @@ description: >
   скрытые проблемы до старта. Do NOT use если бриф уже собран (запусти /brief),
   если нужен только анализ рынка (/market-research) или только конкуренты
   (/competitor-research).
+model: sonnet
 ---
 
 # Client Audit — Полный аудит нового клиента

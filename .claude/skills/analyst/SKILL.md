@@ -7,6 +7,7 @@ description: >
   проекта по запросу Директора.
   Do NOT use для старта новых проектов без idea.md (это product-builder), написания
   critique.md и brief.md (это product-builder), финансовой аналитики (это Financial).
+model: sonnet
 ---
 
 # Analyst — Research и сбор данных

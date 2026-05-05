@@ -6,6 +6,7 @@ description: >
   для нового проекта, задеплоить бот на VPS (systemd + nginx).
   Do NOT use для проверки качества кода перед деплоем (это QA), коммита и пуша в git
   (это Git Manager), конфигурации VPS-инфраструктуры (это DevOps/Infra).
+model: haiku
 ---
 
 # Deployer-Beget — публикация на хостинг

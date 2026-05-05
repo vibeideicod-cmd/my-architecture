@@ -7,6 +7,7 @@ description: >
   перед важным запуском нужно убедиться что всё стабильно. Do NOT use для
   настройки нового сервера (это devops-infra), деплоя сайта (/deploy), аудита
   бизнеса клиента (/client-audit).
+model: sonnet
 ---
 
 # Monitoring Check — Проверка инфраструктуры

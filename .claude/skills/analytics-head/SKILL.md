@@ -6,6 +6,7 @@ description: >
   игрока, нужны портреты аудитории и их боли, нужно понять что работает в нише в соцсетях.
   Do NOT use для Research под конкретный продукт (это Analyst + product-builder),
   финансовой аналитики (это Financial), написания контента по данным (это Content/Marketer).
+model: sonnet
 ---
 
 # Analytics-Head — стратегический анализ рынка
