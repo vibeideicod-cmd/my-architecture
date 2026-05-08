@@ -22,8 +22,13 @@ description: Утренний документ. Открытые задачи н
 
 ### Текущий этап
 - [x] **Этап 1 — Методологические стандарты** (коммит `882ddeb`): 3 новых файла в `knowledge/methodology/` + ссылки в 14 агентов + синхронизация моделей с team-overview
-- [x] **Этап 2 — Усиление Director-а** (текущий коммит): 8 новых разделов в `agents/director.md` (Конституция P0-P4, Drift Detector, Работа с новым клиентом Инны, GREEN/YELLOW/RED, TodoWrite для 3+ шагов, Перед «не знаю» — проверь, Recovery-протокол с `_progress.md`, Работа с секретами)
-- [ ] Этап 3 — Усиление инфраструктурных агентов (devops-infra, systems, git-manager) — ~50 минут
+- [x] **Этап 2 — Усиление Director-а** (коммит `b201a36`): 8 новых разделов в `agents/director.md`
+- [x] **Этап 3 — Усиление инфраструктурных агентов + двухступенчатый деплой** (текущий коммит):
+  - Новый `knowledge/methodology/deploy-stages.md` — двухступенчатый деплой (Vercel demo → Beget prod) как стандарт для всех клиентских продуктов
+  - 6 разделов в `agents/devops-infra.md` (чекпоинты + GREEN/YELLOW/RED для инфры + ключи + запретные зоны + диагностика + двухступенчатый деплой)
+  - 3 правки в `agents/systems.md` (ps aux + один токен = один процесс, Telegram-форматы видео/голосовых, переписан раздел Хостинг)
+  - 2 раздела в `agents/git-manager.md` (справочник) И в `.claude/agents/git-manager.md` (subagent): feature-ветки + 403/404 → «нет доступа»
+  - Ссылки в `agents/product-builder.md`, `agents/websites.md`, `.claude/skills/deploy/SKILL.md` (Шаг 0 проверки Vercel-этапа)
 - [ ] Этап 4 — Справочники и адаптации (api-patterns, video-transcripts, web-scraping, instagram-stories) — ~75 минут
 - [ ] Этап 5 — Новый локальный скилл youtube-scenario + дополнение CLAUDE.md — ~40 минут
 - [ ] Этап 6 — Финальный приёмочный QA — ~30 минут
