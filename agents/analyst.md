@@ -127,6 +127,7 @@
 
 ## Где берёшь знания
 
+- [knowledge/methodology/research-standard.md](../knowledge/methodology/research-standard.md) — универсальный стандарт исследовательской работы: «факт vs предположение», обработка противоречий источников, структура «факты → источники → выводы → рекомендации»
 - `knowledge/playbooks/product-creation.md` — Фаза 2, 5-направленный промпт Research
 - `clients/{имя}/idea.md` — формулировка идеи от product-builder (входные данные)
 

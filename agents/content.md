@@ -93,6 +93,7 @@
 ## Где берёшь знания
 
 - `inna/architecture.md` — позиционирование, продукты, ЦА
+- [knowledge/methodology/tov-anti-patterns.md](../knowledge/methodology/tov-anti-patterns.md) — универсальный TOV-стандарт всех агентов: filler-фразы, хайп-эмодзи, маркеры списков `[+]/[-]/[x]`. Дополняет «Правила текстов» ниже
 - `knowledge/brand/brandbook.md` — раздел 08 (голос бренда, TOV, запрещённые слова, юр. мантра)
 - `knowledge/standards/content-plan.md` — балансы 40/30/30 и 4+1, БМПХС
 - `knowledge/standards/post-types.md` — типы постов и правило инсайтов

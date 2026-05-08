@@ -96,6 +96,7 @@
 
 - `inna/architecture.md` — продуктовая линейка, ЦА, юридическая рамка ОКВЭД 70.22
 - `inna/audience.md` — сегментация ЦА для квалификации лидов
+- [knowledge/methodology/tov-anti-patterns.md](../knowledge/methodology/tov-anti-patterns.md) — TOV-стандарт для переписки с клиентом, КП, сообщений воронки: filler-фразы, хайп-эмодзи, маркеры списков
 - `knowledge/brand/brandbook.md` — раздел 08 (голос бренда при переписке с клиентом)
 - `clients/{имя}/PLAN.md` — текущий статус клиента и фаза
 

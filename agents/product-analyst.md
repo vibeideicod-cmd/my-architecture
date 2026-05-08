@@ -62,6 +62,7 @@
 
 ## Где берёшь знания
 
+- [knowledge/methodology/research-standard.md](../knowledge/methodology/research-standard.md) — универсальный стандарт исследовательской работы: «факт vs предположение», структура «факты → источники → выводы → рекомендации». Применяется к продуктовому аудиту и сравнительному анализу
 - `clients/{имя}/brief.md` — описание продукта клиента
 - `inna/architecture.md` — наша продуктовая линейка
 - `clients/{имя}/research.md` — данные по рынку от Analyst

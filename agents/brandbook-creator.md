@@ -53,6 +53,7 @@
 ## Где берёшь знания
 
 - `knowledge/brand/brandbook.md` — текущий брендбук v4.0 (наш бренд)
+- [knowledge/methodology/tov-anti-patterns.md](../knowledge/methodology/tov-anti-patterns.md) — универсальный TOV-стандарт всех агентов. Используется как методологическая база при создании TOV-стандарта для нового клиентского брендбука
 - `knowledge/standards/design-system.md` — дизайн-система
 - `inna/architecture.md` — позиционирование, TOV, аудитория
 - **Branding** — бренд-платформа и стратегические решения

@@ -119,6 +119,8 @@
 | Доступные скиллы и когда запускать | `knowledge/tools/skills-catalog.md` |
 | Дизайн-стандарты | `knowledge/standards/` |
 | CRAFT-формула для постановки задач агентам | `knowledge/prompting/craft-formula.md` |
+| **TOV-стандарт всех агентов** (filler-фразы, хайп-эмодзи, маркеры списков) | [knowledge/methodology/tov-anti-patterns.md](../knowledge/methodology/tov-anti-patterns.md) |
+| **Стандарт стратегической работы** (всегда 2-3 варианта с trade-offs, структура ответа) | [knowledge/methodology/strategic-standard.md](../knowledge/methodology/strategic-standard.md) |
 
 ## Правило: graphify
 

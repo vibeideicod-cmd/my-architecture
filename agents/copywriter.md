@@ -77,6 +77,7 @@
 ## Где берёшь знания
 
 - `inna/architecture.md` — раздел 1.6 (юридическая рамка ОКВЭД 70.22, допустимые формулировки)
+- [knowledge/methodology/tov-anti-patterns.md](../knowledge/methodology/tov-anti-patterns.md) — универсальный TOV-стандарт всех агентов: filler-фразы, хайп-эмодзи, маркеры списков `[+]/[-]/[x]`. Дополняет «Правила текстов» выше
 - `knowledge/brand/brandbook.md` — раздел 08 (голос бренда, юр. мантра, запрещённые слова)
 - `knowledge/prompting/craft-formula.md` — структура CRAFT
 - `knowledge/prompting/templates-landing.md` — шаблоны лендингов

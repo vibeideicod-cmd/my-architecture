@@ -168,6 +168,7 @@
 
 ## Где берёшь знания
 
+- [knowledge/methodology/strategic-standard.md](../knowledge/methodology/strategic-standard.md) — стандарт стратегической работы: всегда 2-3 варианта с trade-offs, структура «цель → варианты → рекомендация → риски → план». Применяется в Шаге 3 (Критика) и Шаге 4 (План)
 - `knowledge/playbooks/product-creation.md` — полный Playbook 7 фаз, матрица типов продуктов
 - `knowledge/prompting/craft-formula.md`, `critique-techniques.md`, `templates-landing.md`, `templates-mini-app.md`, `templates-backend.md`
 - `inna/architecture.md` — продуктовая линейка, ЦА, позиционирование
