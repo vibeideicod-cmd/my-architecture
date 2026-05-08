@@ -24,12 +24,12 @@ description: Утренний документ. Открытые задачи н
 - [x] **Этап 1 — Методологические стандарты** (коммит `882ddeb`): 3 новых файла в `knowledge/methodology/` + ссылки в 14 агентов + синхронизация моделей с team-overview
 - [x] **Этап 2 — Усиление Director-а** (коммит `b201a36`): 8 новых разделов в `agents/director.md`
 - [x] **Этап 3 — Усиление инфраструктурных агентов + двухступенчатый деплой** (коммит `b61ed5b`)
-- [x] **Этап 4 — Справочники и адаптации** (текущий коммит):
-  - 4 новых файла: `knowledge/tools/api-patterns.md` (паттерны API под наш стек), `knowledge/methodology/video-transcripts.md` (иерархия инструментов работы с видео), `knowledge/tools/web-scraping.md` (иерархия веб-парсинга + Google Docs export URL), `knowledge/methodology/instagram-stories.md` (методика Stories 1080×1920)
-  - 2 новых раздела в `agents/qa.md` (Верификация результата + Code-review под наш стек)
-  - Раздел «Сбор стиля клиента» в `agents/content.md` и `agents/copywriter.md` (общий файл `clients/<имя>/writing-style.md`)
-  - 11 ссылок на новые справочники в 9 файлов (analyst, analytics-head, audience-researcher, branding, systems, devops-infra, ai-builder + 2 скилла digital-audit, competitor-research)
-- [ ] Этап 5 — Новый локальный скилл youtube-scenario + дополнение CLAUDE.md — ~40 минут
+- [x] **Этап 4 — Справочники и адаптации** (коммит `045b85f`)
+- [x] **Этап 5 — youtube-scenario скилл + CLAUDE.md** (текущий коммит):
+  - Новый локальный скилл `.claude/skills/youtube-scenario/SKILL.md` — два режима (разбор чужого ролика → свой сценарий + сценарий с нуля), структура 6 блоков, связка с writing-style.md клиента
+  - Расширено правило в CLAUDE.md «Правило: вопрос 2+ раз → knowledge/» → двухуровневая лестница «2+ раз → справочник, 3+ раз → апгрейд архитектуры (новый скилл / агент / автоматизация)»
+  - Уточнено правило про коммиты в CLAUDE.md — добавлено исключение для feature-веток крупных клиентских правок (синхронизация с git-manager.md из Этапа 3)
+  - Ссылка на новый скилл добавлена в `agents/content.md` (раздел «Скиллы»)
 - [ ] Этап 6 — Финальный приёмочный QA — ~30 минут
 
 ### После Этапа 6 — отдельная задача
