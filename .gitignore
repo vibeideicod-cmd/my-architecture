@@ -16,3 +16,21 @@ agent-runtime/logs/*
 
 # Тяжёлые фото-архивы Ирины — локально на Mac, не в git (по 8-14 МБ каждое, ~100 МБ всего)
 clients/irina/assets/photos/
+
+# Аудиофайлы — тяжёлые, не коммитим. Транскрипты (.md) коммитим как историю.
+inbox-inna/audio/*.mp3
+inbox-inna/audio/*.wav
+inbox-inna/audio/*.m4a
+inbox-inna/audio/*.ogg
+inbox-inna/audio/*.opus
+inbox-inna/audio/*.mp4
+inbox-inna/audio/*.flac
+inbox-inna/audio/*.webm
+clients/*/audio/*.mp3
+clients/*/audio/*.wav
+clients/*/audio/*.m4a
+clients/*/audio/*.ogg
+clients/*/audio/*.opus
+clients/*/audio/*.mp4
+clients/*/audio/*.flac
+clients/*/audio/*.webm
