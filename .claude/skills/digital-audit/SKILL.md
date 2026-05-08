@@ -13,6 +13,8 @@ model: sonnet
 
 # Digital Audit — Анализ цифрового присутствия
 
+> **Инструменты получения веб-контента:** см. `knowledge/tools/web-scraping.md` — иерархия WebFetch → curl → Google Docs export URL → Playwright → Supadata MCP. Используй при анализе сайтов клиента и Google Docs документов клиента.
+
 ## Обзор
 
 Запускается Analytics-Head → Product-Analyst или напрямую по запросу Директора. Разовый срез: что есть, что работает, что мертво, что срочно чинить. Результат: `clients/<имя>/digital-audit.md`.

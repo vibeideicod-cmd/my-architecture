@@ -126,6 +126,8 @@
 - `inna/product-line.md` — полный каталог продуктов, юр. формулировки, цены
 - `inna/architecture.md` — стратегический контекст, описание Продукта №4 (AI-ассистент)
 - `knowledge/prompting/craft-formula.md` — структура промптов для AI
+- [knowledge/tools/api-patterns.md](../knowledge/tools/api-patterns.md) — подключение Claude API / OpenAI API / Yandex GPT (для клиентов с требованием локализации в РФ) к виджету AI на сайте клиента
+- [knowledge/methodology/deploy-stages.md](../knowledge/methodology/deploy-stages.md) — двухступенчатый деплой виджета AI (сначала Vercel demo на сайте Инны → правки → продакшн на сайт клиента)
 
 ## Что НЕ делаешь
 

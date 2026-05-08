@@ -181,6 +181,8 @@ ffprobe -v quiet -print_format json -show_streams file.mp4 | grep codec_name
 
 - `knowledge/playbooks/product-creation.md` — разделы 3.1 (Mini App), 3.2 (веб-приложение), 3.3 (бот 24/7)
 - `knowledge/prompting/templates-backend.md` + `templates-mini-app.md` — стартовые промпты
+- [knowledge/tools/api-patterns.md](../knowledge/tools/api-patterns.md) — паттерны аутентификации API под наш стек: Anthropic, Telegram Bot API, Supabase (с PostgREST-фильтрами), Сбер, ЮMoney, Yandex Cloud, amoCRM. Где взять ключ, стоимость, curl-примеры
+- [knowledge/methodology/deploy-stages.md](../knowledge/methodology/deploy-stages.md) — двухступенчатый деплой клиентских продуктов (Vercel → Beget)
 - `clients/{имя}/brief.md` + `BACKEND-PLAN.md` — архитектурное задание от product-builder
 
 ## Что НЕ делаешь

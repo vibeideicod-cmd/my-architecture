@@ -12,6 +12,8 @@ model: sonnet
 
 # Competitor Research — Анализ конкурентов
 
+> **Инструменты получения веб-контента:** см. `knowledge/tools/web-scraping.md` — иерархия WebFetch → curl → Google Docs export URL → Playwright → Supadata MCP. Используй при анализе сайтов и материалов конкурентов клиента.
+
 ## Обзор
 
 Разовый глубокий анализ конкурентов под конкретный продукт или клиента. Запускается Analytics-Head → Analyst. Результат: `clients/<имя>/competitor-research.md` с таблицей конкурентов и выводами для стратегии.

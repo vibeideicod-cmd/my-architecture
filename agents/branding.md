@@ -106,6 +106,7 @@
 - `knowledge/brand/brandbook.md` — официальный брендбук v1.0 (манифест, С.С.С.Р., TOV, применение)
 - `knowledge/brand/palette.md` — полный гид по 8 цветам с психологией и архетипами Юнга
 - `knowledge/standards/design-system.md` — CSS-переменные, типографическая шкала, техническая реализация
+- [knowledge/methodology/instagram-stories.md](../knowledge/methodology/instagram-stories.md) — методика оформления Instagram Stories (безопасные зоны 1080×1920, типографическая иерархия 38/54/54, работа с фото). Применяется при «Стиль изображений» и «Применение в соцсетях»
 - `inna/architecture.md` — позиционирование v5, ЦА, ниши
 - `inna/audience.md` — сегментация ЦА по двум осям
 

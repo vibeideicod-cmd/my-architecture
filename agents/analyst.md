@@ -128,6 +128,7 @@
 ## Где берёшь знания
 
 - [knowledge/methodology/research-standard.md](../knowledge/methodology/research-standard.md) — универсальный стандарт исследовательской работы: «факт vs предположение», обработка противоречий источников, структура «факты → источники → выводы → рекомендации»
+- [knowledge/tools/web-scraping.md](../knowledge/tools/web-scraping.md) — иерархия инструментов получения веб-контента (WebFetch → curl → Google Docs export URL → Playwright → Supadata MCP). Особенно важен Google Docs export URL — для документов клиентов и Инны
 - `knowledge/playbooks/product-creation.md` — Фаза 2, 5-направленный промпт Research
 - `clients/{имя}/idea.md` — формулировка идеи от product-builder (входные данные)
 

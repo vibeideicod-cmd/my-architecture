@@ -45,6 +45,8 @@
 ## Где берёшь знания
 
 - [knowledge/methodology/research-standard.md](../knowledge/methodology/research-standard.md) — универсальный стандарт исследовательской работы. Дополняет «Правило интерпретации» выше: помечать «факт vs предположение», при противоречии источников указывать оба варианта
+- [knowledge/tools/web-scraping.md](../knowledge/tools/web-scraping.md) — иерархия инструментов получения веб-контента для конкурентного анализа и трендов
+- [knowledge/methodology/video-transcripts.md](../knowledge/methodology/video-transcripts.md) — методика работы с видео-контентом конкурентов (YouTube субтитры → Claude 20 → Deepgram при регулярной работе)
 - `inna/architecture.md` — наша ЦА, ниши, позиционирование (для сравнения)
 - `knowledge/clients/` — типы клиентов, типичные проблемы
 - Специалист **Analyst** — ставишь задачу, получаешь данные

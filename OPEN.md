@@ -23,13 +23,12 @@ description: Утренний документ. Открытые задачи н
 ### Текущий этап
 - [x] **Этап 1 — Методологические стандарты** (коммит `882ddeb`): 3 новых файла в `knowledge/methodology/` + ссылки в 14 агентов + синхронизация моделей с team-overview
 - [x] **Этап 2 — Усиление Director-а** (коммит `b201a36`): 8 новых разделов в `agents/director.md`
-- [x] **Этап 3 — Усиление инфраструктурных агентов + двухступенчатый деплой** (текущий коммит):
-  - Новый `knowledge/methodology/deploy-stages.md` — двухступенчатый деплой (Vercel demo → Beget prod) как стандарт для всех клиентских продуктов
-  - 6 разделов в `agents/devops-infra.md` (чекпоинты + GREEN/YELLOW/RED для инфры + ключи + запретные зоны + диагностика + двухступенчатый деплой)
-  - 3 правки в `agents/systems.md` (ps aux + один токен = один процесс, Telegram-форматы видео/голосовых, переписан раздел Хостинг)
-  - 2 раздела в `agents/git-manager.md` (справочник) И в `.claude/agents/git-manager.md` (subagent): feature-ветки + 403/404 → «нет доступа»
-  - Ссылки в `agents/product-builder.md`, `agents/websites.md`, `.claude/skills/deploy/SKILL.md` (Шаг 0 проверки Vercel-этапа)
-- [ ] Этап 4 — Справочники и адаптации (api-patterns, video-transcripts, web-scraping, instagram-stories) — ~75 минут
+- [x] **Этап 3 — Усиление инфраструктурных агентов + двухступенчатый деплой** (коммит `b61ed5b`)
+- [x] **Этап 4 — Справочники и адаптации** (текущий коммит):
+  - 4 новых файла: `knowledge/tools/api-patterns.md` (паттерны API под наш стек), `knowledge/methodology/video-transcripts.md` (иерархия инструментов работы с видео), `knowledge/tools/web-scraping.md` (иерархия веб-парсинга + Google Docs export URL), `knowledge/methodology/instagram-stories.md` (методика Stories 1080×1920)
+  - 2 новых раздела в `agents/qa.md` (Верификация результата + Code-review под наш стек)
+  - Раздел «Сбор стиля клиента» в `agents/content.md` и `agents/copywriter.md` (общий файл `clients/<имя>/writing-style.md`)
+  - 11 ссылок на новые справочники в 9 файлов (analyst, analytics-head, audience-researcher, branding, systems, devops-infra, ai-builder + 2 скилла digital-audit, competitor-research)
 - [ ] Этап 5 — Новый локальный скилл youtube-scenario + дополнение CLAUDE.md — ~40 минут
 - [ ] Этап 6 — Финальный приёмочный QA — ~30 минут
 
