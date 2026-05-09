@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index,follow">
+<title>Инна Андрейченко — Архитектор автосистем и коммуникаций</title>
+<meta name="description" content="Провожу аудит вашего бизнеса по методу С.С.С.Р., формирую дорожную карту и сопровождаю выстраивание системы. Запись на разговор — за минуту.">
+<meta property="og:title" content="Инна Андрейченко — Архитектор автосистем и коммуникаций">
+<meta property="og:description" content="Провожу аудит вашего бизнеса по методу С.С.С.Р., формирую дорожную карту и сопровождаю выстраивание системы. Запись на разговор — за минуту.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/og-cover.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23103206'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia,serif' font-size='18' fill='%23D4AF37'%3EИ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== 1. Tokens ===== */
+  :root{
+    /* Палитра — из бренд-кода визитки (PDF "26 04 Палитра Инны ВИЗУАЛ") */
+    --pine:#103206;
+    --sage:#4B7850;
+    --gold:#D4AF37;
+    --bright-yellow:#FFDD4C;
+    --cream:#FFF2E9;
+    --neon-green:#13F740;
+    --acid-green:#4DAA02;
+    --hot-magenta:#FF2EC4;
+    --pine-deeper:#0A1F03;
+    --pine-soft:#1D4A0E;
+    --sage-soft:#98B49C;
+    --gold-soft:#E8CC73;
+
+    /* Семантика */
+    --bg:var(--pine);
+    --text:var(--cream);
+    --text-muted:var(--sage-soft);
+    --accent:var(--gold);
+    --cta:var(--acid-green);
+    --live-dot:var(--neon-green);
+    --wow:var(--hot-magenta);
+
+    /* Типографика */
+    --font-display:'Playfair Display','Times New Roman',Georgia,serif;
+    --font-body:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --fs-h1:clamp(2.5rem,6vw + 1rem,5.5rem);
+    --fs-h2:clamp(1.75rem,3vw + 0.75rem,3rem);
+    --fs-h3:clamp(1.25rem,1.5vw + 0.75rem,1.75rem);
+    --fs-body:clamp(1rem,0.4vw + 0.9rem,1.125rem);
+    --fs-small:clamp(0.8125rem,0.2vw + 0.75rem,0.9375rem);
+    --fs-micro:0.6875rem;
+    --lh-display:1.05;
+    --lh-body:1.55;
+    --ls-micro:0.18em;
+
+    /* Тайминги (≤300ms, easeOutQuint) */
+    --t-fast:160ms;
+    --t-mid:240ms;
+    --t-slow:300ms;
+    --easing:cubic-bezier(0.22,1,0.36,1);
+
+    /* Сетка */
+    --maxw:1200px;
+    --gutter:clamp(1rem,3vw,2rem);
+    --radius:14px;
+    --radius-sm:8px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:var(--fs-body);
+    line-height:var(--lh-body);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%}
+  a{color:var(--accent);text-decoration:none;transition:color var(--t-fast) var(--easing)}
+  a:hover{color:var(--gold-soft)}
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+
+  h1,h2,h3,h4{font-family:var(--font-display);margin:0 0 .6em;letter-spacing:-.01em}
+  h1{font-size:var(--fs-h1);line-height:var(--lh-display);font-weight:700}
+  h1 em{font-style:italic;font-weight:600;color:var(--gold)}
+  h2{font-size:var(--fs-h2);line-height:1.15;font-weight:600;color:var(--cream)}
+  h3{font-size:var(--fs-h3);line-height:1.2;font-weight:600;color:var(--cream)}
+  p{margin:0 0 1em}
+
+  .micro{
+    font-family:var(--font-body);font-weight:500;font-size:var(--fs-micro);
+    letter-spacing:var(--ls-micro);text-transform:uppercase;color:var(--sage-soft);
+  }
+
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+
+  /* ===== 2. Film grain ===== */
+  body::after{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+    opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  @media (max-width:768px){body::after{opacity:.03}}
+
+  /* ===== 3. Кнопки ===== */
+  .btn{
+    display:inline-flex;align-items:center;gap:.6em;
+    padding:.95em 1.6em;border-radius:999px;
+    font-weight:600;font-size:1rem;
+    transition:transform var(--t-mid) var(--easing),box-shadow var(--t-mid) var(--easing),background var(--t-fast) var(--easing);
+    will-change:transform;
+  }
+  .btn--primary{
+    background:var(--cta);color:var(--cream);
+    box-shadow:0 8px 24px -6px rgba(77,170,2,.45);
+  }
+  .btn--primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -8px rgba(77,170,2,.55)}
+  .btn--ghost{
+    border:1px solid var(--gold);color:var(--gold);background:transparent;
+  }
+  .btn--ghost:hover{background:rgba(212,175,55,.08);color:var(--gold-soft)}
+  .btn--tg{background:#229ED9;color:#fff}
+  .btn--tg:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(34,158,217,.5)}
+  .btn--vk{background:#0077FF;color:#fff}
+  .btn--vk:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(0,119,255,.5)}
+
+  /* ===== 4. Section appear ===== */
+  .section{opacity:0;transform:translateY(24px);transition:opacity var(--t-slow) var(--easing),transform var(--t-slow) var(--easing)}
+  .section.in-view{opacity:1;transform:none}
+  section{padding:clamp(3rem,8vw,6rem) 0}
+
+  /* ===== 5. HERO ===== */
+  .hero{
+    position:relative;min-height:100vh;min-height:100dvh;
+    display:grid;grid-template-columns:1fr;
+    background:radial-gradient(ellipse at 50% 0%,var(--pine-soft) 0%,var(--pine) 55%,var(--pine-deeper) 100%);
+    padding:clamp(1.5rem,4vw,2.5rem) 0 clamp(2rem,5vw,3rem);
+    overflow:hidden;
+  }
+  .hero__inner{
+    display:grid;grid-template-columns:1fr;gap:2rem;
+    align-items:center;height:100%;
+  }
+  .hero__copy{display:flex;flex-direction:column;justify-content:center;gap:1.5rem;z-index:2}
+  .hero__eyebrow{color:var(--sage-soft)}
+  .hero__title{margin:0}
+  .hero__sub{color:var(--cream);max-width:32ch;font-size:clamp(1.05rem,1vw + .9rem,1.35rem);opacity:.92;margin:0}
+  .hero__cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:.5rem}
+  .hero__slots{
+    position:absolute;top:clamp(1rem,3vw,1.6rem);right:clamp(1rem,3vw,1.6rem);
+    display:flex;align-items:center;gap:.55rem;
+    padding:.5rem .85rem;border:1px solid rgba(212,175,55,.35);border-radius:999px;
+    background:rgba(10,31,3,.4);backdrop-filter:blur(6px);
+    font-size:var(--fs-small);color:var(--cream);
+    z-index:5;
+  }
+  .live-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--live-dot);
+    box-shadow:0 0 0 0 rgba(19,247,64,.55);
+    animation:pulse 2.6s var(--easing) infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(19,247,64,.55)}
+    70%{box-shadow:0 0 0 10px rgba(19,247,64,0)}
+    100%{box-shadow:0 0 0 0 rgba(19,247,64,0)}
+  }
+  .hero__portrait{
+    position:relative;display:flex;justify-content:center;align-items:flex-end;
+    min-height:50vh;
+  }
+  .cockpit-portrait{
+    max-width:min(520px,90%);width:100%;aspect-ratio:4/5;
+    background:linear-gradient(180deg,var(--pine-soft) 0%,var(--pine-deeper) 100%);
+    border:1px dashed rgba(212,175,55,.35);border-radius:var(--radius);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    color:var(--sage-soft);font-size:var(--fs-small);padding:1.5rem;
+    filter:drop-shadow(0 0 1px var(--gold)) drop-shadow(0 0 6px rgba(212,175,55,.35)) drop-shadow(0 8px 24px var(--pine-deeper));
+  }
+  .cockpit-portrait img{
+    width:100%;height:100%;object-fit:cover;border-radius:var(--radius);
+  }
+
+  @media (min-width:1024px){
+    .hero__inner{grid-template-columns:1.05fr .95fr;gap:3rem}
+    .hero__portrait{min-height:auto}
+  }
+
+  /* ===== 6. SSSR widget ===== */
+  #sssr{background:var(--pine)}
+  #sssr .sssr__node circle{fill:var(--gold);stroke:var(--gold-soft);stroke-width:1.6}
+  #sssr .sssr__node:hover circle,#sssr .sssr__node:focus-visible circle{fill:var(--gold-soft);stroke:var(--gold)}
+  #sssr .sssr__node text{fill:var(--cream);font-weight:700}
+  .sssr__head{max-width:680px;margin-bottom:2.5rem}
+  .sssr__svg-wrap{
+    position:relative;display:flex;justify-content:center;
+    margin:0 auto 2.5rem;max-width:780px;
+  }
+  .sssr__svg{width:100%;height:auto;max-width:780px}
+  .sssr__node{cursor:pointer;transition:transform var(--t-mid) var(--easing)}
+  .sssr__node circle{transition:fill var(--t-fast) var(--easing),stroke var(--t-fast) var(--easing)}
+  .sssr__node:hover{transform:translateY(-2px)}
+  .sssr__node:hover circle,.sssr__node:focus-visible circle{fill:var(--pine-soft);stroke:var(--gold-soft)}
+  .sssr__node text{font-family:var(--font-display);font-size:18px;fill:var(--gold);font-weight:600}
+  .sssr__line{stroke:var(--gold);stroke-width:1;opacity:.55;fill:none}
+  .sssr__tooltip{
+    position:absolute;left:50%;top:calc(100% + .5rem);transform:translateX(-50%);
+    background:var(--pine-deeper);border:1px solid var(--gold);color:var(--cream);
+    padding:.7rem 1rem;border-radius:var(--radius-sm);font-size:var(--fs-small);
+    max-width:320px;text-align:center;pointer-events:none;
+    opacity:0;transition:opacity var(--t-mid) var(--easing);
+    box-shadow:0 12px 24px -8px var(--pine-deeper);
+  }
+  .sssr__tooltip.show{opacity:1}
+  .sssr__cards{display:grid;grid-template-columns:1fr;gap:1.2rem}
+  .sssr__card{
+    background:rgba(29,74,14,.35);border:1px solid var(--sage);
+    border-radius:var(--radius);padding:1.4rem;
+  }
+  .sssr__card h3{color:var(--gold);font-size:1.25rem;margin-bottom:.4rem}
+  .sssr__card p{margin:0;color:var(--cream);font-size:var(--fs-small)}
+  @media (min-width:768px){.sssr__cards{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1024px){.sssr__cards{grid-template-columns:repeat(4,1fr)}}
+
+  /* ===== 7. Numbers ===== */
+  #numbers{background:var(--pine-deeper)}
+  .numbers__grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+  @media (min-width:768px){.numbers__grid{grid-template-columns:repeat(3,1fr)}}
+  .number{
+    text-align:center;padding:1.5rem 1rem;
+    border-bottom:1px solid var(--sage);
+  }
+  .number__value{
+    font-family:var(--font-display);font-weight:700;
+    font-size:clamp(2.5rem,5vw + 1rem,4.5rem);line-height:1;color:var(--gold);
+  }
+  .number__suffix{color:var(--gold);font-family:var(--font-display);font-size:.7em}
+  .number__label{margin-top:.6rem;color:var(--cream);font-size:var(--fs-small)}
+
+  /* ===== 8. Services ===== */
+  #services{background:var(--pine)}
+  .services__head{max-width:680px;margin-bottom:2.5rem}
+  .services__grid{display:grid;grid-template-columns:1fr;gap:1.2rem}
+  @media (min-width:768px){.services__grid{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1024px){.services__grid{grid-template-columns:repeat(4,1fr)}}
+  .service{
+    position:relative;padding:1.6rem 1.4rem 1.8rem;
+    background:rgba(29,74,14,.3);border-radius:var(--radius);
+    border:1px solid transparent;
+    transition:transform var(--t-mid) var(--easing),border-color var(--t-fast) var(--easing);
+  }
+  .service::after{
+    content:'';position:absolute;left:1.4rem;right:1.4rem;bottom:1rem;height:1px;
+    background:linear-gradient(90deg,var(--gold) 0%,transparent 100%);
+  }
+  .service:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.4)}
+  .service h3{font-size:1.2rem;margin-bottom:.5rem;color:var(--gold)}
+  .service p{margin:0;color:var(--cream);font-size:var(--fs-small)}
+
+  /* ===== 9. Audit ===== */
+  #audit{background:linear-gradient(180deg,var(--pine-deeper) 0%,var(--pine) 100%)}
+  .audit{
+    max-width:720px;margin:0 auto;
+    background:var(--pine-soft);border:1px solid var(--gold);
+    border-radius:var(--radius);padding:clamp(1.6rem,4vw,2.8rem);
+    box-shadow:0 24px 48px -16px var(--pine-deeper),0 2px 8px rgba(212,175,55,.12);
+  }
+  .audit__progress{
+    height:4px;background:rgba(255,242,233,.12);border-radius:2px;overflow:hidden;margin-bottom:1.6rem;
+  }
+  .audit__bar{height:100%;width:0%;background:var(--gold);transition:width var(--t-mid) var(--easing)}
+  .audit__step{display:none}
+  .audit__step.active{display:block;animation:fade var(--t-slow) var(--easing)}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .audit__q{font-family:var(--font-display);font-size:clamp(1.4rem,2vw + .8rem,2rem);font-weight:600;margin-bottom:1.4rem;color:var(--cream)}
+  .audit__options{display:grid;gap:.7rem;margin-bottom:1.6rem}
+  .audit__opt{
+    text-align:left;padding:1rem 1.2rem;border-radius:var(--radius-sm);
+    background:rgba(255,242,233,.04);border:1px solid var(--sage);color:var(--cream);
+    font-size:var(--fs-body);
+    transition:background var(--t-fast) var(--easing),border-color var(--t-fast) var(--easing),transform var(--t-fast) var(--easing);
+  }
+  .audit__opt:hover{background:rgba(212,175,55,.08);border-color:var(--gold-soft);transform:translateX(2px)}
+  .audit__opt[aria-pressed="true"]{background:rgba(212,175,55,.18);border-color:var(--gold);color:var(--gold)}
+  .audit__nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  .audit__back{color:var(--sage-soft);font-size:var(--fs-small)}
+  .audit__back:hover{color:var(--gold-soft)}
+  .audit__form label{display:block;margin-bottom:1rem}
+  .audit__form .lbl{display:block;font-size:var(--fs-small);color:var(--sage-soft);margin-bottom:.4rem}
+  .audit__form input[type=text],.audit__form select,.audit__form input[type=tel]{
+    width:100%;padding:.85rem 1rem;border-radius:var(--radius-sm);
+    background:rgba(255,242,233,.06);border:1px solid var(--sage);color:var(--cream);
+    font:inherit;
+  }
+  .audit__form input:focus,.audit__form select:focus{outline:none;border-color:var(--gold);background:rgba(212,175,55,.06)}
+  .audit__row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  @media (max-width:560px){.audit__row{grid-template-columns:1fr}}
+  .consent{display:flex;gap:.6rem;align-items:flex-start;font-size:var(--fs-small);color:var(--cream);margin:1rem 0 1.2rem}
+  .consent input{margin-top:.25em;accent-color:var(--gold)}
+  .consent a{text-decoration:underline;text-underline-offset:3px}
+  .audit__result__level{
+    font-family:var(--font-display);font-size:clamp(1.6rem,2vw + 1rem,2.4rem);
+    color:var(--gold);margin:.4rem 0 1.2rem;
+  }
+  .audit__result ul{margin:0 0 1.4rem;padding-left:1.2rem;color:var(--cream)}
+  .audit__result li{margin-bottom:.4rem}
+  .audit__success{text-align:center;padding:1rem 0}
+  .audit__success__mark{
+    width:56px;height:56px;margin:0 auto 1rem;border-radius:50%;
+    background:var(--cta);display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:1.5rem;
+  }
+
+  /* ===== 10. Schedule ===== */
+  #schedule{background:var(--pine)}
+  .schedule__head{max-width:680px;margin-bottom:2rem}
+  .schedule__grid{display:grid;grid-template-columns:1fr;gap:1rem;max-width:980px;margin:0 auto}
+  @media (min-width:768px){.schedule__grid{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1024px){.schedule__grid{grid-template-columns:repeat(3,1fr)}}
+  .day{
+    background:rgba(29,74,14,.35);border:1px solid var(--sage);
+    border-radius:var(--radius);padding:1.1rem;
+  }
+  .day__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.7rem;gap:.6rem}
+  .day__date{font-family:var(--font-display);color:var(--gold);font-weight:600;font-size:1.05rem}
+  .day__weekday{color:var(--sage-soft);font-size:var(--fs-small);text-transform:uppercase;letter-spacing:.1em}
+  .slots{display:flex;flex-wrap:wrap;gap:.4rem}
+  .slot{
+    padding:.45rem .7rem;border-radius:6px;font-size:var(--fs-small);
+    background:rgba(255,242,233,.06);border:1px solid var(--sage);color:var(--cream);
+    transition:background var(--t-fast) var(--easing),border-color var(--t-fast) var(--easing),transform var(--t-fast) var(--easing);
+  }
+  .slot:hover{background:rgba(212,175,55,.14);border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+  .slot--booked{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+  .slot--booked:hover{transform:none;background:rgba(255,242,233,.06);border-color:var(--sage);color:var(--cream)}
+  .schedule__empty{text-align:center;color:var(--sage-soft);padding:2rem 0}
+
+  dialog{
+    background:var(--pine-soft);color:var(--cream);
+    border:1px solid var(--gold);border-radius:var(--radius);
+    max-width:520px;width:calc(100% - 2rem);
+    padding:clamp(1.4rem,3vw,2rem);
+    box-shadow:0 32px 64px -16px var(--pine-deeper);
+  }
+  dialog::backdrop{background:rgba(10,31,3,.78);backdrop-filter:blur(4px)}
+  dialog h3{margin-top:0;color:var(--gold)}
+  .dialog__close{
+    position:absolute;top:.7rem;right:.9rem;color:var(--sage-soft);
+    width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;line-height:1;
+  }
+  .dialog__close:hover{color:var(--gold)}
+
+  /* ===== 11. Contact ===== */
+  #contact{background:var(--pine-deeper);text-align:center}
+  .contact__buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:1.5rem 0 1rem}
+  .contact__buttons .btn{min-width:200px;justify-content:center}
+  .contact__note{color:var(--sage-soft);font-size:var(--fs-small)}
+  .pdf-btn{margin-top:2rem;color:var(--sage-soft);font-size:var(--fs-small);text-decoration:underline;text-underline-offset:4px}
+  .pdf-btn:hover{color:var(--gold)}
+
+  /* ===== 12. Footer ===== */
+  footer{background:var(--pine-deeper);color:var(--sage-soft);padding:2.5rem 0;border-top:1px solid var(--sage)}
+  .footer__grid{display:grid;grid-template-columns:1fr;gap:1.4rem;align-items:start}
+  @media (min-width:768px){.footer__grid{grid-template-columns:1.5fr 1fr 1fr}}
+  .footer p{margin:0 0 .4rem;font-size:var(--fs-small)}
+  .footer__title{color:var(--cream);font-family:var(--font-display);font-weight:600;margin-bottom:.6rem;font-size:1.05rem}
+  .footer__links a{color:var(--cream);display:inline-block;margin-right:1rem}
+  .footer__links a:hover{color:var(--gold)}
+
+  /* ===== 13. Скрытый по умолчанию QR (только для печати) ===== */
+  .pdf-qr{display:none}
+
+  /* ===== 14. PRINT ===== */
+  @media print{
+    :root{
+      --bg:#FFF2E9;--text:#103206;--text-muted:#4B7850;
+    }
+    body{background:#FFF2E9 !important;color:#103206 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body::after{display:none !important}
+    *,*::before,*::after{animation:none !important;transition:none !important;box-shadow:none !important}
+    .section{opacity:1 !important;transform:none !important}
+    .hero{min-height:auto;background:#FFF2E9 !important;padding:0}
+    .hero__slots,.hero__cta,.btn,.live-dot,.scroll-hint,nav,.menu-toggle,
+    .audit__nav,.audit__progress,.audit__form,#schedule .schedule__grid,
+    .schedule__empty,#audit .audit__step:not(.audit__step--print),
+    .pdf-btn,.consent,dialog,.contact__buttons,.dialog__close{display:none !important}
+    h1,h2,h3{color:#103206 !important}
+    h1{font-size:3rem;line-height:1.1}
+    .hero__sub,.service p,.sssr__card p,.number__label,.footer p{color:#103206 !important}
+    .hero__inner{display:block}
+    .cockpit-portrait{
+      filter:grayscale(100%) contrast(1.15) drop-shadow(0 0 1px #D4AF37);
+      max-height:60vh;border:1px solid #4B7850;background:#FFF2E9;color:#4B7850;
+    }
+    section{padding:1.2rem 0;page-break-inside:avoid}
+    h1,h2,h3{page-break-after:avoid}
+    .service,.sssr__card,.day,.audit{
+      background:transparent !important;border:1px solid #4B7850 !important;
+    }
+    .number__value,.number__suffix{color:#103206 !important}
+    .pdf-qr{display:flex !important;align-items:center;gap:1rem;margin:1.5rem 0;page-break-inside:avoid}
+    .pdf-qr__box{width:96px;height:96px;border:1px dashed #4B7850;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#4B7850;text-align:center;padding:.4rem}
+    .pdf-qr__text{font-size:.85rem;color:#103206}
+    a{color:#103206;text-decoration:underline;text-underline-offset:3px}
+    a[href^="http"]::after{content:' (' attr(href) ')';font-size:.8em;color:#4B7850}
+    @page{margin:18mm 16mm}
+    #dev-banner{display:none !important}
+  }
+  body.production #dev-banner{display:none}
+</style>
+</head>
+<body>
+<div id="dev-banner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#FF2EC4;color:#FFF2E9;padding:8px 16px;font:600 12px/1 Montserrat,system-ui;text-align:center;letter-spacing:0.5px;">
+  ЧЕРНОВИК · РЕКВИЗИТЫ И КОНТАКТНЫЕ ДАННЫЕ ВЫДУМАНЫ · ЗАМЕНИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" role="banner">
+  <div class="hero__slots" aria-live="polite">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span>Свободно <strong id="slotsCount">—</strong> слотов на ближайшие 7 дней</span>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="micro hero__eyebrow">МЕТОД С.С.С.Р.</span>
+      <h1 class="hero__title">Архитектор автосистем <em>и коммуникаций</em></h1>
+      <p class="hero__sub">Провожу аудит вашего бизнеса, формирую дорожную карту и сопровождаю выстраивание системы — чтобы бизнес работал по правилам, а не на ручном приводе.</p>
+      <div class="hero__cta">
+        <a href="#schedule" class="btn btn--primary">Записаться на разговор</a>
+        <a href="https://t.me/neuro_strateg_inna" class="btn btn--tg" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="12" fill="#229ED9"/>
+            <path d="M5.5 11.7l11.7-4.5c.5-.2 1 .1.8.8L16 18.5c-.1.5-.5.6-.9.4l-3.4-2.5-1.6 1.6c-.2.2-.3.3-.6.3l.2-3.5 6.4-5.8c.3-.2-.1-.4-.4-.2l-7.9 5-3.4-1c-.7-.2-.8-.7.1-1.1z" fill="#fff"/>
+          </svg>
+          Telegram
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero__portrait">
+      <div class="cockpit-portrait" id="heroPortrait" aria-label="Портрет — будет заменён через Nano Banana">
+        <span>портрет<br>(через Nano Banana)<br><br>assets/inna-hero.jpg</span>
+      </div>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ С.С.С.Р. ============ -->
+<section id="sssr" class="section" aria-labelledby="sssr-title">
+  <div class="container">
+    <div class="sssr__head">
+      <span class="micro">АВТОРСКАЯ МЕТОДОЛОГИЯ</span>
+      <h2 id="sssr-title">Метод С.С.С.Р. — четыре опоры, на которых держится бизнес</h2>
+      <p>Авторская методология. Каждая буква — про то, что вы получаете на выходе.</p>
+    </div>
+
+    <div class="sssr__svg-wrap">
+      <svg viewBox="0 0 700 220" class="sssr__svg" aria-hidden="true">
+        <line class="sssr__line" x1="100" y1="110" x2="270" y2="110"/>
+        <line class="sssr__line" x1="270" y1="110" x2="430" y2="110"/>
+        <line class="sssr__line" x1="430" y1="110" x2="600" y2="110"/>
+        <g class="sssr__node" tabindex="0" data-tip="Структура: вся картина бизнеса на одном экране">
+          <circle cx="100" cy="110" r="56" fill="var(--pine-deeper)" stroke="var(--gold)" stroke-width="1.2"/>
+          <text x="100" y="116" text-anchor="middle">С</text>
+        </g>
+        <g class="sssr__node" tabindex="0" data-tip="Стратегия: какой шаг сегодня даёт результат через месяц">
+          <circle cx="270" cy="110" r="56" fill="var(--pine-deeper)" stroke="var(--gold)" stroke-width="1.2"/>
+          <text x="270" y="116" text-anchor="middle">С</text>
+        </g>
+        <g class="sssr__node" tabindex="0" data-tip="Свобода: освободить часы, которые уходят на рутину">
+          <circle cx="430" cy="110" r="56" fill="var(--pine-deeper)" stroke="var(--gold)" stroke-width="1.2"/>
+          <text x="430" y="116" text-anchor="middle">С</text>
+        </g>
+        <g class="sssr__node" tabindex="0" data-tip="Результат: цифры, по которым видно, что система работает">
+          <circle cx="600" cy="110" r="56" fill="var(--pine-deeper)" stroke="var(--gold)" stroke-width="1.2"/>
+          <text x="600" y="116" text-anchor="middle">Р</text>
+        </g>
+      </svg>
+      <div class="sssr__tooltip" id="sssrTooltip" role="status"></div>
+    </div>
+
+    <div class="sssr__cards">
+      <article class="sssr__card"><h3>Структура</h3><p>Видите всю картину бизнеса на одном экране: кто за что отвечает, где деньги, где люди, где регулярные задачи.</p></article>
+      <article class="sssr__card"><h3>Стратегия</h3><p>Знаете, какой шаг сегодня даёт результат через месяц, а какой просто съедает время.</p></article>
+      <article class="sssr__card"><h3>Свобода</h3><p>Освобождаете часы, которые сейчас уходят на рутину и переписки, — и возвращаете их себе или новым задачам.</p></article>
+      <article class="sssr__card"><h3>Результат</h3><p>Получаете цифры, по которым видно, что система работает: больше выручки, меньше суеты, выше предсказуемость.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section id="numbers" class="section" aria-labelledby="numbers-title">
+  <div class="container">
+    <h2 id="numbers-title" class="visually-hidden" style="position:absolute;left:-9999px">Цифры</h2>
+    <div class="numbers__grid">
+      <div class="number">
+        <div class="number__value"><span data-target="30" data-suffix="">0</span><span class="number__suffix"></span></div>
+        <div class="number__label">лет в финансах и банке</div>
+      </div>
+      <div class="number">
+        <!-- ЗАМЕНИТЬ: точное N клиентов от Инны -->
+        <div class="number__value"><span data-target="99" data-suffix="+">0</span><span class="number__suffix">+</span></div>
+        <div class="number__label">клиентов прошли аудит и сопровождение</div>
+      </div>
+      <div class="number">
+        <div class="number__value"><span data-target="8" data-suffix="">0</span><span class="number__suffix"></span></div>
+        <div class="number__label">ниш — от инфобизнеса до санаториев и риэлторов</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="section" aria-labelledby="services-title">
+  <div class="container">
+    <div class="services__head">
+      <span class="micro">ЧТО Я ДЕЛАЮ</span>
+      <h2 id="services-title">Что вы получаете, когда работаете со мной</h2>
+    </div>
+    <div class="services__grid">
+      <article class="service"><h3>HUB</h3><p>Личный сайт-экосистема под вашу экспертизу: одна точка входа, откуда расходятся продукты, кейсы, форма записи и ваши тексты. Консультирую по архитектуре HUB и сопровождаю выстраивание.</p></article>
+      <article class="service"><h3>AI-помощник Инны на сайт клиента</h3><p>Помощник, который встречает посетителя на вашем сайте и ведёт его к нужному ответу: цене, формату, записи. Консультирую по сценариям, готовлю базу знаний под ваш бизнес и сопровождаю запуск.</p></article>
+      <article class="service"><h3>Платформа С.С.С.Р.</h3><p>Закрытая подписная платформа для тех, кто работает со мной системно: материалы, шаблоны, разборы, регулярная связь. Оказываю консультационные услуги по подписке.</p></article>
+      <article class="service"><h3>Аудит и сопровождение</h3><p>Точечный аудит вашей системы: продукт, привлечение клиентов, база, делегирование. Даю заключение с дорожной картой и сопровождаю внедрение шагов, которые вы выберете.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDIT 60s ============ -->
+<section id="audit" class="section" aria-labelledby="audit-title">
+  <div class="container">
+    <div class="audit" id="auditWidget">
+      <div class="audit__progress" aria-hidden="true"><div class="audit__bar" id="auditBar"></div></div>
+
+      <!-- Стартовый экран -->
+      <div class="audit__step active" data-step="0">
+        <span class="micro">АУДИТ ЗА 60 СЕКУНД</span>
+        <h2 id="audit-title" style="margin-top:.4rem">Где у вашего бизнеса дыры — посмотрим за 60 секунд</h2>
+        <p>Шесть коротких вопросов — и вы увидите, на каком уровне ваша система: операционный, системный или архитектурный. В конце — три точки, с которых разумно начать.</p>
+        <button class="btn btn--primary" data-action="next" data-from="0">Начать аудит</button>
+      </div>
+
+      <!-- Q1 -->
+      <div class="audit__step" data-step="1" data-question="q1">
+        <p class="audit__q">Сколько у вас продуктов и насколько они связаны между собой?</p>
+        <div class="audit__options" role="radiogroup" aria-label="Сколько у вас продуктов и насколько они связаны между собой?">
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="1">Линейки нет, продаю «что попросят»</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="2">Один основной продукт, всё держится на нём</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="3">Два-три продукта, но между ними нет связки</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="4">Линейка выстроена: от знакомства до постоянной работы</button>
+        </div>
+        <div class="audit__nav">
+          <button class="audit__back" data-action="prev">← Назад</button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="audit__step" data-step="2" data-question="q2">
+        <p class="audit__q">Откуда приходят новые клиенты?</p>
+        <div class="audit__options" role="radiogroup" aria-label="Откуда приходят новые клиенты?">
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="1">Системы привлечения нет — клиенты приходят сами, иногда</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="2">В основном по сарафану, поток непредсказуемый</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="3">Один работающий канал, но я не знаю, почему он работает</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="4">Два-три канала, я понимаю стоимость клиента из каждого</button>
+        </div>
+        <div class="audit__nav"><button class="audit__back" data-action="prev">← Назад</button></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="audit__step" data-step="3" data-question="q3">
+        <p class="audit__q">Где у вас лежат данные о клиентах и истории работы с ними?</p>
+        <div class="audit__options" role="radiogroup" aria-label="Где у вас лежат данные о клиентах и истории работы с ними?">
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="1">Никак не веду, помню только тех, с кем работаю сейчас</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="2">В голове и в переписках в мессенджерах</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="3">В табличке (Excel или Google) — веду сама</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="4">Есть собственная база, история по каждому клиенту</button>
+        </div>
+        <div class="audit__nav"><button class="audit__back" data-action="prev">← Назад</button></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="audit__step" data-step="4" data-question="q4">
+        <p class="audit__q">Сколько часов в неделю у вас уходит на одинаковые задачи: ответы, выставление счетов, напоминания, отчёты?</p>
+        <div class="audit__options" role="radiogroup" aria-label="Сколько часов в неделю у вас уходит на одинаковые задачи: ответы, выставление счетов, напоминания, отчёты?">
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="1">Больше 20 часов — я в этом тону</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="2">10–20 часов — это уже половина рабочего времени</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="3">5–10 часов — терпимо, но раздражает</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="4">Меньше 5 часов — почти всё уже разгружено</button>
+        </div>
+        <div class="audit__nav"><button class="audit__back" data-action="prev">← Назад</button></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="audit__step" data-step="5" data-question="q5">
+        <p class="audit__q">Кто ещё работает в вашем бизнесе кроме вас?</p>
+        <div class="audit__options" role="radiogroup" aria-label="Кто ещё работает в вашем бизнесе кроме вас?">
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="1">Только я, всё на мне</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="2">Есть один человек — на разовые задачи</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="3">Есть постоянный помощник или подрядчик с зонами ответственности</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="4">Команда из 3+ человек, у каждого свои задачи</button>
+        </div>
+        <div class="audit__nav"><button class="audit__back" data-action="prev">← Назад</button></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="audit__step" data-step="6" data-question="q6">
+        <p class="audit__q">Если попросить вас за 30 секунд объяснить незнакомому человеку, чем вы занимаетесь и кому помогаете — насколько легко вы это сделаете?</p>
+        <div class="audit__options" role="radiogroup" aria-label="Если попросить вас за 30 секунд объяснить незнакомому человеку, чем вы занимаетесь и кому помогаете — насколько легко вы это сделаете?">
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="1">Нет короткой формулировки, объясняю долго</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="2">Запутаюсь — сначала придётся подумать</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="3">Скажу, но каждый раз по-разному</button>
+          <button class="audit__opt" role="radio" aria-pressed="false" data-score="4">Скажу за 30 секунд, всегда одно и то же</button>
+        </div>
+        <div class="audit__nav"><button class="audit__back" data-action="prev">← Назад</button></div>
+      </div>
+
+      <!-- Result + form -->
+      <div class="audit__step" data-step="7" id="auditResult">
+        <span class="micro">РЕЗУЛЬТАТ АУДИТА</span>
+        <h2 style="margin-top:.4rem">Уровень вашей системы:</h2>
+        <p class="audit__result__level" id="auditLevel">—</p>
+
+        <div class="audit__result">
+          <p style="color:var(--sage-soft);font-size:var(--fs-small);margin-bottom:.4rem">Главные дыры:</p>
+          <ul id="auditGaps">
+            <li>Хотите развёрнутое заключение по всем шести зонам с приоритетами — оставьте контакт ниже, пришлю в Telegram.</li>
+          </ul>
+        </div>
+
+        <form class="audit__form" id="auditForm" novalidate>
+          <div class="audit__row">
+            <label>
+              <span class="lbl">Имя</span>
+              <input type="text" name="name" required autocomplete="given-name" placeholder="Как к вам обращаться">
+            </label>
+            <label>
+              <span class="lbl">Telegram-ник или VK-ник</span>
+              <input type="text" name="contact" required placeholder="@neuro_strateg_inna или vk.com/neuro_strateg_inna">
+            </label>
+          </div>
+          <label>
+            <span class="lbl">Куда удобнее ответить</span>
+            <select name="channel">
+              <option value="telegram">Telegram</option>
+              <option value="vk">VK</option>
+            </select>
+          </label>
+
+          <label class="consent">
+            <input type="checkbox" name="consent" required>
+            <span>Соглашаюсь с обработкой моих ответов и контакта в мессенджере для отправки результата аудита и связи по записи на консультацию. Подробнее — в <a href="#" id="openPolicyA">Политике обработки персональных данных</a>.</span>
+          </label>
+
+          <button class="btn btn--primary" type="submit" id="auditSubmit" disabled>Получить полный аудит в Telegram</button>
+        </form>
+      </div>
+
+      <!-- Success -->
+      <div class="audit__step" data-step="8">
+        <div class="audit__success">
+          <div class="audit__success__mark" aria-hidden="true">✓</div>
+          <h2 style="margin-bottom:.4rem">Принял заявку</h2>
+          <p>Пришлю в Telegram развёрнутое заключение по всем шести зонам — что делать в первую очередь, что во вторую, что отложить. Можно сразу выбрать время для разговора.</p>
+          <a href="#schedule" class="btn btn--ghost" style="margin-top:.6rem">Записаться на разговор</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCHEDULE ============ -->
+<section id="schedule" class="section" aria-labelledby="schedule-title">
+  <div class="container">
+    <div class="schedule__head">
+      <span class="micro">РАЗГОВОР В ZOOM</span>
+      <h2 id="schedule-title">Запись на разговор</h2>
+      <p>Разговор в Zoom, 45 минут. Расскажете про задачу — я задам уточняющие вопросы и дам первое заключение, с чего начать. После записи на выбранное время в Telegram придёт ссылка на встречу и напоминание за час.</p>
+    </div>
+    <div class="schedule__grid" id="scheduleGrid"></div>
+    <div class="schedule__empty" id="scheduleEmpty">Загружаю расписание…</div>
+  </div>
+</section>
+
+<!-- Booking dialog -->
+<dialog id="bookDialog" aria-labelledby="bookTitle">
+  <button class="dialog__close" data-close-dialog aria-label="Закрыть">×</button>
+  <h3 id="bookTitle">Запись на разговор</h3>
+  <p style="color:var(--sage-soft);margin-bottom:1.2rem">Выбран слот: <strong id="bookSlotLabel" style="color:var(--gold)">—</strong></p>
+  <form id="bookForm" novalidate>
+    <div class="audit__row">
+      <label>
+        <span class="lbl">Имя</span>
+        <input type="text" name="name" required placeholder="Как к вам обращаться">
+      </label>
+      <label>
+        <span class="lbl">Telegram-ник или VK-ник</span>
+        <input type="text" name="contact" required placeholder="@neuro_strateg_inna или vk.com/neuro_strateg_inna">
+      </label>
+    </div>
+    <label>
+      <span class="lbl">Куда удобнее ответить</span>
+      <select name="channel">
+        <option value="telegram">Telegram</option>
+        <option value="vk">VK</option>
+      </select>
+    </label>
+    <label class="consent">
+      <input type="checkbox" name="consent" required>
+      <span>Соглашаюсь с обработкой моего имени и контакта в мессенджере для подтверждения записи на консультацию. Подробнее — в <a href="#" id="openPolicyB">Политике обработки персональных данных</a>.</span>
+    </label>
+    <button class="btn btn--primary" type="submit" id="bookSubmit" disabled style="width:100%;justify-content:center">Записаться на выбранное время</button>
+  </form>
+  <div id="bookSuccess" style="display:none;text-align:center;padding:1rem 0">
+    <div class="audit__success__mark" aria-hidden="true">✓</div>
+    <p id="bookSuccessText">Записал. В Telegram придёт подтверждение со ссылкой на Zoom и напоминание за час до встречи.</p>
+  </div>
+</dialog>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section">
+  <div class="container">
+    <span class="micro">СВЯЗАТЬСЯ НАПРЯМУЮ</span>
+    <h2>Хотите обсудить лично — напишите</h2>
+    <p style="max-width:560px;margin:0 auto;color:var(--cream)">Без формы, без записи — просто откройте мессенджер и напишите.</p>
+
+    <div class="contact__buttons">
+      <a href="https://t.me/neuro_strateg_inna" class="btn btn--tg" rel="noopener" target="_blank">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <circle cx="12" cy="12" r="12" fill="#229ED9"/>
+          <path d="M5.5 11.7l11.7-4.5c.5-.2 1 .1.8.8L16 18.5c-.1.5-.5.6-.9.4l-3.4-2.5-1.6 1.6c-.2.2-.3.3-.6.3l.2-3.5 6.4-5.8c.3-.2-.1-.4-.4-.2l-7.9 5-3.4-1c-.7-.2-.8-.7.1-1.1z" fill="#fff"/>
+        </svg>
+        Telegram
+      </a>
+      <a href="https://vk.com/neuro_strateg_inna" class="btn btn--vk" rel="noopener" target="_blank">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <rect width="24" height="24" rx="5" fill="#0077FF"/>
+          <path d="M12.7 17c-4.6 0-7.3-3.2-7.4-8.5h2.3c.1 3.9 1.8 5.5 3.2 5.9V8.5h2.2v3.4c1.4-.2 2.8-1.7 3.3-3.4h2.2c-.4 2.1-1.9 3.6-3 4.2 1.1.5 2.8 1.8 3.5 4.3h-2.4c-.5-1.7-1.8-3-3.6-3.2V17h-.3z" fill="#fff"/>
+        </svg>
+        VK
+      </a>
+    </div>
+    <p class="contact__note">Будни, отвечаю в течение дня</p>
+
+    <a href="#" class="pdf-btn" id="downloadPdf">Скачать как PDF</a>
+
+    <!-- Виден только при печати -->
+    <div class="pdf-qr" aria-hidden="true">
+      <div class="pdf-qr__box">QR на сайт<br>(заменить при публикации)</div>
+      <div class="pdf-qr__text">
+        <strong>Сайт:</strong> https://ideidlyabiznesa1913.store/<br>
+        <strong>Telegram:</strong> @neuro_strateg_inna<br>
+        <strong>VK:</strong> vk.com/neuro_strateg_inna
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <div class="footer__title">Архитектор автосистем и коммуникаций</div>
+      <p>ИП Андрейченко Инна Сергеевна</p><!-- ЗАМЕНИТЬ: настоящее ФИО -->
+      <p>ИНН 770000000000</p><!-- ЗАМЕНИТЬ: настоящий ИНН (12 цифр) -->
+      <p>ОГРНИП 320770000000000</p><!-- ЗАМЕНИТЬ: настоящий ОГРНИП (15 цифр) -->
+    </div>
+    <div>
+      <div class="footer__title">Документы</div>
+      <p><a href="#" id="openPolicyFooter">Политика обработки персональных данных</a></p>
+    </div>
+    <div>
+      <div class="footer__title">Связаться</div>
+      <p class="footer__links">
+        <a href="https://t.me/neuro_strateg_inna" rel="noopener" target="_blank">Telegram</a>
+        <a href="https://vk.com/neuro_strateg_inna" rel="noopener" target="_blank">VK</a>
+      </p>
+      <p style="margin-top:1rem">© 2026. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Policy dialog -->
+<dialog id="policyDialog" aria-labelledby="policyTitle">
+  <button class="dialog__close" data-close-dialog aria-label="Закрыть">×</button>
+  <h3 id="policyTitle">Политика обработки персональных данных</h3>
+  <div style="max-height:60vh;overflow:auto;font-size:var(--fs-small);line-height:1.6">
+    <p><strong>Редакция от:</strong> 04.05.2026<br><strong>Действует с:</strong> 04.05.2026</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">1. Общие положения</h4>
+    <p>Настоящая Политика обработки персональных данных (далее — «Политика») разработана в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» (далее — «ФЗ-152») и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые Оператором.</p>
+    <p>Оператор ставит своей важнейшей целью соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиту прав на неприкосновенность частной жизни, личную и семейную тайну.</p>
+    <p>Настоящая Политика применяется ко всей информации, которую Оператор может получить о посетителях веб-сайта https://ideidlyabiznesa1913.store/.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">2. Сведения об Операторе</h4>
+    <!-- ЗАМЕНИТЬ перед публикацией: ФИО, краткое ФИО, ИНН (12 цифр), ОГРНИП (15 цифр), адрес регистрации ИП -->
+    <p>Полное наименование: Индивидуальный предприниматель Андрейченко Инна Сергеевна<br>
+    Сокращённое наименование: ИП И. С. Андрейченко<br>
+    ИНН: 770000000000<br>
+    ОГРНИП: 320770000000000<br>
+    Адрес регистрации: [адрес регистрации ИП — ЗАМЕНИТЬ]<br>
+    Контакт для запросов по персональным данным: pd@ideidlyabiznesa1913.store<br>
+    Сайт: https://ideidlyabiznesa1913.store/</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">3. Правовые основания обработки</h4>
+    <p>Обработка персональных данных осуществляется Оператором на следующих правовых основаниях:</p>
+    <ul>
+      <li>статья 6 часть 1 пункт 5 ФЗ-152 — обработка необходима для исполнения договора, стороной которого является субъект персональных данных, а также для заключения договора по инициативе субъекта персональных данных;</li>
+      <li>статья 22 часть 2 пункт 10 ФЗ-152 — обработка персональных данных осуществляется без передачи персональных данных по сети «Интернет» в целях, не предусмотренных пунктом 10 части 1 указанной статьи (Оператор обрабатывает персональные данные исключительно для исполнения договора оказания консультационных услуг по записи, без передачи третьим лицам).</li>
+    </ul>
+    <p>В связи с применением статьи 22 части 2 пункта 10 ФЗ-152 Оператор не направляет уведомление в уполномоченный орган по защите прав субъектов персональных данных (Роскомнадзор) о намерении осуществлять обработку персональных данных.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">4. Цели обработки персональных данных</h4>
+    <p>Единственная цель обработки персональных данных Оператором: оказание консультационных услуг по записи на консультацию (включая предварительное проведение интерактивного аудита, обработку формы захвата контактов, согласование времени встречи и подтверждение записи).</p>
+    <p>Иные цели (рассылки, маркетинговые сообщения, передача партнёрам, профилирование, таргетированная реклама) Оператором не преследуются и в рамках настоящей Политики не осуществляются.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">5. Категории субъектов персональных данных</h4>
+    <p>Оператор обрабатывает персональные данные посетителей сайта Оператора, добровольно заполнивших форму интерактивного аудита и/или форму записи на консультацию.</p>
+    <p>Оператор не обрабатывает персональные данные несовершеннолетних. Заполняя формы на сайте, субъект подтверждает, что является совершеннолетним.</p>
+    <p>Оператор не обрабатывает специальные категории персональных данных (раса, национальность, политические взгляды, религиозные убеждения, состояние здоровья, интимная жизнь) и биометрические персональные данные.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">6. Перечень обрабатываемых персональных данных</h4>
+    <p><strong>6.1. При прохождении интерактивного аудита:</strong></p>
+    <ul>
+      <li>ответы на 5–6 коротких вопросов о бизнесе субъекта (характер деятельности, текущее состояние, наличие систем);</li>
+      <li>идентификатор для обратной связи — имя (псевдоним) и контакт в одном из мессенджеров на выбор субъекта (Telegram-ник или VK-ник);</li>
+      <li>дата и время прохождения аудита.</li>
+    </ul>
+    <p><strong>6.2. При записи на консультацию:</strong></p>
+    <ul>
+      <li>имя (псевдоним), указанное субъектом;</li>
+      <li>идентификатор для обратной связи — Telegram-ник или VK-ник на выбор субъекта;</li>
+      <li>выбранные субъектом дата и время консультации.</li>
+    </ul>
+    <p>Оператор не запрашивает и не обрабатывает: фамилию, отчество, паспортные данные, адрес регистрации, номер телефона, адрес электронной почты, платёжные данные, файлы cookies, IP-адрес для целей идентификации, данные геолокации.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">7. Способ и порядок обработки</h4>
+    <p>Обработка персональных данных осуществляется автоматизированным способом с использованием собственных программно-аппаратных средств Оператора:</p>
+    <ul>
+      <li>собственный сервер Оператора, физически расположенный на территории Российской Федерации;</li>
+      <li>передача данных между сайтом и сервером — по защищённому протоколу HTTPS;</li>
+      <li>хранение данных — в собственной базе данных Оператора;</li>
+      <li>доступ к данным — только у Оператора лично.</li>
+    </ul>
+    <p>Оператор не передаёт персональные данные субъектов третьим лицам, в том числе не использует сторонние CRM-системы, сторонние сервисы записи, системы веб-аналитики, не передаёт данные рекламным сетям и социальным сетям.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">8. Сроки обработки и хранения</h4>
+    <p>Срок обработки персональных данных — до достижения цели обработки или до момента отзыва согласия субъектом персональных данных, в зависимости от того, что наступит раньше.</p>
+    <p>Срок хранения персональных данных — 3 (три) года с момента последнего контакта с субъектом. По истечении срока хранения персональные данные подлежат уничтожению или обезличиванию.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">9. Права субъекта персональных данных</h4>
+    <p>Субъект персональных данных имеет право: получать сведения, касающиеся обработки его персональных данных Оператором; требовать уточнения, блокирования или уничтожения данных; отозвать согласие на обработку; обжаловать действия Оператора в Роскомнадзор или в судебном порядке.</p>
+    <p>Запрос направляется субъектом по адресу электронной почты pd@ideidlyabiznesa1913.store. Срок рассмотрения запроса — 30 дней с момента получения, в соответствии со статьёй 20 ФЗ-152.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">10. Меры защиты персональных данных</h4>
+    <p>Оператор принимает необходимые правовые, организационные и технические меры для защиты персональных данных: размещение данных на сервере на территории РФ, передача по HTTPS, ограничение доступа, регулярное резервное копирование, надёжные пароли и двухфакторная аутентификация.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">11. Изменение Политики</h4>
+    <p>Оператор вправе вносить изменения в настоящую Политику. Действующая редакция всегда доступна на сайте Оператора по постоянной ссылке. Дата последнего изменения указана в начале настоящей Политики.</p>
+
+    <h4 style="font-family:var(--font-display);color:var(--gold);margin-top:1.2rem">12. Контактные данные Оператора</h4>
+    <p>По всем вопросам, связанным с обработкой персональных данных, субъект может обратиться к Оператору: по электронной почте pd@ideidlyabiznesa1913.store; через мессенджер Telegram: https://t.me/neuro_strateg_inna; через социальную сеть VK: https://vk.com/neuro_strateg_inna.</p>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  'use strict';
+
+  /* === Section appear === */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  document.querySelectorAll('.section').forEach(el => io.observe(el));
+
+  /* === Numbers counter === */
+  const numIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const raw = el.dataset.target || '0';
+      const target = parseInt(raw.replace(/\D/g, ''), 10) || 0;
+      if (target === 0) { el.textContent = raw; numIo.unobserve(el); return; }
+      const dur = 1100, t0 = performance.now();
+      const tick = (t) => {
+        const p = Math.min(1, (t - t0) / dur);
+        const v = Math.floor(target * (1 - Math.pow(1 - p, 3)));
+        el.textContent = v.toLocaleString('ru-RU');
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = target.toLocaleString('ru-RU');
+      };
+      requestAnimationFrame(tick);
+      numIo.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.number__value [data-target]').forEach(el => numIo.observe(el));
+
+  /* === SSSR tooltip === */
+  const tip = document.getElementById('sssrTooltip');
+  document.querySelectorAll('.sssr__node').forEach(node => {
+    const show = () => { tip.textContent = node.dataset.tip || ''; tip.classList.add('show'); };
+    const hide = () => tip.classList.remove('show');
+    node.addEventListener('mouseenter', show);
+    node.addEventListener('mouseleave', hide);
+    node.addEventListener('focus', show);
+    node.addEventListener('blur', hide);
+  });
+
+  /* === Audit logic === */
+  const audit = {
+    el: document.getElementById('auditWidget'),
+    bar: document.getElementById('auditBar'),
+    steps: [...document.querySelectorAll('#auditWidget .audit__step')],
+    answers: {},
+    current: 0,
+    total: 6,
+
+    go(step) {
+      this.steps.forEach(s => s.classList.toggle('active', +s.dataset.step === step));
+      this.current = step;
+      const pct = step === 0 ? 0 : Math.min(100, Math.round((step / (this.total + 1)) * 100));
+      this.bar.style.width = pct + '%';
+      const top = this.el.getBoundingClientRect().top + window.scrollY - 80;
+      if (Math.abs(window.scrollY - top) > 200) window.scrollTo({ top, behavior: 'smooth' });
+    },
+
+    score() {
+      const sum = Object.values(this.answers).reduce((a, b) => a + b, 0);
+      // 6 вопросов × 4 макс = 24, 6 мин = 6
+      // Операционный: 6-12, Системный: 13-18, Архитектурный: 19-24
+      if (sum <= 12) return { level: 'Операционный', tone: 'operational' };
+      if (sum <= 18) return { level: 'Системный', tone: 'systemic' };
+      return { level: 'Архитектурный', tone: 'architectural' };
+    },
+
+    showResult() {
+      const r = this.score();
+      document.getElementById('auditLevel').textContent = r.level;
+      this.go(7);
+    }
+  };
+
+  // start
+  audit.el.querySelector('[data-action="next"][data-from="0"]').addEventListener('click', () => audit.go(1));
+
+  // options
+  audit.el.querySelectorAll('.audit__step[data-question]').forEach(step => {
+    const q = step.dataset.question;
+    const opts = step.querySelectorAll('.audit__opt');
+    opts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        opts.forEach(o => o.setAttribute('aria-pressed', 'false'));
+        opt.setAttribute('aria-pressed', 'true');
+        audit.answers[q] = parseInt(opt.dataset.score, 10) || 0;
+        const next = +step.dataset.step + 1;
+        setTimeout(() => {
+          if (next <= 6) audit.go(next);
+          else audit.showResult();
+        }, 220);
+      });
+    });
+  });
+
+  // back
+  audit.el.querySelectorAll('[data-action="prev"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cur = +btn.closest('.audit__step').dataset.step;
+      audit.go(Math.max(0, cur - 1));
+    });
+  });
+
+  // form enable
+  const auditForm = document.getElementById('auditForm');
+  const auditSubmit = document.getElementById('auditSubmit');
+  const updateAuditSubmit = () => {
+    const fd = new FormData(auditForm);
+    const ok = (fd.get('name') || '').toString().trim() && (fd.get('contact') || '').toString().trim() && fd.get('consent');
+    auditSubmit.disabled = !ok;
+  };
+  auditForm.addEventListener('input', updateAuditSubmit);
+  auditForm.addEventListener('change', updateAuditSubmit);
+
+  auditForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(auditForm);
+    if (!fd.get('consent')) { alert('Поставьте галочку согласия — без неё мы не можем принять заявку'); return; }
+    const payload = {
+      name: fd.get('name'),
+      contact: fd.get('contact'),
+      channel: fd.get('channel'),
+      answers: audit.answers,
+      level: audit.score().level,
+      consent_given_at: new Date().toISOString(),
+      consent_text_version: 'v1'
+    };
+    // MOCK: replace with POST /api/audit-lead
+    try {
+      // await fetch('/api/audit-lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      console.log('[mock POST /api/audit-lead]', payload);
+      audit.go(8);
+    } catch (err) {
+      alert('Не получилось отправить. Напишите в Telegram, разберёмся.');
+    }
+  });
+
+  /* === Schedule === */
+  const grid = document.getElementById('scheduleGrid');
+  const empty = document.getElementById('scheduleEmpty');
+  const slotsCountEl = document.getElementById('slotsCount');
+  const dialog = document.getElementById('bookDialog');
+  const bookForm = document.getElementById('bookForm');
+  const bookSubmit = document.getElementById('bookSubmit');
+  const bookSuccess = document.getElementById('bookSuccess');
+  const bookSlotLabel = document.getElementById('bookSlotLabel');
+
+  const RU_MONTH = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  const RU_WD = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ'];
+
+  // MOCK: GET /api/slots
+  function fetchSlots() {
+    const days = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    for (let i = 1; i <= 14; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() + i);
+      const wd = d.getDay();
+      if (wd === 0 || wd === 6) continue; // только будни
+      const slots = [];
+      for (let h = 10; h < 19; h++) {
+        slots.push({
+          time: `${String(h).padStart(2,'0')}:00`,
+          iso: new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, 0).toISOString(),
+          available: Math.random() > 0.25 // моковая случайность; в реале — все свободные
+        });
+      }
+      days.push({ date: d, slots });
+    }
+    return Promise.resolve(days);
+  }
+
+  function renderSchedule(days) {
+    grid.innerHTML = '';
+    let totalFree = 0, totalFreeNext7 = 0;
+    const sevenDaysCutoff = new Date(); sevenDaysCutoff.setDate(sevenDaysCutoff.getDate() + 7);
+
+    days.forEach(day => {
+      const free = day.slots.filter(s => s.available).length;
+      totalFree += free;
+      if (day.date <= sevenDaysCutoff) totalFreeNext7 += free;
+
+      const card = document.createElement('article');
+      card.className = 'day';
+      const dd = day.date.getDate();
+      const mm = RU_MONTH[day.date.getMonth()];
+      const wd = RU_WD[day.date.getDay()];
+      card.innerHTML = `
+        <div class="day__head">
+          <span class="day__date">${dd} ${mm}</span>
+          <span class="day__weekday">${wd}</span>
+        </div>
+        <div class="slots"></div>`;
+      const slotsWrap = card.querySelector('.slots');
+      day.slots.forEach(s => {
+        const b = document.createElement('button');
+        b.className = 'slot' + (s.available ? '' : ' slot--booked');
+        b.type = 'button';
+        b.textContent = s.time;
+        if (!s.available) b.disabled = true;
+        b.addEventListener('click', () => openBook(day.date, s));
+        slotsWrap.appendChild(b);
+      });
+      grid.appendChild(card);
+    });
+
+    slotsCountEl.textContent = totalFreeNext7;
+    if (totalFree === 0) {
+      empty.textContent = 'На ближайшие 14 дней слотов нет — напишите в Telegram, договоримся.';
+    } else {
+      empty.style.display = 'none';
+    }
+  }
+
+  let currentBooking = null;
+
+  function openBook(date, slot) {
+    currentBooking = { date, slot };
+    const dd = String(date.getDate()).padStart(2,'0');
+    const mm = String(date.getMonth() + 1).padStart(2,'0');
+    bookSlotLabel.textContent = `${dd}.${mm} в ${slot.time}`;
+    bookForm.reset();
+    bookForm.style.display = 'block';
+    bookSuccess.style.display = 'none';
+    bookSubmit.disabled = true;
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  }
+
+  const updateBookSubmit = () => {
+    const fd = new FormData(bookForm);
+    const ok = (fd.get('name') || '').toString().trim() && (fd.get('contact') || '').toString().trim() && fd.get('consent');
+    bookSubmit.disabled = !ok;
+  };
+  bookForm.addEventListener('input', updateBookSubmit);
+  bookForm.addEventListener('change', updateBookSubmit);
+
+  bookForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(bookForm);
+    if (!fd.get('consent')) { alert('Поставьте галочку согласия — без неё мы не можем принять заявку'); return; }
+    const payload = {
+      name: fd.get('name'),
+      contact: fd.get('contact'),
+      channel: fd.get('channel'),
+      slot_iso: currentBooking.slot.iso,
+      consent_given_at: new Date().toISOString(),
+      consent_text_version: 'v1'
+    };
+    // MOCK: replace with POST /api/book
+    try {
+      // await fetch('/api/book', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      console.log('[mock POST /api/book]', payload);
+      const dd = String(currentBooking.date.getDate()).padStart(2,'0');
+      const mm = String(currentBooking.date.getMonth() + 1).padStart(2,'0');
+      document.getElementById('bookSuccessText').textContent =
+        `Записал на ${dd}.${mm} в ${currentBooking.slot.time}, в Telegram пришлёт подтверждение со ссылкой на Zoom.`;
+      bookForm.style.display = 'none';
+      bookSuccess.style.display = 'block';
+    } catch (err) {
+      alert('Не получилось забронировать. Напишите в Telegram, договоримся.');
+    }
+  });
+
+  // Close any dialog
+  document.querySelectorAll('[data-close-dialog]').forEach(b => {
+    b.addEventListener('click', () => b.closest('dialog').close());
+  });
+  // Close on backdrop click
+  document.querySelectorAll('dialog').forEach(d => {
+    d.addEventListener('click', (e) => {
+      const r = d.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) d.close();
+    });
+  });
+
+  fetchSlots().then(renderSchedule).catch(() => {
+    empty.textContent = 'Не получилось загрузить расписание — напишите в Telegram.';
+  });
+
+  /* === Policy dialog === */
+  const policy = document.getElementById('policyDialog');
+  ['openPolicyA','openPolicyB','openPolicyFooter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof policy.showModal === 'function') policy.showModal();
+      else policy.setAttribute('open', '');
+    });
+  });
+
+  /* === Hero portrait load === */
+  // Если файл assets/inna-hero.jpg существует — заменяем плейсхолдер
+  const portrait = document.getElementById('heroPortrait');
+  const probe = new Image();
+  probe.onload = () => {
+    portrait.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = 'assets/inna-hero.jpg';
+    img.alt = 'Инна Андрейченко';
+    portrait.appendChild(img);
+  };
+  probe.onerror = () => { /* оставляем плейсхолдер */ };
+  probe.src = 'assets/inna-hero.jpg';
+
+  /* === PDF download === */
+  document.getElementById('downloadPdf').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.print();
+  });
+})();
+</script>
+</body>
+</html>
