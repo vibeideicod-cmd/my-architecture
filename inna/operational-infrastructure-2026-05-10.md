@@ -405,6 +405,7 @@ dig +short platforma.ideidlyabiznesa1913.ru
 | Серверы — где что | `memory/reference_servers.md` |
 | Vultr London изолирован | `memory/reference_servers.md` + `inna/key-decisions.md` 09.05 |
 | Юр.переезд Beget на ИП Инны через ~месяц | `memory/feedback_irina_stydiyatsi_account.md` |
+| Бизнес-почты Инны и Ирины (Cloudflare/SSL/сервисы) | `memory/reference_business_email.md` — Инна `vibeideicod@gmail.com`, Ирина `i19011311i@gmail.com`, Beget `servisskladinir@gmail.com` (совместный) |
 
 ---
 
@@ -430,7 +431,9 @@ dig +short platforma.ideidlyabiznesa1913.ru
 - ФЗ-152 не нарушается: через Cloudflare DNS не идут персональные данные. Cloudflare DNS = справочник «домен → IP», там нет содержимого, нет форм, нет переписки. Сами сайты лежат на наших серверах в России.
 - Beget DNS API ненадёжен (нет официального плагина certbot, ручной hook ломкий) — отвергнут.
 
-**Что Инна делает руками:** регистрация Cloudflare-аккаунта + смена NS в панели Beget (5 минут).
+**Что Инна делает руками:** регистрация Cloudflare-аккаунта на `vibeideicod@gmail.com` + смена NS в панели Beget (5 минут).
+
+**Почта для уведомлений Let's Encrypt:** `vibeideicod@gmail.com` (бизнес-почта Инны).
 
 ### 18.2. Пользователь на Model Zarek — `deploy` без sudo
 
