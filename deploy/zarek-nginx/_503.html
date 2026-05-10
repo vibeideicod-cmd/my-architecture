@@ -12,8 +12,8 @@
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
   body {
-    background: #0a0a0a;
-    color: #e8e0d8;
+    background: #103206;
+    color: #FFF2E9;
     font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
     display: flex;
     align-items: center;
@@ -31,7 +31,7 @@
     display: inline-block;
     width: 64px;
     height: 4px;
-    background: #e86c3a;
+    background: #D4AF37;
     border-radius: 2px;
     margin-bottom: clamp(28px, 4vw, 40px);
   }
@@ -42,11 +42,12 @@
     letter-spacing: -0.02em;
     line-height: 1.1;
     margin-bottom: clamp(16px, 2vw, 24px);
+    color: #FFF2E9;
   }
-  h1 .orange { color: #e86c3a; }
+  h1 .gold { color: #D4AF37; }
   p.lead {
     font-size: clamp(16px, 2vw, 19px);
-    color: #b8b0a8;
+    color: rgba(255, 242, 233, 0.7);
     margin-bottom: clamp(36px, 5vw, 48px);
     max-width: 480px;
     margin-left: auto;
@@ -58,21 +59,21 @@
     gap: 10px;
     padding: 14px 28px;
     background: transparent;
-    color: #e86c3a;
+    color: #D4AF37;
     text-decoration: none;
     font-weight: 600;
     font-size: 15px;
     letter-spacing: 0.02em;
-    border: 1.5px solid #e86c3a;
+    border: 1.5px solid #D4AF37;
     border-radius: 6px;
     transition: background 0.2s, color 0.2s;
   }
-  a.home:hover, a.home:focus { background: #e86c3a; color: #0a0a0a; }
+  a.home:hover, a.home:focus { background: #D4AF37; color: #103206; }
   a.home::after { content: '→'; font-size: 18px; line-height: 1; }
   .footer {
     margin-top: clamp(48px, 7vw, 72px);
     font-size: 13px;
-    color: #6a665e;
+    color: rgba(255, 242, 233, 0.4);
     letter-spacing: 0.05em;
   }
 </style>
@@ -80,7 +81,7 @@
 <body>
 <main class="wrap">
   <div class="accent" aria-hidden="true"></div>
-  <h1>Скоро <span class="orange">откроется</span></h1>
+  <h1>Скоро <span class="gold">откроется</span></h1>
   <p class="lead">Идёт сборка. Эта страница станет доступна в ближайшие дни.</p>
   <a class="home" href="https://ideidlyabiznesa1913.ru">На главную</a>
   <div class="footer">ideidlyabiznesa1913.ru</div>
