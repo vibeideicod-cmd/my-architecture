@@ -36,6 +36,7 @@
 ## Корневые правила
 
 Следуй всем правилам из корневого [CLAUDE.md](../../CLAUDE.md) и:
+- Навигация проекта: [CURRENT.md](../../CURRENT.md), [DISPATCH-README.md](../../DISPATCH-README.md), [FILES.md](../../FILES.md), [RESPONSIBILITY-MATRIX.md](../../RESPONSIBILITY-MATRIX.md)
 - Дизайн-система: [/knowledge/standards/design-system.md](../../knowledge/standards/design-system.md)
 - Методология СССР: [/knowledge/methodology/](../../knowledge/methodology/)
 - Жизненный цикл проекта: [/agents/director.md](../../agents/director.md) раздел «Жизненный цикл проекта»
