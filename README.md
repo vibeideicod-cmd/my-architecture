@@ -15,7 +15,11 @@
 my-architecture/
 ├── README.md             ← вы здесь (визитка репо)
 ├── CLAUDE.md             ← правила работы для Claude/Кодыча
-├── PLAN.md               ← стратегический план агентства
+├── CURRENT.md            ← актуальный пульт: что сейчас в фокусе
+├── FILES.md              ← карта ключевых файлов и статусов
+├── DISPATCH-README.md    ← куда идти по типу задачи
+├── RESPONSIBILITY-MATRIX.md ← владельцы живых документов
+├── PLAN.md               ← исторический план, не текущий источник правды
 ├── ideas.md              ← копилка идей на будущее
 │
 ├── agents/               ← инструкции агентов (Director, Analyst, Websites, ...)
@@ -38,8 +42,11 @@ my-architecture/
 ## Как устроена работа
 
 1. **Один клиент = одна папка** в `clients/`. Внутри: `CLAUDE.md` (контекст), `PLAN.md` (что делать), `project-log.md` (что делали).
-2. **Двухуровневые планы:**
-   - Корневой [PLAN.md](PLAN.md) — стратегия по агентству
+2. **Иерархия источников правды:**
+   - [CLAUDE.md](CLAUDE.md) — правила работы и агентная конституция
+   - [CURRENT.md](CURRENT.md) — актуальный фокус всего проекта
+   - [DISPATCH-README.md](DISPATCH-README.md) — маршрутизация задач
+   - [FILES.md](FILES.md) — карта файлов и статусов
    - `clients/{имя}/PLAN.md` — тактика по клиенту
 3. **Все задачи проходят через Директора** ([agents/director.md](agents/director.md)). Он маршрутизирует, специалисты выполняют, QA проверяет.
 4. **Деплой только на Beget** через `deploy-*.sh` скрипты. Никаких Vercel/Netlify в проде (Vercel используется только для MVP-демо клиентам).
@@ -49,13 +56,15 @@ my-architecture/
 
 | Клиент | Папка | Главное сейчас |
 |---|---|---|
+| Светлана Новодацкая | [clients/sveta/](clients/sveta/) | Выступление 20 мая, презентация и партнёрский запуск |
 | Beauty Визитка | [clients/beauty/](clients/beauty/) | Починить BUG-001 (TMA некликабельна) |
 | Южнобережный | [clients/yuzhnoberezhniy/](clients/yuzhnoberezhniy/) | Деплой `demo.` субдомена |
-| Нейро Бабки (мы) | [clients/neuro-babki/](clients/neuro-babki/) | Тарифы, контакты, портфолио |
 
 ## Куда смотреть дальше
 
-- **Что в работе и что в очереди:** [PLAN.md](PLAN.md)
+- **Что сейчас в работе:** [CURRENT.md](CURRENT.md)
+- **Карта файлов:** [FILES.md](FILES.md)
+- **Куда идти по типу задачи:** [DISPATCH-README.md](DISPATCH-README.md)
 - **Правила для Кодыча:** [CLAUDE.md](CLAUDE.md)
 - **Полное описание бренда:** [clients/neuro-babki/about.md](clients/neuro-babki/about.md)
 - **Идеи на будущее:** [ideas.md](ideas.md)
