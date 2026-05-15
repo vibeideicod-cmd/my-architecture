@@ -28,7 +28,7 @@
 - [/Irina/vizitka.html](../../Irina/vizitka.html) — визитка Ирины
 - [/Irina/landing-irina.html](../../Irina/landing-irina.html) — лендинг Ирины
 
-> **TODO:** Эти HTML переедут в `clients/neuro-babki/` в Шаге 6 реструктуризации (когда обновим deploy-скрипты). См. корневой [PLAN.md](../../PLAN.md).
+> **TODO:** Эти HTML переедут в клиентскую/проектную папку после отдельного решения по реструктуризации и deploy-скриптам. Текущий фокус смотреть в [PLAN.md](../../PLAN.md); корневой [PLAN.md](../../PLAN.md) исторический.
 
 ### Инструменты
 - [tools/quiz.html](tools/quiz.html) — квиз для аудитории Нейро Бабки

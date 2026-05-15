@@ -11,6 +11,7 @@
 | [brief.md](brief.md) | источник правды | Чистый бриф по клиенту |
 | [project-log.md](project-log.md) | источник правды | История работы и решений |
 | [FILES.md](FILES.md) | источник правды | Карта файлов папки |
+| [partner-model.md](partner-model.md) | активный черновик | Партнёрская модель: без оплаты за старт, 10% за приведённых клиентов |
 | [fulltext-doklad-sveta-14-05-final.md](fulltext-doklad-sveta-14-05-final.md) | активный финал | Финальный текст доклада на 12 слайдов |
 
 ## Справочные активные файлы
@@ -49,7 +50,8 @@
 Для партнёрского предложения:
 1. [brief.md](brief.md)
 2. [PLAN.md](PLAN.md)
-3. [project-log.md](project-log.md)
+3. [partner-model.md](partner-model.md)
+4. [project-log.md](project-log.md)
 
 Для проверки спорных моментов:
 1. [brief-answers-2026-05-14.md](brief-answers-2026-05-14.md)

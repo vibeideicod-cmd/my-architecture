@@ -15,11 +15,11 @@
 my-architecture/
 ├── README.md             ← вы здесь (визитка репо)
 ├── CLAUDE.md             ← правила работы для Claude/Кодыча
-├── CURRENT.md            ← актуальный пульт: что сейчас в фокусе
+├── PLAN.md               ← актуальный пульт: что сейчас в фокусе
 ├── FILES.md              ← карта ключевых файлов и статусов
 ├── DISPATCH-README.md    ← куда идти по типу задачи
 ├── RESPONSIBILITY-MATRIX.md ← владельцы живых документов
-├── PLAN.md               ← исторический план, не текущий источник правды
+├── PLAN-legacy-2026-05-08.md ← исторический план, не текущий источник правды
 ├── ideas.md              ← копилка идей на будущее
 │
 ├── agents/               ← инструкции агентов (Director, Analyst, Websites, ...)
@@ -44,7 +44,7 @@ my-architecture/
 1. **Один клиент = одна папка** в `clients/`. Внутри: `CLAUDE.md` (контекст), `PLAN.md` (что делать), `project-log.md` (что делали).
 2. **Иерархия источников правды:**
    - [CLAUDE.md](CLAUDE.md) — правила работы и агентная конституция
-   - [CURRENT.md](CURRENT.md) — актуальный фокус всего проекта
+   - [PLAN.md](PLAN.md) — актуальный фокус всего проекта
    - [DISPATCH-README.md](DISPATCH-README.md) — маршрутизация задач
    - [FILES.md](FILES.md) — карта файлов и статусов
    - `clients/{имя}/PLAN.md` — тактика по клиенту
@@ -62,7 +62,7 @@ my-architecture/
 
 ## Куда смотреть дальше
 
-- **Что сейчас в работе:** [CURRENT.md](CURRENT.md)
+- **Что сейчас в работе:** [PLAN.md](PLAN.md)
 - **Карта файлов:** [FILES.md](FILES.md)
 - **Куда идти по типу задачи:** [DISPATCH-README.md](DISPATCH-README.md)
 - **Правила для Кодыча:** [CLAUDE.md](CLAUDE.md)

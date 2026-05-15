@@ -122,14 +122,14 @@
 
 | Вопрос | Куда смотреть |
 |---|---|
-| Что сейчас в фокусе всего проекта | [CURRENT.md](CURRENT.md) |
+| Что сейчас в фокусе всего проекта | [PLAN.md](PLAN.md) |
 | Где лежат ключевые файлы и что устарело | [FILES.md](FILES.md) или ближайший локальный `FILES.md` |
 | Куда идти по типу задачи | [DISPATCH-README.md](DISPATCH-README.md) |
 | Кто отвечает за живые документы | [RESPONSIBILITY-MATRIX.md](RESPONSIBILITY-MATRIX.md) |
 | Как работает Директор | [agents/director.md](agents/director.md) |
 | Какие агенты есть в команде | [knowledge/tools/team-overview.md](knowledge/tools/team-overview.md) |
 
-Корневой [PLAN.md](PLAN.md) сейчас исторический и не является текущим пультом. Для текущих приоритетов используй [CURRENT.md](CURRENT.md). Для конкретного клиента используй `clients/<name>/PLAN.md`.
+Корневой [PLAN.md](PLAN.md) — текущий пульт проекта. Исторический план агентской реструктуризации лежит в [PLAN-legacy-2026-05-08.md](PLAN-legacy-2026-05-08.md). Для конкретного клиента используй `clients/<name>/PLAN.md`.
 
 ## Система агентов
 
