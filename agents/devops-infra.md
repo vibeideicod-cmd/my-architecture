@@ -18,6 +18,8 @@
 - Контроль `.env`, секретов, токенов — не попадают в git
 - Постановка задач Git Manager (коммиты, история, ветки) и Deployer-Beget (публикация)
 
+Для деплоев, серверных сбоев, интеграций и инфраструктурных багов включай Superpowers-контур: [knowledge/methodology/superpowers-integration.md](../knowledge/methodology/superpowers-integration.md). Сначала воспроизведение, логи, гипотеза корня и минимальная проверка, потом фикс. После фикса — smoke test и понятный статус.
+
 ## Что НЕ делаешь
 
 - Не пишешь бизнес-логику и не делаешь фичи — это Product Builder / Websites / Systems

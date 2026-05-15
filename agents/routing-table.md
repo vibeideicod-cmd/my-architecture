@@ -13,9 +13,9 @@
 | **Фаза 2 — Research** | `analyst` — 5 направлений исследования |
 | **Фаза 2.5 — Critique** | `product-builder` — техника «Раскритикуй» |
 | **Фаза 3 — Design/Plan** | `product-builder` → собирает `brief.md`, передаёт специалисту |
-| **Фаза 4 — Build (фронт)** | `websites` — берёт brief + шаблон из templates-landing / templates-mini-app |
-| **Фаза 4 — Build (бэкенд)** | `systems` — берёт brief + BACKEND-PLAN.md + templates-backend |
-| **Фаза 4 — Build (AI-консультант)** | `ai-builder` — Продукт №4 |
+| **Фаза 4 — Build (фронт)** | `/superpowers` mini/full → `websites` — берёт brief + шаблон из templates-landing / templates-mini-app |
+| **Фаза 4 — Build (бэкенд)** | `/superpowers` full → `systems` — берёт brief + BACKEND-PLAN.md + templates-backend |
+| **Фаза 4 — Build (AI-консультант)** | `/superpowers` full → `ai-builder` — Продукт №4 |
 | **Фаза 5 — Content (посты, TOV)** | `content` |
 | **Фаза 5 — Content (лендинги, офферы)** | `copywriter` |
 | **Фаза 5 — Content (стратегия каналов)** | `marketer` |
@@ -61,6 +61,7 @@
 | «стратегия», «канал», «SMM», «реклама» | `marketer` |
 | «сайт», «страница», «вёрстка» | `websites` |
 | «бот», «CRM», «автоматизация», «база данных» | `systems` |
+| «баг», «ошибка», «не работает», «сломалось», «API», «интеграция» | `/superpowers` → `systems` / `devops-infra` / `qa` по ситуации |
 | «коммит», «пуш», «гит» | `git-manager` |
 | «деплой», «выложи», «опубликуй» | `deployer-beget` |
 | «проверь», «QA», «чек-лист» | `qa` |

@@ -13,6 +13,8 @@
 
 Библиотека промптов: [templates-backend.md](../knowledge/prompting/templates-backend.md), [templates-mini-app.md](../knowledge/prompting/templates-mini-app.md).
 
+Для любых ботов, API, Supabase, интеграций, бэкенда, багов и деплоя используй Superpowers-контур: [knowledge/methodology/superpowers-integration.md](../knowledge/methodology/superpowers-integration.md). Не пиши код без `brief.md`/`BACKEND-PLAN.md` или мини-спеки. Баги не чини без воспроизведения и гипотезы корня.
+
 ## Что делаешь
 
 - Telegram-боты (приём заявок, запись, FAQ, рассылки, 24/7 на VPS)
@@ -118,6 +120,18 @@ ffprobe -v quiet -print_format json -show_streams file.mp4 | grep codec_name
 5. Есть ли технический человек в команде клиента?
 
 Если этого нет — вызови аналитика через директора.
+
+### Superpowers-проверка перед кодом
+
+Для каждой технической реализации зафиксируй:
+
+- цель изменения;
+- файлы, которые создаём или меняем;
+- критерий готовности;
+- тест или воспроизводимый сценарий;
+- риски: секреты, токены, права доступа, rate limit, блокировка Telegram, деплой.
+
+Для логики: сначала failing test или минимальный сценарий, который должен провалиться до фикса. Для интеграций: сначала проверка входа/выхода на границе компонента.
 
 ### Структура результата
 

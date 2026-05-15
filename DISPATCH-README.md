@@ -52,6 +52,7 @@
 | Презентация / визуальная упаковка | клиентский `brief.md`, `FILES.md`, дизайн-ТЗ | Branding + Brandbook Creator + Ирина |
 | Лендинг / сайт / страница | клиентский `PLAN.md`, `brief.md` | Product Builder + Websites + QA |
 | Бот / CRM / автоматизация | клиентский `PLAN.md`, техбриф | Systems + AI Builder + QA |
+| Код / баг / деплой / API / техническая архитектура | [knowledge/methodology/superpowers-integration.md](knowledge/methodology/superpowers-integration.md), ближайший `PLAN.md`/`brief.md` | `/superpowers` + нужный технический агент |
 | Сервер / Beget / инфраструктура проекта | `deploy/`, профиль проекта, [FILES.md](FILES.md) | DevOps/Infra + Deployer-Beget |
 | VK / Telegram / сайт Инны | `inna/` + ближайший `PLAN.md`/`FILES.md` | Marketer + SMM-Manager + Websites/Systems |
 | VK / Telegram / сайт клиента | `clients/<name>/PLAN.md`, `brief.md`, `FILES.md` | Marketer + SMM-Manager + Websites/Systems |
@@ -86,6 +87,7 @@
 - если есть тип задачи — свериться с таблицей выше;
 - если задача про знания/обучение — идти через Librarian;
 - если задача про продуктовую архитектуру — подключать Business-Architect;
+- если задача инженерная (код, баг, деплой, API, бот, Mini App, AI-консультант) — включить `/superpowers` по [superpowers-integration.md](knowledge/methodology/superpowers-integration.md);
 - если задача повторяется второй раз — создавать/обновлять справочник в `knowledge/`;
 - если задача повторяется 3+ раза — предлагать апгрейд архитектуры: скилл, агент или автоматизацию.
 
