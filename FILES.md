@@ -1,6 +1,6 @@
 # FILES — карта проекта my-architecture
 
-Дата обновления: 2026-05-15
+Дата обновления: 2026-05-16
 
 Статусы:
 - **источник правды** — главный актуальный документ по теме;
@@ -36,15 +36,15 @@
 |---|---|---|
 | [agents/](agents/) | источник правды | Контекст-агенты команды Инны |
 | [.claude/](.claude/) | активный | Локальные скиллы, настройки Claude/Codex-экосистемы |
-| [knowledge/](knowledge/) | источник правды | Методология, стандарты, инструменты, база знаний |
+| [knowledge/](knowledge/) | источник правды | Методология, стандарты, инструменты, база знаний → локальная карта [knowledge/FILES.md](knowledge/FILES.md) |
 | [clients/](clients/) | активный | Клиентские, внутренние и кураторские проекты |
-| [inna/](inna/) | активный контур Инны | Собственный бренд, продукты, каналы, воронки, сайты и инфраструктурные задачи Инны |
-| [irina/](irina/) | активный контур Ирины | Направление Ирины как партнёра: бренд, продукты, портфолио, материалы |
+| [inna/](inna/) | активный контур Инны | Собственный бренд, продукты, каналы, воронки, сайты и инфраструктура → локальная карта [inna/FILES.md](inna/FILES.md) |
+| [irina/](irina/) | активный контур Ирины | Стратегический контур партнёрства → локальная карта [irina/FILES.md](irina/FILES.md). Реализация в `clients/irina/` |
 | [ideas/](ideas/) | активный | Новые идеи Инны отдельными файлами |
 | [memory/](memory/) | активный | Сессионная память и дневники работы |
 | [transcripts/](transcripts/) | активный | Транскрипты, не привязанные к конкретному клиенту |
-| [inbox20/](inbox20/) | активный входящий | Материалы из Claude 20 / обучения / общих рабочих входящих |
-| [inbox-inna/](inbox-inna/) | активный входящий | Сырые материалы от Инны |
+| [inbox20/](inbox20/) | временная зона обработки | Материалы из Claude 20 / обучения. Не получает `FILES.md` — обрабатывается по протоколу в `CLAUDE.md` |
+| [inbox-inna/](inbox-inna/) | временная зона обработки | Сырые материалы от Инны. Не получает `FILES.md` — обрабатывается по протоколу в `CLAUDE.md` |
 | [agent-runtime/](agent-runtime/) | рабочая зона, не коммитится | Промежуточные файлы агентов |
 | [deploy/](deploy/) | активный | Конфиги деплоя |
 
@@ -56,10 +56,11 @@
 
 | Проект | Статус | Комментарий |
 |---|---|---|
-| [clients/sveta/](clients/sveta/) | активный | Светлана Новодацкая, выступление и партнёрский запуск новой экспертной ниши |
-| [clients/beauty/](clients/beauty/) | активный | Beauty/TMA |
-| [clients/yuzhnoberezhniy/](clients/yuzhnoberezhniy/) | активный | Санаторий Южнобережный |
-| [clients/mastergroup/](clients/mastergroup/) | активный | Кураторская ветка, не коммерческий клиент |
+| [clients/sveta/](clients/sveta/) | активный | Светлана Новодацкая → [FILES.md](clients/sveta/FILES.md) |
+| [clients/beauty/](clients/beauty/) | активный | Beauty TMA SaaS → [FILES.md](clients/beauty/FILES.md) |
+| [clients/yuzhnoberezhniy/](clients/yuzhnoberezhniy/) | активный | Санаторий Южнобережный → [FILES.md](clients/yuzhnoberezhniy/FILES.md) |
+| [clients/mastergroup/](clients/mastergroup/) | активный | Кураторская ветка, не коммерческий клиент → [FILES.md](clients/mastergroup/FILES.md) |
+| [clients/irina/](clients/irina/) | активный | Реализация по Ирине: брендбук, визитка, продукты, deliverables → [FILES.md](clients/irina/FILES.md) |
 | [clients/_template/](clients/_template/) | источник шаблона | Шаблон клиентской папки |
 
 ## Контуры работы
