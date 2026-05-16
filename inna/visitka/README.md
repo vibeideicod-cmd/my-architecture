@@ -14,12 +14,15 @@
 ## 1. Файлы
 
 ```
-clients/inna/visitka/
-├── index.html         ← собранный каркас, всё внутри
-├── README.md          ← этот файл
+inna/visitka/
+├── index.html               ← собранный каркас, всё внутри
+├── README.md                ← этот файл
+├── NANO-BANANA-GUIDE.md     ← гайд по генерации hero через AI nano-banana
 └── assets/
-    └── inna-hero.jpg  ← портрет от Nano Banana (положить сюда)
+    └── inna-hero.png        ← портрет от Nano Banana
 ```
+
+Переехало из `clients/inna/visitka/` → `inna/visitka/` 2026-05-16 (объединение стратегии и production в одну папку `inna/`).
 
 Картинка `assets/inna-hero.jpg` подгружается JS-пробником: пока её нет — в hero-секции виден стилизованный плейсхолдер «портрет (через Nano Banana)». Когда файл появится — плейсхолдер автоматически заменится фотографией.
 

@@ -22,6 +22,8 @@
 | [ARCHITECTURE-QA-2026-05-15.md](ARCHITECTURE-QA-2026-05-15.md) | активный QA-отчёт | Проверка встраивания навигационного слоя в работу Директора и клиента Светы |
 | [ARCHITECTURE-SMOKE-TEST-2026-05-15.md](ARCHITECTURE-SMOKE-TEST-2026-05-15.md) | активный QA-отчёт | Проверка трёх сценариев: существующий клиент, новый клиент, обучение/методика |
 | [ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.md](ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.md) | активный аудит | Каскадный аудит всей архитектуры проекта и план доработки |
+| [ARCHITECTURE-ACCEPTANCE-AUDIT-2026-05-16.md](ARCHITECTURE-ACCEPTANCE-AUDIT-2026-05-16.md) | активный приёмочный аудит | Проверка, работает ли архитектура как проектный офис: Директор → департаменты → исполнители → QA → статус клиента |
+| [MODEL-RUNTIME-AUDIT-2026-05-16.md](MODEL-RUNTIME-AUDIT-2026-05-16.md) | активный preflight-аудит | Сверка model-map/team-overview/agents/skills/subagents/Codex: где модель реально исполняется, а где только справочная |
 | [ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.txt](ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.txt) | экспорт | Текстовая версия глобального аудита |
 | [README.md](README.md) | активный, требует обновления | Человеческое описание репозитория. Сейчас частично устарело по активным клиентам |
 | [PLAN-legacy-2026-05-08.md](PLAN-legacy-2026-05-08.md) | исторический | Старый стратегический план агентской реструктуризации; не источник правды |
@@ -68,7 +70,7 @@
 | Контур | Где | Комментарий |
 |---|---|---|
 | Корневая бизнес-архитектура | `PLAN.md`, `FILES.md`, `DISPATCH-README.md`, `RESPONSIBILITY-MATRIX.md` | Общие правила, маршрутизация, команда, источники правды |
-| Инна | `inna/`, частично `clients/inna/` | Личный бренд, каналы, продукты, сайты, серверные и воронковые задачи Инны |
+| Инна | `inna/` | Личный бренд, каналы, продукты, сайты, серверные и воронковые задачи Инны. Визитка переехала из `clients/inna/visitka/` → `inna/visitka/` (2026-05-16). |
 | Ирина | `irina/`, `clients/irina/` | Партнёрское направление, бренд-дизайн, портфолио, продукты Ирины |
 | Клиенты | `clients/<name>/` | Каждый клиент имеет локальный план, бриф, карту файлов и журнал по мере роста проекта |
 | Обучение и знания | `inbox20/`, `transcripts/`, `knowledge/` | Внешние методики проходят через фильтр применимости к нашей архитектуре |
@@ -81,6 +83,7 @@
 | [agents/routing-table.md](agents/routing-table.md) | источник правды | Таблица маршрутизации задач |
 | [knowledge/tools/team-overview.md](knowledge/tools/team-overview.md) | источник правды | Полный справочник по 31 агенту |
 | [knowledge/tools/model-map.md](knowledge/tools/model-map.md) | источник правды | Модели агентов и обоснование |
+| [knowledge/tools/codex-claude-operating-strategy.md](knowledge/tools/codex-claude-operating-strategy.md) | активная стратегия | Как делить работу между Codex и Claude Code; где модели реально исполняются, а где являются рекомендацией |
 | [knowledge/tools/skills-catalog.md](knowledge/tools/skills-catalog.md) | активный | Каталог скиллов |
 
 ## Правило для новых папок
