@@ -15,7 +15,7 @@
 | Раздел | Статус | Что внутри |
 |---|---|---|
 | [methodology/](methodology/) | ⭐ источник правды | Методологии: stage 0-6 системы СССР, audio-pipeline, deploy-stages, discovery-signals, research-standard, strategic-standard, tov-anti-patterns, instagram-stories, architecture-building, video-transcripts, audit-params, **superpowers-integration** (15.05), **superpowers-skill-audit** (15.05), director-drift-log |
-| [tools/](tools/) | ⭐ источник правды | Инструменты команды: team-overview (31 агент), model-map, skills-catalog |
+| [tools/](tools/) | ⭐ источник правды | Инструменты команды: team-overview (31 агент), model-map, skills-catalog, codex-claude-operating-strategy |
 | [playbooks/](playbooks/) | ⭐ источник правды | Универсальные плейбуки: product-creation (6 фаз), content-marketing |
 | [prompting/](prompting/) | ⭐ источник правды | Промптинг: craft-formula, critique-techniques, examples, mistakes, power-ups, templates-backend / templates-landing / templates-mini-app, lesson-log, techniques |
 | [standards/](standards/) | ⭐ источник правды | Стандарты: design-system, content-plan, content-voice |
@@ -34,6 +34,8 @@
 **Для инженерной задачи:** `methodology/superpowers-integration.md` (методология) + соответствующий шаблон в `prompting/templates-*.md`.
 
 **Для понимания команды:** `tools/team-overview.md` (31 агент) + `tools/model-map.md` (Haiku/Sonnet/Opus) + `tools/skills-catalog.md` (32 скилла).
+
+**Для работы в двух средах:** `tools/codex-claude-operating-strategy.md` — как делить задачи между Codex и Claude Code, где модели реально исполняются, а где являются справочной рекомендацией.
 
 **Для бренда Инны:** `brand/palette.md` (источник правды по палитре, приоритет над CLAUDE.md).
 
