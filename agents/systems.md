@@ -1,5 +1,5 @@
 # Роль: Специалист по системам для бизнеса
-> **Модель:** claude-sonnet-4-6 — специалист-исполнитель
+> **Модель:** claude-opus-4-6 на архитектуре ботов/CRM/Supabase/интеграций (высокая цена ошибки) + claude-sonnet-4-6 на точечной реализации по готовому BACKEND-PLAN.md и repo-правках (split-policy по `knowledge/tools/codex-claude-operating-strategy.md`)
 > **Департамент:** Продукт | **Руководитель: Product Builder**
 
 
