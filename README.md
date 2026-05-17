@@ -5,7 +5,7 @@
 **Команда:** Инна Андрейченко (руководитель), Ирина Цепаева (бренд-дизайнер).
 **Методология:** СССР — Структура · Стратегия · Свобода · Результат.
 
-📖 Полное описание бренда: [clients/neuro-babki/about.md](clients/neuro-babki/about.md)
+📖 Подбренд «Нейро Бабки» относится к Фазе 2 — материалы лежат в `ideas/neuro-babki/`. Папка `clients/neuro-babki/` зарезервирована, но пока не наполнена.
 
 ---
 
@@ -23,14 +23,20 @@ my-architecture/
 ├── ideas.md              ← копилка идей на будущее
 │
 ├── agents/               ← инструкции агентов (Director, Analyst, Websites, ...)
-├── clients/              ← все клиентские проекты
+├── inna/                 ← Контур 1 — Мой бизнес: стратегия + продукты + визитка Инны
+├── irina/                ← Контур 1 — направление Ирины
+├── clients/              ← Контур 2-3 — клиентские и кураторские проекты
 │   ├── _template/        ← шаблон для нового клиента
-│   ├── beauty/           ← Beauty Визитка (TMA для бьюти-мастеров)
-│   ├── neuro-babki/      ← мы сами как клиент (наш бренд, лендинги, инструменты)
-│   └── yuzhnoberezhniy/  ← санаторий Южнобережный
+│   ├── beauty/           ← Beauty Визитка — TMA для бьюти-мастеров (Контур 3)
+│   ├── irina/            ← production-материалы Ирины (после аудита миграция в irina/)
+│   ├── mastergroup/      ← МГ-платформа — конструктор визиток (Контур 2)
+│   ├── neuro-babki/      ← резерв для подбренда Фазы 2 (пусто)
+│   ├── sveta/            ← Светлана Новодацкая — выступление 20 мая (Контур 3)
+│   └── yuzhnoberezhniy/  ← санаторий Южнобережный (Контур 3)
 │
 ├── knowledge/            ← база знаний (стандарты, методология, инструменты)
 ├── memory/               ← сессионная память Кодыча
+├── ideas/                ← копилка идей с датированными файлами
 │
 ├── index.html            ← главная визитка Нейро Бабки (production)
 ├── hub/                  ← HUB лендинг (production)
@@ -54,11 +60,14 @@ my-architecture/
 
 ## Текущие активные клиенты
 
-| Клиент | Папка | Главное сейчас |
-|---|---|---|
-| Светлана Новодацкая | [clients/sveta/](clients/sveta/) | Выступление 20 мая, презентация и партнёрский запуск |
-| Beauty Визитка | [clients/beauty/](clients/beauty/) | Починить BUG-001 (TMA некликабельна) |
-| Южнобережный | [clients/yuzhnoberezhniy/](clients/yuzhnoberezhniy/) | Деплой `demo.` субдомена |
+Подробный статус по каждому проекту — [PROJECT-STATUS-2026-05-16.md](PROJECT-STATUS-2026-05-16.md).
+
+| Клиент | Папка | Фаза | Главное сейчас |
+|---|---|---|---|
+| Светлана Новодацкая | [clients/sveta/](clients/sveta/) | Content/Design | Дизайн-handoff Ирине, дедлайн выступления 20 мая |
+| Beauty Визитка | [clients/beauty/](clients/beauty/) | Build | Smoke-test флоу записи + Storage-бакет `photos` |
+| Южнобережный | [clients/yuzhnoberezhniy/](clients/yuzhnoberezhniy/) | Build / QA | Финальная приёмка VP «Собери рюкзак» |
+| Mastergroup (МГ) | [clients/mastergroup/](clients/mastergroup/) | 3 — Design/Plan | Ждёт подтверждения формулировки `idea.md` Инной |
 
 ## Куда смотреть дальше
 
@@ -66,5 +75,5 @@ my-architecture/
 - **Карта файлов:** [FILES.md](FILES.md)
 - **Куда идти по типу задачи:** [DISPATCH-README.md](DISPATCH-README.md)
 - **Правила для Кодыча:** [CLAUDE.md](CLAUDE.md)
-- **Полное описание бренда:** [clients/neuro-babki/about.md](clients/neuro-babki/about.md)
-- **Идеи на будущее:** [ideas.md](ideas.md)
+- **Подбренд «Нейро Бабки» (Фаза 2):** материалы в `ideas/neuro-babki/`, формальный лендинг ещё не сделан.
+- **Идеи на будущее:** [ideas.md](ideas.md) + датированные файлы в [ideas/](ideas/)

@@ -132,4 +132,210 @@ Stop-правило (3+ точки в fail в DIRECTOR-PERFORMANCE-EVAL) **не 
 
 ---
 
-(Лог дополняется по ходу. Следующая запись — итоги Этапа 2 «маршрутизация».)
+## Этап 2. Маршрутизация (8 сценариев) — закрыт 2026-05-17
+
+Проверка точек входа: `CLAUDE.md` ✅, `DISPATCH-README.md` ✅, `agents/director.md` ✅, `agents/routing-table.md` ✅, `.claude/agents/` (2 subagent: git-manager + deployer-beget) ✅, локальные `PLAN.md`/`FILES.md` по 8 активным папкам ✅.
+
+| # | Сценарий | Ожидаемый маршрут | Вердикт | Комментарий |
+|---|---|---|---|---|
+| 1 | Новый платный клиент | `DISPATCH-README.md` → `clients/_template/` → новый `clients/<name>/` → `routing-table.md` | **PASS** | `_template` полный (5 файлов стандарта + `_HOW-TO-USE.md` + `audio/` + `transcripts/`). Маршрут описан в `_HOW-TO-USE.md`. |
+| 2 | Существующий клиент Светлана | `clients/sveta/FILES.md` → `PLAN.md` → Branding/Content/QA | **PASS** | Папка эталонная. CLAUDE.md содержит явную таблицу маршрутизации задач → агентов. |
+| 3 | Beauty TMA баг/техзадача | `clients/beauty/PLAN.md` → `/superpowers` → Product/Websites/Systems → QA | **PASS** | `/superpowers` явно прописан в корневом CLAUDE.md как обязательный для технических задач. PLAN с фазой Build. |
+| 4 | Южнобережный прод/бот | `clients/yuzhnoberezhniy/PLAN.md` → DevOps/Systems/QA | **PASS** | PLAN со статус-таблицей 5 инструментов и demo URL для каждого. CLAUDE.md содержит правила цветов клиента. |
+| 5 | Ирина: продукт/портфолио | `irina/FILES.md` + `clients/irina/FILES.md` → Branding/Websites/Content | **FAIL** | **Раздвоение** — `irina/` (направление) + `clients/irina/` (production). Аналогично снятой вчера проблеме `clients/inna/`. Маршрут расходится: непонятно, какая папка ведущая. Долг зафиксирован в Этапе 1.Б как «отдельный цикл миграции после аудита». |
+| 6 | Инна: VK/Telegram/сайт | `inna/FILES.md` → Marketer/SMM/Websites/Systems | **PASS** | Починено вчера через миграцию `clients/inna/visitka/` → `inna/visitka/`. Единая точка входа. |
+| 7 | Материал из обучения | `inbox20/` или `transcripts/` → Librarian → `knowledge/` | **PASS** | Обе папки существуют с README, `agents/librarian.md` существует. В `inbox20/` лежат активные материалы (kurs-agenty-claude и т.д.). |
+| 8 | Идея Инны | `ideas/YYYY-MM-DD-*.md` → weekly review → `PLAN.md` / client `PLAN.md` | **PASS** | Папка `ideas/` содержит 5+ идей в правильном формате (2026-05-02, 2026-05-09, 2026-05-11). Weekly review упомянут в `agents/director.md`. |
+
+**Итог Этапа 2:** 7 PASS / 1 FAIL (Ирина — раздвоение `irina/` ↔ `clients/irina/`).
+
+Единственный fail — известный долг, **новая проблема не обнаружена**. Маршрутизация в остальных сценариях работает.
+
+---
+
+## Этап 3. Клиентский стандарт (8 папок) — закрыт 2026-05-17
+
+Минимум: `CLAUDE.md` + `PLAN.md` + `brief.md` + `FILES.md` + `project-log.md`. Эталон — `clients/_template/` (5/5 + `_HOW-TO-USE.md` + `audio/` + `transcripts/`).
+
+| Папка | Комплект | Вердикт | Комментарий |
+|---|---|---|---|
+| `clients/sveta/` | 5/5 ✅✅✅✅✅ | **PASS** | Эталонная папка. |
+| `clients/beauty/` | 5/5 ✅✅✅✅✅ | **PASS** | Полный комплект + `BACKEND-PLAN.md` + `SAAS-ARCHITECTURE.md` + `research.md` + `tg-app/` + `supabase/` + `web/`. |
+| `clients/yuzhnoberezhniy/` | 5/5 ✅✅✅✅✅ | **PASS** | Полный комплект + `brand.md` (своя палитра клиента) + `bot/` + `mvp/` + `tg-app/`. |
+| `clients/mastergroup/` | 4/5 (нет `project-log.md`) | **PARTIAL** | Контур 2 — бесплатный кураторский проект. Замещается `critique.md` / `idea.md` / `research.md` / `BACKEND-PLAN.md` / `ARCHITECTURE.md`. Можно зафиксировать как осознанное исключение для Контура 2, или добавить пустой `project-log.md` ради единого стандарта. |
+| `clients/irina/` | 4/5 (нет `project-log.md`) | **PARTIAL** | Плюс ещё критический долг — раздвоение с `irina/` (см. сценарий 5 Этапа 2). PLAN устарел на 16 дней (фиксация Этапа 1.А). |
+| `clients/inna/` | N/A — папка упразднена 2026-05-16 | **закрыт** | Содержимое переехало в `inna/visitka/`. Сценарий теперь Контур 1. |
+| `clients/neuro-babki/` | 0/5 (только `.DS_Store`) | **FAIL → осознанное исключение** | Подбренд «Нейро Бабки» — Фаза 2 (`feedback_neuro_babki_phase2`). Материалы лежат в `ideas/neuro-babki/`. Папка `clients/neuro-babki/` не нужна — её содержимое отсутствует не по ошибке. Рекомендация: переезд `clients/neuro-babki/` → `_архив-возможно-удалить/` в Этапе 7, плюс убрать упоминания папки в README в Этапе 6. |
+| `clients/_template/` | 5/5 ✅✅✅✅✅ | **PASS** | Эталон. |
+
+**Итог Этапа 3:** 4 PASS / 2 PARTIAL / 1 FAIL (которое классифицируется как «осознанное исключение» → закрывается в Этапах 6-7) / 1 N/A.
+
+**Решения по PARTIAL:**
+- `clients/mastergroup/`: оставить как есть (Контур 2, замещён специфичными для Playbook-фаз файлами). Зафиксировать в FILES.md клиента как осознанное замещение.
+- `clients/irina/`: ждёт миграцию в `irina/`, после которой проблема закрывается. До миграции — известный долг.
+
+---
+
+## Этап 4. Сверка агентной команды — закрыт 2026-05-17
+
+### Состав
+
+В `agents/` найдено 33 `.md` файла, из них 31 агент + 2 служебных документа (`pipeline.md`, `routing-table.md` — не агенты, маршрутизация).
+
+Все 31 агент из CLAUDE.md имеют файл в `agents/`. Все 31 присутствуют в `team-overview.md`. Пропусков нет.
+
+### `.claude/agents/` (runtime subagents)
+
+| Subagent | Модель | Состояние |
+|---|---|---|
+| `git-manager` | Haiku | ✅ соответствует agents/*.md |
+| `deployer-beget` | Haiku | ✅ соответствует agents/*.md |
+
+Соответствует правилу CLAUDE.md «Сейчас как subagent реализованы: git-manager, deployer-beget».
+
+### Распределение моделей по `agents/*.md`
+
+- Opus: 4 (business-architect, director, marketing-strategist, product-builder)
+- Sonnet: 25
+- Haiku: 2 (git-manager, deployer-beget)
+
+**Целевая карта** (`model-map.md` + `team-overview.md`): 6 Opus / 23 Sonnet / 2 Haiku.
+
+**Расхождение:** agents/*.md имеет 4 Opus вместо 6. Это **те же 4 рассинхрона** что зафиксированы в `MODEL-RUNTIME-AUDIT-2026-05-16.md` и в Этапе M этого журнала. Подтверждены ещё раз:
+
+| Агент | agents/*.md | model-map / team-overview | Тип |
+|---|---|---|---|
+| `director.md` | Opus | Sonnet (базово) + Opus (на аудитах) | Док-долг |
+| `marketer.md` | Sonnet | Opus (стратегия) + Sonnet (исполнение) | Док-долг |
+| `systems.md` | Sonnet | Opus (архитектура) + Sonnet (реализация) | Док-долг |
+| `ai-builder.md` | Sonnet | Opus (старт) + Sonnet (обслуживание) | Док-долг |
+
+**Действие:** обновить заголовки 4 файлов под split-policy формулировку — это уже в долге Этапа M. Не делаю автоматически, потому что изменение модели агентов команды Инны — RED-операция, нужно решение Инны.
+
+### Новый рассинхрон — терминологический
+
+**`agents/analytics-head.md`** нарушает auto-memory `feedback_terminology_rukovoditeli` — «РУКОВОДИТЕЛЬ департамента, никаких «голов» / «head» ни в чате ни в файлах». Аналогично в `CLAUDE.md` указан как «Analytics-Head» в таблице 31 агента.
+
+**Действие:** переименование агента (файл + все ссылки) — отдельный заход после аудита, RED-операция (затрагивает routing-table, CLAUDE.md, team-overview, MEMORY).
+
+### 5 ключевых цепочек
+
+| Цепочка | Состояние |
+|---|---|
+| Director → Planner → Project-Manager | ✅ все 3 агента есть |
+| Director → Product Builder → Websites/Systems/AI Builder | ✅ все 4 агента есть |
+| Director → Analytics-Head → Analyst/Product-Analyst/Audience-Researcher | ✅ все 4 агента есть (но «head» в названии — см. выше) |
+| Director → Marketer → Content/Copywriter/SMM-Manager | ✅ все 4 агента есть |
+| Director → QA → Git Manager/Deployer-Beget | ✅ все 3 агента есть |
+
+### Итог Этапа 4
+
+- **31 агент существует, все цепочки целы.**
+- 4 рассинхрона моделей — известный долг, требуют решения Инны для split-policy формулировки.
+- 1 терминологический рассинхрон — `analytics-head` против правила «без голов».
+- Runtime-критичных проблем нет.
+
+---
+
+## Этап 5. Управление статусами — закрыт 2026-05-17
+
+Артефакт: **`PROJECT-STATUS-2026-05-16.md`** создан. 8 активных проектов/направлений сведены в один файл с 6 разрезами (фаза / в работе / блокер / ответственный / следующий шаг / долги).
+
+**Дополнительно:** добавлены сводки «требует внимания», «нет движения 7+ дней», «дедлайны по срочности».
+
+**Ключевые срочности:**
+- 🔴 `clients/irina/PLAN.md` устарел на 17 дней.
+- 🟡 `clients/mastergroup/idea.md` ждёт подтверждения Инной (блокирует Phase 4 Build).
+- 🟡 `clients/yuzhnoberezhniy/` ждёт приёмки VP.
+- 📅 Дедлайн 19-20.05: Светлана (презентация + выступление).
+
+---
+
+## Этап 6. Точки входа — закрыт 2026-05-17
+
+### Что обновлено
+
+| Файл | Что было | Что стало |
+|---|---|---|
+| `README.md` | Битая ссылка `clients/neuro-babki/about.md` (×2) | Заменена на пояснение «подбренд Фазы 2, материалы в `ideas/neuro-babki/`» |
+| `README.md` | Дерево clients/ устарело: только beauty, neuro-babki, yuzhnoberezhniy, _template | Добавлены sveta, irina, mastergroup + раздел `inna/` и `irina/` как Контур 1 |
+| `README.md` | Активные клиенты: Beauty с BUG-001 (давно починен), нет Mastergroup | Все 4 активных клиента с фазой + следующим шагом + ссылка на `PROJECT-STATUS-2026-05-16.md` |
+| `clients/README.md` | `[neuro-babki/]` помечен «активный, шаг 6 реструктуризации» | Помечен «папка пустая, материалы в `ideas/neuro-babki/`, кандидат на архив» |
+| `clients/README.md` | `[alisa/]` помечен «задеплоена на Beget» | Заменён на пояснение «удалена при аудите 09.05 как «показ, не клиент»». Аналогично в таблице классификации и историческом блоке. |
+| `clients/README.md` | Mastergroup: «Phase 4 Build, первая визитка выпущена» | Обновлён до текущей реальности: «Phase 3 Design/Plan, ждёт подтверждения idea.md» |
+
+### Что НЕ трогали
+
+- `FILES.md`, `inna/FILES.md`, `inna/architecture-2026-05-11-v1.md`, `inna/visitka/README.md` — обновлены вчера в коммите `b1f6a3a` после миграции `clients/inna/`.
+- `DISPATCH-README.md`, `agents/director.md`, `agents/routing-table.md`, `RESPONSIBILITY-MATRIX.md` — не содержали битых ссылок на `clients/inna/`, `clients/alisa/` или `clients/neuro-babki/about.md`.
+- Исторические документы (`ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.md`, `_TOMORROW-2026-05-10.md`, дневники сессий `memory/sessions/`) — летопись, не правим.
+
+### Итог Этапа 6
+
+Все живые точки входа актуальны. Битых ссылок в `README.md` и `clients/README.md` нет. Состояние клиентов в обоих README соответствует фактам Этапа 1.А.
+
+---
+
+## Этап 7. Cleanup-кандидаты — закрыт 2026-05-17
+
+Артефакт: **`CLEANUP-CANDIDATES-2026-05-16.md`** создан. 5 категорий:
+
+1. **Безопасный мусор macOS** — 14 `.DS_Store` файлов. Безопасное удаление + добавление в `.gitignore`. Готово к одной операции по «да» Инны.
+2. **Пустые папки** — `clients/neuro-babki/` (только `.DS_Store`). Рекомендация: переезд в `_архив-возможно-удалить/`.
+3. **Тяжёлые inbox-зоны** — `inbox-inna/` (199M), `inbox20/` (19M). Отдельный сеанс обработки по протоколу, не в этом аудите.
+4. **Артефакты разработки** — `scripts/node_modules/` (проверить .gitignore), `exports/` (PDF/HTML архитектуры — оставить).
+5. **Долги на отдельный цикл** — миграция `clients/irina/`, актуализация `clients/irina/PLAN.md`, усиление `inna/PLAN.md` и `irina/PLAN.md`, split-policy для 4 спорных агентов, переименование `analytics-head.md`.
+
+**Физических операций не выполнено** — это спецификация Этапа 7 («без удаления»). Все действия ждут решения Инны отдельной операцией.
+
+---
+
+## ФИНАЛЬНЫЙ ВЕРДИКТ
+
+### По 4 критериям «зелёной архитектуры»
+
+| Критерий | Финальный вердикт |
+|---|---|
+| 1. Директор маршрутизирует с первого захода | **PASS** — подтверждён Этапами 1, 1.5 и 2 (7 из 8 сценариев маршрутизации проходят чисто) |
+| 2. Минимальный стандарт активных проектов | **PARTIAL** — 4/8 PASS, 2/8 PARTIAL (mastergroup без project-log — Контур 2; clients/irina без project-log + устаревший план + раздвоение), 1/8 N/A (clients/inna закрыт), 1/8 осознанное исключение (clients/neuro-babki — placeholder под Фазу 2) |
+| 3. Оркестр проходит сквозным маршрутом | **PASS** — миграция `clients/inna/visitka/` → `inna/visitka/` прошла оркестром, лог-следы в коммите `b1f6a3a` |
+| 4. Точки входа не врут | **PASS** — после Этапа 6 README + clients/README актуальны, битых ссылок нет |
+
+### Цвет архитектуры
+
+**🟡 ЖЁЛТАЯ.**
+
+Можно брать клиентов, но с ручным контролем Director'а и Project-Manager'а. Архитектура работает — маршруты целы, оркестр прошёл, статус собирается по 6 из 8 активных папок. Не зелёная — из-за нескольких незакрытых долгов:
+
+1. **Миграция `clients/irina/` → `irina/`** — критический долг (Контур 1 раздвоен). Большой объём, отдельный цикл после аудита.
+2. **`clients/irina/PLAN.md` устарел на 17 дней** — нужен заход с Ириной для актуализации.
+3. **Слабая структура `inna/PLAN.md` и `irina/PLAN.md`** — нет фаз/дедлайнов/блокеров. Когда переключаешься между этими направлениями, статус собирается, но менее чётко чем у клиентов Контура 3.
+4. **Split-policy в заголовках 4 агентов** — Director, Marketer, Systems, AI Builder. RED-операция, требует твоего решения.
+
+### Что НЕ блокирует приёмку и можно отложить
+
+- Переименование `analytics-head.md` (правило «без голов»).
+- Чистка `.DS_Store` (одна команда).
+- Архивация `clients/neuro-babki/` (одна mv-операция).
+- Классификация содержимого `inbox-inna/` и `inbox20/` (отдельный сеанс).
+
+### Готово к работе с клиентами
+
+**Да**, но с двумя оговорками:
+- Когда заходишь к новому клиенту через `_template/` — всё работает.
+- Когда возвращаешься к Светлане, Beauty, ЮБ, Mastergroup — статус собирается за 30-60 секунд.
+- Когда заходишь к Ирине — пока двойная папка, лучше всегда уточнять у Инны где актуальное.
+
+---
+
+## Готовые артефакты аудита
+
+1. ✅ `ARCHITECTURE-ACCEPTANCE-AUDIT-2026-05-16.md` — спека + чеклист
+2. ✅ `MODEL-RUNTIME-AUDIT-2026-05-16.md` + `.xlsx` — preflight моделей
+3. ✅ `knowledge/tools/codex-claude-operating-strategy.md` — стратегия Codex+Claude
+4. ✅ `AUDIT-RUN-LOG-2026-05-16.md` — этот журнал
+5. ✅ `DIRECTOR-PERFORMANCE-EVAL-2026-05-16.md` — наблюдения за Director
+6. ✅ `PROJECT-STATUS-2026-05-16.md` — сводка статусов
+7. ✅ `CLEANUP-CANDIDATES-2026-05-16.md` — кандидаты на чистку
+
+Аудит закрыт. Дальше — действия по решениям Инны.
