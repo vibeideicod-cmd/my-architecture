@@ -118,7 +118,7 @@
 | Модель | Агентов | Список |
 |---|---|---|
 | **Opus** | 6 | product-builder, marketer, marketing-strategist, systems, ai-builder, business-architect |
-| **Sonnet** | 23 | director, branding, brandbook-creator, content, copywriter, smm-manager, sales, websites, analytics-head, analyst, product-analyst, audience-researcher, planner, project-manager, financial, pricing-specialist, yuridika, contract-lawyer, pd-lawyer, devops-infra, qa, skill-auditor, librarian |
+| **Sonnet** | 23 | director, branding, brandbook-creator, content, copywriter, smm-manager, sales, websites, analytics-rukovoditel, analyst, product-analyst, audience-researcher, planner, project-manager, financial, pricing-specialist, yuridika, contract-lawyer, pd-lawyer, devops-infra, qa, skill-auditor, librarian |
 | **Haiku** | 2 | git-manager, deployer-beget |
 
 ---

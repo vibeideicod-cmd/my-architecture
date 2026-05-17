@@ -110,7 +110,7 @@ SPA-сайт через JS → Уровень 4 (Playwright)
 
 - [knowledge/tools/api-patterns.md](api-patterns.md) — паттерны аутентификации для curl-запросов к нашим API
 - [agents/analyst.md](../../agents/analyst.md) — Research Фазы 2 (анализ сайтов конкурентов через WebFetch / Google Docs)
-- [agents/analytics-head.md](../../agents/analytics-head.md) — стратегическая аналитика трендов (включая видео — см. [video-transcripts.md](../methodology/video-transcripts.md))
+- [agents/analytics-rukovoditel.md](../../agents/analytics-rukovoditel.md) — стратегическая аналитика трендов (включая видео — см. [video-transcripts.md](../methodology/video-transcripts.md))
 - [agents/audience-researcher.md](../../agents/audience-researcher.md) — исследование ЦА в открытых источниках (форумы, Reddit, отзывы)
 - `.claude/skills/digital-audit/SKILL.md` — анализ цифрового присутствия клиента
 - `.claude/skills/competitor-research/SKILL.md` — анализ конкурентов

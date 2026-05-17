@@ -70,7 +70,7 @@
 
 1. `DISPATCH-README.md` — тип: обучение / чужая методика.
 2. `transcripts/` и `knowledge/learnings/` — найти структурированный материал.
-3. Librarian + Analytics-Head — сравнить с текущей архитектурой.
+3. Librarian + Analytics-Rukovoditel — сравнить с текущей архитектурой.
 4. `DOCS-MAINTENANCE.md` — если методика усиливает документацию, встроить через регламент, а не копировать слепо.
 5. `PLAN.md`, `FILES.md`, `RESPONSIBILITY-MATRIX.md` — обновить только если реально появился новый источник правды.
 

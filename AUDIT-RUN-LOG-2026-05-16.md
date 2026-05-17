@@ -214,7 +214,7 @@ Stop-правило (3+ точки в fail в DIRECTOR-PERFORMANCE-EVAL) **не 
 
 ### Новый рассинхрон — терминологический
 
-**`agents/analytics-head.md`** нарушает auto-memory `feedback_terminology_rukovoditeli` — «РУКОВОДИТЕЛЬ департамента, никаких «голов» / «head» ни в чате ни в файлах». Аналогично в `CLAUDE.md` указан как «Analytics-Head» в таблице 31 агента.
+**`agents/analytics-rukovoditel.md`** нарушает auto-memory `feedback_terminology_rukovoditeli` — «РУКОВОДИТЕЛЬ департамента, никаких «голов» / «head» ни в чате ни в файлах». Аналогично в `CLAUDE.md` указан как «Analytics-Rukovoditel» в таблице 31 агента.
 
 **Действие:** переименование агента (файл + все ссылки) — отдельный заход после аудита, RED-операция (затрагивает routing-table, CLAUDE.md, team-overview, MEMORY).
 
@@ -224,7 +224,7 @@ Stop-правило (3+ точки в fail в DIRECTOR-PERFORMANCE-EVAL) **не 
 |---|---|
 | Director → Planner → Project-Manager | ✅ все 3 агента есть |
 | Director → Product Builder → Websites/Systems/AI Builder | ✅ все 4 агента есть |
-| Director → Analytics-Head → Analyst/Product-Analyst/Audience-Researcher | ✅ все 4 агента есть (но «head» в названии — см. выше) |
+| Director → Analytics-Rukovoditel → Analyst/Product-Analyst/Audience-Researcher | ✅ все 4 агента есть (но «head» в названии — см. выше) |
 | Director → Marketer → Content/Copywriter/SMM-Manager | ✅ все 4 агента есть |
 | Director → QA → Git Manager/Deployer-Beget | ✅ все 3 агента есть |
 
@@ -232,7 +232,7 @@ Stop-правило (3+ точки в fail в DIRECTOR-PERFORMANCE-EVAL) **не 
 
 - **31 агент существует, все цепочки целы.**
 - 4 рассинхрона моделей — известный долг, требуют решения Инны для split-policy формулировки.
-- 1 терминологический рассинхрон — `analytics-head` против правила «без голов».
+- 1 терминологический рассинхрон — `analytics-rukovoditel` против правила «без голов».
 - Runtime-критичных проблем нет.
 
 ---
@@ -284,7 +284,7 @@ Stop-правило (3+ точки в fail в DIRECTOR-PERFORMANCE-EVAL) **не 
 2. **Пустые папки** — `clients/neuro-babki/` (только `.DS_Store`). Рекомендация: переезд в `_архив-возможно-удалить/`.
 3. **Тяжёлые inbox-зоны** — `inbox-inna/` (199M), `inbox20/` (19M). Отдельный сеанс обработки по протоколу, не в этом аудите.
 4. **Артефакты разработки** — `scripts/node_modules/` (проверить .gitignore), `exports/` (PDF/HTML архитектуры — оставить).
-5. **Долги на отдельный цикл** — миграция `clients/irina/`, актуализация `clients/irina/PLAN.md`, усиление `inna/PLAN.md` и `irina/PLAN.md`, split-policy для 4 спорных агентов, переименование `analytics-head.md`.
+5. **Долги на отдельный цикл** — миграция `clients/irina/`, актуализация `clients/irina/PLAN.md`, усиление `inna/PLAN.md` и `irina/PLAN.md`, split-policy для 4 спорных агентов, переименование `analytics-rukovoditel.md`.
 
 **Физических операций не выполнено** — это спецификация Этапа 7 («без удаления»). Все действия ждут решения Инны отдельной операцией.
 
@@ -314,7 +314,7 @@ Stop-правило (3+ точки в fail в DIRECTOR-PERFORMANCE-EVAL) **не 
 
 ### Что НЕ блокирует приёмку и можно отложить
 
-- Переименование `analytics-head.md` (правило «без голов»).
+- Переименование `analytics-rukovoditel.md` (правило «без голов»).
 - Чистка `.DS_Store` (одна команда).
 - Архивация `clients/neuro-babki/` (одна mv-операция).
 - Классификация содержимого `inbox-inna/` и `inbox20/` (отдельный сеанс).

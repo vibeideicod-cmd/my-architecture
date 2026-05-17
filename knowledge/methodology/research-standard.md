@@ -1,6 +1,6 @@
 # Стандарт исследовательской работы
 
-Универсальный стандарт для всех агентов-исследователей: [analyst](../../agents/analyst.md), [analytics-head](../../agents/analytics-head.md), [audience-researcher](../../agents/audience-researcher.md), [product-analyst](../../agents/product-analyst.md). И для скиллов которые делают research: `/competitor-research`, `/market-research`, `/social-research`, `/digital-audit`, `/client-audit`.
+Универсальный стандарт для всех агентов-исследователей: [analyst](../../agents/analyst.md), [analytics-rukovoditel](../../agents/analytics-rukovoditel.md), [audience-researcher](../../agents/audience-researcher.md), [product-analyst](../../agents/product-analyst.md). И для скиллов которые делают research: `/competitor-research`, `/market-research`, `/social-research`, `/digital-audit`, `/client-audit`.
 
 ## Правило 1 — факт vs предположение
 
@@ -48,6 +48,6 @@
 
 ## Связки
 
-- Дополняет существующие правила в [agents/analytics-head.md](../../agents/analytics-head.md) (раздел «Правило интерпретации»)
+- Дополняет существующие правила в [agents/analytics-rukovoditel.md](../../agents/analytics-rukovoditel.md) (раздел «Правило интерпретации»)
 - Используется в скиллах: `/competitor-research`, `/market-research`, `/social-research`, `/digital-audit`, `/client-audit`
 - При выборе инструментов для исследования сайтов и веба — `knowledge/tools/web-scraping.md` (создаётся в Этапе 4 реализации Жорика)

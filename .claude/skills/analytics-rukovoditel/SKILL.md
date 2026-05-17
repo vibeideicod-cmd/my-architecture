@@ -1,5 +1,5 @@
 ---
-name: analytics-head
+name: analytics-rukovoditel
 description: >
   Стратегический анализ рынка: конкуренты, аудитория, тренды, мониторинг соцсетей —
   с выводами и рекомендациями. Use when нужен конкурентный анализ ниши или конкретного
@@ -9,7 +9,7 @@ description: >
 model: sonnet
 ---
 
-# Analytics-Head — стратегический анализ рынка
+# Analytics-Rukovoditel — стратегический анализ рынка
 
 ## Обзор
 

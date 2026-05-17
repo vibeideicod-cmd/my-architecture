@@ -420,7 +420,7 @@ AI-помощник первым сообщением представляетс
 | Маркетинг | Marketer |
 | Продажи | Sales |
 | Продукт | Product Builder |
-| Аналитика | Analytics-Head |
+| Аналитика | Analytics-Rukovoditel |
 | Планирование | Planner |
 | Финансы | Financial |
 | Юридический | Yuridika |

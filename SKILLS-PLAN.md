@@ -73,7 +73,7 @@
 | `/product-builder` | Opus | discovery + стратегия продукта |
 | `/marketer` | Opus | стратегия, нужна глубина |
 | `/analyst` | Sonnet | анализ данных |
-| `/analytics-head` | Sonnet | анализ соцсетей и конкурентов |
+| `/analytics-rukovoditel` | Sonnet | анализ соцсетей и конкурентов |
 | `/websites` | Sonnet | вёрстка — кодинг средней сложности |
 | `/systems` | Opus | архитектура, сложный бэкенд |
 | `/content` | Sonnet | тексты |
@@ -127,7 +127,7 @@
 - [ ] `/marketer` — маркетинговая стратегия и SMM
 - [ ] `/product-builder` — discovery и план продукта
 - [ ] `/analyst` — research, данные, рынок
-- [ ] `/analytics-head` — аудитория, конкуренты, соцсети
+- [ ] `/analytics-rukovoditel` — аудитория, конкуренты, соцсети
 - [ ] `/sales` — воронка, заявки, CRM
 
 Коммит: `feat(skills): группа 2 — стратегия (5 скиллов)`

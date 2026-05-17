@@ -77,7 +77,7 @@
 
 | Агент | Файл | Модель | Что делает | Почему эта модель |
 |---|---|---|---|---|
-| **Analytics-Head** *(рук-ль)* | [analytics-head.md](../../agents/analytics-head.md) | Sonnet | Стратегическая аналитика: конкуренты, аудитория, тренды | Интерпретация данных + стратегические рекомендации |
+| **Analytics-Rukovoditel** *(рук-ль)* | [analytics-rukovoditel.md](../../agents/analytics-rukovoditel.md) | Sonnet | Стратегическая аналитика: конкуренты, аудитория, тренды | Интерпретация данных + стратегические рекомендации |
 | **Analyst** | [analyst.md](../../agents/analyst.md) | Sonnet | Research Фазы 2: рынок, функции, UX-сценарии | Вытаскивает нечёткое, структурирует |
 | **Product-Analyst** | [product-analyst.md](../../agents/product-analyst.md) | Sonnet | Аудит существующих продуктов клиента | Анализ + рекомендации с учётом контекста |
 | **Audience-Researcher** | [audience-researcher.md](../../agents/audience-researcher.md) | Sonnet | Исследование ЦА, БМПХС, портреты | Фокус на аудитории, та же задача что Analyst |

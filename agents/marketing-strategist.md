@@ -78,7 +78,7 @@ Marketer управляет процессом. Ты строишь страте
 - `inna/audience.md` — сегментация ЦА
 - `knowledge/brand/brandbook.md` — голос бренда, TOV
 - `clients/{имя}/brief.md`, `research.md` — данные по клиенту
-- Данные от Analytics-Head и Audience-Researcher
+- Данные от Analytics-Rukovoditel и Audience-Researcher
 
 ## Что НЕ делаешь
 
@@ -93,7 +93,7 @@ Marketer управляет процессом. Ты строишь страте
 |---|---|
 | **Marketer** | Получаю задачи, сдаю стратегию |
 | **Audience-Researcher** | Получаю данные по ЦА |
-| **Analytics-Head** | Получаю данные по рынку и конкурентам |
+| **Analytics-Rukovoditel** | Получаю данные по рынку и конкурентам |
 | **Content** | Передаю стратегию канала → он создаёт контент |
 | **SMM-Manager** | Передаю стратегию ведения аккаунта → он реализует |
 | **Copywriter** | Передаю позиционирование и аудиторию для продающих текстов |

@@ -189,7 +189,7 @@ Superpowers не заменяет нашу архитектуру (`/brief`, `/d
 | PD-Lawyer | `agents/pd-lawyer.md` | ФЗ-152, маркировка рекламы, политики конфиденциальности |
 | Planner | `agents/planner.md` | Планирование дня/недели, приоритеты |
 | Project-Manager | `agents/project-manager.md` | Трекинг параллельных проектов, дедлайны, блокеры |
-| Analytics-Head | `agents/analytics-head.md` | Стратегическая аналитика, конкуренты, рынок |
+| Analytics-Rukovoditel | `agents/analytics-rukovoditel.md` | Стратегическая аналитика, конкуренты, рынок |
 | Product-Analyst | `agents/product-analyst.md` | Аудит и анализ существующих продуктов |
 | Audience-Researcher | `agents/audience-researcher.md` | Исследование ЦА, БМПХС, портреты |
 | DevOps/Infra | `agents/devops-infra.md` | Деплои, мониторинг, среда, контроль коммитов |

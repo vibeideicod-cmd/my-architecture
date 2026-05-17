@@ -80,7 +80,7 @@ find . -name ".DS_Store" -not -path "./node_modules/*" -not -path "./.git/*"
 | Актуализация `clients/irina/PLAN.md` (устарел на 17 дней) | Средний | Нужен заход с Ириной |
 | Усиление `inna/PLAN.md` и `irina/PLAN.md` (нет фаз/дедлайнов) | Средний | После миграции `clients/irina/` — единый формат для inna/ и irina/ |
 | Split-policy в заголовках 4 спорных агентов (Director/Marketer/Systems/AI Builder) | Маленький, но RED | Отдельным заходом после решения Инны |
-| Переименование `analytics-head.md` → без «head» (правило `feedback_terminology_rukovoditeli`) | Средний (затрагивает routing-table, CLAUDE.md, team-overview) | Отдельным заходом после решения Инны |
+| Переименование `analytics-rukovoditel.md` → без «head» (правило `feedback_terminology_rukovoditeli`) | Средний (затрагивает routing-table, CLAUDE.md, team-overview) | Отдельным заходом после решения Инны |
 
 ## Что делать с этим файлом
 

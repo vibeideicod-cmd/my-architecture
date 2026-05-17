@@ -147,7 +147,7 @@
 | Маркетинг | `marketer.md` | `marketing-strategist.md`, `smm-manager.md`, `content.md`, `copywriter.md` |
 | Продажи | `sales.md` | Client Success *(в разработке)* |
 | Продукт | `product-builder.md` | `websites.md`, `systems.md`, `ai-builder.md` |
-| Аналитика | `analytics-head.md` | `analyst.md`, `product-analyst.md`, `audience-researcher.md` |
+| Аналитика | `analytics-rukovoditel.md` | `analyst.md`, `product-analyst.md`, `audience-researcher.md` |
 | Планирование | `planner.md` | `project-manager.md` |
 | Финансы | `financial.md` | `pricing-specialist.md`, Accountant *(в разработке)* |
 | Юридический | `yuridika.md` | `contract-lawyer.md`, `pd-lawyer.md` |
@@ -332,7 +332,7 @@ Cutoff моих знаний — Январь 2026. Новые модели Anth
 
 | Скилл | Через кого | Когда |
 |---|---|---|
-| `/social-research` | Аналитика → analytics-head | Перед упаковкой соцсетей |
+| `/social-research` | Аналитика → analytics-rukovoditel | Перед упаковкой соцсетей |
 | `/vk-pack`, `/tg-pack` | Маркетинг → marketer | Упаковка каналов клиента |
 | `/brief` | Маркетинг → marketer | Старт клиентского проекта |
 | `/discovery` | Продукт → product-builder | Новый цифровой продукт |

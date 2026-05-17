@@ -86,7 +86,7 @@ model: sonnet
 ## Что передаём дальше
 
 Product-builder — получает `research.md` для Фазы 2.5 Critique и Фазы 3 Plan.
-Analytics-Head — при необходимости углублённого анализа конкурентов.
+Analytics-Rukovoditel — при необходимости углублённого анализа конкурентов.
 
 Формат: файл `clients/<project>/research.md` по структуре выше.
 

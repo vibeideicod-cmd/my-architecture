@@ -78,7 +78,7 @@
 
 - [knowledge/methodology/audio-pipeline.md](audio-pipeline.md) — полная методика Уровня 3 (Deepgram + ffmpeg)
 - [.claude/skills/transcribe/SKILL.md](../../.claude/skills/transcribe/SKILL.md) — Слой 1 пайплайна
-- [agents/analytics-head.md](../../agents/analytics-head.md) (раздел «Анализ видео-контента конкурентов»)
+- [agents/analytics-rukovoditel.md](../../agents/analytics-rukovoditel.md) (раздел «Анализ видео-контента конкурентов»)
 - [agents/content.md](../../agents/content.md) (раздел «Использование видео для контента» — например, разбор YouTube конкурента → идея для поста)
 - [agents/director.md](../../agents/director.md) (раздел «Работа с новым клиентом Инны» — если у клиента есть аудио/видеозаписи)
 - [zhorik-decomposition-plan.md](../../zhorik-decomposition-plan.md) (холодильник, раздел «Регулярная обработка видео» — там остался Supadata MCP под отдельный триггер)

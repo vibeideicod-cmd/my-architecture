@@ -68,7 +68,7 @@
 
 | Тип документа | Кто владеет по смыслу |
 |---|---|
-| Брифы, интервью, исследования | Analyst / Analytics-Head |
+| Брифы, интервью, исследования | Analyst / Analytics-Rukovoditel |
 | Выступления, лендинги, офферы | Copywriter + Content |
 | Контент-планы, рубрики, соцсети | Marketer + Content + SMM-Manager |
 | Бренд-платформа, визуальный стиль | Branding + Brandbook Creator |

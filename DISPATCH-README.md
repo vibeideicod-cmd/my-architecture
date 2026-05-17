@@ -33,7 +33,7 @@
 | Конкретный клиент | `clients/<name>/PLAN.md`, `brief.md`, `FILES.md` | Нужный департамент по типу deliverable |
 | Инфраструктура / серверы / Beget / деплой | [FILES.md](FILES.md), `deploy/`, профиль проекта | DevOps/Infra + Deployer-Beget + Git Manager |
 | Каналы / VK / Telegram / сайт | папка владельца канала: `inna/`, `irina/` или `clients/<name>/` | Marketer + SMM-Manager + Websites/Systems |
-| Обучение / методика / входящие знания | `inbox20/`, `transcripts/`, `knowledge/learnings/` | Librarian + Analytics-Head |
+| Обучение / методика / входящие знания | `inbox20/`, `transcripts/`, `knowledge/learnings/` | Librarian + Analytics-Rukovoditel |
 
 ## По типу задачи
 
@@ -58,7 +58,7 @@
 | VK / Telegram / сайт клиента | `clients/<name>/PLAN.md`, `brief.md`, `FILES.md` | Marketer + SMM-Manager + Websites/Systems |
 | Партнёрство / продажа / процент | клиентский `PLAN.md`, `project-log.md` | Sales + Financial + Yuridika |
 | Юридика, договор, персональные данные | `knowledge/`, клиентский контекст | Yuridika + Contract-Lawyer / PD-Lawyer |
-| Обучение / материал Димы / чужая методика | `transcripts/`, `knowledge/learnings/` | Librarian + Analytics-Head |
+| Обучение / материал Димы / чужая методика | `transcripts/`, `knowledge/learnings/` | Librarian + Analytics-Rukovoditel |
 | Идея Инны | `ideas/` | Director + Librarian |
 | Обработка входящих | `inbox-inna/`, `inbox20/` | Director + Librarian |
 | Коммит / пуш | `git status`, `git diff` | Git Manager |

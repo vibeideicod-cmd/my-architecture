@@ -202,7 +202,7 @@
 Особо проверить связки:
 - Director → Planner → Project-Manager;
 - Director → Product Builder → Websites/Systems/AI Builder;
-- Director → Analytics-Head → Analyst/Product-Analyst/Audience-Researcher;
+- Director → Analytics-Rukovoditel → Analyst/Product-Analyst/Audience-Researcher;
 - Director → Marketer → Content/Copywriter/SMM;
 - Director → QA → Git Manager/Deployer.
 
@@ -351,7 +351,7 @@ Project-Manager должен пройти все `clients/*/PLAN.md` и собр
 - [ ] Нет терминов «голова» / «head» в названиях
 - [ ] Цепочка Director → Planner → Project-Manager проверена
 - [ ] Цепочка Director → Product Builder → Websites/Systems/AI Builder проверена
-- [ ] Цепочка Director → Analytics-Head → Analyst/Product-Analyst/Audience-Researcher проверена
+- [ ] Цепочка Director → Analytics-Rukovoditel → Analyst/Product-Analyst/Audience-Researcher проверена
 - [ ] Цепочка Director → Marketer → Content/Copywriter/SMM проверена
 - [ ] Цепочка Director → QA → Git Manager/Deployer проверена
 - [ ] Список разрывов в агентной цепочке составлен

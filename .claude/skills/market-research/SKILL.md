@@ -14,7 +14,7 @@ model: sonnet
 
 ## Обзор
 
-Запускается Analytics-Head → Analyst по запросу Директора или Product-Builder. Используется редко — только когда нужно ответить на вопрос «есть ли рынок». Результат: `clients/<имя>/market-research.md` или `knowledge/research/<тема>.md` если исследование общее.
+Запускается Analytics-Rukovoditel → Analyst по запросу Директора или Product-Builder. Используется редко — только когда нужно ответить на вопрос «есть ли рынок». Результат: `clients/<имя>/market-research.md` или `knowledge/research/<тема>.md` если исследование общее.
 
 ## Порядок работы
 

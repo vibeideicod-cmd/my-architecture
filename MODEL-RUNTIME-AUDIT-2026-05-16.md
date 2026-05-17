@@ -63,7 +63,7 @@
 | Websites | Sonnet | Sonnet | skill `websites` = Sonnet | OK | Оставить Sonnet; Codex может делать точечные правки/проверки дешевле как repo-исполнитель |
 | Systems | Opus | Sonnet | skill `systems` = Opus | Док-долг + решить | Архитектура ботов/CRM/интеграций = Opus. Точечная реализация/фикс по готовому плану может идти через Codex/Sonnet. Заголовок `agents/systems.md` рассинхронен |
 | AI Builder | Opus | Sonnet | skill `ai-builder` = Opus | Док-долг + решить | Старт AI-продукта, сценарии и архитектура = Opus. Обслуживание базы/промпта по готовой схеме может быть Sonnet/Codex. Заголовок `agents/ai-builder.md` рассинхронен |
-| Analytics-Head | Sonnet | Sonnet | skill `analytics-head` = Sonnet | OK | Оставить Sonnet |
+| Analytics-Rukovoditel | Sonnet | Sonnet | skill `analytics-rukovoditel` = Sonnet | OK | Оставить Sonnet |
 | Analyst | Sonnet | Sonnet | skill `analyst` = Sonnet | OK | Оставить Sonnet |
 | Product-Analyst | Sonnet | Sonnet | отдельного skill не видно | OK | Оставить Sonnet |
 | Audience-Researcher | Sonnet | Sonnet | отдельного skill не видно | OK | Оставить Sonnet |
