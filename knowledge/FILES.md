@@ -16,7 +16,7 @@
 |---|---|---|
 | [methodology/](methodology/) | ⭐ источник правды | Методологии: stage 0-6 системы СССР, audio-pipeline, deploy-stages, discovery-signals, research-standard, strategic-standard, tov-anti-patterns, instagram-stories, architecture-building, video-transcripts, audit-params, **superpowers-integration** (15.05), **superpowers-skill-audit** (15.05), director-drift-log |
 | [tools/](tools/) | ⭐ источник правды | Инструменты команды: team-overview (31 агент), model-map, skills-catalog, codex-claude-operating-strategy |
-| [playbooks/](playbooks/) | ⭐ источник правды | Универсальные плейбуки: product-creation (6 фаз), content-marketing |
+| [playbooks/](playbooks/) | ⭐ источник правды | Универсальные плейбуки: business-architecture-client-workflow (маршрут клиента по главному продукту), product-creation (6 фаз), content-marketing |
 | [prompting/](prompting/) | ⭐ источник правды | Промптинг: craft-formula, critique-techniques, examples, mistakes, power-ups, templates-backend / templates-landing / templates-mini-app, lesson-log, techniques |
 | [standards/](standards/) | ⭐ источник правды | Стандарты: design-system, content-plan, content-voice |
 | [brand/](brand/) | ⭐ источник правды | Бренд Инны: brandbook, palette (8 цветов, психология, нумерология) |
@@ -28,6 +28,8 @@
 ## Что использовать дальше
 
 **Для методологии работы с клиентом:** `methodology/stage-0.md` … `stage-6.md` (полный цикл СССР).
+
+**Для главного продукта «Бизнес-архитектура под ключ»:** `playbooks/business-architecture-client-workflow.md` — как вести клиента от точки А через inventory, 7 слоёв, roadmap и первый рабочий маршрут.
 
 **Для нового цифрового продукта:** `playbooks/product-creation.md` (6 фаз: Discovery → Research → Critique → Plan → Build → QA+Deploy).
 
