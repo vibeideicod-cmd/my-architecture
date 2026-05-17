@@ -29,7 +29,7 @@
 |---|---|---|
 | Весь бизнес / операционная система | [PLAN.md](PLAN.md), [FILES.md](FILES.md), [DISPATCH-README.md](DISPATCH-README.md) | Director + Planner + Business-Architect |
 | Инна как владелец и эксперт | `inna/` + ближайший `PLAN.md`/`FILES.md` | Marketer / Product Builder / Websites / Systems по задаче |
-| Ирина как партнёр | `irina/`, `clients/irina/` + ближайший `PLAN.md`/`FILES.md` | Branding + Brandbook Creator + Websites + Content |
+| Ирина как партнёр | `irina/`, `irina/` + ближайший `PLAN.md`/`FILES.md` | Branding + Brandbook Creator + Websites + Content |
 | Конкретный клиент | `clients/<name>/PLAN.md`, `brief.md`, `FILES.md` | Нужный департамент по типу deliverable |
 | Инфраструктура / серверы / Beget / деплой | [FILES.md](FILES.md), `deploy/`, профиль проекта | DevOps/Infra + Deployer-Beget + Git Manager |
 | Каналы / VK / Telegram / сайт | папка владельца канала: `inna/`, `irina/` или `clients/<name>/` | Marketer + SMM-Manager + Websites/Systems |
@@ -41,7 +41,7 @@
 |---|---|---|
 | Текущий фокус проекта | [PLAN.md](PLAN.md) | Director + Planner |
 | Личная бизнес-архитектура Инны | `inna/`, [PLAN.md](PLAN.md) | Director + Business-Architect + нужный департамент |
-| Задачи Ирины | `irina/`, `clients/irina/` | Branding + Brandbook Creator + нужный департамент |
+| Задачи Ирины | `irina/`, `irina/` | Branding + Brandbook Creator + нужный департамент |
 | Правила работы, ограничения, git, память | [CLAUDE.md](CLAUDE.md) | Director |
 | Куда идти по файлам | [FILES.md](FILES.md) | Director + Librarian |
 | Состав команды агентов | [knowledge/tools/team-overview.md](knowledge/tools/team-overview.md) | Director |

@@ -35,7 +35,7 @@
 
 ```yaml
 использовано-в:
-  - clients/irina/portfolio.md (2026-05-02)
+  - irina/portfolio.md (2026-05-02)
   - clients/X/Y.md (2026-XX-XX)
 ```
 

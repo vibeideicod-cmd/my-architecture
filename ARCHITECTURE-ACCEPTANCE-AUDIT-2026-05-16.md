@@ -54,7 +54,7 @@
 - `README.md` частично устарел: активные клиенты в README не совпадают с текущей картой в `FILES.md` и `clients/README.md`.
 - `clients/neuro-babki/` почти пустая, но на неё есть ссылки как на бренд агентства.
 - `clients/README.md` упоминает `clients/alisa/`, но такой папки сейчас нет.
-- `clients/irina/PLAN.md` выглядит старым по дате и может не отражать текущую фазу.
+- `irina/PLAN.md` выглядит старым по дате и может не отражать текущую фазу.
 - В корне есть исторические крупные документы (`OPEN.md`, `ЕДИНЫЙ-ПЛАН.md`, `zhorik-decomposition-plan.md`), которые полезны, но могут сбивать, если открыть их как текущий план.
 - `inbox-inna/` занимает около 199M, `knowledge/` около 107M, `clients/` около 137M. Чистить нужно не по размеру, а по статусу и риску потери смысла.
 - Найдены `.DS_Store` в 14 местах. Это безопасный кандидат на удаление отдельной операцией.
@@ -104,7 +104,7 @@
 - кто отвечает;
 - какой следующий шаг.
 
-Минимальный список папок к проверке: `clients/sveta/`, `clients/beauty/`, `clients/yuzhnoberezhniy/`, `clients/mastergroup/`, `clients/irina/`, `clients/inna/`, плюс направления `inna/` и `irina/`.
+Минимальный список папок к проверке: `clients/sveta/`, `clients/beauty/`, `clients/yuzhnoberezhniy/`, `clients/mastergroup/`, `irina/`, `clients/inna/`, плюс направления `inna/` и `irina/`.
 
 Если хоть для одной активной папки статус не собирается из её документов за 30-60 секунд — это fail. Это значит, что когда Инна переключается между клиентами, она вынуждена держать контекст в голове.
 
@@ -151,7 +151,7 @@
 | Существующий клиент Светлана | `clients/sveta/FILES.md` → `PLAN.md` → Branding/Content/QA | не пройден / частично / пройден |
 | Beauty TMA баг/техзадача | `clients/beauty/PLAN.md` → `/superpowers` → Product/Websites/Systems → QA | не пройден / частично / пройден |
 | Южнобережный прод/бот | `clients/yuzhnoberezhniy/PLAN.md` → DevOps/Systems/QA | не пройден / частично / пройден |
-| Ирина: продукт/портфолио | `irina/FILES.md` + `clients/irina/FILES.md` → Branding/Websites/Content | не пройден / частично / пройден |
+| Ирина: продукт/портфолио | `irina/FILES.md` + `irina/FILES.md` → Branding/Websites/Content | не пройден / частично / пройден |
 | Инна: VK/Telegram/сайт | `inna/FILES.md` → Marketer/SMM/Websites/Systems | не пройден / частично / пройден |
 | Материал из обучения | `inbox20/`/`transcripts/` → Librarian → `knowledge/` | не пройден / частично / пройден |
 | Идея Инны | `ideas/YYYY-MM-DD-*.md` → weekly review → PLAN/client PLAN | не пройден / частично / пройден |
@@ -174,7 +174,7 @@
 - `clients/beauty/`;
 - `clients/yuzhnoberezhniy/`;
 - `clients/mastergroup/`;
-- `clients/irina/`;
+- `irina/`;
 - `clients/inna/`;
 - `clients/neuro-babki/`;
 - `_template/`.
@@ -289,7 +289,7 @@ Project-Manager должен пройти все `clients/*/PLAN.md` и собр
 - [ ] `clients/beauty/`
 - [ ] `clients/yuzhnoberezhniy/`
 - [ ] `clients/mastergroup/`
-- [ ] `clients/irina/`
+- [ ] `irina/`
 - [ ] `clients/inna/`
 - [ ] `inna/` (направление)
 - [ ] `irina/` (направление)
@@ -337,7 +337,7 @@ Project-Manager должен пройти все `clients/*/PLAN.md` и собр
 - [ ] `clients/beauty/`
 - [ ] `clients/yuzhnoberezhniy/`
 - [ ] `clients/mastergroup/`
-- [ ] `clients/irina/`
+- [ ] `irina/`
 - [ ] `clients/inna/`
 - [ ] `clients/neuro-babki/`
 - [ ] `_template/`

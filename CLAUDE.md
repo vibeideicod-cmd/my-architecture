@@ -43,7 +43,7 @@
 
 Применяется к: `stydiyatsi.ru`, её визитка, её клиентские проекты, материалы под её ОКВЭД.
 
-**Источник правды:** `clients/irina/brandbook/palette.md` + финальный PDF в `clients/irina/deliverables/`.
+**Источник правды:** `irina/brandbook/palette.md` + финальный PDF в `irina/deliverables/`.
 
 **Не использовать палитру Инны** на Иринины продукты и наоборот.
 
