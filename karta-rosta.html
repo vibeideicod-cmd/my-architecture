@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Карта точек роста бизнеса: 10 вопросов, первичный AI-разбор и следующий шаг для выстраивания автосистем." />
+  <title>Карта точек роста бизнеса — Инна Андрейченко</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --forest: #103206;
+      --sage: #4B7850;
+      --gold: #D4AF37;
+      --yellow: #FFDD4C;
+      --cream: #FFF2E9;
+      --ink: #17210f;
+      --muted: rgba(255,242,233,.72);
+      --line: rgba(255,242,233,.2);
+      --card: rgba(255,242,233,.08);
+      --radius: 8px;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(16,50,6,.96), rgba(75,120,80,.78)),
+        radial-gradient(circle at 80% 10%, rgba(212,175,55,.24), transparent 38%);
+      color: var(--cream);
+      font-family: Montserrat, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .toplink {
+      color: var(--muted);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 460px);
+      gap: clamp(24px, 5vw, 72px);
+      align-items: start;
+    }
+    .intro {
+      position: sticky;
+      top: 28px;
+      padding-top: 16px;
+    }
+    .eyebrow {
+      color: var(--yellow);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    h1, h2, h3 {
+      font-family: "Playfair Display", serif;
+      line-height: 1.08;
+      margin: 0;
+    }
+    h1 {
+      max-width: 680px;
+      font-size: clamp(2.4rem, 7vw, 5.2rem);
+    }
+    .lead {
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.16rem);
+    }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 640px;
+      margin-top: 32px;
+    }
+    .fact {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: rgba(255,242,233,.06);
+      min-height: 98px;
+    }
+    .fact strong {
+      display: block;
+      color: var(--yellow);
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .fact span {
+      color: var(--muted);
+      font-size: .84rem;
+    }
+    .panel {
+      background: rgba(16,50,6,.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 80px rgba(0,0,0,.24);
+      overflow: hidden;
+    }
+    .progress-wrap {
+      height: 6px;
+      background: rgba(255,242,233,.12);
+    }
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--yellow), var(--gold));
+      transition: width .25s ease;
+    }
+    .card {
+      padding: clamp(22px, 4vw, 34px);
+    }
+    .step-label {
+      color: var(--yellow);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .question-title {
+      font-size: clamp(1.45rem, 4vw, 2rem);
+      margin-bottom: 22px;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .option {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255,242,233,.08);
+      color: var(--cream);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .option:hover,
+    .option.selected {
+      border-color: rgba(255,221,76,.9);
+      background: rgba(255,221,76,.14);
+      transform: translateY(-1px);
+    }
+    .input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,242,233,.1);
+      color: var(--cream);
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+    }
+    .input::placeholder { color: rgba(255,242,233,.52); }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: 0;
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--forest);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid var(--line);
+    }
+    .btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+    .micro {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+    .result {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .result-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(255,242,233,.08);
+    }
+    .result-item strong {
+      display: block;
+      color: var(--yellow);
+      margin-bottom: 6px;
+    }
+    .offer {
+      border: 1px solid rgba(255,221,76,.45);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255,221,76,.1);
+      margin-top: 18px;
+    }
+    .offer h3 {
+      font-size: 1.45rem;
+      margin-bottom: 10px;
+    }
+    .offer ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+    .offer-options {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .offer-option {
+      border: 1px solid rgba(255,242,233,.22);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: rgba(255,242,233,.08);
+    }
+    .offer-option strong {
+      display: block;
+      color: var(--yellow);
+      margin-bottom: 4px;
+    }
+    .offer-option span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .contact-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .consent {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+    .consent input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--yellow);
+    }
+    .consent a {
+      color: var(--yellow);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,221,76,.45);
+    }
+    .error {
+      color: #ffb4a8;
+      min-height: 20px;
+      margin-top: 10px;
+      font-size: .9rem;
+    }
+    .notice {
+      border-left: 3px solid var(--yellow);
+      background: rgba(255,221,76,.12);
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      color: var(--cream);
+      margin-top: 20px;
+    }
+    .copybox {
+      width: 100%;
+      min-height: 104px;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,242,233,.1);
+      color: var(--cream);
+      padding: 12px 14px;
+      font: inherit;
+      resize: vertical;
+    }
+    dialog {
+      width: min(760px, calc(100vw - 32px));
+      max-height: 82vh;
+      border: 1px solid rgba(255,242,233,.18);
+      border-radius: 18px;
+      background: #12240d;
+      color: var(--cream);
+      padding: 0;
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    }
+    dialog::backdrop {
+      background: rgba(6,18,5,.72);
+      backdrop-filter: blur(4px);
+    }
+    .policy-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 20px 22px;
+      border-bottom: 1px solid rgba(255,242,233,.12);
+    }
+    .policy-head h3 {
+      font-size: 1.25rem;
+    }
+    .dialog-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,242,233,.18);
+      background: rgba(255,242,233,.08);
+      color: var(--cream);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .policy-body {
+      max-height: 64vh;
+      overflow: auto;
+      padding: 20px 22px 24px;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+    .policy-body h4 {
+      color: var(--yellow);
+      margin: 18px 0 8px;
+      font-size: 1rem;
+    }
+    .policy-body ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .intro { position: static; }
+      .facts { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar">
+      <a class="brand" href="index.html">Инна Андрейченко</a>
+      <a class="toplink" href="index.html">Вернуться на HUB</a>
+    </nav>
+
+    <section class="layout">
+      <div class="intro">
+        <div class="eyebrow">Карта точек роста</div>
+        <h1>Увидьте, где бизнес теряет время, заявки и деньги</h1>
+        <p class="lead">Ответьте на 10 вопросов. На выходе получите первичный разбор: какие 2-3 точки стоит чинить первыми, чтобы автосистемы начали освобождать ваше время.</p>
+        <div class="facts">
+          <div class="fact"><strong>5 минут</strong><span>без созвона и долгой анкеты</span></div>
+          <div class="fact"><strong>10 вопросов</strong><span>по бизнесу, нагрузке и заявкам</span></div>
+          <div class="fact"><strong>Сразу</strong><span>результат появится на экране</span></div>
+        </div>
+      </div>
+
+      <div class="panel" aria-live="polite">
+        <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+        <div class="card" id="card"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="policyDialog" aria-labelledby="policyTitle">
+    <div class="policy-head">
+      <h3 id="policyTitle">Политика обработки персональных данных</h3>
+      <button class="dialog-close" id="closePolicy" aria-label="Закрыть">×</button>
+    </div>
+    <div class="policy-body">
+      <p><strong>Редакция для Карты точек роста:</strong> 17.05.2026</p>
+      <h4>1. Общие положения</h4>
+      <p>Настоящая политика описывает, как ИП Андрейченко Инна Сергеевна обрабатывает данные посетителей, которые проходят Карту точек роста и добровольно оставляют контакт для обратной связи.</p>
+      <p>Обработка ведётся для консультационных услуг и предварительного разбора запроса клиента. Политика подготовлена с учётом Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+      <h4>2. Какие данные обрабатываются</h4>
+      <ul>
+        <li>имя или псевдоним;</li>
+        <li>контакт для связи: Telegram, VK, WhatsApp, MAX, email, телефон или другой указанный канал;</li>
+        <li>ответы на вопросы Карты точек роста;</li>
+        <li>главная точка роста и краткая сводка результата;</li>
+        <li>дата и время отправки формы.</li>
+      </ul>
+      <h4>3. Зачем нужны данные</h4>
+      <p>Данные нужны, чтобы сохранить заявку в CRM, не потерять контекст ответов, связаться с человеком в выбранном канале и предложить подходящий следующий шаг: письменный разбор, AI-аудит или консультационное сопровождение.</p>
+      <h4>4. Где хранятся данные</h4>
+      <p>Целевая схема — собственная CRM на сервере в Российской Федерации. Telegram, VK, WhatsApp, MAX, email и телефон используются как каналы связи, но не как основной источник хранения заявки.</p>
+      <h4>5. Передача третьим лицам</h4>
+      <p>Данные не передаются рекламным сетям, сторонним аналитическим платформам и открытым соцсетям. Доступ к данным нужен только Инне и команде, которая помогает обработать запрос.</p>
+      <h4>6. Срок хранения и отзыв согласия</h4>
+      <p>Данные хранятся до достижения цели обработки или до отзыва согласия. Запрос на уточнение, удаление или отзыв согласия можно направить на email: pd@ideidlyabiznesa1913.ru.</p>
+      <h4>7. Важное ограничение MVP</h4>
+      <p>Пока CRM API не подключена, страница не отправляет данные автоматически. Пользователь видит результат на экране и может вручную отправить сводку через удобный канал.</p>
+    </div>
+  </dialog>
+
+  <script>
+    const questions = [
+      {
+        type: "single",
+        title: "В какой нише вы работаете?",
+        options: ["Инфобизнес, онлайн-образование", "Финансовые консультации, брокерские услуги", "Бьюти: салон, мастер, бренд", "Коучинг, психология, наставничество", "Фитнес, здоровье, велнес", "Торговля офлайн или онлайн", "Недвижимость, риэлторские услуги", "Санаторий, отель, гостиница", "Другое"]
+      },
+      {
+        type: "single",
+        title: "Сколько лет вашему бизнесу?",
+        options: ["Меньше года", "1-3 года", "4-7 лет", "Больше 7 лет"]
+      },
+      {
+        type: "single",
+        title: "Какая у вас команда?",
+        options: ["Только я", "1-2 человека помогают", "Команда 3-10 человек", "Команда 10+ человек"]
+      },
+      {
+        type: "single",
+        title: "Сколько часов в неделю вы сами работаете в бизнесе?",
+        options: ["До 20", "20-40", "40-60", "Больше 60"]
+      },
+      {
+        type: "multi",
+        title: "Что отнимает у вас больше всего времени?",
+        options: ["Ответы клиентам", "Создание контента", "Обработка заявок и продажи", "Документы, договоры, счета", "Учёт, отчёты, цифры", "Координация команды", "Технические вопросы", "Личные звонки и встречи"]
+      },
+      {
+        type: "multi",
+        title: "Где вы чувствуете, что теряете?",
+        options: ["Заявки приходят, но теряются", "Клиенты отваливаются после первого контакта", "Нет повторных продаж", "Команда работает с ошибками", "Не успеваю отвечать", "Нет ясной картины по деньгам", "Контент не продаёт", "Стабильно, хочу масштаб"]
+      },
+      {
+        type: "single",
+        title: "Что раздражает больше всего?",
+        options: ["Всё держится только на мне", "Делегирую, но получаю не то", "Не могу выйти из операционки", "Бизнес растёт, свободы не больше", "Слишком много задач в голове", "Могу больше, но не вижу как"]
+      },
+      {
+        type: "multi",
+        title: "Что уже работает на автоматике?",
+        options: ["Воронка приёма заявок", "Рассылки и подогревы", "AI-помощник или GPT", "CRM с напоминаниями", "Автоматические счета", "Чат-бот", "Автоматизированная отчётность", "Ничего — всё руками"]
+      },
+      {
+        type: "single",
+        title: "Какой у вас опыт с нейросетями?",
+        options: ["Не пробовал(а)", "Регистрировался(ась), но не разобрался(ась)", "Использую для отдельных задач", "Активно использую в работе", "Уже строю системы на AI"]
+      },
+      {
+        type: "multi",
+        title: "Что мешает внедрить AI и автосистемы по-настоящему?",
+        options: ["Нет времени разбираться", "Не понимаю, с чего начать", "Боюсь потерять деньги", "Был негативный опыт", "Не доверяю подрядчикам", "Никто не показал на моём бизнесе", "Думаю, в моей нише не зайдёт"]
+      }
+    ];
+
+    const answers = {};
+    let step = -1;
+    const card = document.getElementById("card");
+    const progress = document.getElementById("progress");
+    const policyDialog = document.getElementById("policyDialog");
+    const closePolicy = document.getElementById("closePolicy");
+    const crmEndpoint = "https://crm.ideidlyabiznesa1913.ru/api/leads";
+    const consentVersion = "karta-rosta-pd-2026-05-17";
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function setProgress() {
+      const total = questions.length + 2;
+      const current = Math.max(0, step + 1);
+      progress.style.width = Math.min(100, current / total * 100) + "%";
+    }
+
+    function renderWelcome() {
+      step = -1;
+      setProgress();
+      card.innerHTML = `
+        <div class="step-label">Старт</div>
+        <h2 class="question-title">Начнём с короткой карты вашего бизнеса</h2>
+        <p class="micro">Это не обещание прибыли и не замена платного аудита. Это первичный AI-разбор, который помогает увидеть, куда смотреть первым.</p>
+        <div class="notice">Целевая схема — CRM first: карта должна сохраняться в базу клиентов, а уведомление уходить в удобный канал. Пока CRM не подключена, используем ручную сводку.</div>
+        <div class="actions"><a class="btn btn-secondary" href="index.html">Назад на HUB</a><button class="btn btn-primary" id="startBtn">Начать</button></div>
+      `;
+      document.getElementById("startBtn").addEventListener("click", () => renderQuestion(0));
+    }
+
+    function renderQuestion(index) {
+      step = index;
+      setProgress();
+      const q = questions[index];
+      const saved = answers[index] || (q.type === "multi" ? [] : "");
+      const options = q.options.map(option => {
+        const selected = Array.isArray(saved) ? saved.includes(option) : saved === option;
+        return `<button class="option ${selected ? "selected" : ""}" data-option="${option.replace(/"/g, "&quot;")}">${option}</button>`;
+      }).join("");
+
+      card.innerHTML = `
+        <div class="step-label">Вопрос ${index + 1} из ${questions.length}</div>
+        <h2 class="question-title">${q.title}</h2>
+        <div class="options">${options}</div>
+        <p class="micro">${q.type === "multi" ? "Можно выбрать несколько вариантов." : "Выберите один вариант."}</p>
+        <div class="actions">
+          <button class="btn btn-secondary" id="backBtn">${index === 0 ? "К старту" : "Назад"}</button>
+          <button class="btn btn-primary" id="nextBtn" ${isAnswered(index) ? "" : "disabled"}>${index === questions.length - 1 ? "К контактам" : "Дальше"}</button>
+        </div>
+      `;
+
+      card.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const value = btn.dataset.option;
+          if (q.type === "multi") {
+            const current = answers[index] || [];
+            answers[index] = current.includes(value) ? current.filter(item => item !== value) : [...current, value];
+          } else {
+            answers[index] = value;
+          }
+          renderQuestion(index);
+        });
+      });
+
+      document.getElementById("backBtn").addEventListener("click", () => index === 0 ? renderWelcome() : renderQuestion(index - 1));
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        if (index === questions.length - 1) renderContact();
+        else renderQuestion(index + 1);
+      });
+    }
+
+    function isAnswered(index) {
+      const value = answers[index];
+      return Array.isArray(value) ? value.length > 0 : Boolean(value);
+    }
+
+    function renderContact() {
+      step = questions.length;
+      setProgress();
+      card.innerHTML = `
+        <div class="step-label">Контакт</div>
+        <h2 class="question-title">Куда отправить карту точек роста?</h2>
+        <div class="contact-grid">
+          <input class="input" id="clientName" placeholder="Ваше имя" autocomplete="name" />
+          <select class="input" id="channel">
+            <option value="Telegram">Telegram</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="VK">VK</option>
+            <option value="MAX">MAX</option>
+            <option value="Email">Email</option>
+            <option value="Phone">Телефон</option>
+          </select>
+          <input class="input" id="clientContact" placeholder="@username, телефон или email" autocomplete="email" />
+          <input class="input" id="context" placeholder="Что сейчас на повестке? Можно коротко" />
+        </div>
+        <label class="consent">
+          <input type="checkbox" id="pdConsent" />
+          <span>Соглашаюсь на обработку имени, контакта, выбранного канала и ответов Карты точек роста для сохранения заявки в CRM и обратной связи. Подробнее — <a href="#" id="openPolicy">в политике обработки персональных данных</a>.</span>
+        </label>
+        <div class="error" id="contactError"></div>
+        <p class="micro">В финальной версии эти данные сохранятся в CRM и дадут Инне задачу на follow-up. Сейчас результат можно скопировать и отправить через доступный канал.</p>
+        <div class="actions">
+          <button class="btn btn-secondary" id="backBtn">Назад</button>
+          <button class="btn btn-primary" id="resultBtn" disabled>Получить карту</button>
+        </div>
+      `;
+      document.getElementById("backBtn").addEventListener("click", () => renderQuestion(questions.length - 1));
+      const nameInput = document.getElementById("clientName");
+      const contactInput = document.getElementById("clientContact");
+      const consentInput = document.getElementById("pdConsent");
+      const resultBtn = document.getElementById("resultBtn");
+      const contactError = document.getElementById("contactError");
+      const updateContactState = () => {
+        const hasName = nameInput.value.trim().length >= 2;
+        const hasContact = contactInput.value.trim().length >= 3;
+        const ok = hasName && hasContact && consentInput.checked;
+        resultBtn.disabled = !ok;
+        contactError.textContent = ok ? "" : "Чтобы получить карту, укажите имя, контакт и подтвердите согласие на обработку данных.";
+      };
+      [nameInput, contactInput, consentInput].forEach(el => {
+        el.addEventListener("input", updateContactState);
+        el.addEventListener("change", updateContactState);
+      });
+      document.getElementById("openPolicy").addEventListener("click", event => {
+        event.preventDefault();
+        policyDialog.showModal();
+      });
+      resultBtn.addEventListener("click", () => {
+        if (resultBtn.disabled) return;
+        renderResult();
+      });
+      updateContactState();
+    }
+
+    function buildResult() {
+      const painAnswers = [...(answers[4] || []), ...(answers[5] || []), answers[6] || ""].join(" ");
+      const automation = answers[7] || [];
+      const team = answers[2] || "";
+      const workload = answers[3] || "";
+      const aiBlockers = answers[9] || [];
+      const items = [];
+
+      if (/заяв|клиент|отвеч/i.test(painAnswers)) {
+        items.push(["Точка 1: заявки и первый контакт", "У вас есть риск потери заявок на этапе первого ответа. Первый шаг — собрать единый сценарий: откуда пришёл человек, кто отвечает, какой следующий шаг предлагается."]);
+      }
+      if (/контент|пост|не прода/i.test(painAnswers)) {
+        items.push(["Точка 2: контент без маршрута", "Контенту нужна не только регулярность, а связка с продуктом и входной точкой. Первый шаг — 5 рубрик под боли клиента и один CTA на Карту точек роста."]);
+      }
+      if (/документ|отч|деньг|счет|учёт/i.test(painAnswers)) {
+        items.push(["Точка 3: цифры и документы", "Похоже, часть управленческой картины собирается руками. Первый шаг — описать, какие данные должны попадать в одну базу: заявки, оплаты, статусы, повторные касания."]);
+      }
+      if (/команд|делег/i.test(painAnswers) || /Команда/.test(team)) {
+        items.push(["Точка 4: команда и контроль", "Если задачи проходят через людей, нужна не просто делегировка, а контрольный маршрут. Первый шаг — чек-лист результата и статус по каждому клиенту/задаче."]);
+      }
+      if (/Ничего/.test(automation.join(" ")) || /Больше 60|40-60/.test(workload)) {
+        items.push(["Точка 5: операционка держится на вас", "Высокая личная нагрузка говорит, что автоматизировать нужно не всё подряд, а самые повторяющиеся 2-3 действия. Первый кандидат — ответы, заявки и follow-up."]);
+      }
+      if (aiBlockers.length) {
+        items.push(["Точка 6: AI без понятного старта", "Блокер не в нейросети, а в отсутствии карты внедрения. Первый шаг — выбрать один сценарий, где AI экономит время уже на этой неделе."]);
+      }
+
+      return items.slice(0, 4);
+    }
+
+    function answersPayload() {
+      return {
+        niche: answers[0] || "",
+        business_age: answers[1] || "",
+        team_size: answers[2] || "",
+        workload: answers[3] || "",
+        time_drains: answers[4] || [],
+        loss_points: answers[5] || [],
+        main_irritation: answers[6] || "",
+        automation_now: answers[7] || [],
+        ai_experience: answers[8] || "",
+        ai_blockers: answers[9] || []
+      };
+    }
+
+    async function submitLeadToCrm(payload) {
+      const response = await fetch(crmEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.ok) {
+        throw new Error(data.message || "CRM временно недоступна");
+      }
+      return data;
+    }
+
+    function renderResult() {
+      step = questions.length + 1;
+      setProgress();
+      const rawName = document.getElementById("clientName").value.trim();
+      const name = rawName || "Готово";
+      const channel = document.getElementById("channel").value;
+      const contact = document.getElementById("clientContact").value.trim();
+      const result = buildResult();
+      const mainPoint = result[0] ? result[0][0] : "нужно уточнить";
+      const summary = `Здравствуйте, Инна. Я прошёл/прошла Карту точек роста и хочу обсудить AI-аудит. Имя: ${name}. Предпочтительный канал: ${channel}. Контакт: ${contact || "не указан"}. Главная точка по карте: ${mainPoint}. Интересующий формат: Экспресс / Стандарт / Глубокий. Хочу понять, что чинить первым и какой следующий шаг выбрать.`;
+      const consentGivenAt = new Date().toISOString();
+      const crmPayload = {
+        source: "karta-rosta",
+        name,
+        channel: channel.toLowerCase(),
+        contact,
+        context_note: document.getElementById("context").value.trim(),
+        main_growth_point: mainPoint,
+        interested_offer_format: "unknown",
+        notification_channel: channel.toLowerCase(),
+        answers: answersPayload(),
+        result_summary: result.map(item => ({ title: item[0], text: item[1] })),
+        consent_given_at: consentGivenAt,
+        consent_text_version: consentVersion,
+        page_url: "https://ideidlyabiznesa1913.ru/karta-rosta.html"
+      };
+      const safeName = escapeHtml(name);
+      const safeSummary = escapeHtml(summary);
+
+      card.innerHTML = `
+        <div class="step-label">Результат</div>
+        <h2 class="question-title">${safeName}, ваша карта точек роста готова</h2>
+        <p class="micro">Это первичный автоматический разбор по ответам. Следующий шаг — платный AI-аудит: экспертный разбор одной главной зоны и короткий план внедрения.</p>
+        <div class="result">
+          ${result.map(item => `<div class="result-item"><strong>${item[0]}</strong><span>${item[1]}</span></div>`).join("")}
+        </div>
+        <div class="offer">
+          <h3>Хотите разобрать карту глубже?</h3>
+          <p>Выберите глубину AI-аудита: от быстрого первого шага до карты компонентов для внедрения.</p>
+          <div class="offer-options">
+            <div class="offer-option">
+              <strong>Экспресс — 3 000 ₽</strong>
+              <span>Разбор карты + письменные рекомендации, если нужно быстро понять первый шаг.</span>
+            </div>
+            <div class="offer-option">
+              <strong>Стандарт — 7 000 ₽</strong>
+              <span>Разбор одной зоны глубже + 30-45 минут созвона/голосового разбора + roadmap.</span>
+            </div>
+            <div class="offer-option">
+              <strong>Глубокий — 10 000 ₽</strong>
+              <span>Связка сайт/воронка/CRM/AI + roadmap + список компонентов для внедрения.</span>
+            </div>
+          </div>
+        </div>
+        <div class="notice" id="crmStatus">Сохраняем карту в CRM. Если CRM временно недоступна, ниже останется ручная сводка для Telegram, VK, email или другого доступного канала.</div>
+        <textarea class="copybox" readonly>${safeSummary}</textarea>
+        <div class="actions">
+          <button class="btn btn-secondary" id="againBtn">Пройти заново</button>
+          <button class="btn btn-primary" id="sendBtn">Скопировать сводку</button>
+          <a class="btn btn-secondary" href="https://t.me/neuro_strateg_inna" target="_blank" rel="noopener">Telegram временно</a>
+        </div>
+      `;
+      document.getElementById("againBtn").addEventListener("click", () => {
+        Object.keys(answers).forEach(key => delete answers[key]);
+        renderWelcome();
+      });
+      document.getElementById("sendBtn").addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(summary); } catch (e) {}
+        document.getElementById("sendBtn").textContent = "Сводка скопирована";
+      });
+      submitLeadToCrm(crmPayload)
+        .then(data => {
+          document.getElementById("crmStatus").textContent = `Карта сохранена в CRM. Статус: ${data.status || "new"}. ID: ${data.lead_id || "создан"}. Инна увидит заявку в базе клиентов.`;
+        })
+        .catch(error => {
+          document.getElementById("crmStatus").textContent = `CRM сейчас не подтвердила сохранение: ${error.message}. Скопируйте сводку ниже и отправьте её через удобный канал.`;
+          console.warn("[CRM fallback]", error, crmPayload);
+        });
+    }
+
+    closePolicy.addEventListener("click", () => policyDialog.close());
+    policyDialog.addEventListener("click", event => {
+      if (event.target === policyDialog) policyDialog.close();
+    });
+
+    renderWelcome();
+  </script>
+</body>
+</html>

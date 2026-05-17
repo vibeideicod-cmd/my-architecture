@@ -1,0 +1,12 @@
+[Unit]
+Description=Backup Inna CRM SQLite database
+
+[Service]
+Type=oneshot
+User=inna-crm
+Group=inna-crm
+WorkingDirectory=/opt/inna-crm
+EnvironmentFile=/opt/inna-crm/.env
+ExecStart=/usr/bin/python3 /opt/inna-crm/backup.py
+NoNewPrivileges=true
+PrivateTmp=true

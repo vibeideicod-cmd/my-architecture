@@ -27,6 +27,9 @@
 | [ARCHITECTURE-FINAL-STATUS-2026-05-17.md](ARCHITECTURE-FINAL-STATUS-2026-05-17.md) | финальный статус архитектуры | Короткий отчёт для Кодыча/Director/Codex: что закрыто, что не трогать, можно ли начинать рабочие задачи |
 | [ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.txt](ARCHITECTURE-GLOBAL-AUDIT-2026-05-15.txt) | экспорт | Текстовая версия глобального аудита |
 | [README.md](README.md) | активный | Человеческое описание репозитория и текущей структуры проекта |
+| [index.html](index.html) | активный HUB | Корневая production-основа HUB Инны, доводится под маршрут `HUB → Карта точек роста → follow-up` |
+| [karta-rosta.html](karta-rosta.html) | активный, первая HTML-версия | Квиз «Карта точек роста»: 10 вопросов, согласие ПД, результат на экране, POST в CRM endpoint + честный ручной fallback |
+| [inna/crm/DEPLOY-REPORT-2026-05-17.md](inna/crm/DEPLOY-REPORT-2026-05-17.md) | deploy-отчёт | Production CRM MVP на `crm.ideidlyabiznesa1913.ru`: health, CORS, POST, admin, смена статуса |
 | [PLAN-legacy-2026-05-08.md](PLAN-legacy-2026-05-08.md) | исторический | Старый стратегический план агентской реструктуризации; не источник правды |
 | [OPEN.md](OPEN.md) | активный | Большой журнал открытых решений и архитектурных задач |
 | [ideas.md](ideas.md) | активный | Старая копилка идей; новые идеи лучше класть в `ideas/YYYY-MM-DD-*.md` |

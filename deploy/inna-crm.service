@@ -1,0 +1,18 @@
+[Unit]
+Description=Inna CRM MVP
+After=network.target
+
+[Service]
+Type=simple
+User=inna-crm
+Group=inna-crm
+WorkingDirectory=/opt/inna-crm
+EnvironmentFile=/opt/inna-crm/.env
+ExecStart=/usr/bin/python3 /opt/inna-crm/server.py
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

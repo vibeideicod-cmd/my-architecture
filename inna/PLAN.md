@@ -14,6 +14,7 @@
 Принцип `feedback_hub_first_vk_later`: сначала HUB + CRM + AI-помощник + лид-точка → потом реактивация VK на готовое место.
 Принцип `feedback_living_showcase_principle`: сначала Инна делает себе → потом зеркально Ирине → только потом продаём клиентам.
 Режим Client Zero: Контур Инны используется как первый полный прогон продукта «Бизнес-архитектура под ключ» по плейбуку [business-architecture-client-workflow.md](../knowledge/playbooks/business-architecture-client-workflow.md).
+Текущий верхний фокус: не отдельная CRM, а реализация главного продукта как идеи → компонентная карта → Client Zero → roadmap → только потом сборка конкретных компонентов.
 
 Зафиксированная база:
 - Продуктовая линейка `inna/product-line.md` v2 от 11.05.
@@ -26,11 +27,11 @@
 
 ## 🔥 Сейчас (в работе)
 
-- [ ] **HUB-сайт `ideidlyabiznesa1913.ru` — частично собран.** Главная + лендинги под боли уже существуют (физически в `hub/`, `index.html`, и других местах — точное состояние выяснит inventory-проход). Нужно: (а) собрать инвентаризацию что есть; (б) довести существующее до рабочего состояния; (в) добавить недостающие куски. **Скорость — часы, не дни** (правило `feedback_speed_vibe_coding` — реализация через vibe coding мгновенная, узкое место только в данных Инны). Ответственный: Websites + Copywriter + Branding.
+- [ ] **HUB-сайт `ideidlyabiznesa1913.ru` — частично собран.** Production-основа назначена: корневой `index.html`. Первый вход `karta-rosta.html` собран HTML-версией без CRM: результат показывается на экране, follow-up вручную через Telegram. Осталось довести тексты/визуал HUB и подключить CRM. **Скорость — часы, не дни** (правило `feedback_speed_vibe_coding`). Ответственный: Websites + Copywriter + Branding.
 - [ ] **Лендинги под боли — частично сделаны (больше 5).** Одна боль уже доведена, остальные параллельно. После inventory сразу видим что доводить, что добавлять. Ответственный: Websites + Copywriter.
 - [ ] **AI-помощник Инны** на HUB — заменяет «бесплатную Zoom-диагностику» (решение 11.05, `feedback_diagnostika_ai_only`). База знаний (`inna/ai-knowledge-base/`) пока с одним README — наполнение сценариями и FAQ начинаем когда HUB готов принимать. Ответственный: AI Builder.
 - [ ] **«Моя воронка 1»** — запуск-пакет VK+квиз+терминология собран в `inna/моя-воронка-1/` (5 файлов: README, launch-checklist, quiz, terminology, vk-texts). По memory `project_funnel_pack_1` — деплоится «одним днём», после inventory.
-- [ ] **CRM «Моя база клиентов»** на VPS — self-hosted, под управление лидами с HUB. Источник правды — `project_mbk.md` в auto-memory + `inna/operational-infrastructure-2026-05-11-v1.md`. Ответственный: Systems + DevOps/Infra.
+- [ ] **CRM «Моя база клиентов»** на VPS — self-hosted, под управление лидами с HUB. MVP-контур зафиксирован в [crm/](crm/), но реализация поставлена после карты компонентов главного продукта. CRM строим как компонент, когда `main-product/client-zero-plan.md` подтверждает её как P0. Ответственный: Systems + DevOps/Infra.
 
 ---
 
@@ -105,14 +106,18 @@
 2. **Deep audit ключевых активов** — выполнен: [DEEP-AUDIT-CORE-ASSETS-2026-05-17.md](DEEP-AUDIT-CORE-ASSETS-2026-05-17.md). Вывод: источники правды назначены, старые HTML и документы используем как сырьё, не как master.
 3. **Client Zero playbook** — зафиксирован: [business-architecture-client-workflow.md](../knowledge/playbooks/business-architecture-client-workflow.md). По нему дальше ведём Инну → Ирину → клиентов.
 4. **Активировать бренд-материалы из `inbox-inna/inna-dly-brenda/`** (PDF-палитра 26.04) — разложить исходники в постоянное место и оставить inbox чистым. `inna/README.md` уже обновлён после inventory. _Размер: 30-60 мин._
-5. **Назначить production-HUB** — текущая рекомендация inventory: доводить корневой `index.html`, а `hub/index.html` считать дублем/резервом до отдельного решения.
-6. **Переименовать публичный вход** — на витрине использовать «Карта точек роста», а не «бесплатная диагностика»; сверить с `моя-воронка-1/terminology.md`.
-7. **Собрать минимальный квиз/страницу `karta-rosta`** — вопросы, результат, CTA, контакт.
-8. **Решить временный follow-up до CRM** — Telegram `@neuro_strateg_inna`, `@AI_avtosistem` или форма с ручной обработкой.
-9. **Наполнить минимальную `inna/ai-knowledge-base/`** — 5 болей, продуктовые карточки, FAQ-ядро, tone.
-10. **Деплой «Моя воронка 1»** — когда HUB готов принимать лиды.
-11. **Реактивация VK** — после готовности HUB и воронки.
-12. **Зеркально на Ирину** — после стабилизации Контура Инны: тот же набор (своя HUB-страница, свои лендинги под её услуги, воронка). По правилу `feedback_living_showcase_principle`.
+5. **Назначить production-HUB** — выполнено: доводим корневой `index.html`; `hub/index.html` считаем дублем/резервом до отдельного решения.
+6. **Переименовать публичный вход** — первая правка выполнена в `index.html`: CTA ведёт на «Карту точек роста», не на бесплатную диагностику.
+7. **Собрать минимальный квиз/страницу `karta-rosta`** — первая HTML-версия выполнена: [../karta-rosta.html](../karta-rosta.html), 10 вопросов, результат на экране.
+8. **Решить временный follow-up до CRM** — временно решено: ручной Telegram follow-up через `@neuro_strateg_inna`.
+9. **Главный продукт как идея** — начато: [main-product/idea.md](main-product/idea.md), [main-product/components-map.md](main-product/components-map.md), [main-product/client-zero-plan.md](main-product/client-zero-plan.md), [main-product/roadmap-7-30-90.md](main-product/roadmap-7-30-90.md). P0-проверка маршрута выполнена: [main-product/p0-route-audit-2026-05-17.md](main-product/p0-route-audit-2026-05-17.md).
+10. **Закрыть P0 маршрута** — оффер платного AI-аудита выполнен: [main-product/paid-ai-audit-offer.md](main-product/paid-ai-audit-offer.md) + блок в `karta-rosta.html`. Следующий порядок: юр.минимум ПД на квизе → перепаковка HUB → минимальный статус лида → CRM API.
+11. **CRM MVP** — начато как компонент: [crm/BACKEND-PLAN.md](crm/BACKEND-PLAN.md), [crm/schema.md](crm/schema.md), [crm/api-contract.md](crm/api-contract.md). Не продолжаем реализацию, пока не закрыты оффер/ПД/статус.
+12. **Market research главного продукта** — после P0-сборки разобрать лидеров рынка и аналоги: кто как продаёт бизнес-архитектуру, операционные системы, AI/CRM-внедрение под ключ.
+13. **Наполнить минимальную `inna/ai-knowledge-base/`** — 5 болей, продуктовые карточки, FAQ-ядро, tone.
+14. **Деплой «Моя воронка 1»** — когда HUB готов принимать лиды и CRM/fallback принимает контакт.
+15. **Реактивация VK** — после готовности HUB и воронки.
+16. **Зеркально на Ирину** — после стабилизации Контура Инны: тот же набор (своя HUB-страница, свои лендинги под её услуги, воронка). По правилу `feedback_living_showcase_principle`.
 
 ---
 
@@ -150,6 +155,12 @@
 | [operational-infrastructure-2026-05-11-v1.md](operational-infrastructure-2026-05-11-v1.md) | Операционная инфраструктура v1 |
 | [моя-воронка-1/README.md](моя-воронка-1/README.md) | Запуск-пакет VK+квиз |
 | [visitka/index.html](visitka/index.html) | Визитка Инны (production) |
+| [../karta-rosta.html](../karta-rosta.html) | Первая HTML-версия квиза «Карта точек роста» |
+| [main-product/README.md](main-product/README.md) | Контур главного продукта «Бизнес-архитектура под ключ» |
+| [main-product/roadmap-7-30-90.md](main-product/roadmap-7-30-90.md) | Дорожная карта реализации главного продукта на Client Zero |
+| [main-product/p0-route-audit-2026-05-17.md](main-product/p0-route-audit-2026-05-17.md) | P0-аудит первого маршрута главного продукта |
+| [main-product/paid-ai-audit-offer.md](main-product/paid-ai-audit-offer.md) | Оффер платного AI-аудита после Карты точек роста |
+| [crm/BACKEND-PLAN.md](crm/BACKEND-PLAN.md) | Backend-plan CRM MVP «Моя база клиентов» |
 | [platform/README.md](platform/README.md) | Концепт Платформы С.С.С.Р. |
 | [../knowledge/brand/palette.md](../knowledge/brand/palette.md) | **Палитра Инны — источник правды** (8 цветов) |
 | [../knowledge/brand/brandbook.md](../knowledge/brand/brandbook.md) | **Брендбук Инны** |

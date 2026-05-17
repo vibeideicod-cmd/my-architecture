@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Inna CRM backup
+
+[Timer]
+OnCalendar=*-*-* 03:20:00
+Persistent=true
+Unit=inna-crm-backup.service
+
+[Install]
+WantedBy=timers.target
