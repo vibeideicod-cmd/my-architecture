@@ -1,0 +1,18 @@
+[Unit]
+Description=Irina CRM MVP
+After=network.target
+
+[Service]
+Type=simple
+User=irina-crm
+Group=irina-crm
+WorkingDirectory=/opt/irina-crm
+EnvironmentFile=/opt/irina-crm/.env
+ExecStart=/usr/bin/python3 /opt/irina-crm/server.py
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

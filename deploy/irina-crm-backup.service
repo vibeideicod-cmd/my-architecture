@@ -1,0 +1,12 @@
+[Unit]
+Description=Backup Irina CRM SQLite database
+
+[Service]
+Type=oneshot
+User=irina-crm
+Group=irina-crm
+WorkingDirectory=/opt/irina-crm
+EnvironmentFile=/opt/irina-crm/.env
+ExecStart=/usr/bin/python3 /opt/irina-crm/backup.py
+NoNewPrivileges=true
+PrivateTmp=true
