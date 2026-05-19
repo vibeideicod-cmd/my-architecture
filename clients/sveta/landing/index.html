@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Материалы после выступления — Светлана Новодацкая</title>
-  <meta name="description" content="Шаблон вакансии, чек-лист сезонного найма и таблица критериев кандидата от Светланы Новодацкой — заслуженного работника туризма, управленца с 30+ лет опыта.">
+  <title>Светлана Новодацкая — материалы и услуги</title>
+  <meta name="description" content="Светлана Новодацкая — заслуженный работник туризма. Шаблон вакансии, чек-лист сезонного найма, таблица критериев. Консультации, аудит и стандарты сервиса для собственников.">
   <meta name="robots" content="noindex,nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,6 @@
     section { padding: clamp(56px, 8vw, 100px) 0; position: relative; }
     section + section { border-top: 1px solid var(--sand-line); }
 
-    /* Section number tag (как на слайдах) */
     .num-tag {
       display: inline-block;
       background: var(--burgundy);
@@ -132,7 +131,7 @@
       margin-bottom: 2rem;
     }
 
-    /* CTA buttons */
+    /* CTA */
     .cta-row {
       display: flex;
       flex-wrap: wrap;
@@ -168,10 +167,40 @@
     }
     .btn-gold:hover { background: var(--gold-soft); color: var(--graphite); text-decoration: none; }
 
-    /* MATERIALS */
-    .materials-grid {
+    /* SOFT GATE (приглашение оставить контакт) */
+    .soft-gate {
+      background: var(--beige);
+      border-left: 4px solid var(--burgundy);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 0 0 2rem;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .soft-gate .text { flex: 1; min-width: 240px; }
+    .soft-gate .text-title {
+      font-weight: 700;
+      color: var(--burgundy);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    .soft-gate .text-sub { font-size: 0.9rem; color: var(--warm-gray); }
+    .soft-gate .btn { padding: 11px 22px; font-size: 0.85rem; }
+
+    /* CARDS GRID */
+    .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 2.2rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 22px;
       margin-top: 2.2rem;
     }
@@ -183,7 +212,6 @@
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      position: relative;
     }
     .card .icon-circle {
       width: 50px; height: 50px;
@@ -199,10 +227,28 @@
     .card .desc { color: var(--warm-gray); font-size: 0.95rem; flex: 1; margin-bottom: 1.5rem; }
     .card .btn { align-self: flex-start; padding: 11px 22px; font-size: 0.85rem; }
 
-    /* THESES */
-    .theses {
-      background: var(--beige);
+    /* SERVICES (Услуги Светы) */
+    .services { background: var(--cream-soft); }
+    .services .grid-3 { margin-top: 2rem; }
+    .services-cta {
+      margin-top: 2.5rem;
+      padding: 24px 28px;
+      background: var(--burgundy);
+      color: var(--cream);
+      border-radius: 14px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
+    .services-cta .text-block { flex: 1; min-width: 260px; }
+    .services-cta .text-block strong { display: block; font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+    .services-cta .text-block span { color: rgba(245, 239, 230, 0.85); font-size: 0.92rem; }
+    .services-cta .btn-gold { white-space: nowrap; }
+
+    /* THESES */
+    .theses { background: var(--beige); }
     .theses-list {
       list-style: none;
       padding: 0;
@@ -312,7 +358,7 @@
       border-top: 1px solid var(--sand-line);
     }
 
-    /* MODAL FORM */
+    /* MODAL */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -397,10 +443,11 @@
       border-left: 3px solid var(--burgundy);
     }
 
-    /* MOBILE */
     @media (max-width: 540px) {
       .btn { width: 100%; justify-content: center; }
       .cta-row { flex-direction: column; }
+      .services-cta { flex-direction: column; align-items: flex-start; }
+      .services-cta .btn-gold { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -424,10 +471,10 @@
       <span class="em">Массовый подбор в сезон:</span><br>
       как собственнику собрать систему, а не ждать откликов
     </div>
-    <div class="topic-sub">Материалы после выступления: шаблон вакансии, чек-лист и таблица критериев кандидата. Забирайте и применяйте уже на этой неделе.</div>
+    <div class="topic-sub">Материалы после выступления + услуги для собственников гостинично-санаторной и ресторанной сферы.</div>
     <div class="cta-row">
       <a href="#materials" class="btn btn-burgundy">Забрать материалы</a>
-      <a href="#contact" class="btn btn-outline">Написать Светлане</a>
+      <a href="#services" class="btn btn-outline">Посмотреть услуги</a>
     </div>
   </div>
 </section>
@@ -436,15 +483,24 @@
 <section id="materials">
   <div class="wrap">
     <div class="num-tag">02</div>
-    <h2>Что забрать после выступления</h2>
-    <p style="color:var(--warm-gray); max-width:680px;">Три практических материала под массовый подбор линейного персонала. Откройте, сохраните или распечатайте.</p>
-    <div class="materials-grid">
+    <h2>Материалы после выступления</h2>
+    <p style="color:var(--warm-gray); max-width:680px;">Три практических материала под массовый подбор линейного персонала. Откройте, сохраните или распечатайте — забирайте свободно.</p>
+
+    <div class="soft-gate">
+      <div class="text">
+        <div class="text-title">Подпишитесь на разборы Светланы</div>
+        <div class="text-sub">Хотите получать новые разборы и кейсы по подбору, сервису и операционке? Оставьте контакт — пришлём, когда выйдет следующий материал.</div>
+      </div>
+      <button type="button" class="btn btn-burgundy" onclick="openModal('newsletter')">Оставить контакт</button>
+    </div>
+
+    <div class="grid-3">
       <div class="card">
         <div class="icon-circle">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
         </div>
         <h3>Шаблон вакансии</h3>
-        <div class="desc">Готовая структура объявления для линейного персонала: должность, график, оплата, обязанности, требования, контакт. Адаптируйте под свою задачу за 10 минут.</div>
+        <div class="desc">Готовая структура объявления для линейного персонала: должность, график, оплата, обязанности, требования, контакт. Адаптируйте за 10 минут.</div>
         <a href="materials/shablon-vakansii.html" class="btn btn-burgundy" target="_blank">Открыть</a>
       </div>
       <div class="card">
@@ -452,7 +508,7 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
         </div>
         <h3>Чек-лист «7 шагов сезонного найма»</h3>
-        <div class="desc">Дневной план на неделю: с чего начать, какие каналы запустить, как фильтровать кандидатов и подготовить адаптацию. Применяйте после конференции.</div>
+        <div class="desc">Дневной план на неделю: с чего начать, какие каналы запустить, как фильтровать кандидатов и подготовить адаптацию.</div>
         <a href="materials/7-shagov-sezonnogo-nayma.html" class="btn btn-burgundy" target="_blank">Открыть</a>
       </div>
       <div class="card">
@@ -460,7 +516,7 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
         </div>
         <h3>Таблица критериев кандидата</h3>
-        <div class="desc">Четыре группы требований к линейному персоналу: профессиональные, личностные, физические, дополнительные. Решения по критериям, а не по ощущениям.</div>
+        <div class="desc">Четыре группы требований к линейному персоналу: профессиональные, личностные, физические, дополнительные. Решения по карте, не по ощущениям.</div>
         <a href="materials/kriterii-kandidata.html" class="btn btn-burgundy" target="_blank">Открыть</a>
       </div>
     </div>
@@ -482,11 +538,64 @@
   </div>
 </section>
 
+<!-- SERVICES СВЕТЫ -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="num-tag">04</div>
+    <h2>Услуги Светланы</h2>
+    <p style="color:var(--warm-gray); max-width:700px;">Помимо выступлений я веду консультации, аудиты и разборы для собственников гостинично-санаторной и ресторанной сферы. Беру в работу мини-отели, кафе, санатории, сезонные бизнесы. Формулировки услуг — рабочие, обсудим под вашу задачу.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <h3>Постановка системы подбора</h3>
+        <div class="desc">Собираем работающую воронку линейного персонала под сезон: задача, экономика, каналы, анкета, критерии, адаптация. Не «одно объявление», а управляемый процесс.</div>
+      </div>
+      <div class="card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <h3>Аудит стандартов сервиса</h3>
+        <div class="desc">Смотрю на ваш сервис глазами 30-летнего управленца: где провалы, какие точки боли у гостя, что переделать в первую очередь. Выдаю отчёт с приоритетами.</div>
+      </div>
+      <div class="card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+        </div>
+        <h3>Операционные процессы</h3>
+        <div class="desc">Шведский стол, заселение, уборка, сервис в зале, организация смен. Прописываем что, кто, когда и как делает — от приёма гостя до выезда.</div>
+      </div>
+      <div class="card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"/></svg>
+        </div>
+        <h3>Экспертная сессия для собственника</h3>
+        <div class="desc">Разбор вашей реальной ситуации: что мешает работать, где теряете деньги в сезон, какие 2-3 решения сдвинут систему. Живой разговор по практике.</div>
+      </div>
+      <div class="card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        </div>
+        <h3>Сопровождение в сезон</h3>
+        <div class="desc">Когда «горит» — точечная помощь: переписать вакансии, запустить каналы, разобрать сложный кейс с персоналом, проверить адаптацию новеньких. Без долгих контрактов.</div>
+      </div>
+    </div>
+    <div class="services-cta">
+      <div class="text-block">
+        <strong>Записаться на консультацию или аудит</strong>
+        <span>Расскажу подробнее по любой из услуг — выберите удобный канал, отвечу в течение дня.</span>
+      </div>
+      <button type="button" class="btn btn-gold" onclick="openModal('svetlana')">Записаться</button>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
-    <div class="num-tag">04</div>
-    <h2>Связаться со Светланой</h2>
+    <div class="num-tag">05</div>
+    <h2>Связаться напрямую</h2>
     <div class="contact-block">
       <div class="ask">Обсудить подбор, стандарты персонала, организацию сервиса или сезонную нагрузку — напишите удобным способом.</div>
       <div class="contact-row">
@@ -505,7 +614,7 @@
         </a>
       </div>
       <div class="placeholder-note">
-        Контакты — placeholder. Перед запуском Светлана подтвердит каналы (Telegram, телефон, WhatsApp) и мы подставим реальные ссылки.
+        Контакты — placeholder. После подтверждения Светланой подставим реальные ссылки.
       </div>
     </div>
   </div>
@@ -514,13 +623,13 @@
 <!-- STUDIO (Ирина) -->
 <section class="studio" id="studio">
   <div class="wrap">
-    <div class="num-tag">05</div>
+    <div class="num-tag">06</div>
     <h2>Презентация и страница оформлены</h2>
     <div class="signature">Ирина Цепаева · YE VoicePower</div>
-    <div class="lead-text">Визуальная упаковка выступлений, презентаций и экспертных материалов. Готовый комплект для эксперта: презентация → страница материалов → QR → заявка в систему.</div>
+    <div class="lead-text">Визуальная упаковка выступлений, презентаций и экспертных материалов. Готовый комплект для эксперта: презентация → страница материалов → QR → заявка в систему. Хотите такой же — оставьте заявку.</div>
     <div class="cta-row">
       <a href="https://irina.stydiyatsi.ru/" class="btn btn-gold" target="_blank">Посмотреть визитку Ирины</a>
-      <button type="button" class="btn btn-outline" onclick="openModal()">Хочу такую же упаковку</button>
+      <button type="button" class="btn btn-outline" onclick="openModal('irina')">Хочу такую же упаковку</button>
     </div>
   </div>
 </section>
@@ -533,9 +642,11 @@
 <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal">
     <button class="close" onclick="closeModal()" aria-label="Закрыть">×</button>
-    <h2 id="modal-title">Хочу такую же упаковку</h2>
-    <p style="color:var(--warm-gray); margin-bottom:1.5rem;">Расскажите коротко что нужно — Ирина свяжется в ближайшее время.</p>
+    <h2 id="modal-title">Заявка</h2>
+    <p id="modal-subtitle" style="color:var(--warm-gray); margin-bottom:1.5rem;"></p>
     <form id="lead-form" onsubmit="submitLead(event)">
+      <input type="hidden" id="f-target" value="">
+      <input type="hidden" id="f-flow" value="">
       <div class="field">
         <label for="f-name">Как к вам обращаться</label>
         <input type="text" id="f-name" name="name" required minlength="2" maxlength="80">
@@ -555,9 +666,20 @@
         <label for="f-contact">Контакт (ник, номер или email)</label>
         <input type="text" id="f-contact" name="contact" required minlength="3" maxlength="120" placeholder="@username или +7 ...">
       </div>
-      <div class="field">
-        <label for="f-need">Что нужно</label>
-        <select id="f-need" name="need">
+      <div class="field" id="field-need-svetlana" style="display:none">
+        <label for="f-need-svetlana">Что интересно</label>
+        <select id="f-need-svetlana" name="need-svetlana">
+          <option value="consultation">Консультация по подбору</option>
+          <option value="audit">Аудит стандартов сервиса</option>
+          <option value="operations">Операционные процессы</option>
+          <option value="expert-session">Экспертная сессия</option>
+          <option value="seasonal-support">Сопровождение в сезон</option>
+          <option value="other">Другое — расскажу</option>
+        </select>
+      </div>
+      <div class="field" id="field-need-irina" style="display:none">
+        <label for="f-need-irina">Что нужно</label>
+        <select id="f-need-irina" name="need-irina">
           <option value="presentation">Презентация для выступления</option>
           <option value="visitka">Визитка эксперта</option>
           <option value="materials-page">Страница материалов</option>
@@ -566,7 +688,7 @@
         </select>
       </div>
       <div class="field">
-        <label for="f-note">Комментарий</label>
+        <label for="f-note">Комментарий <span style="font-weight:400; text-transform:none; color:var(--warm-gray)">(необязательно)</span></label>
         <textarea id="f-note" name="note" placeholder="Что планируете, к какой дате, что уже есть"></textarea>
       </div>
       <label class="consent">
@@ -582,7 +704,38 @@
 <script>
   const CRM_ENDPOINT = 'https://crm.stydiyatsi.ru/api/leads';
 
-  function openModal() {
+  const FLOW_PRESETS = {
+    'svetlana': {
+      title: 'Записаться на консультацию',
+      subtitle: 'Расскажу подробнее по любой из услуг — Светлана свяжется с вами в течение дня.',
+      target: 'svetlana',
+      showSvetlana: true,
+      showIrina: false
+    },
+    'irina': {
+      title: 'Хочу такую же упаковку',
+      subtitle: 'Расскажите коротко что нужно — Ирина свяжется в ближайшее время.',
+      target: 'irina',
+      showSvetlana: false,
+      showIrina: true
+    },
+    'newsletter': {
+      title: 'Подписаться на разборы',
+      subtitle: 'Оставьте контакт — пришлём, когда выйдет следующий разбор или кейс.',
+      target: 'svetlana',
+      showSvetlana: false,
+      showIrina: false
+    }
+  };
+
+  function openModal(flow) {
+    const preset = FLOW_PRESETS[flow] || FLOW_PRESETS['svetlana'];
+    document.getElementById('modal-title').textContent = preset.title;
+    document.getElementById('modal-subtitle').textContent = preset.subtitle;
+    document.getElementById('f-target').value = preset.target;
+    document.getElementById('f-flow').value = flow;
+    document.getElementById('field-need-svetlana').style.display = preset.showSvetlana ? '' : 'none';
+    document.getElementById('field-need-irina').style.display = preset.showIrina ? '' : 'none';
     document.getElementById('modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -606,14 +759,26 @@
     btn.disabled = true;
     btn.textContent = 'Отправляем...';
 
-    const need = document.getElementById('f-need').value;
+    const flow = document.getElementById('f-flow').value;
+    const target = document.getElementById('f-target').value;
     const note = document.getElementById('f-note').value.trim();
-    const contextParts = ['Запрос со страницы Светланы Новодацкой', 'Что нужно: ' + need];
+    const contextParts = ['Запрос со страницы Светланы Новодацкой'];
+
+    if (flow === 'svetlana') {
+      const need = document.getElementById('f-need-svetlana').value;
+      contextParts.push('Услуга Светы: ' + need);
+    } else if (flow === 'irina') {
+      const need = document.getElementById('f-need-irina').value;
+      contextParts.push('Услуга Иры: ' + need);
+    } else if (flow === 'newsletter') {
+      contextParts.push('Подписка на разборы Светы');
+    }
     if (note) contextParts.push('Комментарий: ' + note);
 
     const payload = {
       source: 'svetlana_materials_page',
       partner: 'svetlana_novodatskaya',
+      target: target,
       name: document.getElementById('f-name').value.trim(),
       channel: document.getElementById('f-channel').value,
       contact: document.getElementById('f-contact').value.trim(),
@@ -632,7 +797,8 @@
       const data = await res.json();
       if (res.ok && data.ok) {
         status.className = 'form-status success';
-        status.textContent = 'Заявка отправлена. Ирина свяжется с вами в ближайшее время.';
+        const who = target === 'svetlana' ? 'Светлана' : 'Ирина';
+        status.textContent = 'Заявка отправлена. ' + who + ' свяжется с вами в ближайшее время.';
         document.getElementById('lead-form').reset();
         btn.textContent = 'Отправлено ✓';
         setTimeout(() => { closeModal(); btn.disabled = false; btn.textContent = 'Отправить заявку'; }, 2500);
@@ -641,7 +807,7 @@
       }
     } catch (err) {
       status.className = 'form-status error';
-      status.textContent = 'Не удалось отправить: ' + (err.message || 'попробуйте позже') + '. Напишите Светлане напрямую.';
+      status.textContent = 'Не удалось отправить: ' + (err.message || 'попробуйте позже') + '.';
       btn.disabled = false;
       btn.textContent = 'Отправить заявку';
     }
