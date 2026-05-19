@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Шаблон вакансии — Светлана Новодацкая</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      --cream: #F5EFE6;
+      --beige: #EFE5D5;
+      --burgundy: #7A1F1F;
+      --gold: #B89968;
+      --graphite: #2C2C2C;
+      --warm-gray: #6B6258;
+      --sand-line: #D8CFB8;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      color: var(--graphite);
+      background: var(--cream);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #fff;
+      padding: clamp(32px, 5vw, 56px);
+      box-shadow: 0 6px 24px rgba(122, 31, 31, 0.08);
+    }
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: 100%; padding: 24px; }
+      .print-hide { display: none !important; }
+    }
+    .header {
+      border-bottom: 3px solid var(--burgundy);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .header .num-tag {
+      display: inline-block;
+      background: var(--burgundy);
+      color: var(--cream);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      margin: 0 0 0.3em;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+    h1 .em { color: var(--burgundy); }
+    .author {
+      color: var(--warm-gray);
+      font-size: 0.92rem;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--burgundy);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 2rem 0 0.8rem;
+    }
+    .intro {
+      background: var(--beige);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    .field {
+      margin: 18px 0;
+      padding: 0 0 18px;
+      border-bottom: 1px dashed var(--sand-line);
+    }
+    .field:last-of-type { border-bottom: none; }
+    .field-label {
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--burgundy);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .field-hint {
+      color: var(--warm-gray);
+      font-size: 0.88rem;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .field-example {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.92rem;
+      color: var(--graphite);
+    }
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .checklist li {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 5px;
+      width: 16px; height: 16px;
+      border: 2px solid var(--gold);
+      border-radius: 3px;
+    }
+    .footer-note {
+      margin-top: 2.5rem;
+      padding: 16px 20px;
+      background: var(--beige);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: var(--burgundy);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .print-btn {
+      display: inline-block;
+      background: var(--burgundy);
+      color: var(--cream);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 0;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    .print-btn:hover { background: #5C1818; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="num-tag">Материал 01</div>
+    <h1>Шаблон <span class="em">вакансии</span></h1>
+    <div class="author">Светлана Новодацкая · Заслуженный работник туризма · 30+ лет управленческого опыта</div>
+  </div>
+
+  <div class="intro">
+    Заполните 9 блоков по своей позиции — получите готовое объявление, которое можно публиковать в Avito, Telegram-группах, рекомендациях и на сайтах вакансий. Адаптация занимает 10-15 минут.
+  </div>
+
+  <h2>1. Должность</h2>
+  <div class="field">
+    <div class="field-hint">Конкретно: «горничная», «повар горячего цеха», «администратор ресепшн». Не «специалист» и не «сотрудник».</div>
+    <div class="field-example">Пример: <strong>Горничная в мини-отель у моря</strong></div>
+  </div>
+
+  <h2>2. Место работы</h2>
+  <div class="field">
+    <div class="field-hint">Город / посёлок, район, особенности добираться (далеко / у трассы / рядом с остановкой).</div>
+    <div class="field-example">Пример: <strong>Севастополь, район Парк Победы. От остановки «Стрелецкая» 7 минут пешком.</strong></div>
+  </div>
+
+  <h2>3. График</h2>
+  <div class="field">
+    <div class="field-hint">Сменность, выходные, длительность смены, начало и конец, ночные смены.</div>
+    <div class="field-example">Пример: <strong>2/2, смена 12 часов с 08:00 до 20:00. Без ночных смен.</strong></div>
+  </div>
+
+  <h2>4. Оплата</h2>
+  <div class="field">
+    <div class="field-hint">Чёткая сумма или диапазон. «Достойная зарплата» отпугивает. Указывайте на руки или с налогами — но прямо.</div>
+    <div class="field-example">Пример: <strong>3 500 ₽ за смену + чаевые. Выплата каждые 2 недели на карту.</strong></div>
+  </div>
+
+  <h2>5. Обязанности</h2>
+  <div class="field">
+    <div class="field-hint">3-5 пунктов конкретных задач. Без «и т.п.».</div>
+    <ul class="checklist">
+      <li>Уборка номеров после выезда и поддерживающая уборка</li>
+      <li>Смена постельного белья и полотенец</li>
+      <li>Контроль наличия удобств в номере</li>
+      <li>Передача информации о поломках администратору</li>
+    </ul>
+  </div>
+
+  <h2>6. Что обязательно</h2>
+  <div class="field">
+    <div class="field-hint">Минимум для входа. Только то, без чего человек не справится в первый день.</div>
+    <ul class="checklist">
+      <li>Опыт работы в гостинице / санатории / отеле — от 6 месяцев</li>
+      <li>Аккуратность, опрятный внешний вид</li>
+      <li>Возможность работать в сезон без длительных отпусков</li>
+    </ul>
+  </div>
+
+  <h2>7. Чему готовы научить</h2>
+  <div class="field">
+    <div class="field-hint">Покажите, что вы вкладываетесь в человека. Это даёт преимущество перед конкурентами.</div>
+    <ul class="checklist">
+      <li>Стандартам сервиса нашего отеля</li>
+      <li>Работе с системой учёта расхода белья</li>
+      <li>Базовому английскому в объёме приёма гостя</li>
+    </ul>
+  </div>
+
+  <h2>8. Что мы даём</h2>
+  <div class="field">
+    <div class="field-hint">Питание, проживание, проезд, скидки, премии, обучение, форма.</div>
+    <ul class="checklist">
+      <li>Питание на смене</li>
+      <li>Форму</li>
+      <li>Премию по итогам сезона</li>
+      <li>Возможность работать в следующих сезонах</li>
+    </ul>
+  </div>
+
+  <h2>9. Контакт и как откликнуться</h2>
+  <div class="field">
+    <div class="field-hint">Один-два канала, по которым отвечают быстро. Не «отправьте резюме на email» — это убивает скорость.</div>
+    <div class="field-example">Пример: <strong>Напишите в Telegram @username или позвоните +7 ... — отвечу в течение часа.</strong></div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Главное правило вакансии (из доклада Светланы):</strong> вакансия — это первое знакомство кандидата с вашим бизнесом. Конкретика, честные условия, понятный график, быстрый отклик — четыре кита сильного объявления.
+  </div>
+
+  <div class="print-hide" style="margin-top: 2rem;">
+    <a href="../" class="back-link">← Вернуться к материалам</a>
+    <button class="print-btn" onclick="window.print()">Распечатать</button>
+  </div>
+</div>
+</body>
+</html>
