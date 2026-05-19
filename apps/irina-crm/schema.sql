@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS leads (
   followup_due_at TEXT,
   notes TEXT,
   partner TEXT,
+  target TEXT,
   raw_payload TEXT NOT NULL
 );
 

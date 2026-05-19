@@ -50,6 +50,7 @@ MIGRATION_COLUMNS = {
     "consent_given_at": "TEXT",
     "consent_text_version": "TEXT",
     "partner": "TEXT",
+    "target": "TEXT",
 }
 VALID_STATUSES = {
     "new",
@@ -163,6 +164,7 @@ def insert_lead(payload):
         "consent_given_at": str(payload.get("consent_given_at", "")).strip(),
         "consent_text_version": str(payload.get("consent_text_version", "")).strip(),
         "partner": str(payload.get("partner", "")).strip() or None,
+        "target": str(payload.get("target", "irina")).strip().lower() or "irina",
         "result_summary": json_text(result_summary),
         "next_step": "Написать вручную, уточнить контекст и бриф",
         "followup_owner": "Ирина",
@@ -317,7 +319,7 @@ class Handler(BaseHTTPRequestHandler):
                   <span>{html.escape(row['status'])}</span>
                 </div>
                 <p><b>Контакт:</b> {html.escape(row['channel'])} · {html.escape(row['contact'])}</p>
-                <p><b>Источник:</b> {html.escape(row['source'])} · {html.escape(row['created_at'])}{(' · <b>Партнёр:</b> ' + html.escape(row['partner'])) if (row['partner'] if 'partner' in row.keys() else None) else ''}</p>
+                <p><b>Источник:</b> {html.escape(row['source'])} · {html.escape(row['created_at'])}{(' · <b>Партнёр:</b> ' + html.escape(row['partner'])) if (row['partner'] if 'partner' in row.keys() else None) else ''}{(' · <b>К кому:</b> ' + html.escape(row['target'])) if (row['target'] if 'target' in row.keys() else None) else ''}</p>
                 <p><b>Главная точка:</b> {html.escape(row['main_growth_point'] or '')}</p>
                 <p><b>Формат:</b> {html.escape(row['interested_offer_format'] or 'unknown')} · <b>Уведомление:</b> {html.escape(row['notification_channel'] or '')} / {html.escape(row['notification_status'] or '')}</p>
                 <p><b>Согласие ПД:</b> {html.escape(row['consent_given_at'] or '')} · {html.escape(row['consent_text_version'] or '')}</p>
