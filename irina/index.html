@@ -1548,6 +1548,9 @@ section {
             </svg>
             VK личная
           </a>
+          <button type="button" class="btn btn--primary" onclick="openOrderModal()" style="margin-left:0">
+            Оставить заявку на упаковку
+          </button>
         </div>
         <div class="contact-foot">Обычно отвечаю в&nbsp;течение дня. Будни 9:00–22:00&nbsp;МСК.</div>
         <p class="contact-sign">— Ирина Цепаева, дизайнер</p>
@@ -1556,6 +1559,58 @@ section {
   </section>
 
 </main>
+
+<!-- ORDER MODAL (заявка на упаковку) -->
+<div class="order-overlay" id="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-title" style="display:none;position:fixed;inset:0;background:rgba(48,102,84,0.6);z-index:1000;padding:20px;overflow-y:auto;">
+  <div style="background:var(--vanilla);border-radius:16px;max-width:540px;width:100%;padding:40px 32px;margin:24px auto;box-shadow:0 24px 80px rgba(0,0,0,0.3);font-family:var(--font-text,'Montserrat',sans-serif);color:var(--pine);">
+    <button type="button" onclick="closeOrderModal()" aria-label="Закрыть" style="float:right;background:none;border:none;font-size:1.8rem;color:var(--pine-60);cursor:pointer;padding:0;line-height:1;">×</button>
+    <h2 id="order-title" style="font-family:var(--font-display,'Playfair Display',serif);font-weight:700;color:var(--pine);margin:0 0 0.6em;font-size:1.6rem;">Заявка на упаковку</h2>
+    <p style="color:var(--pine-60);margin-bottom:1.5rem;font-size:0.95rem;">Расскажите коротко что нужно — отвечу с предложением в течение дня.</p>
+    <form id="order-form" onsubmit="submitOrder(event)">
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--pine);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">Как к вам обращаться</label>
+        <input type="text" id="o-name" required minlength="2" maxlength="80" style="width:100%;padding:12px 14px;font-family:inherit;font-size:1rem;border:1px solid var(--pine-15);border-radius:8px;background:#fff;color:var(--pine);">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--pine);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">Удобный канал связи</label>
+        <select id="o-channel" required style="width:100%;padding:12px 14px;font-family:inherit;font-size:1rem;border:1px solid var(--pine-15);border-radius:8px;background:#fff;color:var(--pine);">
+          <option value="">— выберите —</option>
+          <option value="telegram">Telegram</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="vk">VK</option>
+          <option value="phone">Телефон</option>
+          <option value="email">Email</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--pine);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">Контакт</label>
+        <input type="text" id="o-contact" required minlength="3" maxlength="120" placeholder="@username или +7 ..." style="width:100%;padding:12px 14px;font-family:inherit;font-size:1rem;border:1px solid var(--pine-15);border-radius:8px;background:#fff;color:var(--pine);">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--pine);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">Что нужно</label>
+        <select id="o-need" style="width:100%;padding:12px 14px;font-family:inherit;font-size:1rem;border:1px solid var(--pine-15);border-radius:8px;background:#fff;color:var(--pine);">
+          <option value="presentation">Презентация для выступления</option>
+          <option value="visitka">Визитка эксперта</option>
+          <option value="materials-page">Страница материалов</option>
+          <option value="full-package">Комплект под выступление</option>
+          <option value="landing">Лендинг / сайт</option>
+          <option value="mini-app">Mini App / бот</option>
+          <option value="other">Другое — расскажу</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--pine);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">Комментарий <span style="font-weight:400;text-transform:none;color:var(--pine-60);">(необязательно)</span></label>
+        <textarea id="o-note" placeholder="Что планируете, к какой дате, что уже есть" style="width:100%;padding:12px 14px;font-family:inherit;font-size:1rem;border:1px solid var(--pine-15);border-radius:8px;background:#fff;color:var(--pine);resize:vertical;min-height:80px;"></textarea>
+      </div>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:0.85rem;color:var(--pine-60);margin-bottom:18px;">
+        <input type="checkbox" id="o-consent" required style="width:auto;margin-top:3px;flex-shrink:0;">
+        <span>Согласен(а) на обработку персональных данных для связи по этой заявке.</span>
+      </label>
+      <button type="submit" id="o-submit" class="btn btn--primary" style="width:100%;">Отправить заявку</button>
+      <div id="o-status" style="margin-top:12px;padding:12px 14px;border-radius:8px;font-size:0.92rem;display:none;"></div>
+    </form>
+  </div>
+</div>
 
 <!-- STICKY-BAR (только мобильный) -->
 <nav class="sticky-bar" id="sticky-bar" role="navigation" aria-label="Связаться">
@@ -1885,6 +1940,77 @@ section {
   syncCounter();
   syncShowBtn();
 })();
+</script>
+
+<script>
+  (function(){
+    const ENDPOINT = 'https://crm.stydiyatsi.ru/api/leads';
+    window.openOrderModal = function() {
+      document.getElementById('order-modal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+    window.closeOrderModal = function() {
+      document.getElementById('order-modal').style.display = 'none';
+      document.body.style.overflow = '';
+    };
+    document.getElementById('order-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeOrderModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeOrderModal();
+    });
+    window.submitOrder = async function(event) {
+      event.preventDefault();
+      const btn = document.getElementById('o-submit');
+      const status = document.getElementById('o-status');
+      status.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Отправляем...';
+      const note = document.getElementById('o-note').value.trim();
+      const need = document.getElementById('o-need').value;
+      const ctxParts = ['Заявка с визитки Ирины (irina.stydiyatsi.ru)', 'Что нужно: ' + need];
+      if (note) ctxParts.push('Комментарий: ' + note);
+      const payload = {
+        source: 'visitka',
+        target: 'irina',
+        name: document.getElementById('o-name').value.trim(),
+        channel: document.getElementById('o-channel').value,
+        contact: document.getElementById('o-contact').value.trim(),
+        context_note: ctxParts.join(' | '),
+        consent_given_at: new Date().toISOString(),
+        consent_text_version: 'irina-visitka-v1.0',
+        answers: {}
+      };
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok && data.ok) {
+          status.style.display = 'block';
+          status.style.background = '#E8F4EE';
+          status.style.color = '#306654';
+          status.style.borderLeft = '3px solid #306654';
+          status.textContent = 'Заявка отправлена. Свяжусь с вами в ближайшее время.';
+          document.getElementById('order-form').reset();
+          btn.textContent = 'Отправлено ✓';
+          setTimeout(function(){ closeOrderModal(); btn.disabled = false; btn.textContent = 'Отправить заявку'; }, 2500);
+        } else {
+          throw new Error(data.message || 'Ошибка отправки');
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.background = '#FCEFE5';
+        status.style.color = '#C40092';
+        status.style.borderLeft = '3px solid #FF935E';
+        status.textContent = 'Не удалось отправить: ' + (err.message || 'попробуйте позже') + '. Напишите напрямую в Telegram.';
+        btn.disabled = false;
+        btn.textContent = 'Отправить заявку';
+      }
+    };
+  })();
 </script>
 
 </body>
