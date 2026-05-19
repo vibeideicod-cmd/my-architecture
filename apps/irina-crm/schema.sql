@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS leads (
   followup_owner TEXT,
   followup_due_at TEXT,
   notes TEXT,
+  partner TEXT,
   raw_payload TEXT NOT NULL
 );
 

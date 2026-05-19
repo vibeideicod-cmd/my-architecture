@@ -38,7 +38,7 @@ ALLOWED_ORIGINS = {
     if item.strip()
 }
 
-VALID_SOURCES = {"karta-rosta", "visitka", "manual", "vk", "tg", "referral"}
+VALID_SOURCES = {"karta-rosta", "visitka", "manual", "vk", "tg", "referral", "svetlana_materials_page"}
 VALID_CHANNELS = {"telegram", "whatsapp", "vk", "max", "email", "phone", "other"}
 VALID_OFFER_FORMATS = {"express", "standard", "deep", "unknown"}
 VALID_NOTIFICATION_STATUSES = {"pending", "sent", "failed", "manual"}
@@ -49,6 +49,7 @@ MIGRATION_COLUMNS = {
     "notification_status": "TEXT",
     "consent_given_at": "TEXT",
     "consent_text_version": "TEXT",
+    "partner": "TEXT",
 }
 VALID_STATUSES = {
     "new",
@@ -125,14 +126,14 @@ def validate_lead(payload):
         errors.append("Укажите контакт от 3 до 120 символов")
     offer_format = str(payload.get("interested_offer_format", "unknown")).strip().lower() or "unknown"
     if offer_format not in VALID_OFFER_FORMATS:
-        errors.append("Некорректный формат AI-аудита")
+        errors.append("Некорректный формат оффера")
     notification_channel = str(payload.get("notification_channel", channel or "none")).strip().lower() or "none"
     if notification_channel != "none" and notification_channel not in VALID_CHANNELS:
         errors.append("Некорректный канал уведомления")
     notification_status = str(payload.get("notification_status", "pending")).strip().lower() or "pending"
     if notification_status not in VALID_NOTIFICATION_STATUSES:
         errors.append("Некорректный статус уведомления")
-    if source in {"karta-rosta", "visitka"} and not str(payload.get("consent_given_at", "")).strip():
+    if source in {"karta-rosta", "visitka", "svetlana_materials_page"} and not str(payload.get("consent_given_at", "")).strip():
         errors.append("Нет отметки согласия на обработку персональных данных")
     if not isinstance(payload.get("answers", {}), dict):
         errors.append("answers должен быть объектом")
@@ -161,6 +162,7 @@ def insert_lead(payload):
         "notification_status": str(payload.get("notification_status", "pending")).strip().lower() or "pending",
         "consent_given_at": str(payload.get("consent_given_at", "")).strip(),
         "consent_text_version": str(payload.get("consent_text_version", "")).strip(),
+        "partner": str(payload.get("partner", "")).strip() or None,
         "result_summary": json_text(result_summary),
         "next_step": "Написать вручную, уточнить контекст и бриф",
         "followup_owner": "Ирина",
@@ -315,7 +317,7 @@ class Handler(BaseHTTPRequestHandler):
                   <span>{html.escape(row['status'])}</span>
                 </div>
                 <p><b>Контакт:</b> {html.escape(row['channel'])} · {html.escape(row['contact'])}</p>
-                <p><b>Источник:</b> {html.escape(row['source'])} · {html.escape(row['created_at'])}</p>
+                <p><b>Источник:</b> {html.escape(row['source'])} · {html.escape(row['created_at'])}{(' · <b>Партнёр:</b> ' + html.escape(row['partner'])) if (row['partner'] if 'partner' in row.keys() else None) else ''}</p>
                 <p><b>Главная точка:</b> {html.escape(row['main_growth_point'] or '')}</p>
                 <p><b>Формат:</b> {html.escape(row['interested_offer_format'] or 'unknown')} · <b>Уведомление:</b> {html.escape(row['notification_channel'] or '')} / {html.escape(row['notification_status'] or '')}</p>
                 <p><b>Согласие ПД:</b> {html.escape(row['consent_given_at'] or '')} · {html.escape(row['consent_text_version'] or '')}</p>
